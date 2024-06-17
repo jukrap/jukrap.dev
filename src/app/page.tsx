@@ -116,7 +116,7 @@ export default function HomePage() {
 	}, [typedText, isDeleting, currentIndex, names]);
 
 	return (
-		<main className="w-fixed flex flex-col items-center gap-24 pt-44 pb-36">
+		<main className="w-fixed flex flex-col items-center gap-24 pt-44 pb-48">
 			<section className="flex flex-col items-center gap-10 pt-30">
 				<div className="flex items-center border-foreground leading-6 py-3 border-t border-b gap-65">
 					<h1 className="font-bold text-8xl text-center text-foreground min-h-[4.5rem]">
@@ -131,6 +131,11 @@ export default function HomePage() {
 						{typedText === '' && <span className="opacity-0">_</span>}
 					</h1>
 				</div>
+                <div className="flex items-center gap-65">  {/* 여기 여차하면 삭제하는 게 좋을 듯. 조금 부자연스러움. */}
+                    <p className="font-bold text-3xl leading-auto text-center text-foreground">
+                        Jukrap의 개인 사이트에 오신 것을 환영합니다.
+                    </p>
+                </div>
 			</section>
 			<section className="flex flex-row items-center justify-center gap-10">
 				{links.map((link) => (

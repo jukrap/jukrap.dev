@@ -15,6 +15,9 @@ const pretendard = localFont({
 export const metadata: Metadata = {
 	title: 'Ju-choel Park | Frontend engineer',
 	description: 'Frontend engineer, This is Jukrap’s website.',
+	icons: {
+		icon: '/favicon.ico',
+	},
 };
 
 export default function RootLayout({

@@ -2,32 +2,134 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@layer base {
+	:root {
+		--background: 60 20% 99%;
+		/* #FDFDFC */
+		--foreground: 60 6% 10%;
+		/* #1B1B18 */
+		--card: 60 20% 99%;
+		/* #FDFDFC */
+		--card-foreground: 60 6% 10%;
+		/* #1B1B18 */
+		--popover: 60 20% 99%;
+		/* #FDFDFC */
+		--popover-foreground: 60 6% 10%;
+		/* #1B1B18 */
+		--primary: 60 6% 10%;
+		/* #1B1B18 */
+		--primary-foreground: 60 20% 99%;
+		/* #FDFDFC */
+		--secondary: 60 7% 92%;
+		/* #ECECE9 */
+		--secondary-foreground: 60 6% 10%;
+		/* #1B1B18 */
+		--muted: 60 7% 92%;
+		/* #ECECE9 */
+		--muted-foreground: 45 2% 43%;
+		/* #706F6C */
+		--accent: 164 76% 43%;
+		/* #1AC397 */
+		--accent-foreground: 60 20% 99%;
+		/* #FDFDFC */
+		--destructive: 0 84% 60%;
+		/* #FF6B6B */
+		--destructive-foreground: 60 20% 99%;
+		/* #FDFDFC */
+		--border: 45 2% 43%;
+		/* #706F6C */
+		--input: 60 7% 92%;
+		/* #ECECE9 */
+		--ring: 60 6% 10%;
+		/* #1B1B18 */
+		--radius: 0.5rem;
+	}
+
+	.dark {
+		--background: 60 6% 10%;
+		/* #1B1B18 */
+		--foreground: 60 20% 99%;
+		/* #FDFDFC */
+		--card: 60 6% 10%;
+		/* #1B1B18 */
+		--card-foreground: 60 20% 99%;
+		/* #FDFDFC */
+		--popover: 60 6% 10%;
+		/* #1B1B18 */
+		--popover-foreground: 60 20% 99%;
+		/* #FDFDFC */
+		--primary: 60 20% 99%;
+		/* #FDFDFC */
+		--primary-foreground: 60 6% 10%;
+		/* #1B1B18 */
+		--secondary: 45 2% 43%;
+		/* #706F6C */
+		--secondary-foreground: 60 20% 99%;
+		/* #FDFDFC */
+		--muted: 45 2% 43%;
+		/* #706F6C */
+		--muted-foreground: 60 7% 92%;
+		/* #ECECE9 */
+		--accent: 164 76% 43%;
+		/* #1AC397 */
+		--accent-foreground: 60 20% 99%;
+		/* #FDFDFC */
+		--destructive: 0 84% 60%;
+		/* #FF6B6B */
+		--destructive-foreground: 60 20% 99%;
+		/* #FDFDFC */
+		--border: 45 2% 43%;
+		/* #706F6C */
+		--input: 45 2% 43%;
+		/* #706F6C */
+		--ring: 60 20% 99%;
+		/* #FDFDFC */
+	}
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+@layer base {
+	* {
+		@apply border-border;
+	}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	body {
+		@apply bg-background text-foreground;
+	}
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+	.bg-glass {
+		background-color: theme('colors.background / 80%');
+	}
+}
+
+.underline-wide {
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+}
+
+@keyframes downloadArrow {
+	0% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	50% {
+		transform: translateY(10px);
+		opacity: 0;
+	}
+
+	51% {
+		transform: translateY(-10px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.animate-downloadArrow {
+	animation: downloadArrow 2s infinite;
 }

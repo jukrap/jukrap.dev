@@ -1,113 +1,173 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
+import { useThemeStore } from '../store/useThemeStore';
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+interface Link {
+	text: string;
+	whiteIcon: string;
+	blackIcon: string;
+	url: string;
+	isExternal?: boolean;
+}
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+const links: Link[] = [
+	{
+		text: 'Email',
+		whiteIcon: '/icons/whiteMode_email.svg',
+		blackIcon: '/icons/blackMode_email.svg',
+		url: 'mailto:jukrap628@gmail.com',
+	},
+	{
+		text: 'Github',
+		whiteIcon: '/icons/whiteMode_github.svg',
+		blackIcon: '/icons/blackMode_github.svg',
+		url: 'https://github.com/jukrap',
+		isExternal: true,
+	},
+	{
+		text: 'Blog',
+		whiteIcon: '/icons/whiteMode_blog.svg',
+		blackIcon: '/icons/blackMode_blog.svg',
+		url: 'https://valur.tistory.com/',
+		isExternal: true,
+	},
+	{
+		text: 'LinkedIn',
+		whiteIcon: '/icons/whiteMode_linkedin.svg',
+		blackIcon: '/icons/blackMode_linkedin.svg',
+		url: 'https://www.linkedin.com/in/jukrap/',
+		isExternal: true,
+	},
+];
+const HomeBodyLink: React.FC<Link> = ({
+	text,
+	whiteIcon,
+	blackIcon,
+	url,
+	isExternal,
+}) => {
+	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+	return (
+		<a
+			href={url}
+			target={isExternal ? '_blank' : undefined}
+			rel={isExternal ? 'noopener noreferrer' : undefined}
+			className="flex flex-row items-center justify-center gap-2"
+		>
+			<Image
+				src={isDarkMode ? blackIcon : whiteIcon}
+				alt={`${text} Icon`}
+				width={32}
+				height={32}
+			/>
+			<p className="font-light text-2xl leading-auto text-center text-foreground">
+				{text}
+			</p>
+		</a>
+	);
+};
+export default function HomePage() {
+	const isDarkMode = useThemeStore((state) => state.isDarkMode);
+	const [typedText, setTypedText] = useState('');
+	const [isDeleting, setIsDeleting] = useState(false);
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const names = ['Ju-cheol Park', 'Jukrap'];
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+	useEffect(() => {
+		const typingSpeed = 200;
+		const deletingSpeed = 100;
+		const pauseDuration = 2000;
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+		let timeout: NodeJS.Timeout | undefined;
+
+		if (!isDeleting) {
+			timeout = setTimeout(() => {
+				const currentName = names[currentIndex];
+				const nextTypedText = currentName.slice(0, typedText.length + 1);
+				setTypedText(nextTypedText);
+
+				if (nextTypedText === currentName) {
+					timeout = setTimeout(() => {
+						setIsDeleting(true);
+					}, pauseDuration);
+				}
+			}, typingSpeed);
+		} else {
+			timeout = setTimeout(() => {
+				const currentName = names[currentIndex];
+				const nextTypedText = currentName.slice(0, typedText.length - 1);
+				setTypedText(nextTypedText);
+
+				if (nextTypedText === '') {
+					setIsDeleting(false);
+					setCurrentIndex((currentIndex + 1) % names.length);
+				}
+			}, deletingSpeed);
+		}
+
+		return () => {
+			if (timeout) {
+				clearTimeout(timeout);
+			}
+		};
+	}, [typedText, isDeleting, currentIndex, names]);
+
+	return (
+		<main className="w-fixed flex flex-col items-center gap-24 pt-44 pb-36">
+			<section className="flex flex-col items-center gap-10 pt-30">
+				<div className="flex items-center border-foreground leading-6 py-3 border-t border-b gap-65">
+					<h1 className="font-bold text-8xl text-center text-foreground min-h-[4.5rem]">
+						{typedText.split('').map((char, index) => (
+							<span
+								key={index}
+								className={index === typedText.length - 1 ? 'underline-wide' : ''}
+							>
+								{char}
+							</span>
+						))}
+						{typedText === '' && <span className="opacity-0">_</span>}
+					</h1>
+				</div>
+			</section>
+			<section className="flex flex-row items-center justify-center gap-10">
+				{links.map((link) => (
+					<HomeBodyLink key={link.url} {...link} />
+				))}
+			</section>
+			<section className="flex flex-col items-center gap-16">
+				<div className="flex flex-col items-center gap-8">
+					<p className="font-medium text-2xl leading-8 text-center text-foreground">
+						혹시 저의 <span className="font-bold">포트폴리오 파일</span>이
+						필요하신가요?
+						<br />
+						그렇다면 아래의 <span className="font-bold">PDF 다운로드 버튼</span>을
+						눌러주세요!
+					</p>
+					<a
+						href="/files/Portfolio (Ju-cheol Park).pdf"
+						download
+						className="relative flex items-center gap-2 px-4 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300"
+					>
+						<div className="relative w-6 h-6 flex items-center justify-center">
+							<Image
+								src={
+									isDarkMode
+										? '/icons/blackMode_downArrow.svg'
+										: '/icons/whiteMode_downArrow.svg'
+								}
+								alt="Download Icon"
+								width={24}
+								height={24}
+								className="absolute top-0 left-0 animate-downloadArrow"
+							/>
+						</div>
+						<span className="ml-2">portfolio.PDF</span>
+					</a>
+				</div>
+			</section>
+		</main>
+	);
 }

@@ -115,7 +115,7 @@ const greetings = [
 	`📚 Always 【learning】, always 【growing】. `,
 	`💖 Dedicated to 【mentoring and helping】 others grow. `,
 	`🛠️ 【Debugging】: because my code never works on the first try. `,
-	`🚧 【Under construction】: My code and my life. `,
+	//`🚧 【Under construction】: My code and my life. `,
 ];
 
 const containsEmoji = (text: string) => {

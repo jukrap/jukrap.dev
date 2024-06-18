@@ -8,6 +8,8 @@ export const projectsData: ProjectType[] = [
 		description: [
 			'1인 개발',
 			'가능한 한 최신 프레임워크를 사용 (React 18, Next.js 14)',
+            '훅을 이용하여 타이핑 되는 효과를 직접 구현',
+            'Zustand와 Tailwind를 이용해 화이트 & 다크 모드 전환 기능을 구현',
 		],
 		techStack: 'TypeScript・React・Tailwind CSS・Zustand・Next.js',
 		links: [
@@ -27,7 +29,7 @@ export const projectsData: ProjectType[] = [
 			'실시간 게시판 기능 전체 담당',
 			'재사용 가능한 토스트 및 모달 컴포넌트 제작',
 			'이미지 연결 및 이미지 상세보기 제작',
-			'데이터베이스 설계작',
+			'데이터베이스 설계',
 		],
 		techStack: 'TypeScript・React・Tailwind CSS・Zustand・Next.js',
 		links: [

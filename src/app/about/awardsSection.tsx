@@ -1,4 +1,5 @@
 import React from 'react';
+
 const AwardsSection: React.FC = () => {
 	return (
 		<section className="w-[670px] flex flex-col items-start gap-8 h-fit">
@@ -21,25 +22,28 @@ const AwardsSection: React.FC = () => {
 						<strong>최우수상</strong>
 					</p>
 					<div className="flex flex-col gap-1">
-						<span className="flex items-center">
-							<span className="w-1.5 h-1.5 mr-4 bg-foreground rounded-full"></span>
-							출품 작품 : ESD HotDeal
-						</span>
-						<span className="text-base flex items-center">
-							<span className="w-1.5 h-1.5 mr-4 bg-foreground rounded-full"></span>
+						<div className="grid grid-cols-[auto,1fr] items-start gap-4">
+							<span className="w-1.5 h-1.5 bg-foreground rounded-full mt-2"></span>
+							<span className="text-base leading-6 text-left text-foreground">
+								출품 작품 : ESD HotDeal
+							</span>
+						</div>
+						<div className="grid grid-cols-[auto,1fr] items-start gap-4">
+							<span className="w-1.5 h-1.5 bg-foreground rounded-full mt-2"></span>
 							<a
 								href="https://www.knnews.co.kr/news/articleView.php?idxno=1362660"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="flex flex-row items-center justify-center"
+								className="text-base leading-6 text-left text-foreground"
 							>
 								[경남일보] "도내 소프트업계 이끌 인재들입니다"
 							</a>
-						</span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 	);
 };
+
 export default AwardsSection;

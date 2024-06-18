@@ -20,11 +20,14 @@ const ActivitySection: React.FC = () => {
 					<p className="text-lg leading-6 tracking-tight text-left text-foreground">
 						<strong>Cloud Application Engineering 과정</strong>
 					</p>
+
 					<div className="flex flex-col gap-1">
-						<span className="flex items-center">
-							<span className="w-1.5 h-1.5 mr-4 bg-foreground rounded-full"></span>
-							훈련 분야 : React & React Native
-						</span>
+						<div className="grid grid-cols-[auto,1fr] items-start gap-4">
+							<span className="w-1.5 h-1.5 bg-foreground rounded-full mt-2"></span>
+							<span className="text-base leading-6 text-left text-foreground">
+								훈련 분야 : React & React Native
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -15,7 +15,7 @@ export const projectsData: ProjectType[] = [
 		links: [
 			{ type: 'appStore', url: '/', visible: false },
 			{ type: 'googlePlay', url: '/', visible: false },
-			{ type: 'github', url: 'https://github.com/jukrap/', visible: true },
+			{ type: 'github', url: 'https://github.com/jukrap/jukrap.dev', visible: true },
 			{ type: 'url', url: 'https://jukrap.vercel.app', visible: true },
 			{ type: 'detailView', url: '/detailView', visible: false },
 		],

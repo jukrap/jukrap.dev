@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useThemeStore } from '../../store/useThemeStore';
 
@@ -68,6 +68,66 @@ const IntroSectionLink: React.FC<Link> = ({
 };
 
 const IntroSection: React.FC = () => {
+	const [typedText, setTypedText] = useState('');
+	const [isDeleting, setIsDeleting] = useState(false);
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const greetings = [
+		"👋 Hi there, I'm 【Frontend Engineer】. ",
+		"👋 Hi there, I'm 【Jukrap】. ",
+		"👋 Hi there, I'm 【Ju-cheol Park】. ",
+		'👋 Hi there, 【Gamer】. ',
+	];
+	useEffect(() => {
+		const typingSpeed = 50;
+		const deletingSpeed = 50;
+		const pauseDuration = 2000;
+		let timeout: NodeJS.Timeout | undefined;
+
+		if (!isDeleting) {
+			timeout = setTimeout(() => {
+				const currentGreeting = greetings[currentIndex];
+				let nextTypedText = '';
+
+				if (typedText === '' && currentGreeting.startsWith('👋')) {
+					nextTypedText = '👋';
+				} else {
+					nextTypedText = currentGreeting.slice(0, typedText.length + 1);
+				}
+
+				setTypedText(nextTypedText);
+
+				if (nextTypedText === currentGreeting) {
+					timeout = setTimeout(() => {
+						setIsDeleting(true);
+					}, pauseDuration);
+				}
+			}, typingSpeed);
+		} else {
+			timeout = setTimeout(() => {
+				const currentGreeting = greetings[currentIndex];
+				const nextTypedText = currentGreeting.slice(0, typedText.length - 1);
+
+				if (nextTypedText.endsWith('👋')) {
+					setTypedText('');
+					setIsDeleting(false);
+					setCurrentIndex((currentIndex + 1) % greetings.length);
+				} else {
+					setTypedText(nextTypedText);
+					if (nextTypedText === '') {
+						setIsDeleting(false);
+						setCurrentIndex((currentIndex + 1) % greetings.length);
+					}
+				}
+			}, deletingSpeed);
+		}
+
+		return () => {
+			if (timeout) {
+				clearTimeout(timeout);
+			}
+		};
+	}, [typedText, isDeleting, currentIndex, greetings]);
+
 	return (
 		<section className="w-[670px] flex justify-start items-start gap-12">
 			<div className="flex flex-col items-center gap-2 w-fit h-fit">
@@ -96,7 +156,17 @@ const IntroSection: React.FC = () => {
 				</h2>
 				<div className="flex items-start gap-8 w-fit h-fit pt-8">
 					<p className="font-medium text-lg leading-10 tracking-tight text-left text-foreground">
-						👋 Hi there, I'm <span className="text-accent">Frontend Engineer</span>.
+						{typedText.split('【').map((part, index) => {
+							if (index === 0) return part;
+							const [highlightedText, rest] = part.split('】');
+							return (
+								<React.Fragment key={index}>
+									<span className="text-accent">{highlightedText}</span>
+									{rest}
+								</React.Fragment>
+							);
+						})}
+						<span className="text-accent">|</span>
 					</p>
 				</div>
 				<div className="flex flex-col items-start gap-6 w-fit h-fit pt-2">

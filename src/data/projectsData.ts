@@ -42,7 +42,7 @@ export const projectsData: ProjectType[] = [
 	},
 	{
 		title: 'Posture Teacher',
-		duration: '2024.07 ~ 2023.05',
+		duration: '2022.07 ~ 2023.05',
 		introduction: '자세가 올바른지 감지하고 결과를 도출하는 앱.',
 		description: [
 			'팀장, 프론트엔드 및 백엔드',

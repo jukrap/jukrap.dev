@@ -13,7 +13,7 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-	title: 'Ju-choel Park | Frontend engineer',
+	title: 'Ju-cheol Park | Frontend engineer',
 	description: 'Frontend engineer, This is Jukrap’s website.',
 	icons: {
 		icon: '/favicon.ico',

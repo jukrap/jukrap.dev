@@ -1,4 +1,3 @@
-// src\app\about\introSection.tsx
 'use client';
 import React from 'react';
 import Image from 'next/image';
@@ -70,7 +69,7 @@ const IntroSectionLink: React.FC<Link> = ({
 
 const IntroSection: React.FC = () => {
 	return (
-		<section className="w-[700px] flex justify-start items-start gap-12">
+		<section className="w-[670px] flex justify-start items-start gap-12">
 			<div className="flex flex-col items-center gap-2 w-fit h-fit">
 				<Image
 					src="/images/doge_my_img.png"

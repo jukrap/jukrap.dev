@@ -105,7 +105,7 @@ export const projectsData: ProjectType[] = [
 			'Express로 백엔드 작업',
 			'경남소프트웨어경진대회 최우수상 수상',
 		],
-		techStack: 'JavaㆍJetpackㆍMediapipeㆍSQLite',
+		techStack: 'JavaScriptㆍReactㆍFirebaseㆍNode.jsㆍExpress',
 		links: [
 			{ type: 'appStore', url: '/', visible: false },
 			{ type: 'googlePlay', url: '/', visible: false },

@@ -107,15 +107,15 @@ const greetings = [
 	`🎮 Hi there, I'm 【Gamer】. `,
 	`📚 Hi there, I'm 【Book Lover】. `,
 	`👶 Hi there, I'm 【${age} years old】. `,
-	`🚀 Ready to launch some stellar code...! 【(and maybe a few memes)】`,
-	`📖 Avid 【reader】 and lifelong 【learner】.`,
-	`📚 【I LOVE NOVEL !】`,
+	`🚀 Ready to launch some stellar code...! 【(and maybe a few memes)】 `,
+	`📖 Avid 【reader】 and lifelong 【learner】. `,
+	`📚 【I LOVE NOVEL !】 `,
 	`🤝 【Collaboration and innovation】 are my strengths. `,
 	`🚀 Exploring the world of 【mobile and frontend】. `,
 	`📚 Always 【learning】, always 【growing】. `,
-	`💖 Dedicated to 【mentoring and helping】 others grow.`,
-	`🛠️ 【Debugging】: because my code never works on the first try.`,
-	`🚧 【Under construction】: My code and my life.`,
+	`💖 Dedicated to 【mentoring and helping】 others grow. `,
+	`🛠️ 【Debugging】: because my code never works on the first try. `,
+	`🚧 【Under construction】: My code and my life. `,
 ];
 
 const containsEmoji = (text: string) => {
@@ -140,7 +140,7 @@ const IntroSection: React.FC = () => {
 	useEffect(() => {
 		const typingSpeed = 50;
 		const deletingSpeed = 15;
-		const pauseDuration = 2000;
+		const pauseDuration = 2500;
 		let timeout: NodeJS.Timeout | undefined;
 
 		if (!isDeleting) {

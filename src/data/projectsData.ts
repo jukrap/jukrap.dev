@@ -31,7 +31,7 @@ export const projectsData: ProjectType[] = [
 			'이미지 연결 및 이미지 상세보기 제작',
 			'데이터베이스 설계',
 		],
-		techStack: 'TypeScript・React・Tailwind CSS・Zustand・Next.js',
+		techStack: 'JavaScriptㆍReact NativeㆍFirebase',
 		links: [
 			{ type: 'appStore', url: 'https://apps.apple.com/kr/app/%EC%89%90%EC%96%B4%EB%B9%84/id6502604022', visible: true },
 			{ type: 'googlePlay', url: '/', visible: false },

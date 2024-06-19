@@ -1,4 +1,3 @@
-// src\app\layout.tsx
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { Navbar } from '@/components/navbar';
@@ -35,10 +34,10 @@ export default function RootLayout({
 				<ThemeProvider>
 					<Navbar />
 					{children}
+					<Analytics />
+					<SpeedInsights/>
 					<Footer />
 				</ThemeProvider>
-				<Analytics />
-				<SpeedInsights/>
 			</body>
 		</html>
 	);

@@ -1,4 +1,3 @@
-// src/components/footer.tsx
 import React from 'react';
 
 interface Link {

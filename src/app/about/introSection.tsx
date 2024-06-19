@@ -1,15 +1,13 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { useThemeStore } from '../../store/useThemeStore';
+import IntroSectionLink from './introSectionLinks';
+import { obfuscatedBirthDate, decodeBirthDate, calculateAge } from '@/util/dateUtils';
 
-interface Link {
-	text: string;
-	whiteIcon: string;
-	blackIcon: string;
-	url: string;
-	isExternal?: boolean;
-}
+import { greetings } from '../../data/greetings';
+import useTypingEffect from '@/hook/useTypingEffect';
+import { Link } from './types';
+
 
 const links: Link[] = [
 	{
@@ -41,166 +39,11 @@ const links: Link[] = [
 	},
 ];
 
-const IntroSectionLink: React.FC<Link> = ({
-	text,
-	whiteIcon,
-	blackIcon,
-	url,
-	isExternal,
-}) => {
-	const isDarkMode = useThemeStore((state) => state.isDarkMode);
-
-	return (
-		<a
-			href={url}
-			target={isExternal ? '_blank' : undefined}
-			rel={isExternal ? 'noopener noreferrer' : undefined}
-			className="flex flex-row items-center justify-center"
-		>
-			<Image
-				src={isDarkMode ? blackIcon : whiteIcon}
-				alt={`${text} Icon`}
-				width={24}
-				height={24}
-			/>
-		</a>
-	);
-};
-
-const obfuscatedBirthDate = { year: 7156, month: 128, day: 8923 };
-const decodeBirthDate = (obfuscated: {
-	year: number;
-	month: number;
-	day: number;
-}) => {
-	const actualYear = obfuscated.year - 5156;
-	const actualMonth = obfuscated.month - 122;
-	const actualDay = obfuscated.day - 8895;
-	return new Date(actualYear, actualMonth, actualDay);
-};
-
-const calculateAge = (birthDate: Date) => {
-	const today = new Date();
-	const birthYear = birthDate.getFullYear();
-	const birthMonth = birthDate.getMonth();
-	const birthDay = birthDate.getDate();
-
-	let age = today.getFullYear() - birthYear;
-	const monthDiff = today.getMonth() - birthMonth;
-	const dayDiff = today.getDate() - birthDay;
-
-	if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-		age--;
-	}
-
-	return age;
-};
-
 const birthDate = decodeBirthDate(obfuscatedBirthDate);
 const age = calculateAge(birthDate);
 
-const greetings = [
-	`👋 Hi there, I'm 【Frontend Engineer】. `,
-	`🤖 Hi there, I'm 【Android Developer】. `,
-	`👋 Hi there, I'm 【Jukrap】. `,
-	`👋 Hi there, I'm 【Ju-cheol Park】. `,
-	`🎮 Hi there, I'm a 【Gamer】. `,
-	`📚 Hi there, I'm a 【Book Lover】. `,
-	`👶 Hi there, I'm 【${age} years old】. `,
-	`🚀 Ready to launch some stellar code...! 【(and maybe a few memes)】 `,
-	`📖 Avid 【reader】 and lifelong 【learner】. `,
-	`📚 【I LOVE NOVEL !】 `,
-	`🤝 【Collaboration and innovation】 are my strengths. `,
-	`🚀 Exploring the world of 【mobile and frontend】. `,
-	`📚 Always 【learning】, always 【growing】. `,
-	`💖 Dedicated to 【mentoring and helping】 others grow. `,
-	`🛠️ 【Debugging】: because my code never works on the first try. `,
-	//`🚧 【Under construction】: My code and my life. `,
-];
-
-const containsEmoji = (text: string) => {
-	const emojiRegex = /(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/u;
-	return emojiRegex.test(text);
-};
-
 const IntroSection: React.FC = () => {
-	const [typedText, setTypedText] = useState('');
-	const [isDeleting, setIsDeleting] = useState(false);
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const [usedIndices, setUsedIndices] = useState<number[]>([]);
-
-	const getRandomIndex = (excludedIndices: number[], max: number) => {
-		let randomIndex: number;
-		do {
-			randomIndex = Math.floor(Math.random() * max);
-		} while (excludedIndices.includes(randomIndex));
-		return randomIndex;
-	};
-
-	useEffect(() => {
-		const typingSpeed = 50;
-		const deletingSpeed = 15;
-		const pauseDuration = 2500;
-		let timeout: NodeJS.Timeout | undefined;
-
-		if (!isDeleting) {
-			timeout = setTimeout(() => {
-				const currentGreeting = greetings[currentIndex];
-				let nextTypedText = '';
-
-				if (typedText === '' && containsEmoji(currentGreeting)) {
-					nextTypedText = currentGreeting.slice(0, 2);
-				} else {
-					nextTypedText = currentGreeting.slice(0, typedText.length + 1);
-				}
-
-				setTypedText(nextTypedText);
-
-				if (nextTypedText === currentGreeting) {
-					timeout = setTimeout(() => {
-						setIsDeleting(true);
-					}, pauseDuration);
-				}
-			}, typingSpeed);
-		} else {
-			timeout = setTimeout(() => {
-				const currentGreeting = greetings[currentIndex];
-				const nextTypedText = currentGreeting.slice(0, typedText.length - 1);
-
-				if (containsEmoji(nextTypedText) && nextTypedText.length === 2) {
-					setTypedText('');
-					setIsDeleting(false);
-					const newUsedIndices = [...usedIndices, currentIndex];
-					if (newUsedIndices.length === greetings.length) {
-						setUsedIndices([]);
-					} else {
-						setUsedIndices(newUsedIndices);
-					}
-					const newIndex = getRandomIndex(newUsedIndices, greetings.length);
-					setCurrentIndex(newIndex);
-				} else {
-					setTypedText(nextTypedText);
-					if (nextTypedText === '') {
-						setIsDeleting(false);
-						const newUsedIndices = [...usedIndices, currentIndex];
-						if (newUsedIndices.length === greetings.length) {
-							setUsedIndices([]);
-						} else {
-							setUsedIndices(newUsedIndices);
-						}
-						const newIndex = getRandomIndex(newUsedIndices, greetings.length);
-						setCurrentIndex(newIndex);
-					}
-				}
-			}, deletingSpeed);
-		}
-
-		return () => {
-			if (timeout) {
-				clearTimeout(timeout);
-			}
-		};
-	}, [typedText, isDeleting, currentIndex, usedIndices]);
+	const typedText = useTypingEffect(greetings);
 
 	return (
 		<section className="w-[670px] flex justify-start items-start gap-12">

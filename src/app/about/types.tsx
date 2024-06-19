@@ -1,4 +1,3 @@
-// src\app\about\types.ts
 export interface ProjectType {
 	title: string;
 	duration: string;
@@ -12,4 +11,12 @@ export interface LinkType {
 	type: 'appStore' | 'googlePlay' | 'github' | 'url' | 'detailView';
 	url: string;
 	visible: boolean;
+}
+
+export interface Link {
+	text: string;
+	whiteIcon: string;
+	blackIcon: string;
+	url: string;
+	isExternal?: boolean;
 }

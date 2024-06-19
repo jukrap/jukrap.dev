@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { containsEmoji } from '@/util/stringUtils';
+import { getEmojiLength } from '../util/stringUtils';
 
 interface TypingEffectOptions {
 	typingSpeed?: number;
@@ -15,7 +15,6 @@ const useTypingEffect = (
 	const [typedText, setTypedText] = useState('');
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const [usedIndices, setUsedIndices] = useState<number[]>([]);
 
 	const {
 		typingSpeed = 50,
@@ -24,71 +23,40 @@ const useTypingEffect = (
 		onComplete,
 	} = options;
 
-	const getRandomIndex = (excludedIndices: number[], max: number) => {
-		let randomIndex: number;
-		do {
-			randomIndex = Math.floor(Math.random() * max);
-		} while (excludedIndices.includes(randomIndex));
-		return randomIndex;
-	};
-
 	useEffect(() => {
 		let timeout: NodeJS.Timeout | undefined;
 
-		if (!isDeleting) {
-			timeout = setTimeout(() => {
-				const currentText = texts[currentIndex];
-				let nextTypedText = '';
+		const typeText = () => {
+			const currentText = texts[currentIndex];
+			const nextTypedText = isDeleting
+				? currentText.slice(0, typedText.length - 1)
+				: currentText.slice(0, typedText.length + 1);
 
-				if (typedText === '' && containsEmoji(currentText)) {
-					nextTypedText = currentText.slice(0, 2);
-				} else {
-					nextTypedText = currentText.slice(0, typedText.length + 1);
+			// 이모지 처리 부분 개선
+			if (!isDeleting) {
+				const emojiLength = getEmojiLength(currentText.slice(typedText.length));
+				if (emojiLength > 0) {
+					setTypedText(currentText.slice(0, typedText.length + emojiLength));
+					return;
 				}
+			}
 
-				setTypedText(nextTypedText);
+			setTypedText(nextTypedText);
 
-				if (nextTypedText === currentText) {
-					timeout = setTimeout(() => {
-						setIsDeleting(true);
-						if (onComplete) {
-							onComplete();
-						}
-					}, pauseDuration);
-				}
-			}, typingSpeed);
-		} else {
-			timeout = setTimeout(() => {
-				const currentText = texts[currentIndex];
-				const nextTypedText = currentText.slice(0, typedText.length - 1);
-
-				if (containsEmoji(nextTypedText) && nextTypedText.length === 2) {
-					setTypedText('');
-					setIsDeleting(false);
-					const newUsedIndices = [...usedIndices, currentIndex];
-					if (newUsedIndices.length === texts.length) {
-						setUsedIndices([]);
-					} else {
-						setUsedIndices(newUsedIndices);
+			if (!isDeleting && nextTypedText === currentText) {
+				timeout = setTimeout(() => {
+					setIsDeleting(true);
+					if (onComplete) {
+						onComplete();
 					}
-					const newIndex = getRandomIndex(newUsedIndices, texts.length);
-					setCurrentIndex(newIndex);
-				} else {
-					setTypedText(nextTypedText);
-					if (nextTypedText === '') {
-						setIsDeleting(false);
-						const newUsedIndices = [...usedIndices, currentIndex];
-						if (newUsedIndices.length === texts.length) {
-							setUsedIndices([]);
-						} else {
-							setUsedIndices(newUsedIndices);
-						}
-						const newIndex = getRandomIndex(newUsedIndices, texts.length);
-						setCurrentIndex(newIndex);
-					}
-				}
-			}, deletingSpeed);
-		}
+				}, pauseDuration);
+			} else if (isDeleting && nextTypedText === '') {
+				setIsDeleting(false);
+				setCurrentIndex((currentIndex + 1) % texts.length);
+			}
+		};
+
+		timeout = setTimeout(typeText, isDeleting ? deletingSpeed : typingSpeed);
 
 		return () => {
 			if (timeout) {
@@ -99,7 +67,6 @@ const useTypingEffect = (
 		typedText,
 		isDeleting,
 		currentIndex,
-		usedIndices,
 		texts,
 		typingSpeed,
 		deletingSpeed,

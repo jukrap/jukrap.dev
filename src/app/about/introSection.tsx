@@ -47,7 +47,7 @@ const age = calculateAge(birthDate);
 
 const IntroSection: React.FC = () => {
 	const typedText = useTypingEffect(greetings, {
-		typingSpeed: 50,
+		typingSpeed: 30,
 		deletingSpeed: 15,
 		pauseDuration: 2500,
 	});

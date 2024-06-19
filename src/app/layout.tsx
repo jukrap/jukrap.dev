@@ -4,6 +4,8 @@ import localFont from 'next/font/local';
 import { Navbar } from '@/components/navbar';
 import Footer from '@/components/footer';
 import { ThemeProvider } from '@/components/theme-context';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import './globals.css';
 
 const pretendard = localFont({
@@ -35,6 +37,8 @@ export default function RootLayout({
 					{children}
 					<Footer />
 				</ThemeProvider>
+				<Analytics />
+				<SpeedInsights/>
 			</body>
 		</html>
 	);

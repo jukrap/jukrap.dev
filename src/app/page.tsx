@@ -1,16 +1,10 @@
 'use client';
-
+import React from 'react';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
 import { useThemeStore } from '../store/useThemeStore';
-
-interface Link {
-	text: string;
-	whiteIcon: string;
-	blackIcon: string;
-	url: string;
-	isExternal?: boolean;
-}
+import HomeBodyLink from './homeBodyLink';
+import useTypingEffect from '@/hook/useTypingEffect';
+import { Link } from './types';
 
 const links: Link[] = [
 	{
@@ -41,79 +35,15 @@ const links: Link[] = [
 		isExternal: true,
 	},
 ];
-const HomeBodyLink: React.FC<Link> = ({
-	text,
-	whiteIcon,
-	blackIcon,
-	url,
-	isExternal,
-}) => {
-	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
-	return (
-		<a
-			href={url}
-			target={isExternal ? '_blank' : undefined}
-			rel={isExternal ? 'noopener noreferrer' : undefined}
-			className="flex flex-row items-center justify-center gap-2"
-		>
-			<Image
-				src={isDarkMode ? blackIcon : whiteIcon}
-				alt={`${text} Icon`}
-				width={32}
-				height={32}
-			/>
-			<p className="font-light text-2xl leading-auto text-center text-foreground">
-				{text}
-			</p>
-		</a>
-	);
-};
 export default function HomePage() {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
-	const [typedText, setTypedText] = useState('');
-	const [isDeleting, setIsDeleting] = useState(false);
-	const [currentIndex, setCurrentIndex] = useState(0);
 	const names = ['Ju-cheol Park', 'Jukrap'];
-
-	useEffect(() => {
-		const typingSpeed = 200;
-		const deletingSpeed = 100;
-		const pauseDuration = 2000;
-
-		let timeout: NodeJS.Timeout | undefined;
-
-		if (!isDeleting) {
-			timeout = setTimeout(() => {
-				const currentName = names[currentIndex];
-				const nextTypedText = currentName.slice(0, typedText.length + 1);
-				setTypedText(nextTypedText);
-
-				if (nextTypedText === currentName) {
-					timeout = setTimeout(() => {
-						setIsDeleting(true);
-					}, pauseDuration);
-				}
-			}, typingSpeed);
-		} else {
-			timeout = setTimeout(() => {
-				const currentName = names[currentIndex];
-				const nextTypedText = currentName.slice(0, typedText.length - 1);
-				setTypedText(nextTypedText);
-
-				if (nextTypedText === '') {
-					setIsDeleting(false);
-					setCurrentIndex((currentIndex + 1) % names.length);
-				}
-			}, deletingSpeed);
-		}
-
-		return () => {
-			if (timeout) {
-				clearTimeout(timeout);
-			}
-		};
-	}, [typedText, isDeleting, currentIndex, names]);
+	const typedText = useTypingEffect(names, {
+		typingSpeed: 200,
+		deletingSpeed: 100,
+		pauseDuration: 2000,
+	});
 
 	return (
 		<main className="w-fixed flex flex-col items-center gap-24 pt-44 pb-48">
@@ -131,11 +61,13 @@ export default function HomePage() {
 						{typedText === '' && <span className="opacity-0">_</span>}
 					</h1>
 				</div>
-                <div className="flex items-center gap-65">  {/* 여기 여차하면 삭제하는 게 좋을 듯. 조금 부자연스러움. */}
-                    <p className="font-bold text-3xl leading-auto text-center text-foreground">
-                        Jukrap의 개인 사이트에 오신 것을 환영합니다.
-                    </p>
-                </div>
+				<div className="flex items-center gap-65">
+					{' '}
+					{/* 여기 여차하면 삭제하는 게 좋을 듯. 조금 부자연스러움. */}
+					<p className="font-bold text-3xl leading-auto text-center text-foreground">
+						Jukrap의 개인 사이트에 오신 것을 환영합니다.
+					</p>
+				</div>
 			</section>
 			<section className="flex flex-row items-center justify-center gap-10">
 				{links.map((link) => (

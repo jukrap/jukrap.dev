@@ -2,12 +2,15 @@
 import React from 'react';
 import Image from 'next/image';
 import IntroSectionLink from './introSectionLinks';
-import { obfuscatedBirthDate, decodeBirthDate, calculateAge } from '@/util/dateUtils';
+import {
+	obfuscatedBirthDate,
+	decodeBirthDate,
+	calculateAge,
+} from '@/util/dateUtils';
 
 import { greetings } from '../../data/greetings';
 import useTypingEffect from '@/hook/useTypingEffect';
 import { Link } from './types';
-
 
 const links: Link[] = [
 	{
@@ -43,7 +46,11 @@ const birthDate = decodeBirthDate(obfuscatedBirthDate);
 const age = calculateAge(birthDate);
 
 const IntroSection: React.FC = () => {
-	const typedText = useTypingEffect(greetings);
+	const typedText = useTypingEffect(greetings, {
+		typingSpeed: 50,
+		deletingSpeed: 15,
+		pauseDuration: 2500,
+	});
 
 	return (
 		<section className="w-[670px] flex justify-start items-start gap-12">

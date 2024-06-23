@@ -1,34 +1,16 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useThemeStore } from '../../store/useThemeStore';
 import { projectsData } from '@/data/projectsData';
-import { LinkType } from './types';
+import { LinkType, ProjectType, ProjectDetailType } from './types';
+import ProjectDetail from './projectDetail';
+import { projectsDetailData } from '@/data/projectsDetailData';
+import { useIcon } from '@/hook/useIcon';
 
 const SideProjectsLink: React.FC<LinkType> = ({ type, url }) => {
+	const { getIcon } = useIcon();
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
-	const iconMap = {
-		appStore: {
-			white: '/icons/whiteMode_appleStore.svg',
-			black: '/icons/blackMode_appleStore.svg',
-		},
-		googlePlay: {
-			white: '/icons/whiteMode_googlePlay.svg',
-			black: '/icons/blackMode_googlePlay.svg',
-		},
-		github: {
-			white: '/icons/whiteMode_github.svg',
-			black: '/icons/blackMode_github.svg',
-		},
-		url: {
-			white: '/icons/whiteMode_linkURL.svg',
-			black: '/icons/blackMode_linkURL.svg',
-		},
-		detailView: {
-			white: '/icons/whiteMode_detailView.svg',
-			black: '/icons/blackMode_detailView.svg',
-		},
-	};
 
 	return (
 		<a
@@ -37,17 +19,37 @@ const SideProjectsLink: React.FC<LinkType> = ({ type, url }) => {
 			rel="noopener noreferrer"
 			className="flex flex-row items-center justify-center"
 		>
-			<Image
-				src={isDarkMode ? iconMap[type].black : iconMap[type].white}
-				alt={`${type} Icon`}
-				width={24}
-				height={24}
-			/>
+			<Image src={getIcon(type)} alt={`${type} Icon`} width={24} height={24} />
 		</a>
 	);
 };
 
 const SideProjectsSection: React.FC = () => {
+	console.log('projectsDetailData:', projectsDetailData);
+
+	const isDarkMode = useThemeStore((state) => state.isDarkMode);
+	const [selectedProject, setSelectedProject] =
+		useState<ProjectDetailType | null>(null);
+
+	const openProjectDetail = (projectId: string) => {
+		console.log('Opening project detail for id:', projectId);
+		if (projectsDetailData) {
+			const detailProject = projectsDetailData.find((p) => p.id === projectId);
+			console.log('Found detail project:', detailProject);
+			if (detailProject) {
+				setSelectedProject(detailProject);
+			} else {
+				console.error('No matching project found for id:', projectId);
+			}
+		} else {
+			console.error('projectsDetailData is undefined');
+		}
+	};
+
+	const closeProjectDetail = () => {
+		setSelectedProject(null);
+	};
+
 	return (
 		<section className="w-[670px] flex flex-col items-start gap-8 h-fit">
 			<h2 className="font-bold text-4xl leading-10 tracking-tight text-right text-foreground w-[153px] h-fit">
@@ -67,9 +69,28 @@ const SideProjectsSection: React.FC = () => {
 						<div className="flex items-center gap-2">
 							{project.links
 								.filter((link) => link.visible)
-								.map((link) => (
-									<SideProjectsLink key={link.url} {...link} />
-								))}
+								.map((link) =>
+									link.type === 'detailView' ? (
+										<button
+											key={`detail-${project.id}`}
+											onClick={() => openProjectDetail(project.id)}
+											className="flex flex-row items-center justify-center"
+										>
+											<Image
+												src={
+													isDarkMode
+														? '/icons/blackMode_detailView.svg'
+														: '/icons/whiteMode_detailView.svg'
+												}
+												alt="Detail View"
+												width={24}
+												height={24}
+											/>
+										</button>
+									) : (
+										<SideProjectsLink key={link.url} {...link} />
+									),
+								)}
 						</div>
 					</div>
 					<div className="w-[460px] flex flex-col items-start gap-2">
@@ -95,6 +116,9 @@ const SideProjectsSection: React.FC = () => {
 					</div>
 				</div>
 			))}
+			{selectedProject && (
+				<ProjectDetail project={selectedProject} onClose={closeProjectDetail} />
+			)}
 		</section>
 	);
 };

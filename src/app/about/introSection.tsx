@@ -7,45 +7,41 @@ import {
 	decodeBirthDate,
 	calculateAge,
 } from '@/util/dateUtils';
-
 import { greetings } from '../../data/greetings';
 import useTypingEffect from '@/hook/useTypingEffect';
 import { Link } from './types';
+import { useIcon } from '@/hook/useIcon';
 
 const links: Link[] = [
 	{
 		text: 'Email',
-		whiteIcon: '/icons/whiteMode_email.svg',
-		blackIcon: '/icons/blackMode_email.svg',
+		type: 'email',
 		url: 'mailto:jukrap628@gmail.com',
 	},
 	{
 		text: 'Github',
-		whiteIcon: '/icons/whiteMode_github.svg',
-		blackIcon: '/icons/blackMode_github.svg',
+		type: 'github',
 		url: 'https://github.com/jukrap',
 		isExternal: true,
 	},
 	{
 		text: 'Blog',
-		whiteIcon: '/icons/whiteMode_blog.svg',
-		blackIcon: '/icons/blackMode_blog.svg',
+		type: 'blog',
 		url: 'https://valur.tistory.com/',
 		isExternal: true,
 	},
 	{
 		text: 'LinkedIn',
-		whiteIcon: '/icons/whiteMode_linkedin.svg',
-		blackIcon: '/icons/blackMode_linkedin.svg',
+		type: 'linkedin',
 		url: 'https://www.linkedin.com/in/jukrap/',
 		isExternal: true,
 	},
 ];
-
 const birthDate = decodeBirthDate(obfuscatedBirthDate);
 const age = calculateAge(birthDate);
 
 const IntroSection: React.FC = () => {
+	const { getIcon } = useIcon();
 	const typedText = useTypingEffect(greetings, {
 		typingSpeed: 30,
 		deletingSpeed: 15,
@@ -70,7 +66,7 @@ const IntroSection: React.FC = () => {
 				</p>
 				<div className="flex items-center gap-2 w-fit h-fit pt-4">
 					{links.map((link) => (
-						<IntroSectionLink key={link.url} {...link} />
+						<IntroSectionLink key={link.url} {...link} icon={getIcon(link.type)} />
 					))}
 				</div>
 			</div>

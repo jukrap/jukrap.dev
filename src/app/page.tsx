@@ -5,32 +5,30 @@ import { useThemeStore } from '../store/useThemeStore';
 import HomeBodyLink from './homeBodyLink';
 import useTypingEffect from '@/hook/useTypingEffect';
 import { Link } from './types';
+import { useIcon } from '@/hook/useIcon';
+
 
 const links: Link[] = [
 	{
 		text: 'Email',
-		whiteIcon: '/icons/whiteMode_email.svg',
-		blackIcon: '/icons/blackMode_email.svg',
+		type: 'email',
 		url: 'mailto:jukrap628@gmail.com',
 	},
 	{
 		text: 'Github',
-		whiteIcon: '/icons/whiteMode_github.svg',
-		blackIcon: '/icons/blackMode_github.svg',
+		type: 'github',
 		url: 'https://github.com/jukrap',
 		isExternal: true,
 	},
 	{
 		text: 'Blog',
-		whiteIcon: '/icons/whiteMode_blog.svg',
-		blackIcon: '/icons/blackMode_blog.svg',
+		type: 'blog',
 		url: 'https://valur.tistory.com/',
 		isExternal: true,
 	},
 	{
 		text: 'LinkedIn',
-		whiteIcon: '/icons/whiteMode_linkedin.svg',
-		blackIcon: '/icons/blackMode_linkedin.svg',
+		type: 'linkedin',
 		url: 'https://www.linkedin.com/in/jukrap/',
 		isExternal: true,
 	},
@@ -38,6 +36,7 @@ const links: Link[] = [
 
 export default function HomePage() {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
+	const { getIcon } = useIcon();
 	const names = ['Ju-cheol Park', 'Jukrap'];
 	const typedText = useTypingEffect(names, {
 		typingSpeed: 200,
@@ -71,7 +70,7 @@ export default function HomePage() {
 			</section>
 			<section className="flex flex-row items-center justify-center gap-10">
 				{links.map((link) => (
-					<HomeBodyLink key={link.url} {...link} />
+					<HomeBodyLink key={link.url} {...link} icon={getIcon(link.type)} />
 				))}
 			</section>
 			<section className="flex flex-col items-center gap-16">
@@ -90,11 +89,7 @@ export default function HomePage() {
 					>
 						<div className="relative w-6 h-6 flex items-center justify-center">
 							<Image
-								src={
-									isDarkMode
-										? '/icons/blackMode_downArrow.svg'
-										: '/icons/whiteMode_downArrow.svg'
-								}
+								src={getIcon('downArrow')}
 								alt="Download Icon"
 								width={24}
 								height={24}

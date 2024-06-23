@@ -4,9 +4,19 @@
 
 @layer base {
 	:root {
+		--blacks: 60 6% 10%;
+		/* #1B1B18 */
+		--blacks-opacity: 60 10% 10%;
+		/* #1B1B18 */
+		--whites: 60 20% 99%;
+		/* #FDFDFC */
+		--whites-opacity: 60 20% 99%;
+		/* #FDFDFC */
 		--background: 60 20% 99%;
 		/* #FDFDFC */
 		--foreground: 60 6% 10%;
+		/* #1B1B18 */
+		--foreground-opacity: 60 6% 10%;
 		/* #1B1B18 */
 		--card: 60 20% 99%;
 		/* #FDFDFC */
@@ -30,6 +40,8 @@
 		/* #706F6C */
 		--accent: 164 76% 43%;
 		/* #1AC397 */
+		--accent-opacity: 164 76% 43%;
+		/* #1AC397 */
 		--accent-foreground: 60 20% 99%;
 		/* #FDFDFC */
 		--destructive: 0 84% 60%;
@@ -46,9 +58,19 @@
 	}
 
 	.dark {
+		--blacks: 60 6% 10%;
+		/* #1B1B18 */
+		--blacks-opacity: 60 6% 10%;
+		/* #1B1B18 */
+		--whites: 60 20% 99%;
+		/* #FDFDFC */
+		--whites-opacity: 60 20% 99%;
+		/* #FDFDFC */
 		--background: 60 6% 10%;
 		/* #1B1B18 */
 		--foreground: 60 20% 99%;
+		/* #FDFDFC */
+		--foreground-opacity: 60 20% 99%;
 		/* #FDFDFC */
 		--card: 60 6% 10%;
 		/* #1B1B18 */
@@ -72,6 +94,8 @@
 		/* #ECECE9 */
 		--accent: 164 76% 43%;
 		/* #1AC397 */
+		--accent-opacity: 164 76% 43%;
+		/* #1AC397 */
 		--accent-foreground: 60 20% 99%;
 		/* #FDFDFC */
 		--destructive: 0 84% 60%;
@@ -94,12 +118,6 @@
 
 	body {
 		@apply bg-background text-foreground;
-	}
-}
-
-@layer utilities {
-	.bg-glass {
-		background-color: theme('colors.background / 80%');
 	}
 }
 
@@ -132,4 +150,38 @@
 
 .animate-downloadArrow {
 	animation: downloadArrow 2s infinite;
+}
+
+@layer utilities {
+	.bg-glass {
+		background-color: theme('colors.background / 80%');
+		backdrop-filter: blur(8px);
+	}
+
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		/* IE and Edge */
+		scrollbar-width: none;
+		/* Firefox */
+	}
+}
+
+.bg-accent-opacity {
+	background-color: hsl(var(--accent-opacity) / var(--tw-bg-opacity));
+}
+
+.bg-foreground-opacity {
+	background-color: hsl(var(--foreground-opacity) / var(--tw-bg-opacity));
+}
+
+.bg-blacks-opacity {
+	background-color: hsl(var(--blacks-opacity) / var(--tw-bg-opacity));
+}
+
+.bg-whites-opacity {
+	background-color: hsl(var(--whites-opacity) / var(--tw-bg-opacity));
 }

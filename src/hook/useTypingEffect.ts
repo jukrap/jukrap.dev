@@ -32,7 +32,6 @@ const useTypingEffect = (
 				? currentText.slice(0, typedText.length - 1)
 				: currentText.slice(0, typedText.length + 1);
 
-			// 이모지 처리 부분 개선
 			if (!isDeleting) {
 				const emojiLength = getEmojiLength(currentText.slice(typedText.length));
 				if (emojiLength > 0) {

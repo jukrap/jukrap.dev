@@ -1,7 +1,8 @@
+import { IconType } from "@/util/iconPaths";
+
 export interface Link {
 	text: string;
-	whiteIcon: string;
-	blackIcon: string;
+	type: IconType;
 	url: string;
 	isExternal?: boolean;
 }

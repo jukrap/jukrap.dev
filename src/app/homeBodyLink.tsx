@@ -3,28 +3,24 @@ import Image from 'next/image';
 import { useThemeStore } from '../store/useThemeStore';
 import { Link } from './types';
 
-const HomeBodyLink: React.FC<Link> = ({
+interface HomeBodyLinkProps extends Link {
+	icon: string;
+}
+
+const HomeBodyLink: React.FC<HomeBodyLinkProps> = ({
 	text,
-	whiteIcon,
-	blackIcon,
 	url,
+	icon,
 	isExternal,
 }) => {
-	const isDarkMode = useThemeStore((state) => state.isDarkMode);
-
 	return (
 		<a
 			href={url}
-			target={isExternal ? '_blank' : undefined}
-			rel={isExternal ? 'noopener noreferrer' : undefined}
+			target={isExternal ? '_blank' : '_self'}
+			rel={isExternal ? 'noopener noreferrer' : ''}
 			className="flex flex-row items-center justify-center gap-2"
 		>
-			<Image
-				src={isDarkMode ? blackIcon : whiteIcon}
-				alt={`${text} Icon`}
-				width={32}
-				height={32}
-			/>
+			<Image src={icon} alt={text} width={32} height={32} />
 			<p className="font-light text-2xl leading-auto text-center text-foreground">
 				{text}
 			</p>

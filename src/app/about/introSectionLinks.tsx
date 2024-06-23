@@ -1,17 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
-import { useThemeStore } from '../../store/useThemeStore';
 import { Link } from './types';
 
-const IntroSectionLink: React.FC<Link> = ({
+interface IntroSectionLinkProps extends Link {
+	icon: string;
+}
+
+const IntroSectionLink: React.FC<IntroSectionLinkProps> = ({
 	text,
-	whiteIcon,
-	blackIcon,
 	url,
+	icon,
 	isExternal,
 }) => {
-	const isDarkMode = useThemeStore((state) => state.isDarkMode);
-
 	return (
 		<a
 			href={url}
@@ -19,12 +19,7 @@ const IntroSectionLink: React.FC<Link> = ({
 			rel={isExternal ? 'noopener noreferrer' : undefined}
 			className="flex flex-row items-center justify-center"
 		>
-			<Image
-				src={isDarkMode ? blackIcon : whiteIcon}
-				alt={`${text} Icon`}
-				width={24}
-				height={24}
-			/>
+			<Image src={icon} alt={`${text} Icon`} width={24} height={24} />
 		</a>
 	);
 };

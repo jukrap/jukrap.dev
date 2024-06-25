@@ -30,17 +30,13 @@ const SideProjectsLink: React.FC<LinkType> = ({ type, url }) => {
 	);
 };
 const SideProjectsSection: React.FC = () => {
-	console.log('projectsDetailData:', projectsDetailData);
-
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 	const [selectedProject, setSelectedProject] =
 		useState<ProjectDetailType | null>(null);
 
 	const openProjectDetail = (projectId: string) => {
-		console.log('Opening project detail for id:', projectId);
 		if (projectsDetailData) {
 			const detailProject = projectsDetailData.find((p) => p.id === projectId);
-			console.log('Found detail project:', detailProject);
 			if (detailProject) {
 				setSelectedProject(detailProject);
 			} else {

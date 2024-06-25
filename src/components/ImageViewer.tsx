@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useThemeStore } from '@/store/useThemeStore';
 import { getIconPath } from '@/util/iconPaths';
@@ -17,6 +17,17 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 	onIndexChange,
 }) => {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
+	const [isVisible, setIsVisible] = useState(false);
+
+	useEffect(() => {
+		setIsVisible(true);
+		return () => setIsVisible(false);
+	}, []);
+
+	const handleClose = () => {
+		setIsVisible(false);
+		setTimeout(onClose, 300);
+	};
 
 	const nextImage = (e: React.MouseEvent) => {
 		e.stopPropagation();
@@ -42,10 +53,16 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
 	return (
 		<div
-			className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
-			onClick={onClose}
+			className={`fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 transition-all duration-300 ${
+				isVisible ? 'opacity-100' : 'opacity-0'
+			}`}
+			onClick={handleClose}
 		>
-			<div className="relative w-[60vw] h-[70vh] flex items-center justify-center">
+			<div
+				className={`relative w-[60vw] h-[70vh] flex items-center justify-center transition-transform duration-300 ${
+					isVisible ? 'scale-100' : 'scale-95'
+				}`}
+			>
 				<div className="relative w-full h-full">
 					<Image
 						src={images[currentIndex]}

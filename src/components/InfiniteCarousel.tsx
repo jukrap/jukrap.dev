@@ -1,29 +1,32 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import ImageWithAspectRatio from './ImageWithAspectRatio';
 import { useThemeStore } from '@/store/useThemeStore';
 import { getIconPath } from '@/util/iconPaths';
-import ImageViewer from './imageViewer';
 
 interface InfiniteCarouselProps {
 	images: string[];
+	currentIndex: number;
+	onImageClick: (index: number) => void;
+	onIndexChange: (index: number) => void;
 }
 
-const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({ images }) => {
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const [isViewerOpen, setIsViewerOpen] = useState(false);
+const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
+	images,
+	currentIndex,
+	onImageClick,
+	onIndexChange,
+}) => {
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
 	const nextSlide = useCallback(() => {
-		setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-	}, [images.length]);
+		onIndexChange((currentIndex + 1) % images.length);
+	}, [images.length, currentIndex, onIndexChange]);
 
 	const prevSlide = useCallback(() => {
-		setCurrentIndex(
-			(prevIndex) => (prevIndex - 1 + images.length) % images.length,
-		);
-	}, [images.length]);
+		onIndexChange((currentIndex - 1 + images.length) % images.length);
+	}, [images.length, currentIndex, onIndexChange]);
 
 	const startAutoScroll = useCallback(() => {
 		if (intervalRef.current) clearInterval(intervalRef.current);
@@ -38,31 +41,14 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({ images }) => {
 	}, []);
 
 	useEffect(() => {
-		if (!isViewerOpen) {
-			startAutoScroll();
-		} else {
-			stopAutoScroll();
-		}
+		startAutoScroll();
 		return () => stopAutoScroll();
-	}, [startAutoScroll, stopAutoScroll, isViewerOpen]);
+	}, [startAutoScroll, stopAutoScroll]);
 
 	const handleIndicatorClick = (index: number) => {
-		setCurrentIndex(index);
+		onIndexChange(index);
 		stopAutoScroll();
 		startAutoScroll();
-	};
-
-	const handleImageClick = (index: number) => {
-		setCurrentIndex(index);
-		setIsViewerOpen(true);
-	};
-
-	const handleViewerClose = () => {
-		setIsViewerOpen(false);
-	};
-
-	const handleViewerIndexChange = (newIndex: number) => {
-		setCurrentIndex(newIndex);
 	};
 
 	return (
@@ -80,7 +66,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({ images }) => {
 						>
 							<div
 								className="w-full h-full flex items-center justify-center cursor-pointer"
-								onClick={() => handleImageClick(index % images.length)}
+								onClick={() => onImageClick(index % images.length)}
 							>
 								<ImageWithAspectRatio
 									src={image}
@@ -126,14 +112,6 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({ images }) => {
 					/>
 				))}
 			</div>
-			{isViewerOpen && (
-				<ImageViewer
-					images={images}
-					currentIndex={currentIndex}
-					onClose={handleViewerClose}
-					onIndexChange={handleViewerIndexChange}
-				/>
-			)}
 		</div>
 	);
 };

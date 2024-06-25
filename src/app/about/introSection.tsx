@@ -64,7 +64,7 @@ const IntroSection: React.FC = () => {
 				<p className="text-sm leading-6 tracking-wider text-center text-muted-foreground">
 					jukrap628@gmail.com
 				</p>
-				<div className="flex items-center gap-2 w-fit h-fit pt-4">
+				<div className="flex items-center gap-3 w-fit h-fit pt-4">
 					{links.map((link) => (
 						<IntroSectionLink key={link.url} {...link} icon={getIcon(link.type)} />
 					))}

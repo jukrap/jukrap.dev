@@ -34,7 +34,7 @@ const AwardsSection: React.FC = () => {
 								href="https://www.knnews.co.kr/news/articleView.php?idxno=1362660"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="text-base leading-6 text-left text-foreground"
+								className="text-base leading-6 text-left text-foreground hover:text-accent transition-colors duration-300"
 							>
 								[경남일보] "도내 소프트업계 이끌 인재들입니다"
 							</a>

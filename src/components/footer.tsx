@@ -29,9 +29,10 @@ const FooterLink: React.FC<Link> = ({ text, url, isExternal }) => (
 		href={url}
 		target={isExternal ? '_blank' : undefined}
 		rel={isExternal ? 'noopener noreferrer' : undefined}
-		className="font-bold text-xl leading-6 text-center text-foreground"
+		className="font-bold text-xl leading-6 text-center text-foreground relative group"
 	>
 		{text}
+		<span className="absolute left-0 bottom-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
 	</a>
 );
 

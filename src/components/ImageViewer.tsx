@@ -18,33 +18,34 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 }) => {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
-	const nextImage = () => {
+	const nextImage = (e: React.MouseEvent) => {
+		e.stopPropagation();
 		onIndexChange((currentIndex + 1) % images.length);
 	};
 
-	const prevImage = () => {
+	const prevImage = (e: React.MouseEvent) => {
+		e.stopPropagation();
 		onIndexChange((currentIndex - 1 + images.length) % images.length);
 	};
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.key === 'ArrowRight') nextImage();
-			if (event.key === 'ArrowLeft') prevImage();
+			if (event.key === 'ArrowRight')
+				onIndexChange((currentIndex + 1) % images.length);
+			if (event.key === 'ArrowLeft')
+				onIndexChange((currentIndex - 1 + images.length) % images.length);
 			if (event.key === 'Escape') onClose();
 		};
 		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, [currentIndex, images.length]);
+	}, [currentIndex, images.length, onClose, onIndexChange]);
 
 	return (
 		<div
 			className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
 			onClick={onClose}
 		>
-			<div
-				className="relative w-[60vw] h-[70vh] flex items-center justify-center"
-				onClick={(e) => e.stopPropagation()}
-			>
+			<div className="relative w-[60vw] h-[70vh] flex items-center justify-center">
 				<div className="relative w-full h-full">
 					<Image
 						src={images[currentIndex]}
@@ -78,7 +79,10 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 			</div>
 			<button
 				className="absolute top-6 right-6 bg-accent-opacity bg-opacity-75 rounded-full p-2"
-				onClick={onClose}
+				onClick={(e) => {
+					e.stopPropagation();
+					onClose();
+				}}
 			>
 				<Image
 					src={getIconPath('close', isDarkMode)}
@@ -104,6 +108,5 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 		</div>
 	);
 };
-
 
 export default ImageViewer;

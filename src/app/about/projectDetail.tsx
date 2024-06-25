@@ -12,21 +12,32 @@ interface ProjectDetailProps {
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	const { getIcon } = useIcon();
-	const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-		null,
-	);
+	const [currentImageIndex, setCurrentImageIndex] = useState(0);
+	const [isViewerOpen, setIsViewerOpen] = useState(false);
+	const [isVisible, setIsVisible] = useState(false);
 
 	const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (e.target === e.currentTarget) {
-			onClose();
+			setIsVisible(false);
+			setTimeout(onClose, 300);
 		}
 	};
 
 	const handleImageClick = (index: number) => {
-		setSelectedImageIndex(index);
+		setCurrentImageIndex(index);
+		setIsViewerOpen(true);
+	};
+
+	const handleViewerClose = () => {
+		setIsViewerOpen(false);
+	};
+
+	const handleIndexChange = (newIndex: number) => {
+		setCurrentImageIndex(newIndex);
 	};
 
 	useEffect(() => {
+		setIsVisible(true);
 		const scrollBarWidth =
 			window.innerWidth - document.documentElement.clientWidth;
 		document.body.style.overflow = 'hidden';
@@ -52,11 +63,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 
 	return (
 		<div
-			className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-hidden"
+			className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-hidden transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
 			onClick={handleBackgroundClick}
 		>
 			<div
-				className="relative bg-background w-[670px] rounded-3xl max-h-[90vh] overflow-y-auto overflow-x-hidden scrollbar-hide"
+				className={`relative bg-background w-[670px] rounded-3xl max-h-[90vh] overflow-y-auto overflow-x-hidden scrollbar-hide transition-transform duration-300 ${
+					isVisible ? 'scale-100' : 'scale-95'
+				}`}
 				style={{ WebkitOverflowScrolling: 'touch' }}
 			>
 				<div
@@ -91,15 +104,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 										href={link.url}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="flex items-center gap-2"
+										className="flex items-center gap-2 transition-transform duration-300 hover:scale-110 group"
 									>
 										<Image
 											src={getIcon(link.type)}
 											alt={link.type}
 											width={28}
 											height={28}
+											className="transition-filter duration-300 group-hover:brightness-125"
 										/>
-										<span className="font-light text-lg text-foreground">
+										<span className="text-lg text-foreground group-hover:text-accent transition-colors duration-300">
 											{link.type === 'appleStore'
 												? 'A.Store'
 												: link.type === 'googleStore'
@@ -208,9 +222,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 						</div>
 						<div className="flex flex-col gap-3 break-words w-full">
 							<h3 className="font-bold text-xl text-foreground">프로젝트 자료</h3>
-							<InfiniteCarousel images={project.projectData.images} />
+							<InfiniteCarousel
+								images={project.projectData.images}
+								currentIndex={currentImageIndex}
+								onImageClick={handleImageClick}
+								onIndexChange={handleIndexChange}
+							/>
 						</div>
-
 						<div className="flex gap-8">
 							{project.projectData.subLinks
 								.filter((link) => link.visible)
@@ -220,15 +238,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 										href={link.url}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="flex items-center gap-2"
+										className="flex items-center gap-2 transition-transform duration-300 hover:scale-110 group"
 									>
 										<Image
 											src={getIcon(link.type)}
 											alt={link.type}
 											width={32}
 											height={32}
+											className="transition-filter duration-300 group-hover:brightness-125"
 										/>
-										<span className="font-light text-lg text-foreground">
+										<span className="text-lg text-foreground group-hover:text-accent transition-colors duration-300">
 											{link.type === 'video'
 												? 'Video'
 												: link.type === 'ppt'
@@ -249,12 +268,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 					</div>
 				</div>
 			</div>
-			{selectedImageIndex !== null && (
+			{isViewerOpen && (
 				<ImageViewer
 					images={project.projectData.images}
-					currentIndex={selectedImageIndex}
-					onClose={() => setSelectedImageIndex(null)}
-					onIndexChange={setSelectedImageIndex}
+					currentIndex={currentImageIndex}
+					onClose={handleViewerClose}
+					onIndexChange={handleIndexChange}
 				/>
 			)}
 		</div>

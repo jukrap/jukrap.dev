@@ -82,7 +82,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 							style={backgroundStyle}
 						></div>
 					)}
-					<div className="absolute inset-0 bg-gradient-to-b from-background/15 via-background/70 to-background z-10"></div>
+					<div className="absolute inset-0 bg-gradient-to-b from-background/15 via-background/75 to-background z-10"></div>
 					<div className="relative z-20 h-full flex flex-col justify-end py-12 px-10">
 						<div className="flex flex-col items-center gap-3">
 							<h1 className="font-extrabold text-4xl tracking-wide leading-10 text-foreground">

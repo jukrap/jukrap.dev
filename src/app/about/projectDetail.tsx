@@ -260,7 +260,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 								))}
 						</div>
 						<button
-							onClick={onClose}
+							onClick={handleBackgroundClick}
 							className="relative flex items-center gap-2 px-4 my-3 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300"
 						>
 							닫기

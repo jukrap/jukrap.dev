@@ -39,7 +39,7 @@ export default function HomePage() {
 	const { getIcon } = useIcon();
 	const names = ['Ju-cheol Park', 'Jukrap'];
 	const typedText = useTypingEffect(names, {
-		typingSpeed: 200,
+		typingSpeed: 150,
 		deletingSpeed: 100,
 		pauseDuration: 2000,
 	});

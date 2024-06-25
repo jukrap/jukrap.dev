@@ -3,7 +3,7 @@ import Image from 'next/image';
 import ImageWithAspectRatio from './ImageWithAspectRatio';
 import { useThemeStore } from '@/store/useThemeStore';
 import { getIconPath } from '@/util/iconPaths';
-import ImageViewer from './ImageViewer';
+import ImageViewer from './imageViewer';
 
 interface InfiniteCarouselProps {
 	images: string[];

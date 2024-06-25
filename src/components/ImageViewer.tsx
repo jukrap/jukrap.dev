@@ -105,4 +105,5 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 	);
 };
 
+
 export default ImageViewer;

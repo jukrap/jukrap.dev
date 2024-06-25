@@ -779,7 +779,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		],
 		impression: [
 			{
-				title: '소감 추가 중...',
+				title: 'React 경험',
 				details: [
 					'styled-components를 통해 대부분의 주요 컴포넌트를 제작함으로써 UI를 제어하는 재사용 가능 코드가 무엇인지를 익힐 수 있었습니다. 이 덕분에 메인 페이지와 핫딜 페이지를 개발하는데 큰 도움이 되었습니다.',
 					'또한, react-router-dom으로 사용자의 요청에 따라 해당 페이지의 컴포넌트를 로딩해주는 라우팅에 대한 개념을 익힐 수 있었습니다.',

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ProjectDetailType, LinkType } from './types';
 import { useIcon } from '@/hook/useIcon';
-import ImageViewer from '@/components/imageViewer2';
-import InfiniteCarousel from '@/components/infiniteCarousel2';
+import ImageViewer from '@/components/imageViewer';
+import InfiniteCarousel from '@/components/infiniteCarousel';
 
 interface ProjectDetailProps {
 	project: ProjectDetailType;

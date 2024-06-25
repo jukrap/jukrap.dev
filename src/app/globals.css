@@ -152,6 +152,10 @@
 	animation: downloadArrow 2s infinite;
 }
 
+.no-select {
+	user-select: none;
+}
+
 @layer utilities {
 	.bg-glass {
 		background-color: theme('colors.background / 80%');

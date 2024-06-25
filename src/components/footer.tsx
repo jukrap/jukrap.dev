@@ -39,7 +39,7 @@ const FooterLink: React.FC<Link> = ({ text, url, isExternal }) => (
 const Footer: React.FC = () => {
 	return (
 		<footer className="w-full flex justify-center py-8">
-			<div className="flex flex-col items-center gap-6">
+			<div className="flex flex-col items-center gap-6 no-select">
 				<p className="text-xl leading-6 text-center text-foreground">
 					Copyright © 2024 Ju-cheol Park · All Rights Reserved.
 				</p>

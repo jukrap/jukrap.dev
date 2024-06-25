@@ -94,11 +94,11 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 					/>
 				</button>
 			</div>
-			<button
-				className="absolute top-6 right-6 bg-accent-opacity bg-opacity-75 rounded-full p-2"
+			<div
+				className="absolute top-6 right-6 bg-accent-opacity bg-opacity-75 rounded-full p-2 no-select"
 				onClick={(e) => {
 					e.stopPropagation();
-					onClose();
+					handleClose();
 				}}
 			>
 				<Image
@@ -107,7 +107,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 					width={32}
 					height={32}
 				/>
-			</button>
+			</div>
 			<div className="absolute bottom-6 left-0 right-0 flex justify-center gap-4">
 				{images.map((_, index) => (
 					<button

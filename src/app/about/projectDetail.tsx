@@ -104,7 +104,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 										href={link.url}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="flex items-center gap-2 transition-transform duration-300 hover:scale-110 group"
+										className="flex items-center gap-2 transition-transform duration-300 hover:scale-110 no-select group"
 									>
 										<Image
 											src={getIcon(link.type)}
@@ -238,7 +238,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 										href={link.url}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="flex items-center gap-2 transition-transform duration-300 hover:scale-110 group"
+										className="flex items-center gap-2 transition-transform duration-300 hover:scale-110 no-select group"
 									>
 										<Image
 											src={getIcon(link.type)}
@@ -259,12 +259,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 									</a>
 								))}
 						</div>
-						<button
+						<div
 							onClick={handleBackgroundClick}
-							className="relative flex items-center gap-2 px-4 my-3 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300"
+							className="relative flex items-center gap-2 px-4 my-3 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300 no-select"
 						>
 							닫기
-						</button>
+						</div>
 					</div>
 				</div>
 			</div>

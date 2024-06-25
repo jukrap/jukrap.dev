@@ -17,7 +17,7 @@ export function Navbar() {
 	const titleText = 'Jukrap';
 
 	return (
-		<header className="w-full flex flex-col gap-12 py-3 items-center sticky top-0 bg-glass backdrop-filter backdrop-blur-md transition-colors duration-500 z-50">
+		<header className="w-full flex flex-col gap-12 py-3 items-center sticky top-0 bg-glass backdrop-filter backdrop-blur-md transition-colors duration-500 z-50 no-select">
 			<nav className="w-[670px] flex justify-between items-center px-2.5">
 				<Link href="/" className="shrink-0">
 					<span className="font-bold text-xl leading-6 tracking-[0.01em] font-pretendard text-primary transition-colors duration-500">

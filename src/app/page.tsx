@@ -87,7 +87,7 @@ export default function HomePage() {
 						download
 						className="relative flex items-center gap-2 px-4 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300"
 					>
-						<div className="relative w-6 h-6 flex items-center justify-center">
+						<div className="relative w-6 h-6 flex items-center justify-center no-select">
 							<Image
 								src={getIcon('downArrow')}
 								alt="Download Icon"

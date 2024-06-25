@@ -57,5 +57,9 @@ export interface ProjectDetailType {
 	projectData: {
 		images: string[];
 		subLinks: LinkType[];
+		background?: {
+			image?: string;
+			gradientStart?: string;
+		};
 	};
 }

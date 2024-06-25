@@ -105,6 +105,9 @@ export const projectsDetailData: ProjectDetailType[] = [
 				{ type: 'doc', url: '/', visible: false },
 				{ type: 'other', url: '/', visible: false },
 			],
+			background: {
+				gradientStart: '#1AC195',
+			},
 		},
 	},
 	{
@@ -257,6 +260,9 @@ export const projectsDetailData: ProjectDetailType[] = [
 				{ type: 'doc', url: '/', visible: false },
 				{ type: 'other', url: '/', visible: false },
 			],
+			background: {
+				image: '/images/sharebby/image0.png',
+			},
 		},
 	},
 	{
@@ -393,6 +399,9 @@ export const projectsDetailData: ProjectDetailType[] = [
 				},
 				{ type: 'other', url: '/', visible: false },
 			],
+			background: {
+				image: '/images/posture-teacher/image0.png',
+			},
 		},
 	},
 	{
@@ -509,6 +518,9 @@ export const projectsDetailData: ProjectDetailType[] = [
 				},
 				{ type: 'other', url: '/', visible: false },
 			],
+			background: {
+				gradientStart: '#C7B18C',
+			},
 		},
 	},
 	{
@@ -666,6 +678,9 @@ export const projectsDetailData: ProjectDetailType[] = [
 				},
 				{ type: 'other', url: '/', visible: false },
 			],
+			background: {
+				image: '/images/mytime/image0.png',
+			},
 		},
 	},
 	{
@@ -817,6 +832,9 @@ export const projectsDetailData: ProjectDetailType[] = [
 				},
 				{ type: 'other', url: '/', visible: false },
 			],
+			background: {
+				image: '/images/esd-hotdeal/image0.png',
+			},
 		},
 	},
 	// 여기에 계속 추가

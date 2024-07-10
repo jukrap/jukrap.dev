@@ -45,11 +45,11 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 				onIndexChange((currentIndex + 1) % images.length);
 			if (event.key === 'ArrowLeft')
 				onIndexChange((currentIndex - 1 + images.length) % images.length);
-			if (event.key === 'Escape') onClose();
+			if (event.key === 'Escape') handleClose();
 		};
 		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, [currentIndex, images.length, onClose, onIndexChange]);
+	}, [currentIndex, images.length, onIndexChange]);
 
 	return (
 		<div

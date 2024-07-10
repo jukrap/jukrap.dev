@@ -227,6 +227,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 								currentIndex={currentImageIndex}
 								onImageClick={handleImageClick}
 								onIndexChange={handleIndexChange}
+								isViewerOpen={isViewerOpen}
 							/>
 						</div>
 						<div className="flex gap-8">

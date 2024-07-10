@@ -9,6 +9,7 @@ interface InfiniteCarouselProps {
 	currentIndex: number;
 	onImageClick: (index: number) => void;
 	onIndexChange: (index: number) => void;
+	isViewerOpen: boolean;
 }
 
 const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
@@ -16,6 +17,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 	currentIndex,
 	onImageClick,
 	onIndexChange,
+	isViewerOpen,
 }) => {
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
@@ -41,9 +43,13 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 	}, []);
 
 	useEffect(() => {
-		startAutoScroll();
+		if (!isViewerOpen) {
+			startAutoScroll();
+		} else {
+			stopAutoScroll();
+		}
 		return () => stopAutoScroll();
-	}, [startAutoScroll, stopAutoScroll]);
+	}, [startAutoScroll, stopAutoScroll, isViewerOpen]);
 
 	const handleIndicatorClick = (index: number) => {
 		onIndexChange(index);

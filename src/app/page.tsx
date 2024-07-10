@@ -48,7 +48,7 @@ export default function HomePage() {
 		<main className="w-fixed flex flex-col items-center gap-24 pt-44 pb-48">
 			<section className="flex flex-col items-center gap-10 pt-30">
 				<div className="flex items-center border-foreground leading-6 py-3 border-t border-b gap-65">
-					<h1 className="font-bold text-8xl text-center text-foreground min-h-[4.5rem]">
+					<h1 className="font-bold text-8xl text-center text-foreground min-h-[4.5rem] select-none">
 						{typedText.split('').map((char, index) => (
 							<span
 								key={index}
@@ -85,7 +85,7 @@ export default function HomePage() {
 					<a
 						href="/files/Portfolio (Ju-cheol Park).pdf"
 						download
-						className="relative flex items-center gap-2 px-4 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300"
+						className="relative flex items-center gap-2 px-4 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300 select-none"
 					>
 						<div className="relative w-6 h-6 flex items-center justify-center no-select">
 							<Image

@@ -121,10 +121,6 @@
 	}
 }
 
-.underline-wide {
-	text-decoration: underline;
-	text-underline-offset: 0.2em;
-}
 
 @keyframes downloadArrow {
 	0% {
@@ -148,12 +144,34 @@
 	}
 }
 
-.animate-downloadArrow {
-	animation: downloadArrow 2s infinite;
+@keyframes tracking-in-expand {
+	0% {
+		letter-spacing: -0.5em;
+		opacity: 0;
+	}
+
+	40% {
+		opacity: 0.6;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
-.no-select {
-	user-select: none;
+@keyframes tracking-out-contract {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	100% {
+		letter-spacing: -0.5em;
+		opacity: 0;
+	}
 }
 
 @layer utilities {
@@ -172,6 +190,31 @@
 		scrollbar-width: none;
 		/* Firefox */
 	}
+
+	.tracking-in-expand {
+		animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	}
+
+	.tracking-out-contract {
+		animation: tracking-out-contract 0.7s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	}
+}
+
+.page-transition {
+	animation: fadeIn 0.3s ease-in-out;
+}
+
+.underline-wide {
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+}
+
+.animate-downloadArrow {
+	animation: downloadArrow 2s infinite;
+}
+
+.no-select {
+	user-select: none;
 }
 
 .bg-accent-opacity {

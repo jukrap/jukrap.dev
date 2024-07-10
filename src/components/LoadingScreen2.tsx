@@ -34,13 +34,13 @@ const LoadingScreen: React.FC<{ onLoadingComplete: () => void }> = ({
 			}`}
 		>
 			<h1
-				className={`text-foreground text-4xl font-bold select-none ${
+				className={`text-foreground text-6xl font-bold select-none ${
 					isTextExiting ? 'tracking-out-contract' : 'tracking-in-expand'
 				}`}
 			>
 				Jukrap
 			</h1>
-			<p className="absolute bottom-8 text-sm text-muted-foreground select-none">
+			<p className="absolute bottom-8 text-base text-muted-foreground select-none">
 				Created by Ju-cheol Park
 			</p>
 		</div>

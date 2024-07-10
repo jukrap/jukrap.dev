@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Navbar } from '@/components/navbar';
 import Footer from '@/components/footer';
-import LoadingScreen from '@/components/LoadingScreen';
+import LoadingScreen from '@/components/loadingScreen';
 
 const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({
 	children,

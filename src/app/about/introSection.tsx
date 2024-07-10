@@ -1,7 +1,7 @@
 'use client';
-import React from 'react';
-import Image from 'next/image';
+import React, { useState, useEffect, useRef } from 'react';
 import IntroSectionLink from './introSectionLinks';
+import ProfileImage from '@/components/profileImage';
 import {
 	obfuscatedBirthDate,
 	decodeBirthDate,
@@ -41,6 +41,10 @@ const birthDate = decodeBirthDate(obfuscatedBirthDate);
 const age = calculateAge(birthDate);
 
 const IntroSection: React.FC = () => {
+	const [isFlipped, setIsFlipped] = useState(false);
+	const [showMessage, setShowMessage] = useState(false);
+	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const [isMessageFadingOut, setIsMessageFadingOut] = useState(false);
 	const { getIcon } = useIcon();
 	const typedText = useTypingEffect(greetings, {
 		typingSpeed: 40,
@@ -48,22 +52,65 @@ const IntroSection: React.FC = () => {
 		pauseDuration: 2500,
 	});
 
+	const handleImageClick = () => {
+		if (showMessage) {
+			setIsMessageFadingOut(true);
+			setTimeout(() => {
+				setShowMessage(false);
+				setIsMessageFadingOut(false);
+				setIsFlipped(!isFlipped);
+			}, 300); // 애니메이션 지속 시간
+		} else {
+			setIsFlipped(!isFlipped);
+		}
+	};
+
+	const handleMouseEnter = () => {
+		timeoutRef.current = setTimeout(() => {
+			setShowMessage(true);
+		}, 1000);
+	};
+
+	const handleMouseLeave = () => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+		}
+		if (showMessage) {
+			setIsMessageFadingOut(true);
+			setTimeout(() => {
+				setShowMessage(false);
+				setIsMessageFadingOut(false);
+			}, 300);
+		}
+	};
+
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+			}
+		};
+	}, []);
+
 	return (
-		<section className="w-[670px] flex justify-start items-start gap-12">
+		<section className="w-[670px] flex justify-start items-start gap-11">
 			<div className="flex flex-col items-center gap-2 w-fit h-fit">
-				<Image
-					src="/images/doge_my_img.png"
-					alt="Profile Picture"
-					width={200}
-					height={200}
-					className="rounded-full"
+				<ProfileImage
+					isFlipped={isFlipped}
+					onClick={handleImageClick}
+					onMouseEnter={handleMouseEnter}
+					onMouseLeave={handleMouseLeave}
+					showMessage={showMessage}
+					isMessageFadingOut={isMessageFadingOut}
 				/>
+
 				<h2 className="font-bold text-2xl leading-6 tracking-tight text-center text-foreground">
 					Ju-cheol Park
 				</h2>
 				<p className="text-sm leading-6 tracking-wider text-center text-muted-foreground">
 					jukrap628@gmail.com
 				</p>
+
 				<div className="flex items-center gap-3 w-fit h-fit pt-4">
 					{links.map((link) => (
 						<IntroSectionLink key={link.url} {...link} icon={getIcon(link.type)} />
@@ -74,7 +121,7 @@ const IntroSection: React.FC = () => {
 				<h2 className="font-bold text-4xl leading-10 tracking-tight text-left text-foreground">
 					About Me
 				</h2>
-				<div className="flex items-start gap-8 w-fit h-fit pt-8">
+				<div className="flex items-start gap-8 w-fit h-fit pt-8 select-none">
 					<p className="font-medium text-lg leading-10 tracking-tight text-left text-foreground">
 						{typedText.split('【').map((part, index) => {
 							if (index === 0) return part;

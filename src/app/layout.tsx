@@ -3,7 +3,7 @@ import localFont from 'next/font/local';
 import { ThemeProvider } from '@/components/theme-context';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import LayoutWrapper from '@/components/LayoutWrapper';
+import LayoutWrapper from '@/components/layoutWrapper';
 import './globals.css';
 
 const pretendard = localFont({

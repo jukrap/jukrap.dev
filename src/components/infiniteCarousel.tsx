@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
-import ImageWithAspectRatio from './ImageWithAspectRatio';
+import ImageWithAspectRatio from './imageWithAspectRatio';
 import { useThemeStore } from '@/store/useThemeStore';
 import { getIconPath } from '@/util/iconPaths';
 

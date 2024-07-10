@@ -38,7 +38,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({
 					className="rounded-full absolute w-full h-full object-cover backface-hidden"
 				/>
 				<Image
-					src="/images/profileback.png"
+					src="/images/profileBack.png"
 					alt="Profile Picture Back"
 					width={200}
 					height={200}

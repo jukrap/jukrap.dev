@@ -32,9 +32,11 @@ export const projectsData: ProjectType[] = [
 		introduction:
 			'취미 활동을 공유하고 참여 플랫폼을 제공해주는 크로스 플랫폼 앱.',
 		description: [
-			'실시간 게시판 기능 전체 담당',
+			'커뮤니티 기능 전체 개발 담당',
 			'재사용 가능한 토스트 및 모달 컴포넌트 제작',
 			'이미지 연결 및 이미지 상세보기 제작',
+			'이미지 크기 조정 및 캐싱 등의 최적화 진행',
+			'Pull to Refresh와 Infinite Scroll 적용',
 			'데이터베이스 설계',
 		],
 		techStack: 'JavaScriptㆍReact NativeㆍFirebase',
@@ -63,6 +65,7 @@ export const projectsData: ProjectType[] = [
 			'팀장, 프론트엔드 및 백엔드',
 			'자세 감지 기반의 착석 및 운동 자세 판별 페이지 담당',
 			'자세 감지 기능 제작, Mediapipe 추출',
+			'멀티 스레드 및 최적화',
 		],
 		techStack: 'JavaㆍJetpackㆍMediapipeㆍSQLite',
 		links: [
@@ -136,7 +139,7 @@ export const projectsData: ProjectType[] = [
 			'팀장, 프론트엔드 및 백엔드',
 			'메인 페이지 전체 작업 및 상세 페이지 전체 작업',
 			'재사용 가능한 상품 정보 컴포넌트 제작',
-			'Express로 백엔드 작업',
+			'Express와 Firebase 기반의 백엔드 작업',
 			'경남소프트웨어경진대회 최우수상 수상',
 		],
 		techStack: 'JavaScriptㆍReactㆍFirebaseㆍNode.jsㆍExpress',

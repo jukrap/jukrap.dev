@@ -83,7 +83,7 @@ export default function HomePage() {
 						눌러주세요!
 					</p>
 					<a
-						href="/files/박주철_Frontend.pdf"
+						href="/files/Ju-cheol-Park_Frontend.pdf"
 						download
 						className="relative flex items-center gap-2 px-4 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300 select-none"
 					>

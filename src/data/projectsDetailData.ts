@@ -296,7 +296,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		overview:
 			'사람의 앉은 자세 혹은 플랭크 자세를 감지한 다음, 신체 각 지점의 각도와 길이에 따라 올바른 자세 여부를 판별하고 데이터를 제공해주는 앱.',
 		techStack: ['Java', 'Android', 'Jetpack', 'Mediapipe', 'SQLite'],
-		role: ['팀장', '안드로이드 개발자'],
+		role: ['팀장', '안드로이드 개발'],
 		teamSize: 2,
 		functions: [
 			{

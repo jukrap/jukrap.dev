@@ -32,9 +32,9 @@ export const projectsData: ProjectType[] = [
 		introduction:
 			'취미 활동을 공유하고 참여 플랫폼을 제공해주는 크로스 플랫폼 앱.',
 		description: [
+			'프론트엔드 & 백엔드 개발',
 			'커뮤니티 기능 전체 개발 담당',
 			'재사용 가능한 토스트 및 모달 컴포넌트 제작',
-			'이미지 연결 및 이미지 상세보기 제작',
 			'이미지 크기 조정 및 캐싱 등의 최적화 진행',
 			'Pull to Refresh와 Infinite Scroll 적용',
 			'데이터베이스 설계',
@@ -62,7 +62,7 @@ export const projectsData: ProjectType[] = [
 		duration: '2022.07 ~ 2023.05',
 		introduction: '자세가 올바른지 감지하고 결과를 도출하는 앱.',
 		description: [
-			'팀장, 프론트엔드 및 백엔드',
+			'팀장, 안드로이드 개발',
 			'자세 감지 기반의 착석 및 운동 자세 판별 페이지 담당',
 			'자세 감지 기능 제작, Mediapipe 추출',
 			'멀티 스레드 및 최적화',
@@ -113,7 +113,7 @@ export const projectsData: ProjectType[] = [
 		duration: '2022.02 ~ 2022.06',
 		introduction: '집중력 향상을 위한 감지 및 결과를 도출하는 앱.',
 		description: [
-			'팀장, 프론트엔드 및 백엔드',
+			'팀장, 안드로이드 개발',
 			'안면 감지 기반의 집중력 판별 페이지 담당',
 			'안면 감지 기능 제작, Mediapipe 추출',
 		],
@@ -136,7 +136,7 @@ export const projectsData: ProjectType[] = [
 		duration: '2021.07 ~ 2021.10',
 		introduction: '다양한 ESD의 핫딜 데이터를 모아서 제공하는 웹서비스.',
 		description: [
-			'팀장, 프론트엔드 및 백엔드',
+			'팀장, 프론트엔드 및 백엔드 개발',
 			'메인 페이지 전체 작업 및 상세 페이지 전체 작업',
 			'재사용 가능한 상품 정보 컴포넌트 제작',
 			'Express와 Firebase 기반의 백엔드 작업',

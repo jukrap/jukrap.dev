@@ -136,7 +136,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		overview:
 			'다양한 취미 활동을 공유하고 참여할 수 있는 플랫폼을 제공하는 크로스플랫폼 앱.',
 		techStack: ['HTML & CSS', 'JavaScript', 'React Native', 'Firebase'],
-		role: ['발표', '디자인', '프론트엔드', '백엔드'],
+		role: ['발표', '디자인', '프론트엔드 및 백엔드 개발'],
 		teamSize: 5,
 		functions: [
 			{
@@ -557,7 +557,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		overview:
 			'사람의 안면 움직임을 감지하여 집중력 유지 여부를 판별하고, 여기에 따라 집중력 향상을 위한 안내 및 통계를 제공하는 안드로이드 기반의 타이머 앱.',
 		techStack: ['Java', 'Android', 'Jetpack', 'Mediapipe', 'SQLite'],
-		role: ['팀장', '안드로이드 개발자'],
+		role: ['팀장', '안드로이드 개발'],
 		teamSize: 3,
 		functions: [
 			{
@@ -724,7 +724,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 			'Node.js',
 			'Express',
 		],
-		role: ['팀장', '프론트엔드', '백엔드'],
+		role: ['팀장', '프론트엔드 및 백엔드 개발'],
 		teamSize: 2,
 		functions: [
 			{

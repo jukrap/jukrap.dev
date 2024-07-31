@@ -589,7 +589,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		tasks: [
 			{
 				title: '기획, 발표 등의 팀장 업무 (100% 담당)',
-				details: ['프로젝트 기획과 발표 업무를 맡았습니다..'],
+				details: ['프로젝트 기획과 발표 업무를 맡았습니다.'],
 			},
 			{
 				title: '집중력 감지 기능 및 페이지 구현 (100% 담당)',
@@ -755,7 +755,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		tasks: [
 			{
 				title: '기획, 발표 등의 팀장 업무 (100% 담당)',
-				details: ['프로젝트 기획과 발표 업무를 맡았습니다..'],
+				details: ['프로젝트 기획과 발표 업무를 맡았습니다.'],
 			},
 			{
 				title: '메인 페이지 작업 및 상세 페이지 작업 (80% 담당)',

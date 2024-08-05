@@ -83,6 +83,12 @@ export const projectsDetailData: ProjectDetailType[] = [
 					'진작 배우지 않은 게 조금 후회스러울 정도였습니다.',
 				],
 			},
+			{
+				title: '모바일 디자인 개발 중...',
+				details: [
+					'PC 화면과 테블릿 화면만 개발된 상황입니다. 모바일 디자인은 아직 개발 중입니다...',
+				],
+			},
 		],
 		projectData: {
 			images: [

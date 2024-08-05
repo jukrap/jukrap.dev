@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 	icons: {
 		icon: '/favicon.ico',
 	},
+	viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
 };
 
 export default function RootLayout({
@@ -31,7 +32,9 @@ export default function RootLayout({
 				className={`${pretendard.className} bg-background transition-colors duration-500`}
 			>
 				<ThemeProvider>
-					<LayoutWrapper>{children}</LayoutWrapper>
+					<div className="flex flex-col min-h-screen">
+						<LayoutWrapper>{children}</LayoutWrapper>
+					</div>
 					<Analytics />
 					<SpeedInsights />
 				</ThemeProvider>

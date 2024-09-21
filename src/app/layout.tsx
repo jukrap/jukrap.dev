@@ -33,7 +33,9 @@ export default function RootLayout({
 			>
 				<ThemeProvider>
 					<div className="flex flex-col min-h-screen">
-						<LayoutWrapper>{children}</LayoutWrapper>
+						<LayoutWrapper>
+							{children}
+						</LayoutWrapper>
 					</div>
 					<Analytics />
 					<SpeedInsights />

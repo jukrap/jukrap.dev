@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Link } from './types';
+import { Link } from '../types';
 
 interface IntroSectionLinkProps extends Link {
     icon: string;

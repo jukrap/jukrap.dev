@@ -32,7 +32,7 @@ const SkillsSection: React.FC = () => {
 						NoSQL, SQLite
 					</p>
 					<p className="text-lg leading-6 tracking-tight text-left text-foreground">
-						Firebase, Google Cloud Platform
+						Firebase, Google Cloud Platform, AWS, Jenkins
 					</p>
 				</div>
 			</div>

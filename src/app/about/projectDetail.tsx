@@ -23,6 +23,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 		}
 	};
 
+	const handleCloseClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.stopPropagation();
+		setIsVisible(false);
+		setTimeout(onClose, 300);
+	};
+
 	const handleImageClick = (index: number) => {
 		setCurrentImageIndex(index);
 		setIsViewerOpen(true);
@@ -42,12 +48,37 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 			window.innerWidth - document.documentElement.clientWidth;
 		document.body.style.overflow = 'hidden';
 		document.body.style.paddingRight = `${scrollBarWidth}px`;
-
 		return () => {
 			document.body.style.overflow = 'unset';
 			document.body.style.paddingRight = '0';
 		};
 	}, []);
+
+	const renderSection = (title: string, content: React.ReactNode) => (
+		<div className="mb-8 p-6 bg-secondary rounded-lg shadow-md">
+			<h3 className="font-bold text-2xl text-primary mb-4 pb-2 border-b border-primary">
+				{title}
+			</h3>
+			{content}
+		</div>
+	);
+
+	const renderList = (items: { title: string; details: string[] }[]) => (
+		<ul className="space-y-4">
+			{items.map((item, index) => (
+				<li key={index} className="bg-background p-4 rounded-md">
+					<h4 className="font-semibold text-lg mb-2">{item.title}</h4>
+					<ul className="list-disc pl-5 space-y-1">
+						{item.details.map((detail, detailIndex) => (
+							<li key={detailIndex} className="text-sm">
+								{detail}
+							</li>
+						))}
+					</ul>
+				</li>
+			))}
+		</ul>
+	);
 
 	const backgroundStyle = project.projectData.background?.image
 		? {
@@ -63,7 +94,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 
 	return (
 		<div
-			className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-hidden transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+			className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-hidden transition-opacity duration-300 ${
+				isVisible ? 'opacity-100' : 'opacity-0'
+			}`}
 			onClick={handleBackgroundClick}
 		>
 			<div
@@ -125,103 +158,56 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 						</div>
 					</div>
 				</div>
-				<div className="py-12 px-2 flex flex-col items-center gap-12">
-					<div className="bg-background w-full rounded-b-3xl py-12 px-10 flex flex-col items-center gap-12">
-						<div className="w-full flex flex-col gap-8">
-							<div className="flex flex-col gap-3 break-words">
-								<h3 className="font-bold text-xl text-foreground">프로젝트 개요</h3>
-								<p className="font-medium text-base leading-9 text-foreground">
-									{project.overview}
-								</p>
-							</div>
 
-							<div className="flex flex-col gap-3 break-words">
-								<h3 className="font-bold text-xl text-foreground">기술 스택</h3>
-								<p className="font-medium text-base leading-9 text-foreground">
-									{project.techStack.join(' • ')}
-								</p>
-							</div>
-
-							<div className="flex gap-8 w-full break-words">
-								<div className="flex-1 flex flex-col gap-3 min-w-0">
-									<h3 className="font-bold text-xl text-foreground">프로젝트 담당</h3>
-									<p className="font-medium text-base leading-7 text-foreground overflow-wrap-anywhere">
-										{project.role.join(', ')}
-									</p>
-								</div>
-								<div className="flex-1 flex flex-col gap-3 min-w-0">
-									<h3 className="font-bold text-xl text-foreground">프로젝트 인원</h3>
-									<p className="font-medium text-base leading-7 text-foreground">
-										{project.teamSize}인
-									</p>
-								</div>
-							</div>
-
-							<div className="flex flex-col gap-3 break-words">
-								<h3 className="font-bold text-xl text-foreground">프로젝트 기능</h3>
-								{project.functions.map((func, index) => (
-									<div key={index}>
-										<p className="font-bold text-base leading-9 text-foreground">
-											{index + 1}. {func.title}
-										</p>
-										<ul className="list-disc pl-5">
-											{func.details.map((detail, detailIndex) => (
-												<li
-													key={detailIndex}
-													className="font-medium text-base leading-9 text-foreground"
-												>
-													{detail}
-												</li>
-											))}
-										</ul>
-									</div>
+				<div className="py-12 px-8">
+					{renderSection(
+						'프로젝트 개요',
+						<>
+							<p className="mb-4">{project.overview}</p>
+							<div className="flex flex-wrap gap-2">
+								{project.techStack.map((tech, index) => (
+									<span
+										key={index}
+										className="bg-primary text-background px-2 py-1 rounded-full text-sm"
+									>
+										{tech}
+									</span>
 								))}
 							</div>
+						</>,
+					)}
 
-							<div className="flex flex-col gap-3 break-words">
-								<h3 className="font-bold text-xl text-foreground">프로젝트 업무</h3>
-								{project.tasks.map((task, index) => (
-									<div key={index}>
-										<p className="font-bold text-base leading-9 text-foreground">
-											{index + 1}. {task.title}
-										</p>
-										<ul className="list-disc pl-5">
-											{task.details.map((detail, detailIndex) => (
-												<li
-													key={detailIndex}
-													className="font-medium text-base leading-9 text-foreground"
-												>
-													{detail}
-												</li>
-											))}
-										</ul>
-									</div>
-								))}
+					{renderSection(
+						'프로젝트 정보',
+						<div className="grid grid-cols-2 gap-4">
+							<div className="bg-background p-4 rounded-md">
+								<h4 className="font-semibold text-lg mb-2">프로젝트 담당</h4>
+								<p className="text-sm">{project.role.join(', ')}</p>
 							</div>
+							<div className="bg-background p-4 rounded-md">
+								<h4 className="font-semibold text-lg mb-2">프로젝트 인원</h4>
+								<p className="text-sm">{project.teamSize}명</p>
+							</div>
+						</div>,
+					)}
 
-							<div className="flex flex-col gap-3 break-words">
-								<h3 className="font-bold text-xl text-foreground">프로젝트 소감</h3>
-								{project.impression.map((impression, index) => (
-									<div key={index}>
-										<p className="font-bold text-base leading-9 text-foreground">
-											{impression.title}
-										</p>
-										<ul className="list-disc pl-5">
-											{impression.details.map((detail, detailIndex) => (
-												<li
-													key={detailIndex}
-													className="font-medium text-base leading-9 text-foreground"
-												>
-													{detail}
-												</li>
-											))}
-										</ul>
-									</div>
-								))}
-							</div>
-						</div>
-						<div className="flex flex-col gap-3 break-words w-full">
-							<h3 className="font-bold text-xl text-foreground">프로젝트 자료</h3>
+					{renderSection('프로젝트 업무', renderList(project.tasks))}
+
+					{project.troubleshooting &&
+						renderSection('트러블슈팅', renderList(project.troubleshooting))}
+
+					{project.performanceImprovements &&
+						renderSection('성능 개선', renderList(project.performanceImprovements))}
+
+					{project.specialImplementations &&
+						renderSection(
+							'특별 사항',
+							renderList(project.specialImplementations),
+						)}
+
+					{renderSection(
+						'프로젝트 자료',
+						<>
 							<InfiniteCarousel
 								images={project.projectData.images}
 								currentIndex={currentImageIndex}
@@ -229,46 +215,50 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 								onIndexChange={handleIndexChange}
 								isViewerOpen={isViewerOpen}
 							/>
-						</div>
-						<div className="flex gap-8">
-							{project.projectData.subLinks
-								.filter((link) => link.visible)
-								.map((link, index) => (
-									<a
-										key={index}
-										href={link.url}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="flex items-center gap-2 transition-transform duration-300 hover:scale-110 no-select group"
-									>
-										<Image
-											src={getIcon(link.type)}
-											alt={link.type}
-											width={32}
-											height={32}
-											className="transition-filter duration-300 group-hover:brightness-125"
-										/>
-										<span className="text-lg text-foreground group-hover:text-accent transition-colors duration-300">
-											{link.type === 'video'
-												? 'Video'
-												: link.type === 'ppt'
-													? 'PPT'
-													: link.type === 'doc'
-														? 'Doc'
-														: 'Other'}
-										</span>
-									</a>
-								))}
-						</div>
-						<div
-							onClick={handleBackgroundClick}
-							className="relative flex items-center gap-2 px-4 my-3 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300 no-select"
+							<div className="flex flex-wrap gap-4 mt-6 justify-center">
+								{project.projectData.subLinks
+									.filter((link) => link.visible)
+									.map((link, index) => (
+										<a
+											key={index}
+											href={link.url}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="flex items-center gap-2 px-4 py-2 bg-primary text-background rounded-full transition-transform duration-300 hover:scale-105 no-select"
+										>
+											<Image
+												src={getIcon(link.type)}
+												alt={link.type}
+												width={24}
+												height={24}
+												className="transition-filter duration-300"
+											/>
+											<span className="text-sm font-medium">
+												{link.type === 'video'
+													? 'Video'
+													: link.type === 'ppt'
+														? 'PPT'
+														: link.type === 'doc'
+															? 'Doc'
+															: 'Other'}
+											</span>
+										</a>
+									))}
+							</div>
+						</>,
+					)}
+
+					<div className="flex justify-center mt-8">
+						<button
+							onClick={handleCloseClick}
+							className="px-8 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300 no-select cursor-pointer"
 						>
 							닫기
-						</div>
+						</button>
 					</div>
 				</div>
 			</div>
+
 			{isViewerOpen && (
 				<ImageViewer
 					images={project.projectData.images}

@@ -9,7 +9,7 @@ import {
 } from '@/util/dateUtils';
 import { greetings } from '../../data/greetings';
 import useTypingEffect from '@/hook/useTypingEffect';
-import { Link } from './types';
+import { Link } from '../types';
 import { useIcon } from '@/hook/useIcon';
 
 const links: Link[] = [

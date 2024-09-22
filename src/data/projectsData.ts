@@ -2,9 +2,32 @@ import { ProjectType } from '../app/about/types';
 
 export const projectsData: ProjectType[] = [
 	{
+		id: 'itzip',
+		title: 'Itzip',
+		duration: '2024.07 ~ Present',
+		introduction: '개발자 취준생을 위한 종합 취업 준비 웹서비스.',
+		description: [
+			'프론트엔드 개발 & DevOps',
+			'블로그 기능 개발',
+			'테스트 및 오류 검출을 통한 개발',
+		],
+		techStack: 'TypeScript・React・Next.js・Tailwind CSS・Jotai・Jest・Prisma・Storybook・Postman・Sentry・AWS・Jenkins・Docker',
+		links: [
+			{ type: 'appleStore', url: '/', visible: false },
+			{ type: 'googleStore', url: '/', visible: false },
+			{
+				type: 'github',
+				url: 'https://github.com/ITZipProject/itzip_front',
+				visible: true,
+			},
+			{ type: 'url', url: '/', visible: false },
+			{ type: 'detailView', url: '/detailView', visible: true },
+		],
+	},
+	{
 		id: 'jukrap-website',
 		title: 'Jukrap Website',
-		duration: '2024.06 ~ 2024.06',
+		duration: '2024.06 ~ Present',
 		introduction: 'React 및 Next.js 기반의 개인용 웹사이트.',
 		description: [
 			'1인 개발',

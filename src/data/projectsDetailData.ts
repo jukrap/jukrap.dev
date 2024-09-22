@@ -2,10 +2,173 @@ import { ProjectDetailType } from '../app/about/types';
 
 export const projectsDetailData: ProjectDetailType[] = [
 	{
+		id: 'itzip',
+		title: '잇집',
+		subtitle: 'Itzip',
+		duration: '2024.07 ~ Present',
+		links: [
+			{
+				type: 'github',
+				url: 'https://github.com/ITZipProject/itzip_front',
+				visible: true,
+			},
+			{
+				type: 'appleStore',
+				url: '/',
+				visible: false,
+			},
+			{
+				type: 'googleStore',
+				url: '/',
+				visible: false,
+			},
+			{ type: 'url', url: '/', visible: false },
+		],
+		overview:
+			'개발자 취준생을 위한 종합 취업 준비 플랫폼으로, 블로그, 테스트, 구인 정보 등을 제공하는 웹 서비스.',
+		techStack: [
+			'TypeScript',
+			'React',
+			'Next.js',
+			'Tailwind CSS',
+			'Jotai',
+			'Jest',
+			'Prisma',
+			'Storybook',
+			'Postman',
+			'Sentry',
+			'AWS',
+			'Jenkins',
+			'Docker',
+		],
+		role: ['프론트엔드 개발', 'DevOps'],
+		teamSize: 15,
+		tasks: [
+			{
+				title: '블로그 시스템 구현',
+				details: [
+					'react-spring을 활용한 애니메이션 효과로 전체 글 개수를 슬롯머신 스타일로 표시하여 사용자 경험을 향상시켰습니다.',
+					'커스텀 캐러셀 컴포넌트를 직접 구현하여 메인 페이지의 시각적 매력을 높였습니다.',
+					'다양한 필터링 및 정렬 옵션을 제공하여 사용자가 원하는 콘텐츠를 쉽게 찾을 수 있도록 하였습니다.',
+					'페이지네이션 구현 시 사용자 편의를 고려하여 페이지 번호 클릭 시 화면 상단으로 자동 스크롤 되도록 하였습니다.',
+				],
+			},
+			{
+				title: 'Markdown 에디터 개발',
+				details: [
+					'실시간 미리보기 기능을 갖춘 Markdown 에디터를 구현하였습니다.',
+					'커스텀 Markdown 문법 지원으로 풍부하고 편리한 컨텐츠 작성 환경을 제공하였습니다.',
+				],
+			},
+			{
+				title: '사이트 정보 Footer 개발',
+				details: [
+					'웹사이트의 Footer 컴포넌트를 설계하고 구현하였습니다.',
+					'사이트와 관련된 기타 정보들이 포함되어 있습니다.',
+				],
+			},
+			{
+				title: '코드 품질 향상',
+				details: [
+					'Jest를 이용한 단위 테스트와 Storybook을 활용한 컴포넌트 문서화로 코드 품질을 향상시켰습니다.',
+					'Sentry를 통한 실시간 오류 모니터링 시스템을 구축하여 신속한 버그 대응이 가능하도록 했습니다.',
+				],
+			},
+			{
+				title: 'DevOps 및 인프라 구축',
+				details: [
+					'AWS를 활용한 확장 가능한 클라우드 인프라를 설계하고 구축하였습니다.',
+					'Jenkins를 이용한 CI/CD 파이프라인을 구성하여 지속적 통합 및 배포 프로세스를 자동화하였습니다.',
+					'Docker를 사용하여 서비스 컨테이너화를 진행하고, 개발 및 운영 환경을 구성하였습니다.',
+				],
+			},
+		],
+		troubleshooting: [
+			{
+				title: '블로그 글 조회수 중복 카운트 방지',
+				details: [
+					'동일 사용자의 단시간 내 반복 조회로 인한 조회수 부풀림 문제가 발생하였습니다.',
+					'이를 해결하기 위해 10초 이상 페이지에 머물러야 조회수가 증가하도록 개선하였습니다.',
+				],
+			},
+		],
+		performanceImprovements: [
+			{
+				title: '이미지 최적화',
+				details: [
+					'Next.js의 Image 컴포넌트를 활용하여 이미지 로딩 성능을 최적화하였습니다.',
+				],
+			},
+			{
+				title: '동적 임포트를 통한 코드 스플리팅',
+				details: [
+					'Next.js의 dynamic import를 활용하여 게시글 내부 컴포넌트들을 동적으로 로드하도록 구현했습니다.',
+					'이를 통해 초기 페이지 로드 시간을 단축하고, 필요한 시점에 관련 컴포넌트를 로드하여 전체적인 성능을 개선했습니다.',
+				],
+			},
+		],
+		specialImplementations: [
+			{
+				title: '확장 가능한 타이포그래피 시스템',
+				details: [
+					'Tailwind CSS를 확장하여 프로젝트 전반에 걸쳐 사용할 수 있는 일관된 타이포그래피 시스템을 구축했습니다.',
+					'반응형 디자인을 고려한 폰트 스케일링 로직을 개발하여, 화면 크기에 따라 자동으로 폰트 크기가 조절되도록 하였습니다.',
+					'이를 통해 디자인 일관성을 유지하면서도 다양한 디바이스에 최적화된 사용자 경험을 제공할 수 있게 되었습니다.',
+				],
+			},
+			{
+				title: 'GitHub 스타일 기여도 그래프',
+				details: [
+					'사용자의 글쓰기 활동을 시각화하기 위해 GitHub의 기여도 그래프와 유사한 커스텀 컴포넌트를 개발하였습니다.',
+					'더 상세한 정보를 볼 수 있는, 마우스 호버 시 나타나는 툴팁 기능을 추가하였습니다.',
+					'이 기능을 통해 해당 사용자의 활동 패턴을 직관적으로 표현하고, 지속적인 참여를 유도하는 효과를 얻도록 하였습니다.',
+				],
+			},
+			{
+				title: '효율적인 팀 협업 시스템 구축',
+				details: [
+					'15명 규모의 팀(프론트엔드 5명, 백엔드 5명, 디자이너 5명)에서 프론트엔드 팀장으로서 활동하였습니다.',
+					'Notion, Discord, Slack을 활용한 체계적인 문서화 및 실시간 커뮤니케이션 시스템을 구축하여 원활한 정보 공유와 신속한 의사결정을 가능케 했습니다.',
+					'주간 회의를 통해 프로젝트 진행 상황을 공유하고 코드 품질을 지속적으로 개선하였습니다.',
+					'Figma와 Swagger를 활용하여 디자인-개발 및 프론트엔드-백엔드 간 효율적인 협업 프로세스를 확립하였습니다.',
+				],
+			},
+		],
+		projectData: {
+			images: [
+				'/images/itzip/image1.png',
+				'/images/itzip/image2.png',
+				'/images/itzip/image3.png',
+				'/images/itzip/image4.png',
+				'/images/itzip/image5.png',
+				'/images/itzip/image6.png',
+				'/images/itzip/image7.png',
+				'/images/itzip/image0.png',
+			],
+			subLinks: [
+				{
+					type: 'video',
+					url: '/',
+					visible: false,
+				},
+				{
+					type: 'ppt',
+					url: '/',
+					visible: false,
+				},
+				{ type: 'doc', url: '/', visible: false },
+				{ type: 'other', url: '/', visible: false },
+			],
+			background: {
+				image: '/images/itzip/image0.png',
+			},
+		},
+	},
+	{
 		id: 'jukrap-website',
 		title: 'Jukrap Website',
 		subtitle: 'Ju-cheol Park',
-		duration: '2024.06 ~ 2024.06',
+		duration: '2024.06 ~ Present',
 		links: [
 			{
 				type: 'github',
@@ -26,7 +189,6 @@ export const projectsDetailData: ProjectDetailType[] = [
 		],
 		overview: 'React 및 Next.js 기반의 개인용 웹사이트.',
 		techStack: [
-			'HTML & CSS',
 			'TypeScript',
 			'React',
 			'Tailwind CSS',
@@ -328,13 +490,6 @@ export const projectsDetailData: ProjectDetailType[] = [
 		],
 		specialImplementations: [
 			{
-				title: '체격 차이 고려 알고리즘',
-				details: [
-					'사용자 간 체격 차이를 고려한 자세 측정 알고리즘을 개발했습니다.',
-					'이를 통해 다양한 체형의 사용자에게 정확한 자세 피드백을 제공할 수 있었습니다.',
-				],
-			},
-			{
 				title: '프로젝트 성과',
 				details: [
 					'경남소프트웨어경진대회에서 예선 통과 후 본선까지 진출하였습니다.',
@@ -561,13 +716,6 @@ export const projectsDetailData: ProjectDetailType[] = [
 		],
 		specialImplementations: [
 			{
-				title: '사용자 맞춤형 집중력 감지 시스템',
-				details: [
-					'사용자의 얼굴 움직임을 기반으로하는 집중력 감지 모델을 개발하였습니다.',
-					'집중력 감지 강도를 사용자가 직접 조절할 수 있게 하여 다양한 학습 환경에 대응할 수 있도록 하였습니다.',
-				],
-			},
-			{
 				title: '애자일 방법론 기반의 팀 협업 및 프로젝트 관리',
 				details: [
 					'깃허브를 활용하여 팀 프로젝트를 효율적으로 관리하였습니다.',
@@ -635,7 +783,6 @@ export const projectsDetailData: ProjectDetailType[] = [
 		overview:
 			'여러 ESD에서 제공하는 할인, 무료 소프트웨어 목록을 정리해서 알려주는 웹서비스.',
 		techStack: [
-			'HTML & CSS',
 			'JavaScript',
 			'React',
 			'Firebase',
@@ -649,7 +796,6 @@ export const projectsDetailData: ProjectDetailType[] = [
 				title: '프론트엔드 개발',
 				details: [
 					'React를 기반으로 한 동적 웹 애플리케이션을 구현하였습니다.',
-					'styled-components를 활용하여 재사용 가능한 UI 컴포넌트를 제작하였습니다.',
 					'react-router-dom을 사용하여 효율적인 라우팅 시스템을 구축하였습니다.',
 					'react-bootstrap을 활용하여 반응형 디자인을 구현하였습니다.',
 					'메인 페이지, 핫딜 페이지, 검색 페이지 등 주요 페이지들의 레이아웃과 기능을 구현하였습니다.',
@@ -658,16 +804,16 @@ export const projectsDetailData: ProjectDetailType[] = [
 			{
 				title: '백엔드 개발',
 				details: [
-					'Express를 사용하여 서버를 구축하고 RESTful API를 설계 및 구현하였습니다.',
+					'Express를 사용하여 백엔드를 설계 및 구현하였습니다.',
 					'Puppeteer 라이브러리를 활용하여 효율적인 웹 크롤링 시스템을 개발하였습니다.',
-					'수만 건의 핫딜 데이터를 3~5분 내에 크롤링 및 가공하는 고성능 시스템을 구현하였습니다.',
+					'수만 건의 핫딜 데이터를 3~5분 내에 크롤링 및 가공하는 시스템을 구현하였습니다.',
 					'Firebase를 활용하여 문서 기반의 NoSQL 데이터베이스를 설계하고 구축하였습니다.',
 				],
 			},
 			{
 				title: '재사용 가능한 컴포넌트 개발',
 				details: [
-					'여러 페이지에서 공통적으로 사용되는 상품 정보 컴포넌트를 제작하였습니다.',
+					'styled-components를 이용하여, 여러 페이지에서 공통적으로 사용되는 상품 정보 컴포넌트를 제작하였습니다.',
 					'각 ESD 사이트로 연결되는 하이퍼링크 기능을 포함한 컴포넌트를 구현하였습니다.',
 					'이를 통해 개발 효율성을 높이고 일관된 UI/UX를 제공할 수 있었습니다.',
 				],
@@ -684,13 +830,6 @@ export const projectsDetailData: ProjectDetailType[] = [
 			},
 		],
 		specialImplementations: [
-			{
-				title: '크롤링 및 데이터 처리 최적화',
-				details: [
-					'Puppeteer를 활용한 효율적인 크롤링 시스템으로 단시간 내 대량의 데이터 수집을 실현하였습니다.',
-					'Firebase의 문서 기반 데이터베이스를 활용하여 대량 데이터의 빠른 입출력을 구현하였습니다.',
-				],
-			},
 			{
 				title: '효율적인 협업 시스템 구축',
 				details: [

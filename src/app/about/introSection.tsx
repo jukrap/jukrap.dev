@@ -138,22 +138,41 @@ const IntroSection: React.FC = () => {
 				</div>
 				<div className="flex flex-col items-start gap-6 w-fit h-fit pt-2">
 					<p className="text-lg leading-10 tracking-tight text-left text-foreground">
-						안녕하세요! 사용자 친화적인 서비스 개발에 큰 관심이 있는 모바일 &
-						프론트엔드 개발자, 박주철입니다.
+						오늘도 오류와 투쟁을 벌이는 프론트엔드 개발자,{' '}
+						<span className="font-bold">박주철</span>입니다.
 					</p>
-					<p className="text-lg leading-10 tracking-tight text-left text-foreground">
-						저는 사람들과 의견을 나누고 토론하는 것을 좋아합니다. 더 나은 소프트웨어를
-						만드는 것에 관심이 많으며, 이를 위해 새로운 기술과 방법론을 학습하고
-						적용하는 데 주저하지 않습니다.
+					<p className="text-base leading-10 tracking-tight text-left text-foreground">
+						<span className="font-bold">
+							1. 과정과 결과, 둘 모두 중요하다고 생각합니다.
+						</span>
+						<br />
+						어느 한 쪽에 치중되는 것은 제대로 된 개발과는 거리가 멀다고 생각합니다. 이
+						때문에, 개발자라면 최대한 둘 모두를 가져가야 한다고 생각합니다.
 					</p>
-					<p className="text-lg leading-10 tracking-tight text-left text-foreground">
-						다양한 경험과 열정을 바탕으로, 저는 끊임없이 배우고 성장하며 개발자로서의
-						역량을 키워나가고 있습니다. 다양한 팀과 협업하여 의미 있는 프로젝트에
-						기여하는 개발자가 되는 것이 저의 꿈입니다.
+					<p className="text-base leading-10 tracking-tight text-left text-foreground">
+						<span className="font-bold">
+							2. 재사용성이 높은 유연한 코드를 작성하고자 노력합니다.
+						</span>
+						<br />
+						코드도 줄이고, 작업량도 줄이는 핵심. 한편으로는 유연성과 지속가능한 코드가
+						바로 재사용성이 높은 코드이기에 이를 작성하고자 노력합니다. 최종적으로는
+						동료들에게 당당히 보여줄 수 있는 코드를 추구합니다.
 					</p>
-					<p className="text-lg leading-10 tracking-tight text-left text-foreground">
-						혹시 협업 가능성에 대해 이야기를 나누고 싶거나 질문이 있다면 언제든 연락
-						주시기 바랍니다. 저는 새로운 기회와 도전을 환영합니다!
+					<p className="text-base leading-10 tracking-tight text-left text-foreground">
+						<span className="font-bold">3. 커뮤니케이션의 중요성을 높게 봅니다.</span>
+						<br />
+						인간은 사회성의 동물! 그리고 저는 ENFJ입니다! 타인을 존중하며 이야기하는
+						것은 언제나 즐겁습니다. 또한, 다른 사람과 의견을 나누고 반영하는 과정은
+						개발의 폭을 넓히는 과정이라고 생각합니다. 그렇기에 커뮤니케이션은 언제나
+						저의 성장 양분입니다.
+					</p>
+					<p className="text-base leading-10 tracking-tight text-left text-foreground">
+						<span className="font-bold">
+							4. 마지막으로, 오류 찾기는 생각보다 재미있습니다
+						</span>
+						<br />
+						의외로 도파민 분비가 많이 되는 느낌입니다. 또한, 다른 사람의 코드를 보며
+						원리를 분석하고 감탄하는 것도 보람찬 과정으로 여깁니다.
 					</p>
 				</div>
 			</div>

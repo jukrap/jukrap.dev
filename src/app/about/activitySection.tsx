@@ -11,7 +11,7 @@ const ActivitySection: React.FC = () => {
 						스터디 운영
 					</p>
 					<p className="font-medium text-sm leading-6 text-right text-muted-foreground">
-						2024.05 ~ Current
+						2024.05 ~ Present
 					</p>
 				</div>
 				<div className="w-[460px] flex flex-col items-start gap-3">

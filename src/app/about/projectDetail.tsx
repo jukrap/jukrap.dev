@@ -191,7 +191,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 						</div>,
 					)}
 
-					{renderSection('프로젝트 업무', renderList(project.tasks))}
+					{renderSection('프로젝트 기여', renderList(project.tasks))}
 
 					{project.troubleshooting &&
 						renderSection('트러블슈팅', renderList(project.troubleshooting))}

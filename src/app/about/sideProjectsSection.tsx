@@ -115,7 +115,7 @@ const SideProjectsSection: React.FC = () => {
 								{project.description.map((item, index) => (
 									<div
 										key={index}
-										className="grid grid-cols-[auto,1fr] items-start gap-4"
+										className="grid grid-cols-[auto,1fr] items-start gap-3"
 									>
 										<span className="w-1.5 h-1.5 bg-foreground rounded-full mt-2"></span>
 										<span className="text-sm md:text-base leading-relaxed text-left text-foreground">

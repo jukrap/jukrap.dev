@@ -67,7 +67,7 @@ const ActivitySection: React.FC = () => {
 								{activity.details.map((detail, detailIndex) => (
 									<div
 										key={detailIndex}
-										className="grid grid-cols-[auto,1fr] items-start gap-4"
+										className="grid grid-cols-[auto,1fr] items-start gap-3"
 									>
 										<span className="w-1.5 h-1.5 bg-foreground rounded-full mt-2"></span>
 										<span className="text-sm md:text-base leading-6 text-left text-foreground">

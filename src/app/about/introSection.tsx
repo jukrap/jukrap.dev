@@ -83,7 +83,7 @@ const IntroSection: React.FC = () => {
 			setTimeout(() => {
 				setShowMessage(false);
 				setIsMessageFadingOut(false);
-			}, 300);
+			}, 200);
 		}
 	};
 
@@ -98,7 +98,7 @@ const IntroSection: React.FC = () => {
 	return (
 		<section className="w-full max-w-[670px] flex flex-col md:flex-row justify-start items-center md:items-start gap-8 md:gap-11">
 			{/* 프로필 섹션 */}
-			<div className="flex flex-col items-center gap-4 w-fit md:sticky md:top-24">
+			<div className="flex flex-col items-center gap-4 w-fit md:sticky md:top-24 pt-9 md:pt-0">
 				<ProfileImage
 					isFlipped={isFlipped}
 					onClick={handleImageClick}

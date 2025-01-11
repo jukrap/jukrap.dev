@@ -40,7 +40,7 @@ export function Navbar() {
 	return (
 		<header className="sticky top-0 w-full z-50">
 			<nav className="bg-background/95 transition-colors duration-500 border-b border-border">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div className="max-w-7xl mx-auto px-5 sm:px-7 lg:px-9">
 					<div className="flex justify-between items-center h-16">
 						<Link href="/" className="shrink-0">
 							<span className="font-bold text-xl text-primary transition-colors duration-500">

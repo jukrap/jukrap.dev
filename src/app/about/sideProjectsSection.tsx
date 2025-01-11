@@ -1,3 +1,4 @@
+// src/app/about/sideProjectsSection.tsx
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
@@ -108,14 +109,14 @@ const SideProjectsSection: React.FC = () => {
 
 						{/* 프로젝트 설명 */}
 						<div className="md:w-[460px] flex flex-col items-start gap-2 mt-2 md:mt-0">
-							<p className="text-base md:text-lg font-bold leading-relaxed tracking-tight text-left text-foreground break-keep">
+							<p className="text-base md:text-lg font-bold leading-relaxed tracking-tight text-left text-foreground">
 								{project.introduction}
 							</p>
 							<div className="flex flex-col gap-1">
 								{project.description.map((item, index) => (
 									<div
 										key={index}
-										className="grid grid-cols-[auto,1fr] items-start gap-3"
+										className="grid grid-cols-[auto,1fr] items-start gap-4"
 									>
 										<span className="w-1.5 h-1.5 bg-foreground rounded-full mt-2"></span>
 										<span className="text-sm md:text-base leading-relaxed text-left text-foreground">

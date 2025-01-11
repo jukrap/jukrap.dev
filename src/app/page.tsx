@@ -65,7 +65,7 @@ export default function HomePage() {
 						{typedText === '' && <span className="opacity-0">_</span>}
 					</h1>
 				</div>
-				<p className="font-bold text-xl md:text-2xl lg:text-3xl text-center text-foreground">
+				<p className="font-bold text-xl md:text-2xl lg:text-3xl text-center text-foreground break-keep">
 					Jukrap의 개인 사이트에 오신 것을 환영합니다.
 				</p>
 			</section>
@@ -77,7 +77,7 @@ export default function HomePage() {
 			</section>
 
 			<section className="flex flex-col items-center gap-8 md:gap-16 px-4">
-				<div className="flex flex-col items-center gap-6 md:gap-8 text-center">
+				<div className="flex flex-col items-center gap-6 md:gap-8 text-center break-keep">
 					<p className="font-medium text-lg md:text-2xl leading-relaxed text-foreground">
 						혹시 저의 <span className="font-bold">포트폴리오 파일</span>이
 						필요하신가요?

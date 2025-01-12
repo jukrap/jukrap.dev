@@ -5,7 +5,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'captain-donghae',
 		title: '동해선장',
 		subtitle: 'Captain Donghae',
-    platform: ['Web'],
+		platform: ['Web'],
 		duration: '2024.10.04 ~ 2024.10.06',
 		links: [
 			{
@@ -32,10 +32,10 @@ export const projectsDetailData: ProjectDetailType[] = [
 			'React',
 			'Next.js',
 			'Tailwind CSS',
-			'Google Map',
+			'Google Maps',
 			'Storybook',
 			'AWS',
-      'Github Actions',
+			'Github Actions',
 			'Docker',
 		],
 		role: ['Frontend'],
@@ -148,7 +148,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'itzip',
 		title: '잇집',
 		subtitle: 'Itzip',
-    platform: ['Web'],
+		platform: ['Web'],
 		duration: '2024.07 ~ Present',
 		links: [
 			{
@@ -312,7 +312,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'jukrap-website',
 		title: 'Jukrap의 개인 사이트',
 		subtitle: 'Jukrap Website',
-    platform: ['Web'],
+		platform: ['Web'],
 		duration: '2024.06 ~ Present',
 		links: [
 			{
@@ -405,7 +405,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'sharebby',
 		title: '쉐어비',
 		subtitle: 'ShareBBy',
-    platform: ['Mobile'],
+		platform: ['Mobile'],
 		duration: '2024.04 ~ 2024.06',
 		links: [
 			{
@@ -546,7 +546,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'posture-teacher',
 		title: '자세선생',
 		subtitle: 'Posture Teacher',
-    platform: ['Mobile'],
+		platform: ['Mobile'],
 		duration: '2022.07 ~ 2023.05',
 		links: [
 			{
@@ -682,7 +682,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'chatterbox',
 		title: '수다쟁이',
 		subtitle: 'Chatterbox',
-    platform: ['Mobile'],
+		platform: ['Mobile'],
 		duration: '2022.11 ~ 2022.12',
 		links: [
 			{
@@ -782,10 +782,104 @@ export const projectsDetailData: ProjectDetailType[] = [
 		},
 	},
 	{
+		id: 'labyrinth-escape-game',
+		title: '미궁 탈출 게임',
+		subtitle: 'Labyrinth Escape Game',
+		platform: ['Game'],
+		duration: '2022.05 ~ 2022.06',
+		links: [
+			{
+				type: 'github',
+				url: 'https://github.com/jukrap/Labyrinth-Escape-Game',
+				visible: true,
+			},
+			{
+				type: 'appleStore',
+				url: '/',
+				visible: false,
+			},
+			{
+				type: 'googleStore',
+				url: '/',
+				visible: false,
+			},
+			{ type: 'url', url: '/', visible: false },
+		],
+		overview:
+			'미궁 탈출을 목표로 하는 1인칭 슈팅 게임. 유니티 엔진으로 개발되었습니다.',
+		techStack: ['C#', 'Unity'],
+		role: ['Game Developer'],
+		teamSize: 1,
+		tasks: [
+			{
+				title: '게임 시스템 및 컨텐츠 개발',
+				details: [
+					'1인칭 슈팅, 체력, 점수 등의 게임 시스템을 구현하였습니다.',
+					'컷씬, 적 AI, 아이템, 엔딩 등 게임 컨텐츠를 개발하였습니다.',
+					'유니티 에셋 스토어의 리소스를 활용하여 개발 기간을 단축하였습니다.',
+				],
+			},
+		],
+		troubleshooting: [
+			{
+				title: '프리팹 관련 문제 해결',
+				details: [
+					'프리팹 기능에 대한 이해도 부족으로 프리팹이 손실되는 문제가 발생하였습니다.',
+					'프리팹의 개념과 사용법을 학습하고 활용하여 같은 문제가 일어나지 않도록 하였습니다.',
+				],
+			},
+			{
+				title: '사운드 및 애니메이션 오류 수정',
+				details: [
+					'사운드가 재생되지 않거나 애니메이션 관련 오류로 게임이 멈추는 문제가 있었습니다.',
+					'실행 순서와 설정을 점검하고 수정하여 오류를 해결하였습니다.',
+				],
+			},
+		],
+		specialImplementations: [
+			{
+				title: '싱글톤 패턴 학습 및 적용',
+				details: [
+					'개발 중 싱글톤 패턴의 필요성을 인지하고 학습하였습니다.',
+					'싱글톤 패턴을 통해 게임 데이터와 핵심 기능을 효율적으로 관리하였습니다.',
+					'코드 중복 방지, 일관성 유지 등 싱글톤 패턴 활용의 장점을 경험하였습니다.',
+				],
+			},
+		],
+		projectData: {
+			images: [
+				'/images/labyrinth-escape-game/image1.png',
+				'/images/labyrinth-escape-game/image2.png',
+				'/images/labyrinth-escape-game/image3.png',
+				'/images/labyrinth-escape-game/image4.png',
+				'/images/labyrinth-escape-game/image5.png',
+				'/images/labyrinth-escape-game/image6.png',
+				'/images/labyrinth-escape-game/image0.png',
+      ],
+			subLinks: [
+				{
+					type: 'video',
+					url: 'https://youtu.be/rkAiZ0MaRwU',
+					visible: true,
+				},
+				{
+					type: 'doc',
+					url: 'https://drive.google.com/file/d/1UU6-vcIu9C7KaCVa7pMEgQjNAAOaXZIp/view?usp=sharing',
+					visible: true,
+				},
+				{ type: 'ppt', url: '/', visible: false },
+				{ type: 'other', url: '/', visible: false },
+			],
+			background: {
+				image: '/images/labyrinth-escape-game/image0.png',
+			},
+		},
+	},
+	{
 		id: 'mytime',
 		title: '마이타임',
 		subtitle: 'MyTime',
-    platform: ['Mobile'],
+		platform: ['Mobile'],
 		duration: '2022.02 ~ 2022.06',
 		links: [
 			{
@@ -904,7 +998,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'esd-hotdeal',
 		title: 'ESD 핫딜',
 		subtitle: 'ESD HotDeal',
-    platform: ['Web'],
+		platform: ['Web'],
 		duration: '2021.07 ~ 2021.10',
 		links: [
 			{
@@ -926,7 +1020,14 @@ export const projectsDetailData: ProjectDetailType[] = [
 		],
 		overview:
 			'여러 ESD에서 제공하는 할인, 무료 소프트웨어 목록을 정리해서 알려주는 웹서비스.',
-		techStack: ['JavaScript', 'React', 'Firebase', 'Node.js', 'Express', 'Puppeteer'],
+		techStack: [
+			'JavaScript',
+			'React',
+			'Firebase',
+			'Node.js',
+			'Express',
+			'Puppeteer',
+		],
 		role: ['Team Leader', 'Frontend', 'Backend'],
 		teamSize: 2,
 		tasks: [
@@ -970,9 +1071,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		specialImplementations: [
 			{
 				title: '프로젝트 성과',
-				details: [
-					'경남소프트웨어경진대회에서 최우수상을 수상하였습니다.',
-				],
+				details: ['경남소프트웨어경진대회에서 최우수상을 수상하였습니다.'],
 			},
 			{
 				title: '효율적인 협업 시스템 구축',

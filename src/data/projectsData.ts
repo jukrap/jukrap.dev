@@ -14,7 +14,7 @@ export const projectsData: ProjectType[] = [
       '드래그 가능한 모달 UI/UX 구현',
 			'DIVE 2024 해커톤 발제사 3위 수상',
 		],
-		techStack: 'TypeScript・React・Next.js・Tailwind CSS・Google Map・Storybook・AWS・Github Actions・Docker',
+		techStack: 'TypeScript・React・Next.js・Tailwind CSS・Google Maps・Storybook・AWS・Github Actions・Docker',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },
@@ -155,6 +155,30 @@ export const projectsData: ProjectType[] = [
 			{
 				type: 'github',
 				url: 'https://github.com/jukrap/Chatterbox',
+				visible: true,
+			},
+			{ type: 'url', url: '/', visible: false },
+			{ type: 'detailView', url: '/detailView', visible: true },
+		],
+	},
+	{
+		id: 'labyrinth-escape-game',
+		title: 'Labyrinth Escape Game',
+		duration: '2022.05 ~ 2022.6',
+		major: false,
+		introduction: '미궁을 탈출하는 1인칭 슈팅 게임.',
+		description: [
+			'1인 개발',
+			'유니티 엔진의 에셋 스토어 활용',
+			'싱글톤 패턴을 기반으로 개발',
+		],
+		techStack: 'C#ㆍUnity',
+		links: [
+			{ type: 'appleStore', url: '/', visible: false },
+			{ type: 'googleStore', url: '/', visible: false },
+			{
+				type: 'github',
+				url: 'https://github.com/jukrap/Labyrinth-Escape-Game',
 				visible: true,
 			},
 			{ type: 'url', url: '/', visible: false },

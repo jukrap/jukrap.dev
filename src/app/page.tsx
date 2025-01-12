@@ -7,7 +7,6 @@ import useTypingEffect from '@/hook/useTypingEffect';
 import { Link } from './types';
 import { useIcon } from '@/hook/useIcon';
 
-
 const links: Link[] = [
 	{
 		text: 'Email',
@@ -15,9 +14,15 @@ const links: Link[] = [
 		url: 'mailto:jukrap628@gmail.com',
 	},
 	{
-		text: 'Github',
+		text: '[정지] Github',
 		type: 'github',
 		url: 'https://github.com/jukrap',
+		isExternal: true,
+	},
+	{
+		text: '[임시] Github',
+		type: 'github',
+		url: 'https://github.com/jukrap2',
 		isExternal: true,
 	},
 	{
@@ -45,10 +50,10 @@ export default function HomePage() {
 	});
 
 	return (
-		<main className="w-fixed flex flex-col items-center gap-24 pt-44 pb-48">
-			<section className="flex flex-col items-center gap-10 pt-30">
+		<main className="flex flex-col items-center px-4 sm:px-6 lg:px-8 py-8 md:py-16 lg:py-24 gap-8 md:gap-16 lg:gap-24">
+			<section className="flex flex-col items-center gap-6 md:gap-10 w-full max-w-3xl">
 				<div className="flex items-center border-foreground leading-6 py-3 border-t border-b gap-65">
-					<h1 className="font-bold text-8xl text-center text-foreground min-h-[4.5rem] select-none">
+					<h1 className="font-bold text-4xl md:text-6xl lg:text-8xl text-center text-foreground min-h-[3rem] md:min-h-[4.5rem] w-full select-none">
 						{typedText.split('').map((char, index) => (
 							<span
 								key={index}
@@ -60,22 +65,20 @@ export default function HomePage() {
 						{typedText === '' && <span className="opacity-0">_</span>}
 					</h1>
 				</div>
-				<div className="flex items-center gap-65">
-					{' '}
-					{/* 여기 여차하면 삭제하는 게 좋을 듯. 조금 부자연스러움. */}
-					<p className="font-bold text-3xl leading-auto text-center text-foreground">
-						Jukrap의 개인 사이트에 오신 것을 환영합니다.
-					</p>
-				</div>
+				<p className="font-bold text-xl md:text-2xl lg:text-3xl text-center text-foreground break-keep">
+					Jukrap의 개인 사이트에 오신 것을 환영합니다.
+				</p>
 			</section>
-			<section className="flex flex-row items-center justify-center gap-10">
+
+			<section className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10 flex-wrap">
 				{links.map((link) => (
 					<HomeBodyLink key={link.url} {...link} icon={getIcon(link.type)} />
 				))}
 			</section>
-			<section className="flex flex-col items-center gap-16">
-				<div className="flex flex-col items-center gap-8">
-					<p className="font-medium text-2xl leading-8 text-center text-foreground">
+
+			<section className="flex flex-col items-center gap-8 md:gap-16 px-4">
+				<div className="flex flex-col items-center gap-6 md:gap-8 text-center break-keep">
+					<p className="font-medium text-lg md:text-2xl leading-relaxed text-foreground">
 						혹시 저의 <span className="font-bold">포트폴리오 파일</span>이
 						필요하신가요?
 						<br />
@@ -85,7 +88,7 @@ export default function HomePage() {
 					<a
 						href="/files/Ju-cheol-Park_Frontend.pdf"
 						download
-						className="relative flex items-center gap-2 px-4 py-2 font-bold text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300 select-none"
+						className="relative flex items-center gap-2 px-4 py-2 font-bold text-lg md:text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300 select-none"
 					>
 						<div className="relative w-6 h-6 flex items-center justify-center no-select">
 							<Image

@@ -2,6 +2,31 @@ import { ProjectType } from '../app/about/types';
 
 export const projectsData: ProjectType[] = [
 	{
+		id: 'captain-donghae',
+		title: 'C. Donghae',
+		duration: '2024.10',
+		introduction: '동해선 이용객을 위한 실시간 종합 가이드 서비스.',
+		description: [
+			'프론트엔드 개발',
+      '구글 맵스 기반 지도 서비스 개발',
+      '실시간 역 혼잡도, 날씨, 맛집 정보, 추천 코스 등 제공',
+      '드래그 가능한 모달 UI/UX 구현',
+			'DIVE 2024 해커톤 발제사 3위 수상',
+		],
+		techStack: 'TypeScript・React・Next.js・Tailwind CSS・Google Map・Storybook・AWS・Github Actions・Docker',
+		links: [
+			{ type: 'appleStore', url: '/', visible: false },
+			{ type: 'googleStore', url: '/', visible: false },
+			{
+				type: 'github',
+				url: 'https://github.com/Busan-Trail/busan_trail_front',
+				visible: true,
+			},
+			{ type: 'url', url: '/', visible: false },
+			{ type: 'detailView', url: '/detailView', visible: true },
+		],
+	},
+	{
 		id: 'itzip',
 		title: 'Itzip',
 		duration: '2024.07 ~ Present',
@@ -62,7 +87,7 @@ export const projectsData: ProjectType[] = [
 			'Pull to Refresh와 Infinite Scroll 적용',
 			'데이터베이스 설계',
 		],
-		techStack: 'JavaScriptㆍReact NativeㆍFirebase',
+		techStack: 'JavaScriptㆍReact NativeㆍFirebaseㆍFaster Image',
 		links: [
 			{
 				type: 'appleStore',
@@ -165,7 +190,7 @@ export const projectsData: ProjectType[] = [
 			'Express와 Firebase 기반의 백엔드 작업',
 			'경남소프트웨어경진대회 최우수상 수상',
 		],
-		techStack: 'JavaScriptㆍReactㆍFirebaseㆍNode.jsㆍExpress',
+		techStack: 'JavaScriptㆍReactㆍFirebaseㆍNode.jsㆍExpressㆍPuppeteer',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },

@@ -2,9 +2,153 @@ import { ProjectDetailType } from '../app/about/types';
 
 export const projectsDetailData: ProjectDetailType[] = [
 	{
+		id: 'captain-donghae',
+		title: '동해선장',
+		subtitle: 'Captain Donghae',
+    platform: ['Web'],
+		duration: '2024.10.04 ~ 2024.10.06',
+		links: [
+			{
+				type: 'github',
+				url: 'https://github.com/Busan-Trail/busan_trail_front',
+				visible: true,
+			},
+			{
+				type: 'appleStore',
+				url: '/',
+				visible: false,
+			},
+			{
+				type: 'googleStore',
+				url: '/',
+				visible: false,
+			},
+			{ type: 'url', url: '/', visible: false },
+		],
+		overview:
+			'동해선 기차 이용객을 위한 실시간 정보, 대중교통 경로, 러닝/자전거 추천 코스, 주변 맛집 정보 등을 제공하는 종합 가이드 웹 서비스.',
+		techStack: [
+			'TypeScript',
+			'React',
+			'Next.js',
+			'Tailwind CSS',
+			'Google Map',
+			'Storybook',
+			'AWS',
+      'Github Actions',
+			'Docker',
+		],
+		role: ['Frontend'],
+		teamSize: 3,
+		tasks: [
+			{
+				title: '구글 맵스 플랫폼 기반 동해선 서비스 구현',
+				details: [
+					'다양한 지도 API 중 대중교통 경로 안내, 마커 커스터마이징 등을 비교 분석하여 구글 맵스 플랫폼을 선정하였습니다.',
+					'Maps JavaScript API를 활용한 동적 지도, Places API 기반 장소 검색, Directions API 활용 대중교통 경로 안내, Geocoding API 기반 주소 변환 기능을 구현하였습니다.',
+					'Static Maps API를 활용하여 특정 위치의 정적 지도 이미지를 제공하고, Geolocation API 연동으로 실시간 위치 추적 기능을 구현하였습니다.',
+				],
+			},
+			{
+				title: '외부 API 통합 및 데이터 서비스 구축',
+				details: [
+					'axios를 활용한 API 모듈화와 Next.js API Routes를 통해 구글 맵스 API, 날씨, 지하철역 정보(실시간 혼잡도 포함), 러닝/자전거 코스, 맛집 정보 등 다양한 외부 API를 통합 구현하였습니다.',
+					'각 API 요청에 대한 파라미터 처리(위도/경도, 페이지네이션, 카테고리 필터링 등)와 에러 상황 대응을 통해 안정적인 데이터 서비스를 제공하였습니다.',
+				],
+			},
+			{
+				title: '컴포넌트 아키텍처 설계 및 UI 개발',
+				details: [
+					'합성(Composition) 패턴을 적용하여 기본 기능을 가진 Base 컴포넌트와 이를 확장한 구체적인 컴포넌트를 설계하였습니다.',
+					'Storybook을 활용한 컴포넌트 주도 개발(CDD)로 각 컴포넌트의 기능과 디자인을 체계적으로 개발하였습니다.',
+					'계층형 폴더 구조와 명확한 네이밍을 통해 Base 컴포넌트와 확장된 컴포넌트 간의 관계를 직관적으로 파악할 수 있도록 구성하였습니다.',
+					'기능과 스타일링의 관심사를 분리하여 유연하고 재사용 가능한 컴포넌트 구조를 확립하였습니다.',
+				],
+			},
+			{
+				title: '인터랙티브 모달 컴포넌트 구현',
+				details: [
+					'react-spring과 use-gesture를 활용하여 바텀 시트 모달의 부드러운 애니메이션과 제스처 인터랙션을 직접 구현하였습니다.',
+					'드래그 거리와 속도에 따른 단계별 위치 조정(10%, 30%, 60%, 85%, 92%)을 구현하여 직관적인 사용자 경험을 제공하였습니다.',
+					'스크롤과 드래그 상태를 동시에 관리하여 자연스러운 인터랙션이 가능하도록 구현하였습니다.',
+				],
+			},
+		],
+		troubleshooting: [
+			{
+				title: 'Next.js API 라우팅 경로 설정 오류 해결',
+				details: [
+					'Next.js App Router에서 외부 Weather API 연동 시 API 라우팅 경로 불일치로 404 에러가 발생했습니다.',
+					'route.ts 파일의 위치와 이름 그리고 폴더 구조를 Next.js 13 App Router 컨벤션에 맞게 수정하고, 요청 파라미터 처리 로직을 개선하여 문제를 해결했습니다.',
+					'에러 처리와 로깅을 강화하여 향후 비슷한 문제가 발생했을 때 빠른 디버깅이 가능하도록 개선했습니다.',
+				],
+			},
+			{
+				title: '지도 서비스 API 선정 및 구현 과정의 문제 해결',
+				details: [
+					'국내외 지도 API들의 웹 버전 기능을 비교 분석하여(카카오맵, 네이버맵, T맵, 구글맵) 프로젝트 요구사항에 가장 적합한 API를 검토하였습니다.',
+					'각 지도 API의 웹 버전 지원 기능(대중교통 API, 길찾기 API, 커스텀 스타일링)을 종합적으로 평가하여 구글 맵스 플랫폼을 최종적으로 선택하였습니다.',
+					'Maps JavaScript API, Directions API, Places API, Static Maps API 등을 통합적으로 활용하여 완성도 높은 지도 서비스를 구현하였습니다.',
+				],
+			},
+		],
+		specialImplementations: [
+			{
+				title: 'DIVE 2024 글로벌 데이터 해커톤 수상',
+				details: [
+					'부산광역시 주최, 부산테크노파크 주관의 DIVE 2024 글로벌 데이터 해커톤에서 부산테크노파크원장상(발제사 3위)을 수상하였습니다.',
+					'코레일(한국철도공사)의 데이터를 활용하여 동해선 이용객을 위한 가이드 서비스 "동해선장"을 개발하였습니다.',
+					'3인 팀의 유일한 프론트엔드 개발자로 참여하여, 72시간이라는 제한된 시간 내에 Swagger 문서 기반의 백엔드 API 연동 및 프론트엔드 개발을 수행하였습니다.',
+					'구글 맵스 플랫폼 연동, 인터랙티브 UI 구현, 실시간 데이터 통합 등 프론트엔드 개발 전반을 담당하였습니다.',
+				],
+			},
+			{
+				title: '효율적인 팀 협업 체계 구축',
+				details: [
+					'프론트엔드 1명, 백엔드 2명으로 구성된 팀에서 원활한 협업을 위한 커뮤니케이션 체계를 구축하였습니다.',
+					'Discord를 통한 주 3회 정기 회의와 Notion을 활용한 기획 문서화로 체계적인 프로젝트 관리를 진행하였습니다.',
+					'GitHub Actions와 AWS, Docker를 활용한 CI/CD 파이프라인 구축으로 자동화된 배포 환경을 구성하였습니다.',
+				],
+			},
+		],
+		projectData: {
+			images: [
+				'/images/captain-donghae/image1.png',
+				'/images/captain-donghae/image2.png',
+				'/images/captain-donghae/image3.png',
+				'/images/captain-donghae/image4.png',
+				'/images/captain-donghae/image5.png',
+				'/images/captain-donghae/image6.png',
+				'/images/captain-donghae/image7.png',
+				'/images/captain-donghae/image8.png',
+				'/images/captain-donghae/image9.png',
+				'/images/captain-donghae/image10.png',
+				'/images/captain-donghae/image0.png',
+			],
+			subLinks: [
+				{
+					type: 'video',
+					url: 'https://drive.google.com/file/d/1kmKcmPQrVDH0KiIKOWL8xLBycssUYVnE/view?usp=sharing',
+					visible: true,
+				},
+				{
+					type: 'ppt',
+					url: 'https://docs.google.com/presentation/d/1wHhpKn5WytFvITK-Q20teTIfkeolH0Kr/edit?usp=sharing&ouid=106667079864051075882&rtpof=true&sd=true',
+					visible: true,
+				},
+				{ type: 'doc', url: '/', visible: false },
+				{ type: 'other', url: '/', visible: false },
+			],
+			background: {
+				image: '/images/captain-donghae/image0.png',
+			},
+		},
+	},
+	{
 		id: 'itzip',
 		title: '잇집',
 		subtitle: 'Itzip',
+    platform: ['Web'],
 		duration: '2024.07 ~ Present',
 		links: [
 			{
@@ -41,7 +185,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 			'Jenkins',
 			'Docker',
 		],
-		role: ['프론트엔드 개발', 'DevOps'],
+		role: ['Frontend', 'DevOps'],
 		teamSize: 15,
 		tasks: [
 			{
@@ -168,6 +312,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'jukrap-website',
 		title: 'Jukrap Website',
 		subtitle: 'Ju-cheol Park',
+    platform: ['Web'],
 		duration: '2024.06 ~ Present',
 		links: [
 			{
@@ -188,14 +333,8 @@ export const projectsDetailData: ProjectDetailType[] = [
 			{ type: 'url', url: 'https://jukrap.vercel.app', visible: true },
 		],
 		overview: 'React 및 Next.js 기반의 개인용 웹사이트.',
-		techStack: [
-			'TypeScript',
-			'React',
-			'Tailwind CSS',
-			'Zustand',
-			'Next.js',
-		],
-		role: ['1인 개발'],
+		techStack: ['TypeScript', 'React', 'Tailwind CSS', 'Zustand', 'Next.js'],
+		role: ['Frontend'],
 		teamSize: 1,
 		tasks: [
 			{
@@ -266,6 +405,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'sharebby',
 		title: '쉐어비',
 		subtitle: 'ShareBBy',
+    platform: ['Mobile'],
 		duration: '2024.04 ~ 2024.06',
 		links: [
 			{
@@ -287,8 +427,8 @@ export const projectsDetailData: ProjectDetailType[] = [
 		],
 		overview:
 			'다양한 취미 활동을 공유하고 참여할 수 있는 플랫폼을 제공하는 크로스플랫폼 앱.',
-		techStack: ['HTML & CSS', 'JavaScript', 'React Native', 'Firebase'],
-		role: ['발표', '디자인', '프론트엔드 및 백엔드 개발'],
+		techStack: ['JavaScript', 'React Native', 'Firebase', 'Faster Image'],
+		role: ['Frontend', 'Backend', 'Presentation'],
 		teamSize: 5,
 		tasks: [
 			{
@@ -406,6 +546,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'posture-teacher',
 		title: '자세선생',
 		subtitle: 'Posture Teacher',
+    platform: ['Mobile'],
 		duration: '2022.07 ~ 2023.05',
 		links: [
 			{
@@ -428,7 +569,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		overview:
 			'사람의 앉은 자세 혹은 플랭크 자세를 감지한 다음, 신체 각 지점의 각도와 길이에 따라 올바른 자세 여부를 판별하고 데이터를 제공해주는 앱.',
 		techStack: ['Java', 'Android', 'Jetpack', 'Mediapipe', 'SQLite'],
-		role: ['팀장', '안드로이드 개발'],
+		role: ['Team Leader', 'Android'],
 		teamSize: 2,
 		tasks: [
 			{
@@ -541,6 +682,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'chatterbox',
 		title: '수다쟁이',
 		subtitle: 'Chatterbox',
+    platform: ['Mobile'],
 		duration: '2022.11 ~ 2022.12',
 		links: [
 			{
@@ -570,7 +712,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 			'SQLite',
 			'Google Cloud Platform',
 		],
-		role: ['1인 개발'],
+		role: ['Android'],
 		teamSize: 1,
 		tasks: [
 			{
@@ -643,6 +785,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'mytime',
 		title: '마이타임',
 		subtitle: 'MyTime',
+    platform: ['Mobile'],
 		duration: '2022.02 ~ 2022.06',
 		links: [
 			{
@@ -665,7 +808,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		overview:
 			'사람의 안면 움직임을 감지하여 집중력 유지 여부를 판별하고, 여기에 따라 집중력 향상을 위한 안내 및 통계를 제공하는 안드로이드 기반의 타이머 앱.',
 		techStack: ['Java', 'Android', 'Jetpack', 'Mediapipe', 'SQLite'],
-		role: ['팀장', '안드로이드 개발'],
+		role: ['Team Leader', 'Android'],
 		teamSize: 3,
 		tasks: [
 			{
@@ -761,6 +904,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'esd-hotdeal',
 		title: 'ESD 핫딜',
 		subtitle: 'ESD HotDeal',
+    platform: ['Web'],
 		duration: '2021.07 ~ 2021.10',
 		links: [
 			{
@@ -782,14 +926,8 @@ export const projectsDetailData: ProjectDetailType[] = [
 		],
 		overview:
 			'여러 ESD에서 제공하는 할인, 무료 소프트웨어 목록을 정리해서 알려주는 웹서비스.',
-		techStack: [
-			'JavaScript',
-			'React',
-			'Firebase',
-			'Node.js',
-			'Express',
-		],
-		role: ['팀장', '프론트엔드 및 백엔드 개발'],
+		techStack: ['JavaScript', 'React', 'Firebase', 'Node.js', 'Express', 'Puppeteer'],
+		role: ['Team Leader', 'Frontend', 'Backend'],
 		teamSize: 2,
 		tasks: [
 			{
@@ -830,6 +968,12 @@ export const projectsDetailData: ProjectDetailType[] = [
 			},
 		],
 		specialImplementations: [
+			{
+				title: '프로젝트 성과',
+				details: [
+					'경남소프트웨어경진대회에서 최우수상을 수상하였습니다.',
+				],
+			},
 			{
 				title: '효율적인 협업 시스템 구축',
 				details: [

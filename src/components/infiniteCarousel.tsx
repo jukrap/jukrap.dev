@@ -3,7 +3,10 @@ import Image from 'next/image';
 import { useThemeStore } from '@/store/useThemeStore';
 import { getIconPath } from '@/util/iconPaths';
 import LoadingImage from './LoadingImage';
-import ImageWithAspectRatio from './imageWithAspectRatio';
+import debounce from 'lodash/debounce';
+
+const MIN_INDICATOR_WIDTH = 12; // 인디케이터 최소 너비 (w-2 = 0.5rem = 8px) + 간격 (gap-2 = 0.5rem = 8px)
+const CONTAINER_PADDING = 32; // 좌우 패딩값 (px-4 = 1rem = 16px * 2)
 
 interface InfiniteCarouselProps {
 	images: string[];
@@ -27,6 +30,8 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 	const [loadingStates, setLoadingStates] = useState<LoadingState>({});
+	const [useNumericIndicator, setUseNumericIndicator] = useState(false);
+	const indicatorContainerRef = useRef<HTMLDivElement>(null);
 
 	const handleImageLoad = (index: number) => {
 		setLoadingStates((prev) => ({
@@ -64,6 +69,29 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 		return () => stopAutoScroll();
 	}, [startAutoScroll, stopAutoScroll, isViewerOpen]);
 
+	useEffect(() => {
+		const checkIndicatorSpace = () => {
+			const container = indicatorContainerRef.current;
+			if (!container) return;
+
+			const containerWidth = container.clientWidth - CONTAINER_PADDING;
+			const requiredWidth = images.length * MIN_INDICATOR_WIDTH;
+
+			setUseNumericIndicator(containerWidth < requiredWidth);
+		};
+
+		// 초기 체크
+		checkIndicatorSpace();
+
+		// resize 이벤트에 대한 대응
+		const handleResize = debounce(checkIndicatorSpace, 200);
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, [images.length]);
+
 	const handleIndicatorClick = (index: number) => {
 		onIndexChange(index);
 		stopAutoScroll();
@@ -92,8 +120,8 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 									<LoadingImage
 										src={image}
 										alt={`Project Image ${index + 1}`}
-                    maxWidth={200}
-                    maxHeight={300}
+										maxWidth={200}
+										maxHeight={300}
 										className="rounded-lg transition-transform duration-300 hover:scale-105"
 										onLoad={() => handleImageLoad(index)}
 									/>
@@ -103,10 +131,9 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 					))}
 				</div>
 			</div>
-
 			{/* 모바일 뷰 - 단일 이미지 표시 */}
 			<div className="md:hidden relative bg-background rounded-lg">
-      {/* 오버플로우 컨테이너 */}
+				{/* 오버플로우 컨테이너 */}
 				<div className="overflow-hidden">
 					<div
 						className="flex transition-transform duration-300 ease-in-out"
@@ -139,7 +166,6 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 					</div>
 				</div>
 			</div>
-
 			{/* 네비게이션 버튼 */}
 			<button
 				className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 z-10 transition-colors duration-300"
@@ -173,24 +199,37 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 					className="select-none"
 				/>
 			</button>
-
 			{/* 인디케이터 */}
-			<div className="mt-4 flex justify-center gap-2">
-				{images.map((_, index) => (
-					<button
-						key={index}
-						className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-							index === currentIndex % images.length
-								? 'bg-accent'
-								: 'bg-gray-300 hover:bg-gray-400'
-						}`}
-						onClick={(e) => {
-							e.stopPropagation();
-							handleIndicatorClick(index);
-						}}
-						aria-label={`${index + 1}번째 이미지로 이동`}
-					/>
-				))}
+			<div ref={indicatorContainerRef} className="mt-4 w-full px-4">
+				<div className="flex justify-center items-center">
+					{!useNumericIndicator ? (
+						// 도트 인디케이터
+						<div className="flex gap-2">
+							{images.map((_, index) => (
+								<button
+									key={index}
+									className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+										index === currentIndex % images.length
+											? 'bg-accent'
+											: 'bg-gray-300 hover:bg-gray-400'
+									}`}
+									onClick={(e) => {
+										e.stopPropagation();
+										handleIndicatorClick(index);
+									}}
+									aria-label={`${index + 1}번째 이미지로 이동`}
+								/>
+							))}
+						</div>
+					) : (
+						// 숫자 인디케이터
+						<div className="text-sm text-muted-foreground font-medium">
+							<span className="text-accent">{currentIndex + 1}</span>
+							<span className="mx-1">/</span>
+							<span>{images.length}</span>
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

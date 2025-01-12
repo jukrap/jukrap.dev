@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useThemeStore } from '@/store/useThemeStore';
 import { getIconPath } from '@/util/iconPaths';
 import LoadingImage from './LoadingImage';
@@ -21,6 +22,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 	const [isVisible, setIsVisible] = useState(false);
 	const [isImageLoading, setIsImageLoading] = useState(true);
+	const [currentImageUrl, setCurrentImageUrl] = useState(images[currentIndex]);
 
 	useEffect(() => {
 		setIsVisible(true);
@@ -28,13 +30,17 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 	}, []);
 
 	useEffect(() => {
-		// 이미지가 변경될 때마다 로딩 상태 초기화
 		setIsImageLoading(true);
-	}, [currentIndex]);
+		setCurrentImageUrl(images[currentIndex]);
+	}, [currentIndex, images]);
 
 	const handleClose = () => {
 		setIsVisible(false);
 		setTimeout(onClose, 300);
+	};
+
+	const handleImageLoad = () => {
+		setIsImageLoading(false);
 	};
 
 	const nextImage = (e: React.MouseEvent) => {
@@ -60,29 +66,41 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 	}, [currentIndex, images.length, onIndexChange]);
 
 	return (
-		<div
-			className={`fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 transition-all duration-300 ${
-				isVisible ? 'opacity-100' : 'opacity-0'
-			}`}
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			className={`fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 
+        transition-all duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
 			onClick={handleClose}
 		>
 			<div
-				className={`relative w-full md:w-[60vw] h-[70vh] flex items-center justify-center transition-transform duration-300 ${
-					isVisible ? 'scale-100' : 'scale-95'
-				}`}
+				className={`relative w-full md:w-[60vw] h-[70vh] flex items-center justify-center 
+          transition-transform duration-300 ${isVisible ? 'scale-100' : 'scale-95'}`}
 			>
 				<div className="relative w-full h-full px-4 md:px-0">
-					<LoadingImage
-						src={images[currentIndex]}
-						alt="Project Image"
-						maxWidth={300}
-						maxHeight={400}
-						fill
-						objectFit="contain"
-						priority
-						onLoad={() => setIsImageLoading(false)}
-						className="transition-transform duration-300"
-					/>
+					<div className="relative w-full h-full">
+						{isImageLoading && (
+							<motion.div
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm"
+							>
+								<ImageSpinner />
+							</motion.div>
+						)}
+						<LoadingImage
+							key={currentImageUrl} // 키를 추가하여 이미지 변경 시 컴포넌트 재생성
+							src={currentImageUrl}
+							alt="Project Image"
+							fill
+							objectFit="contain"
+							priority
+							onLoad={handleImageLoad}
+							className="transition-transform duration-300"
+						/>
+					</div>
 				</div>
 
 				{/* 네비게이션 버튼 - 모바일에서는 양쪽 여백 축소 */}
@@ -144,7 +162,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 					/>
 				))}
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

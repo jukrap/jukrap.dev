@@ -1,10 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import { projectsDetailData } from '@/data/projectsDetailData';
-import ProjectCard from './ProjectCard';
+import ProjectCard from './projectCard';
 import ProjectDetail from '@/components/projectDetail';
 import { Project, Platform } from '../types';
-import CategorySection from './CategorySection';
+import CategorySection from './categorySection';
 
 const ProjectsSection = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);

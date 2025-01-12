@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 
-interface AlertBannerProps {
+interface AlertTopBannerProps {
   message: string;
 }
 
-const AlertBanner: React.FC<AlertBannerProps> = ({ message }) => {
+const AlertTopBanner: React.FC<AlertTopBannerProps> = ({ message }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   const parseMessage = (text: string) => {
@@ -67,4 +67,4 @@ const AlertBanner: React.FC<AlertBannerProps> = ({ message }) => {
   );
 };
 
-export default AlertBanner;
+export default AlertTopBanner;

@@ -1,4 +1,4 @@
-// src/app/about/introSection.tsx
+
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import IntroSectionLink from './introSectionLinks';

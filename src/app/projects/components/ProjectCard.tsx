@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Project } from '../types';
 import { useIcon } from '@/hook/useIcon';
 import TechStackIcons from '../../../components/techStackIcons';
-import AspectRatioImage from '../../../components/AspectRatioImage';
+import AspectRatioImage from '../../../components/aspectRatioImage';
 
 interface ProjectCardProps {
 	project: Project;

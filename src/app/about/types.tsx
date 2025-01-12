@@ -17,6 +17,7 @@ export interface ProjectType {
 	id: string;
 	title: string;
 	duration: string;
+	major: boolean;
 	introduction: string;
 	description: string[];
 	techStack: string;

@@ -5,6 +5,7 @@ export const projectsData: ProjectType[] = [
 		id: 'captain-donghae',
 		title: 'C. Donghae',
 		duration: '2024.10',
+		major: true,
 		introduction: '동해선 이용객을 위한 실시간 종합 가이드 서비스.',
 		description: [
 			'프론트엔드 개발',
@@ -30,6 +31,7 @@ export const projectsData: ProjectType[] = [
 		id: 'itzip',
 		title: 'Itzip',
 		duration: '2024.07 ~ Present',
+		major: true,
 		introduction: '개발자 취준생을 위한 종합 취업 준비 웹서비스.',
 		description: [
 			'프론트엔드 개발 & DevOps',
@@ -53,6 +55,7 @@ export const projectsData: ProjectType[] = [
 		id: 'jukrap-website',
 		title: 'Jukrap Website',
 		duration: '2024.06 ~ Present',
+		major: false,
 		introduction: 'React 및 Next.js 기반의 개인용 웹사이트.',
 		description: [
 			'1인 개발',
@@ -76,6 +79,7 @@ export const projectsData: ProjectType[] = [
 	{
 		id: 'sharebby',
 		title: 'ShareBBy',
+		major: true,
 		duration: '2024.04 ~ 2024.06',
 		introduction:
 			'취미 활동을 공유하고 참여 플랫폼을 제공해주는 크로스 플랫폼 앱.',
@@ -108,6 +112,7 @@ export const projectsData: ProjectType[] = [
 		id: 'posture-teacher',
 		title: 'Posture Teacher',
 		duration: '2022.07 ~ 2023.05',
+		major: true,
 		introduction: '자세가 올바른지 감지하고 결과를 도출하는 앱.',
 		description: [
 			'팀장, 안드로이드 개발',
@@ -136,6 +141,7 @@ export const projectsData: ProjectType[] = [
 		id: 'chatterbox',
 		title: 'Chatterbox',
 		duration: '2022.09 ~ 2022.12',
+		major: false,
 		introduction: '목소리로 독서 여부를 감지하는 앱.',
 		description: [
 			'1인 개발',
@@ -159,6 +165,7 @@ export const projectsData: ProjectType[] = [
 		id: 'mytime',
 		title: 'MyTime',
 		duration: '2022.02 ~ 2022.06',
+		major: false,
 		introduction: '집중력 향상을 위한 감지 및 결과를 도출하는 앱.',
 		description: [
 			'팀장, 안드로이드 개발',
@@ -182,6 +189,7 @@ export const projectsData: ProjectType[] = [
 		id: 'esd-hotdeal',
 		title: 'ESD HotDeal',
 		duration: '2021.07 ~ 2021.10',
+		major: true,
 		introduction: '다양한 ESD의 핫딜 데이터를 모아서 제공하는 웹서비스.',
 		description: [
 			'팀장, 프론트엔드 및 백엔드 개발',

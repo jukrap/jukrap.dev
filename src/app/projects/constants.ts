@@ -1,4 +1,4 @@
-import { Platform } from "./types";
+import { Platform } from './types';
 
 export const TECH_STACK_ICONS: Record<string, string> = {
 	TypeScript: '/icons/tech/typescript.svg',
@@ -42,6 +42,8 @@ export const TECH_STACK_ICONS: Record<string, string> = {
 	Unity: '/icons/tech/unity.svg',
 	Unreal: '/icons/tech/unreal.svg',
 	R: '/icons/tech/r.svg',
+	'React Spring': '/icons/tech/reactspring.svg',
+	'Framer Motion': '/icons/tech/framermotion.svg',
 };
 
 export const PLATFORMS: Platform[] = ['All', 'Web', 'Mobile', 'Game'];

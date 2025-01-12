@@ -44,7 +44,7 @@ export default function HomePage() {
 	});
 
 	return (
-		<main className="flex flex-col items-center px-4 sm:px-6 lg:px-8 py-8 md:py-16 lg:py-24 gap-8 md:gap-16 lg:gap-24">
+		<main className="flex flex-col items-center px-4 sm:px-6 lg:px-8 py-8 md:py-16 lg:pt-36 lg:pb-24 gap-8 md:gap-16 lg:gap-24">
 			<section className="flex flex-col items-center gap-6 md:gap-10 w-full max-w-3xl">
 				<div className="flex items-center border-foreground leading-6 py-3 border-t border-b gap-65">
 					<h1 className="font-bold text-4xl md:text-6xl lg:text-8xl text-center text-foreground min-h-[3rem] md:min-h-[4.5rem] w-full select-none">

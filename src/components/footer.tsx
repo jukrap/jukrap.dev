@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full py-6 md:py-8 px-4 md:px-6 bg-background/50 backdrop-blur-sm">
+    <footer className="w-full pt-12 pb-6 md:pt-16 md:pb-8 px-4 md:px-6 bg-background/50 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto flex flex-col items-center gap-4 md:gap-6 no-select">
         <p className="text-sm md:text-base lg:text-lg text-center text-foreground">
           Copyright © {currentYear} Ju-cheol Park · All Rights Reserved.

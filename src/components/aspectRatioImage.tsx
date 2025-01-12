@@ -5,12 +5,14 @@ interface AspectRatioImageProps {
 	src: string;
 	alt: string;
 	className?: string;
+	onLoad?: () => void;
 }
 
 const AspectRatioImage: React.FC<AspectRatioImageProps> = ({
 	src,
 	alt,
 	className = '',
+	onLoad,
 }) => {
 	const [isPortrait, setIsPortrait] = useState(false);
 
@@ -19,16 +21,17 @@ const AspectRatioImage: React.FC<AspectRatioImageProps> = ({
 		img.src = src;
 		img.onload = () => {
 			setIsPortrait(img.height > img.width);
+			onLoad?.();
 		};
-	}, [src]);
+	}, [src, onLoad]);
 
 	return (
 		<div
 			className={`
-      relative w-full h-full flex items-center justify-center
-      ${isPortrait ? 'max-w-[16rem] max-h-[20rem]' : 'max-w-[24rem] max-h-[16rem]'}
-      ${className}
-    `}
+        relative w-full h-full flex items-center justify-center
+        ${isPortrait ? 'max-w-[16rem] max-h-[20rem]' : 'max-w-[24rem] max-h-[16rem]'}
+        ${className}
+      `}
 		>
 			<Image
 				src={src}
@@ -39,6 +42,8 @@ const AspectRatioImage: React.FC<AspectRatioImageProps> = ({
           rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105
           ${isPortrait ? 'object-contain w-auto h-full' : 'object-contain w-full h-auto'}
         `}
+				onLoadingComplete={onLoad}
+				priority
 			/>
 		</div>
 	);

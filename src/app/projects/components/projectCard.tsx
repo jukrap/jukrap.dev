@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '../types';
 import { useIcon } from '@/hook/useIcon';
 import TechStackIcons from '../../../components/techStackIcons';
 import AspectRatioImage from '../../../components/aspectRatioImage';
+import ProjectCardSkeleton from '@/components/skeletons/projectCardSkeleton';
 
 interface ProjectCardProps {
 	project: Project;
@@ -12,6 +14,11 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
 	const { getIcon } = useIcon();
+	const [isLoading, setIsLoading] = useState(true);
+	const [isImageLoaded, setIsImageLoaded] = useState(false);
+	const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(
+		!project.projectData.background?.image,
+	);
 
 	const backgroundStyle = project.projectData.background?.image
 		? {
@@ -27,8 +34,34 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
 				}
 			: {};
 
+	// 배경 이미지 프리로딩
+	React.useEffect(() => {
+		if (project.projectData.background?.image) {
+			const img = new window.Image();
+			img.src = project.projectData.background.image;
+			img.onload = () => setIsBackgroundLoaded(true);
+		}
+	}, [project.projectData.background?.image]);
+
+	// 모든 리소스가 로드되었는지 확인
+	React.useEffect(() => {
+		if (project.projectData.background?.image) {
+			const img = new window.Image();
+			img.src = project.projectData.background.image;
+			img.onload = () => setIsLoading(false);
+		} else {
+			setIsLoading(false);
+		}
+	}, [project.projectData.background?.image]);
+
+	if (isLoading) {
+		return <ProjectCardSkeleton />;
+	}
+
 	return (
-		<div
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
 			className="group relative overflow-hidden rounded-xl bg-card hover:shadow-xl 
         transition-all duration-300 cursor-pointer border border-border/40 
         hover:border-accent/40 flex flex-col"
@@ -50,6 +83,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
 					<AspectRatioImage
 						src={project.projectData.images[0]}
 						alt={project.title}
+						onLoad={() => setIsLoading(false)}
 					/>
 				</div>
 			</div>
@@ -123,7 +157,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

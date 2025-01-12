@@ -87,7 +87,7 @@ export const projectsData: ProjectType[] = [
 			'Pull to Refresh와 Infinite Scroll 적용',
 			'데이터베이스 설계',
 		],
-		techStack: 'JavaScriptㆍReact NativeㆍFirebase',
+		techStack: 'JavaScriptㆍReact NativeㆍFirebaseㆍFaster Image',
 		links: [
 			{
 				type: 'appleStore',
@@ -190,7 +190,7 @@ export const projectsData: ProjectType[] = [
 			'Express와 Firebase 기반의 백엔드 작업',
 			'경남소프트웨어경진대회 최우수상 수상',
 		],
-		techStack: 'JavaScriptㆍReactㆍFirebaseㆍNode.jsㆍExpress',
+		techStack: 'JavaScriptㆍReactㆍFirebaseㆍNode.jsㆍExpressㆍPuppeteer',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },

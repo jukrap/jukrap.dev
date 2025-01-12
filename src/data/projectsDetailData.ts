@@ -5,6 +5,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'captain-donghae',
 		title: '동해선장',
 		subtitle: 'Captain Donghae',
+    platform: ['Web'],
 		duration: '2024.10.04 ~ 2024.10.06',
 		links: [
 			{
@@ -37,7 +38,7 @@ export const projectsDetailData: ProjectDetailType[] = [
       'Github Actions',
 			'Docker',
 		],
-		role: ['프론트엔드 개발'],
+		role: ['Frontend'],
 		teamSize: 3,
 		tasks: [
 			{
@@ -147,6 +148,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'itzip',
 		title: '잇집',
 		subtitle: 'Itzip',
+    platform: ['Web'],
 		duration: '2024.07 ~ Present',
 		links: [
 			{
@@ -183,7 +185,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 			'Jenkins',
 			'Docker',
 		],
-		role: ['프론트엔드 개발', 'DevOps'],
+		role: ['Frontend', 'DevOps'],
 		teamSize: 15,
 		tasks: [
 			{
@@ -310,6 +312,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'jukrap-website',
 		title: 'Jukrap Website',
 		subtitle: 'Ju-cheol Park',
+    platform: ['Web'],
 		duration: '2024.06 ~ Present',
 		links: [
 			{
@@ -331,7 +334,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		],
 		overview: 'React 및 Next.js 기반의 개인용 웹사이트.',
 		techStack: ['TypeScript', 'React', 'Tailwind CSS', 'Zustand', 'Next.js'],
-		role: ['1인 개발'],
+		role: ['Frontend'],
 		teamSize: 1,
 		tasks: [
 			{
@@ -402,6 +405,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'sharebby',
 		title: '쉐어비',
 		subtitle: 'ShareBBy',
+    platform: ['Mobile'],
 		duration: '2024.04 ~ 2024.06',
 		links: [
 			{
@@ -423,8 +427,8 @@ export const projectsDetailData: ProjectDetailType[] = [
 		],
 		overview:
 			'다양한 취미 활동을 공유하고 참여할 수 있는 플랫폼을 제공하는 크로스플랫폼 앱.',
-		techStack: ['HTML & CSS', 'JavaScript', 'React Native', 'Firebase'],
-		role: ['발표', '디자인', '프론트엔드 및 백엔드 개발'],
+		techStack: ['JavaScript', 'React Native', 'Firebase', 'Faster Image'],
+		role: ['Frontend', 'Backend', 'Presentation'],
 		teamSize: 5,
 		tasks: [
 			{
@@ -542,6 +546,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'posture-teacher',
 		title: '자세선생',
 		subtitle: 'Posture Teacher',
+    platform: ['Mobile'],
 		duration: '2022.07 ~ 2023.05',
 		links: [
 			{
@@ -564,7 +569,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		overview:
 			'사람의 앉은 자세 혹은 플랭크 자세를 감지한 다음, 신체 각 지점의 각도와 길이에 따라 올바른 자세 여부를 판별하고 데이터를 제공해주는 앱.',
 		techStack: ['Java', 'Android', 'Jetpack', 'Mediapipe', 'SQLite'],
-		role: ['팀장', '안드로이드 개발'],
+		role: ['Team Leader', 'Android'],
 		teamSize: 2,
 		tasks: [
 			{
@@ -677,6 +682,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'chatterbox',
 		title: '수다쟁이',
 		subtitle: 'Chatterbox',
+    platform: ['Mobile'],
 		duration: '2022.11 ~ 2022.12',
 		links: [
 			{
@@ -706,7 +712,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 			'SQLite',
 			'Google Cloud Platform',
 		],
-		role: ['1인 개발'],
+		role: ['Android'],
 		teamSize: 1,
 		tasks: [
 			{
@@ -779,6 +785,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'mytime',
 		title: '마이타임',
 		subtitle: 'MyTime',
+    platform: ['Mobile'],
 		duration: '2022.02 ~ 2022.06',
 		links: [
 			{
@@ -801,7 +808,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		overview:
 			'사람의 안면 움직임을 감지하여 집중력 유지 여부를 판별하고, 여기에 따라 집중력 향상을 위한 안내 및 통계를 제공하는 안드로이드 기반의 타이머 앱.',
 		techStack: ['Java', 'Android', 'Jetpack', 'Mediapipe', 'SQLite'],
-		role: ['팀장', '안드로이드 개발'],
+		role: ['Team Leader', 'Android'],
 		teamSize: 3,
 		tasks: [
 			{
@@ -897,6 +904,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 		id: 'esd-hotdeal',
 		title: 'ESD 핫딜',
 		subtitle: 'ESD HotDeal',
+    platform: ['Web'],
 		duration: '2021.07 ~ 2021.10',
 		links: [
 			{
@@ -918,8 +926,8 @@ export const projectsDetailData: ProjectDetailType[] = [
 		],
 		overview:
 			'여러 ESD에서 제공하는 할인, 무료 소프트웨어 목록을 정리해서 알려주는 웹서비스.',
-		techStack: ['JavaScript', 'React', 'Firebase', 'Node.js', 'Express'],
-		role: ['팀장', '프론트엔드 및 백엔드 개발'],
+		techStack: ['JavaScript', 'React', 'Firebase', 'Node.js', 'Express', 'Puppeteer'],
+		role: ['Team Leader', 'Frontend', 'Backend'],
 		teamSize: 2,
 		tasks: [
 			{

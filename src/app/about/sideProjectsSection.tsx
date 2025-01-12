@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useThemeStore } from '../../store/useThemeStore';
 import { projectsData } from '@/data/projectsData';
 import { LinkType, ProjectType, ProjectDetailType } from './types';
-import ProjectDetail from './projectDetail';
+import ProjectDetail from '../../components/projectDetail';
 import { projectsDetailData } from '@/data/projectsDetailData';
 import { useIcon } from '@/hook/useIcon';
 

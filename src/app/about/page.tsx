@@ -1,4 +1,3 @@
-// src/app/about/page.tsx
 import React from 'react';
 import IntroSection from './introSection';
 import SkillsSection from './skillsSection';

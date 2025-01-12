@@ -150,7 +150,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 									{/* 헤더 섹션 */}
 									<div className="relative h-[300px] flex flex-col justify-end p-8">
 										<div>
-											<h2 className="text-4xl font-bold text-foreground pb-0.5">
+											<h2 className="text-4xl font-bold text-foreground pb-0.5 break-keep">
 												{project.title}
 											</h2>
 											<p className="text-xl font-light text-foreground/80 pb-4">
@@ -196,7 +196,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 										<button
 											onClick={handleCloseClick}
 											className="absolute top-8 right-8 p-2 rounded-full z-30
-                       bg-background/60 hover:bg-background/95 backdrop-blur-sm
+                       bg-background/30 hover:bg-background/80 backdrop-blur-sm
                        transition-colors duration-300"
 											aria-label="Close modal"
 										>

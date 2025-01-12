@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Project } from '../types';
 import { useIcon } from '@/hook/useIcon';
 import TechStackIcons from '../../../components/techStackIcons';
+import AspectRatioImage from '../../../components/AspectRatioImage';
 
 interface ProjectCardProps {
 	project: Project;
@@ -46,15 +47,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
 					</>
 				)}
 				<div className="absolute inset-0 flex items-center justify-center p-6 z-10">
-					<Image
+					<AspectRatioImage
 						src={project.projectData.images[0]}
 						alt={project.title}
-						width={300}
-						height={225}
-						className="rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105 object-contain 
-              md:max-w-[18rem] md:max-h-[10rem] 
-              sm:max-w-[40rem] sm:max-h-[25rem] 
-              max-w-[24rem] max-h-[16rem]"
 					/>
 				</div>
 			</div>

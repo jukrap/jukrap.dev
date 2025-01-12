@@ -9,12 +9,13 @@ export const projectsData: ProjectType[] = [
 		introduction: '동해선 이용객을 위한 실시간 종합 가이드 서비스.',
 		description: [
 			'프론트엔드 개발',
-      '구글 맵스 기반 지도 서비스 개발',
-      '실시간 역 혼잡도, 날씨, 맛집 정보, 추천 코스 등 제공',
-      '드래그 가능한 모달 UI/UX 구현',
+			'구글 맵스 기반 지도 서비스 개발',
+			'실시간 역 혼잡도, 날씨, 맛집 정보, 추천 코스 등 제공',
+			'드래그 가능한 모달 UI/UX 구현',
 			'DIVE 2024 해커톤 발제사 3위 수상',
 		],
-		techStack: 'TypeScript・React・Next.js・Tailwind CSS・Google Maps・Storybook・AWS・Github Actions・Docker',
+		techStack:
+			'TypeScript・React・Next.js・Tailwind CSS・Google Maps・Storybook・AWS・Github Actions・Docker',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },
@@ -38,7 +39,8 @@ export const projectsData: ProjectType[] = [
 			'블로그 기능 개발',
 			'테스트 및 오류 검출을 통한 개발',
 		],
-		techStack: 'TypeScript・React・Next.js・Tailwind CSS・Jotai・Jest・Prisma・Storybook・Postman・Sentry・AWS・Jenkins・Docker',
+		techStack:
+			'TypeScript・React・Next.js・Tailwind CSS・React Spring・Jotai・Jest・Prisma・Storybook・Postman・Sentry・AWS・Jenkins・Docker',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },
@@ -63,7 +65,7 @@ export const projectsData: ProjectType[] = [
 			'훅을 이용하여 타이핑 되는 효과를 직접 구현',
 			'Zustand와 Tailwind를 이용해 화이트 & 다크 모드 전환 기능을 구현',
 		],
-		techStack: 'TypeScript・React・Tailwind CSS・Zustand・Next.js',
+		techStack: 'TypeScript・React・Next.js・Tailwind CSS・Framer Motion・Zustand',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },

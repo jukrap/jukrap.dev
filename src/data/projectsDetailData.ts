@@ -175,6 +175,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 			'React',
 			'Next.js',
 			'Tailwind CSS',
+			'React Spring',
 			'Jotai',
 			'Jest',
 			'Prisma',
@@ -333,7 +334,14 @@ export const projectsDetailData: ProjectDetailType[] = [
 			{ type: 'url', url: 'https://jukrap.vercel.app', visible: true },
 		],
 		overview: 'React 및 Next.js 기반의 개인용 웹사이트.',
-		techStack: ['TypeScript', 'React', 'Tailwind CSS', 'Zustand', 'Next.js'],
+		techStack: [
+			'TypeScript',
+			'React',
+			'Next.js',
+			'Tailwind CSS',
+			'Framer Motion',
+			'Zustand',
+		],
 		role: ['Frontend'],
 		teamSize: 1,
 		tasks: [
@@ -855,7 +863,7 @@ export const projectsDetailData: ProjectDetailType[] = [
 				'/images/labyrinth-escape-game/image5.png',
 				'/images/labyrinth-escape-game/image6.png',
 				'/images/labyrinth-escape-game/image0.png',
-      ],
+			],
 			subLinks: [
 				{
 					type: 'video',

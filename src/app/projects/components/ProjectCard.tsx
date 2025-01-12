@@ -52,8 +52,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
 						width={300}
 						height={225}
 						className="rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105 object-contain 
-              md:max-w-[300px] md:max-h-[225px] 
-              max-w-[200px] max-h-[225px]"
+              md:max-w-[18rem] md:max-h-[10rem] 
+              sm:max-w-[40rem] sm:max-h-[25rem] 
+              max-w-[24rem] max-h-[16rem]"
 					/>
 				</div>
 			</div>

@@ -14,15 +14,9 @@ const links: Link[] = [
 		url: 'mailto:jukrap628@gmail.com',
 	},
 	{
-		text: '[정지] Github',
+		text: 'Github',
 		type: 'github',
 		url: 'https://github.com/jukrap',
-		isExternal: true,
-	},
-	{
-		text: '[임시] Github',
-		type: 'github',
-		url: 'https://github.com/jukrap2',
 		isExternal: true,
 	},
 	{

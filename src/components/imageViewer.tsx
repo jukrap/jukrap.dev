@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useThemeStore } from '@/store/useThemeStore';
 import { getIconPath } from '@/util/iconPaths';
+import LoadingImage from './LoadingImage';
+import ImageSpinner from './ImageSpinner';
 
 interface ImageViewerProps {
 	images: string[];
@@ -18,11 +20,17 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 }) => {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 	const [isVisible, setIsVisible] = useState(false);
+	const [isImageLoading, setIsImageLoading] = useState(true);
 
 	useEffect(() => {
 		setIsVisible(true);
 		return () => setIsVisible(false);
 	}, []);
+
+	useEffect(() => {
+		// 이미지가 변경될 때마다 로딩 상태 초기화
+		setIsImageLoading(true);
+	}, [currentIndex]);
 
 	const handleClose = () => {
 		setIsVisible(false);
@@ -64,12 +72,16 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 				}`}
 			>
 				<div className="relative w-full h-full px-4 md:px-0">
-					<Image
+					<LoadingImage
 						src={images[currentIndex]}
 						alt="Project Image"
-						layout="fill"
+						maxWidth={300}
+						maxHeight={400}
+						fill
 						objectFit="contain"
 						priority
+						onLoad={() => setIsImageLoading(false)}
+						className="transition-transform duration-300"
 					/>
 				</div>
 
@@ -117,7 +129,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 				/>
 			</div>
 
-			{/* 인디케이터 - 모바일 환경에서 크기 축소 및 간격 조정 */}
+			{/* 인디케이터 */}
 			<div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 md:gap-4">
 				{images.map((_, index) => (
 					<button

@@ -1,8 +1,9 @@
-import React, { useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
-import ImageWithAspectRatio from './imageWithAspectRatio';
 import { useThemeStore } from '@/store/useThemeStore';
 import { getIconPath } from '@/util/iconPaths';
+import LoadingImage from './LoadingImage';
+import ImageWithAspectRatio from './imageWithAspectRatio';
 
 interface InfiniteCarouselProps {
 	images: string[];
@@ -10,6 +11,10 @@ interface InfiniteCarouselProps {
 	onImageClick: (index: number) => void;
 	onIndexChange: (index: number) => void;
 	isViewerOpen: boolean;
+}
+
+interface LoadingState {
+	[key: number]: boolean;
 }
 
 const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
@@ -21,6 +26,14 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 }) => {
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
+	const [loadingStates, setLoadingStates] = useState<LoadingState>({});
+
+	const handleImageLoad = (index: number) => {
+		setLoadingStates((prev) => ({
+			...prev,
+			[index]: false,
+		}));
+	};
 
 	const nextSlide = useCallback(() => {
 		onIndexChange((currentIndex + 1) % images.length);
@@ -75,12 +88,16 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 								className="w-full h-full flex items-center justify-center cursor-pointer"
 								onClick={() => onImageClick(index % images.length)}
 							>
-								<ImageWithAspectRatio
-									src={image}
-									alt={`Project Image ${index + 1}`}
-									maxWidth={200}
-									maxHeight={300}
-								/>
+								<div className="relative">
+									<LoadingImage
+										src={image}
+										alt={`Project Image ${index + 1}`}
+                    maxWidth={200}
+                    maxHeight={300}
+										className="rounded-lg transition-transform duration-300 hover:scale-105"
+										onLoad={() => handleImageLoad(index)}
+									/>
+								</div>
 							</div>
 						</div>
 					))}
@@ -89,7 +106,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 
 			{/* 모바일 뷰 - 단일 이미지 표시 */}
 			<div className="md:hidden relative bg-background rounded-lg">
-				{/* 오버플로우 컨테이너 */}
+      {/* 오버플로우 컨테이너 */}
 				<div className="overflow-hidden">
 					<div
 						className="flex transition-transform duration-300 ease-in-out"
@@ -107,11 +124,13 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 									onClick={() => onImageClick(index)}
 								>
 									<div className="relative w-full h-full flex items-center justify-center">
-										<ImageWithAspectRatio
+										<LoadingImage
 											src={image}
 											alt={`Project Image ${index + 1}`}
 											maxWidth={300}
 											maxHeight={400}
+											className="rounded-lg"
+											onLoad={() => handleImageLoad(index)}
 										/>
 									</div>
 								</div>

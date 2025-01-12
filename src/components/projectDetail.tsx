@@ -1,4 +1,3 @@
-// src/components/ProjectDetail.tsx
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -92,7 +91,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 				backgroundImage: `url(${project.projectData.background.image})`,
 				backgroundPosition: 'center',
 				backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
+				backgroundRepeat: 'no-repeat',
 			}
 		: project.projectData.background?.gradientStart
 			? {
@@ -103,9 +102,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 			: {};
 
 	return (
-		<AnimatePresence>
+		<AnimatePresence mode="sync">
 			{isVisible && (
 				<motion.div
+					key="project-detail-modal"
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
@@ -113,11 +113,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 					onClick={handleBackgroundClick}
 				>
 					<motion.div
+						key="project-detail-content"
 						initial={{ scale: 0.9, opacity: 0 }}
 						animate={{ scale: 1, opacity: 1 }}
 						exit={{ scale: 0.9, opacity: 0 }}
 						className="relative bg-background w-[90%] max-w-[900px] rounded-xl 
-             max-h-[90vh] overflow-hidden transform-gpu"
+          max-h-[90vh] overflow-hidden transform-gpu"
 					>
 						<div className="max-h-[90vh] overflow-y-auto scrollbar-hide">
 							<div className="relative">
@@ -156,9 +157,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 											<p className="text-xl font-light text-foreground/80 pb-4">
 												{project.subtitle}
 											</p>
-											<p className="text-lg text-foreground/80 pb-6">
-												{project.duration}
-											</p>
+											<p className="text-lg text-foreground/80 pb-6">{project.duration}</p>
 
 											{/* 프로젝트 링크 */}
 											<div className="flex flex-wrap gap-2 md:gap-4">
@@ -328,14 +327,17 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 			)}
 
 			{/* 이미지 뷰어 */}
-			{isViewerOpen && (
-				<ImageViewer
-					images={project.projectData.images}
-					currentIndex={currentImageIndex}
-					onClose={() => setIsViewerOpen(false)}
-					onIndexChange={setCurrentImageIndex}
-				/>
-			)}
+			<AnimatePresence mode="sync">
+				{isViewerOpen && (
+					<ImageViewer
+						key="image-viewer-component" // 고유 키 추가
+						images={project.projectData.images}
+						currentIndex={currentImageIndex}
+						onClose={() => setIsViewerOpen(false)}
+						onIndexChange={setCurrentImageIndex}
+					/>
+				)}
+			</AnimatePresence>
 		</AnimatePresence>
 	);
 };

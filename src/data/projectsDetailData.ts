@@ -310,8 +310,8 @@ export const projectsDetailData: ProjectDetailType[] = [
 	},
 	{
 		id: 'jukrap-website',
-		title: 'Jukrap Website',
-		subtitle: 'Ju-cheol Park',
+		title: 'Jukrap의 개인 사이트',
+		subtitle: 'Jukrap Website',
     platform: ['Web'],
 		duration: '2024.06 ~ Present',
 		links: [

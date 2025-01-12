@@ -1,11 +1,12 @@
+// src/app/about/introSection.tsx
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import IntroSectionLink from './introSectionLinks';
 import ProfileImage from '@/components/profileImage';
 import {
-	obfuscatedBirthDate,
 	decodeBirthDate,
 	calculateAge,
+	obfuscatedBirthDate,
 } from '@/util/dateUtils';
 import { greetings } from '../../data/greetings';
 import useTypingEffect from '@/hook/useTypingEffect';
@@ -37,6 +38,7 @@ const links: Link[] = [
 		isExternal: true,
 	},
 ];
+
 const birthDate = decodeBirthDate(obfuscatedBirthDate);
 const age = calculateAge(birthDate);
 
@@ -52,6 +54,7 @@ const IntroSection: React.FC = () => {
 		pauseDuration: 2500,
 	});
 
+	// 이벤트 핸들러들은 동일하게 유지
 	const handleImageClick = () => {
 		if (showMessage) {
 			setIsMessageFadingOut(true);
@@ -59,7 +62,7 @@ const IntroSection: React.FC = () => {
 				setShowMessage(false);
 				setIsMessageFadingOut(false);
 				setIsFlipped(!isFlipped);
-			}, 300); // 애니메이션 지속 시간
+			}, 300);
 		} else {
 			setIsFlipped(!isFlipped);
 		}
@@ -80,7 +83,7 @@ const IntroSection: React.FC = () => {
 			setTimeout(() => {
 				setShowMessage(false);
 				setIsMessageFadingOut(false);
-			}, 300);
+			}, 200);
 		}
 	};
 
@@ -93,8 +96,9 @@ const IntroSection: React.FC = () => {
 	}, []);
 
 	return (
-		<section className="w-[670px] flex justify-start items-start gap-11">
-			<div className="flex flex-col items-center gap-2 w-fit h-fit">
+		<section className="w-full max-w-[670px] flex flex-col md:flex-row justify-start items-center md:items-start gap-8 md:gap-11">
+			{/* 프로필 섹션 */}
+			<div className="flex flex-col items-center gap-4 w-fit md:sticky md:top-24 pt-9 md:pt-0">
 				<ProfileImage
 					isFlipped={isFlipped}
 					onClick={handleImageClick}
@@ -104,25 +108,31 @@ const IntroSection: React.FC = () => {
 					isMessageFadingOut={isMessageFadingOut}
 				/>
 
-				<h2 className="font-bold text-2xl leading-6 tracking-tight text-center text-foreground">
-					Ju-cheol Park
-				</h2>
-				<p className="text-sm leading-6 tracking-wider text-center text-muted-foreground">
-					jukrap628@gmail.com
-				</p>
+				<div className="text-center space-y-1">
+					<h2 className="font-bold text-xl md:text-2xl leading-relaxed tracking-tight text-foreground">
+						Ju-cheol Park
+					</h2>
+					<p className="text-xs md:text-sm leading-relaxed tracking-wider text-muted-foreground">
+						jukrap628@gmail.com
+					</p>
+				</div>
 
-				<div className="flex items-center gap-3 w-fit h-fit pt-4">
+				<div className="flex items-center gap-4 w-fit h-fit pt-2">
 					{links.map((link) => (
 						<IntroSectionLink key={link.url} {...link} icon={getIcon(link.type)} />
 					))}
 				</div>
 			</div>
-			<div className="flex flex-col items-start w-fit h-fit">
-				<h2 className="font-bold text-4xl leading-10 tracking-tight text-left text-foreground">
+
+			{/* 소개 섹션 */}
+			<div className="flex flex-col items-start w-full md:w-fit">
+				<h2 className="font-bold text-2xl md:text-4xl leading-relaxed tracking-tight text-foreground border-b border-border pb-2 w-full md:w-auto md:border-none md:pb-0">
 					About Me
 				</h2>
-				<div className="flex items-start gap-8 w-fit h-fit pt-8 select-none">
-					<p className="font-medium text-lg leading-10 tracking-tight text-left text-foreground">
+
+				{/* 타이핑 효과 텍스트 */}
+				<div className="flex items-start w-full pt-4 md:pt-8 select-none">
+					<p className="font-medium text-base md:text-md leading-relaxed md:leading-10 tracking-tight text-foreground break-keep">
 						{typedText.split('【').map((part, index) => {
 							if (index === 0) return part;
 							const [highlightedText, rest] = part.split('】');
@@ -136,44 +146,53 @@ const IntroSection: React.FC = () => {
 						<span className="text-accent">|</span>
 					</p>
 				</div>
-				<div className="flex flex-col items-start gap-6 w-fit h-fit pt-2">
-					<p className="text-lg leading-10 tracking-tight text-left text-foreground">
-						오늘도 오류와 투쟁을 벌이는 프론트엔드 개발자,{' '}
-						<span className="font-bold">박주철</span>입니다.
-					</p>
-					<p className="text-base leading-10 tracking-tight text-left text-foreground">
-						<span className="font-bold">
-							1. 과정과 결과, 둘 모두 중요하다고 생각합니다.
-						</span>
-						<br />
-						어느 한 쪽에 치중되는 것은 제대로 된 개발과는 거리가 멀다고 생각합니다. 이
-						때문에, 개발자라면 최대한 둘 모두를 가져가야 한다고 생각합니다.
-					</p>
-					<p className="text-base leading-10 tracking-tight text-left text-foreground">
-						<span className="font-bold">
-							2. 재사용성이 높은 유연한 코드를 작성하고자 노력합니다.
-						</span>
-						<br />
-						코드도 줄이고, 작업량도 줄이는 핵심. 한편으로는 유연성과 지속가능한 코드가
-						바로 재사용성이 높은 코드이기에 이를 작성하고자 노력합니다. 최종적으로는
-						동료들에게 당당히 보여줄 수 있는 코드를 추구합니다.
-					</p>
-					<p className="text-base leading-10 tracking-tight text-left text-foreground">
-						<span className="font-bold">3. 커뮤니케이션의 중요성을 높게 봅니다.</span>
-						<br />
-						인간은 사회성의 동물! 그리고 저는 ENFJ입니다! 타인을 존중하며 이야기하는
-						것은 언제나 즐겁습니다. 또한, 다른 사람과 의견을 나누고 반영하는 과정은
-						개발의 폭을 넓히는 과정이라고 생각합니다. 그렇기에 커뮤니케이션은 언제나
-						저의 성장 양분입니다.
-					</p>
-					<p className="text-base leading-10 tracking-tight text-left text-foreground">
-						<span className="font-bold">
-							4. 마지막으로, 오류 찾기는 생각보다 재미있습니다
-						</span>
-						<br />
-						의외로 도파민 분비가 많이 되는 느낌입니다. 또한, 다른 사람의 코드를 보며
-						원리를 분석하고 감탄하는 것도 보람찬 과정으로 여깁니다.
-					</p>
+
+				{/* 자기소개 섹션 */}
+				<div className="flex flex-col items-start gap-6 md:gap-6 w-full pt-4 md:pt-2">
+					<div className="space-y-6 md:space-y-6 w-full">
+						{/* 소개 문구 */}
+						<p className="text-lg md:text-lg leading-relaxed tracking-tight text-foreground bg-secondary/50 p-4 md:p-0 md:bg-transparent rounded-lg">
+							오늘도 오류와 투쟁을 벌이는 프론트엔드 개발자,{' '}
+							<span className="font-bold">박주철</span>입니다.
+						</p>
+
+						{/* 4가지 핵심 가치 */}
+						<div className="space-y-6 md:space-y-6">
+							{[
+								{
+									title: '1. 과정과 결과, 둘 모두 중요하다고 생각합니다.',
+									content:
+										'DIVE 2024 해커톤에서 72시간이라는 짧은 시간 내에 완성도 높은 서비스를 구현하며 이를 입증했습니다. 구글 맵스 플랫폼 선정부터 기술 검증, 구현까지의 과정을 거치면서 수상이라는 결과를 이끌어냈습니다. 이렇듯 개발에 임할 때 항상 과정과 결과 모두를 중시하는 태도로 임하고 있습니다.',
+								},
+								{
+									title: '2. 재사용성이 높은 유연한 코드를 작성하고자 노력합니다.',
+									content:
+										'잇집 프로젝트에서 합성 패턴을 적용한 공통 컴포넌트 설계와 Storybook을 활용한 컴포넌트 주도 개발로 재사용성과 유지보수성을 높였습니다. 이는 15명 규모 팀에서 일관된 UI/UX를 제공하는 핵심이 되었습니다.',
+								},
+								{
+									title: '3. 커뮤니케이션의 중요성을 높게 봅니다.',
+									content:
+										'여러 프로젝트에서 디자이너, 백엔드 개발자들과 적극적으로 소통하며 협업했습니다. 특히 잇집에서는 15명 팀의 커뮤니케이션 체계를 구축해 업무 효율을 크게 향상시켰습니다. 개발이란 결국 사람과 사람 간의 상호작용임을 알기에, 소통을 최우선으로 여기고 있습니다.',
+								},
+								{
+									title: '4. 마지막으로, 문제 해결 과정을 즐깁니다.',
+									content:
+										'자세선생 프로젝트에서 OpenCV에서 Mediapipe로의 전환을 통해 성능을 5~10배 개선했고, 동해선장 프로젝트에서는 다양한 외부 API 통합 과정의 난관을 돌파해나갔습니다. 개발 과정의 도전들은 저에게 언제나 새로운 배움의 기회였고, 이를 통해 한 단계 성장할 수 있었습니다.',
+								},
+							].map((item, index) => (
+								<div
+									key={index}
+									className="bg-secondary/30 p-4 rounded-lg md:bg-transparent md:p-0"
+								>
+									<p className="text-base leading-8 tracking-tight text-foreground">
+										<span className="font-bold block mb-2 md:mb-0 break-keep">{item.title}</span>
+										<span className="inline-block w-1.5 h-1.5 bg-foreground rounded-full ml-0.5 mr-2 mb-1"></span>
+										{item.content}
+									</p>
+								</div>
+							))}
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>

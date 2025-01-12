@@ -28,6 +28,7 @@ export interface ProjectDetailType {
 	title: string;
 	subtitle: string;
 	duration: string;
+	platform: string[];
 	links: LinkType[];
 	overview: string;
 	techStack: string[];

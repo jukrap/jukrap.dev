@@ -5,7 +5,7 @@ export const TECH_STACK_ICONS: Record<string, string> = {
 	React: '/icons/tech/react.svg',
 	'Next.js': '/icons/tech/nextjs.svg',
 	'Tailwind CSS': '/icons/tech/tailwindcss.svg',
-	'Google Map': '/icons/tech/googlemap.svg',
+	'Google Maps': '/icons/tech/googlemap.svg',
 	Storybook: '/icons/tech/storybook.svg',
 	AWS: '/icons/tech/aws.svg',
 	'Github Actions': '/icons/tech/githubactions.svg',
@@ -33,6 +33,15 @@ export const TECH_STACK_ICONS: Record<string, string> = {
 	'Node.js': '/icons/tech/nodejs.svg',
 	Express: '/icons/tech/express.svg',
 	Puppeteer: '/icons/tech/puppeteer.svg',
+	Tensorflow: '/icons/tech/tensorflow.svg',
+	'Scikit-Learn': '/icons/tech/scikitlearn.svg',
+	Pandas: '/icons/tech/pandas.svg',
+	Python: '/icons/tech/python.svg',
+	'C++': '/icons/tech/c++.svg',
+	'C#': '/icons/tech/cshap.svg',
+	Unity: '/icons/tech/unity.svg',
+	Unreal: '/icons/tech/unreal.svg',
+	R: '/icons/tech/r.svg',
 };
 
-export const PLATFORMS: Platform[] = ['All', 'Web', 'Mobile'];
+export const PLATFORMS: Platform[] = ['All', 'Web', 'Mobile', 'Game'];

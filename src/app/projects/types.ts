@@ -1,6 +1,6 @@
 import { IconType } from '@/util/iconPaths';
 
-export type Platform = 'All' | 'Web' | 'Mobile';
+export type Platform = 'All' | 'Web' | 'Mobile' | 'Game';
 
 export type TechStackIcon = {
 	name: string;

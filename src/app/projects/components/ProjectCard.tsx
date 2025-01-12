@@ -34,7 +34,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
 			onClick={onClick}
 		>
 			{/* 프로젝트 썸네일 섹션 */}
-			<div className="aspect-[4/3] relative w-full overflow-hidden">
+			<div className="aspect-[6/5] relative w-full overflow-hidden">
 				{(project.projectData.background?.image ||
 					project.projectData.background?.gradientStart) && (
 					<>

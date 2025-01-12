@@ -59,43 +59,50 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 			onClick={handleClose}
 		>
 			<div
-				className={`relative w-[60vw] h-[70vh] flex items-center justify-center transition-transform duration-300 ${
+				className={`relative w-full md:w-[60vw] h-[70vh] flex items-center justify-center transition-transform duration-300 ${
 					isVisible ? 'scale-100' : 'scale-95'
 				}`}
 			>
-				<div className="relative w-full h-full">
+				<div className="relative w-full h-full px-4 md:px-0">
 					<Image
 						src={images[currentIndex]}
 						alt="Project Image"
 						layout="fill"
 						objectFit="contain"
+						priority
 					/>
 				</div>
+
+				{/* 네비게이션 버튼 - 모바일에서는 양쪽 여백 축소 */}
 				<button
-					className="absolute top-1/2 left-[-70px] transform -translate-y-1/2 bg-accent-opacity bg-opacity-75 rounded-full p-2"
+					className="absolute top-1/2 left-2 md:left-[-70px] transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 transition-colors duration-300"
 					onClick={prevImage}
 				>
 					<Image
 						src={getIconPath('back', isDarkMode)}
 						alt="Previous"
-						width={32}
-						height={32}
+						width={24}
+						height={24}
+						className="md:w-8 md:h-8"
 					/>
 				</button>
 				<button
-					className="absolute top-1/2 right-[-70px] transform -translate-y-1/2 bg-accent-opacity bg-opacity-75 rounded-full p-2"
+					className="absolute top-1/2 right-2 md:right-[-70px] transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 transition-colors duration-300"
 					onClick={nextImage}
 				>
 					<Image
 						src={getIconPath('forward', isDarkMode)}
 						alt="Next"
-						width={32}
-						height={32}
+						width={24}
+						height={24}
+						className="md:w-8 md:h-8"
 					/>
 				</button>
 			</div>
+
+			{/* 닫기 버튼 */}
 			<div
-				className="absolute top-6 right-6 bg-accent-opacity bg-opacity-75 rounded-full p-2 no-select"
+				className="absolute top-6 right-6 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 transition-colors duration-300 no-select"
 				onClick={(e) => {
 					e.stopPropagation();
 					handleClose();
@@ -104,16 +111,19 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 				<Image
 					src={getIconPath('close', isDarkMode)}
 					alt="Close"
-					width={32}
-					height={32}
+					width={24}
+					height={24}
+					className="md:w-8 md:h-8"
 				/>
 			</div>
-			<div className="absolute bottom-6 left-0 right-0 flex justify-center gap-4">
+
+			{/* 인디케이터 - 모바일 환경에서 크기 축소 및 간격 조정 */}
+			<div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 md:gap-4">
 				{images.map((_, index) => (
 					<button
 						key={index}
-						className={`w-4 h-4 rounded-full ${
-							index === currentIndex ? 'bg-accent' : 'bg-gray-300'
+						className={`w-2 h-2 md:w-4 md:h-4 aspect-square rounded-full transition-colors duration-300 ${
+							index === currentIndex ? 'bg-accent' : 'bg-gray-300 hover:bg-gray-400'
 						}`}
 						onClick={(e) => {
 							e.stopPropagation();

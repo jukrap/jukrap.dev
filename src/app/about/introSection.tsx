@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import IntroSectionLink from './introSectionLinks';
@@ -54,7 +53,7 @@ const IntroSection: React.FC = () => {
 		pauseDuration: 2500,
 	});
 
-	// 이벤트 핸들러들은 동일하게 유지
+	// 이벤트 핸들러
 	const handleImageClick = () => {
 		if (showMessage) {
 			setIsMessageFadingOut(true);
@@ -95,6 +94,11 @@ const IntroSection: React.FC = () => {
 		};
 	}, []);
 
+	// 가장 긴 텍스트 계산
+	const longestGreeting = greetings.reduce((a, b) =>
+		a.length > b.length ? a : b,
+	);
+
 	return (
 		<section className="w-full max-w-[670px] flex flex-col md:flex-row justify-start items-center md:items-start gap-8 md:gap-11">
 			{/* 프로필 섹션 */}
@@ -130,21 +134,29 @@ const IntroSection: React.FC = () => {
 					About Me
 				</h2>
 
-				{/* 타이핑 효과 텍스트 */}
-				<div className="flex items-start w-full pt-4 md:pt-8 select-none">
-					<p className="font-medium text-base md:text-md leading-relaxed md:leading-10 tracking-tight text-foreground break-keep">
-						{typedText.split('【').map((part, index) => {
-							if (index === 0) return part;
-							const [highlightedText, rest] = part.split('】');
-							return (
-								<React.Fragment key={index}>
-									<span className="text-accent">{highlightedText}</span>
-									{rest}
-								</React.Fragment>
-							);
-						})}
-						<span className="text-accent">|</span>
-					</p>
+				{/* 타이핑 효과 컨테이너 */}
+				<div className="relative w-full">
+					{/* 더미 텍스트 (공간 확보용) */}
+					<div className="invisible font-medium text-base md:text-md pt-4">
+						{longestGreeting}
+					</div>
+
+					{/* 실제 타이핑 효과 텍스트 */}
+					<div className="absolute top-0 left-0 w-full pt-5 md:pt-8 select-none">
+						<p className="font-medium text-base md:text-md tracking-tight text-foreground break-keep">
+							{typedText.split('【').map((part, index) => {
+								if (index === 0) return part;
+								const [highlightedText, rest] = part.split('】');
+								return (
+									<React.Fragment key={index}>
+										<span className="text-accent">{highlightedText}</span>
+										{rest}
+									</React.Fragment>
+								);
+							})}
+							<span className="text-accent">|</span>
+						</p>
+					</div>
 				</div>
 
 				{/* 자기소개 섹션 */}
@@ -185,7 +197,9 @@ const IntroSection: React.FC = () => {
 									className="bg-secondary/30 p-4 rounded-lg md:bg-transparent md:p-0"
 								>
 									<p className="text-base leading-8 tracking-tight text-foreground">
-										<span className="font-bold block mb-2 md:mb-0 break-keep">{item.title}</span>
+										<span className="font-bold block mb-2 md:mb-0 break-keep">
+											{item.title}
+										</span>
 										<span className="inline-block w-1.5 h-1.5 bg-foreground rounded-full ml-0.5 mr-2 mb-1"></span>
 										{item.content}
 									</p>

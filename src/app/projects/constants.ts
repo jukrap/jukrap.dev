@@ -1,4 +1,4 @@
-import { Platform } from './types';
+import { Platform } from '@/types/project';
 
 export const TECH_STACK_ICONS: Record<string, string> = {
 	TypeScript: '/icons/tech/typescript.svg',

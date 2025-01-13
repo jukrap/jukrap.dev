@@ -1,6 +1,6 @@
-import { ProjectDetailType } from '../app/about/types';
+import { Project } from '@/types/project';
 
-export const projectsDetailData: ProjectDetailType[] = [
+export const projectsDetailData: Project[] = [
 	{
 		id: 'captain-donghae',
 		title: '동해선장',

@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getEmojiLength } from '../util/stringUtils';
-
-interface TypingEffectOptions {
-	typingSpeed?: number;
-	deletingSpeed?: number;
-	pauseDuration?: number;
-	onComplete?: () => void;
-}
+import { TypingEffectOptions } from '@/types/hook';
+import { getEmojiLength } from '@/util/stringUtils';
 
 const useTypingEffect = (
 	texts: string[],

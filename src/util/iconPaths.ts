@@ -11,10 +11,10 @@ export const iconTypes = [
 	'email',
 	'blog',
 	'linkedin',
-    'downArrow',
+	'downArrow',
 	'forward',
 	'back',
-	'close'
+	'close',
 ] as const;
 //googlePlay => googlePlay
 //appStore => appleStore

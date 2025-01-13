@@ -1,6 +1,6 @@
-import { ProjectType } from '../app/about/types';
+import { SimpleProject } from '@/types/project';
 
-export const projectsData: ProjectType[] = [
+export const projectsData: SimpleProject[] = [
 	{
 		id: 'captain-donghae',
 		title: 'C. Donghae',

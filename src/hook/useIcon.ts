@@ -1,4 +1,4 @@
-import { useThemeStore } from '../store/useThemeStore';
+import { useThemeStore } from '@/store/useThemeStore';
 import { getIconPath, IconType } from '@/util/iconPaths';
 
 export const useIcon = () => {

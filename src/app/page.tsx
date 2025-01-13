@@ -1,11 +1,12 @@
 'use client';
+
 import React from 'react';
 import Image from 'next/image';
-import { useThemeStore } from '../store/useThemeStore';
-import HomeBodyLink from './homeBodyLink';
+import { useThemeStore } from '@/store/useThemeStore';
+import { Link } from '@/types/common';
 import useTypingEffect from '@/hook/useTypingEffect';
-import { Link } from './types';
 import { useIcon } from '@/hook/useIcon';
+import HomeBodyLink from '@/components/pages/home/homeBodyLink';
 
 const links: Link[] = [
 	{

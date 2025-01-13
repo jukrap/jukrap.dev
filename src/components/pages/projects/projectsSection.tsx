@@ -1,12 +1,23 @@
 'use client';
 
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Project, Platform } from '@/types/project';
-import { ProjectDetailProps } from '@/types/modal';
-import ProjectDetail from '@/components/common/projectDetail';
 import CategorySection from './categorySection';
-import ProjectCard from './projectCard';
+import ProjectCardSkeleton from '@/components/skeletons/projectCardSkeleton';
 import { projectsDetailData } from '@/data/projectsDetailData';
+
+const ProjectCard = dynamic(() => import('./projectCard'), {
+	loading: () => <ProjectCardSkeleton />,
+	ssr: true,
+});
+
+const ProjectDetail = dynamic(
+	() => import('@/components/common/projectDetail'),
+	{
+		ssr: false,
+	},
+);
 
 const ProjectsSection = () => {
 	const [selectedProject, setSelectedProject] = useState<Project | null>(null);

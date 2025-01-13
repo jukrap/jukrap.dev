@@ -39,14 +39,16 @@ const AspectRatioImage: React.FC<AspectRatioImageProps> = ({
 				alt={alt}
 				width={300}
 				height={225}
+				quality={75}
+				loading="lazy"
 				className={`
-          rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105
-          ${isPortrait ? 'object-contain w-auto h-full' : 'object-contain w-full h-auto'}
-          ${isLoading ? 'opacity-0' : 'opacity-100'}
-        `}
-				onLoadingComplete={() => setIsLoading(false)}
-				priority
+    rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105
+    ${isPortrait ? 'object-contain w-auto h-full' : 'object-contain w-full h-auto'}
+    ${isLoading ? 'opacity-0' : 'opacity-100'}
+  `}
+				onLoad={() => setIsLoading(false)}
 			/>
+
 			{isLoading && (
 				<div className="absolute inset-0 bg-secondary/30 rounded-lg animate-pulse" />
 			)}

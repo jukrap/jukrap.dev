@@ -85,17 +85,18 @@ export default function HomePage() {
 						download
 						className="relative flex items-center gap-2 px-4 py-2 font-bold text-lg md:text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300 select-none"
 					>
-						<div className="relative w-6 h-6 flex items-center justify-center no-select">
+						<div className="relative flex items-center justify-center w-6 h-6">
 							<Image
 								src={getIcon('downArrow')}
 								alt="Download Icon"
 								width={24}
 								height={24}
+								className="animate-downloadArrow"
 								style={{
-									width: 'auto',
-									height: 'auto',
+									width: '100%',
+									height: '100%',
+									objectFit: 'contain',
 								}}
-								className="absolute top-0 left-0 animate-downloadArrow"
 							/>
 						</div>
 						<span className="ml-2">portfolio.PDF</span>

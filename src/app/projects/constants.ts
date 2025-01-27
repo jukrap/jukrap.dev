@@ -44,6 +44,7 @@ export const TECH_STACK_ICONS: Record<string, string> = {
 	R: '/icons/tech/r.svg',
 	'React Spring': '/icons/tech/reactspring.svg',
 	'Framer Motion': '/icons/tech/framermotion.svg',
+	Sharp: '/icons/tech/sharp.svg',
 };
 
 export const PLATFORMS: Platform[] = ['All', 'Web', 'Mobile', 'Game'];

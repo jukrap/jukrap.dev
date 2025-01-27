@@ -341,6 +341,7 @@ export const projectsDetailData: Project[] = [
 			'Tailwind CSS',
 			'Framer Motion',
 			'Zustand',
+			'Sharp',
 		],
 		role: ['Frontend'],
 		teamSize: 1,

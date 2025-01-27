@@ -65,7 +65,7 @@ export const projectsData: SimpleProject[] = [
 			'훅을 이용하여 타이핑 되는 효과를 직접 구현',
 			'Zustand와 Tailwind를 이용해 화이트 & 다크 모드 전환 기능을 구현',
 		],
-		techStack: 'TypeScript・React・Next.js・Tailwind CSS・Framer Motion・Zustand',
+		techStack: 'TypeScript・React・Next.js・Tailwind CSS・Framer Motion・Zustand・Sharp',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },

@@ -24,13 +24,19 @@ const TechStackIcons: React.FC<TechStackIconsProps> = ({
 						onMouseLeave={() => setHoveredTech(null)}
 					>
 						<div className="w-8 h-8 rounded-lg bg-secondary/50 p-1.5 transition-all duration-300 hover:bg-secondary">
-							<Image
-								src={iconPath}
-								alt={tech}
-								width={24}
-								height={24}
-								className="object-contain"
-							/>
+							<div className="relative w-full h-full">
+								<Image
+									src={iconPath}
+									alt={tech}
+									width={24}
+									height={24}
+									className="object-contain w-full h-full"
+									style={{
+										width: 'auto',
+										height: 'auto',
+									}}
+								/>
+							</div>
 						</div>
 						{hoveredTech === tech && (
 							<div

@@ -20,13 +20,19 @@ const TechStackDetailIcons: React.FC<TechStackIconsProps> = ({
 					return (
 						<div key={tech} className="flex items-center gap-2 rounded-lg">
 							<div className="flex rounded-lg bg-secondary/50 p-2 transition-all duration-300 hover:bg-secondary">
-								<Image
-									src={iconPath}
-									alt={tech}
-									width={24}
-									height={24}
-									className="object-contain"
-								/>
+								<div className="relative w-6 h-6">
+									<Image
+										src={iconPath}
+										alt={tech}
+										width={24}
+										height={24}
+										className="object-contain"
+										style={{
+											width: '100%',
+											height: '100%',
+										}}
+									/>
+								</div>
 								<span className="pl-1 pt-0.5 text-sm text-foreground">{tech}</span>
 							</div>
 						</div>

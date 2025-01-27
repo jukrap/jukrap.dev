@@ -22,7 +22,7 @@ const ProjectsSection = () => {
 	const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 	const [selectedPlatform, setSelectedPlatform] = useState<Platform>('All');
 
-	// Intersection Observer로 뷰포트 진입 감지
+
 	const { ref, isIntersecting } = useIntersectionObserver({
 		threshold: 0.1,
 		freezeOnceVisible: true,

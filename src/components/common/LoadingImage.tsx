@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, CSSProperties } from 'react';
 import Image from 'next/image';
 import { LoadingImageProps } from '@/types/component';
 import ImageSpinner from './ImageSpinner';
@@ -27,24 +27,16 @@ const LoadingImage: React.FC<LoadingImageProps> = ({
 		return () => clearTimeout(timer);
 	}, [isLoading]);
 
-	const imageProps = fill
+	const containerStyle: CSSProperties = fill
 		? {
-				fill: true,
-				sizes: '100vw',
+				position: 'relative',
+				width: '100%',
+				height: '100%',
 			}
-		: {
-				width,
-				height,
-				style: {
-					width: 'auto',
-					height: 'auto',
-					maxWidth: '100%',
-					maxHeight: '100%',
-				},
-			};
+		: {};
 
 	return (
-		<div className="">
+		<div style={containerStyle}>
 			{isLoading && showSpinner && (
 				<div className="absolute inset-0 flex items-center justify-center bg-secondary/20 backdrop-blur-sm rounded-lg">
 					<ImageSpinner />
@@ -53,9 +45,31 @@ const LoadingImage: React.FC<LoadingImageProps> = ({
 			<Image
 				src={src}
 				alt={alt}
-				{...imageProps}
-				className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-				style={{ objectFit, ...imageProps.style }}
+				{...(fill
+					? {
+							fill: true,
+							sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
+						}
+					: {
+							width,
+							height,
+						})}
+				className={`
+          ${className}
+          ${isLoading ? 'opacity-0' : 'opacity-100'}
+          transition-opacity duration-300
+        `}
+				style={{
+					objectFit,
+					...(fill
+						? {}
+						: {
+								maxWidth: '100%',
+								maxHeight: '100%',
+								width: 'auto',
+								height: 'auto',
+							}),
+				}}
 				onLoad={(e) => {
 					setIsLoading(false);
 					setShowSpinner(false);

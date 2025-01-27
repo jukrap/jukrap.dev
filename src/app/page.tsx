@@ -91,6 +91,10 @@ export default function HomePage() {
 								alt="Download Icon"
 								width={24}
 								height={24}
+								style={{
+									width: 'auto',
+									height: 'auto',
+								}}
 								className="absolute top-0 left-0 animate-downloadArrow"
 							/>
 						</div>

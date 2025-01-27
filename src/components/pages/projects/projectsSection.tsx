@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Project, Platform } from '@/types/project';
+import { useIntersectionObserver } from '@/hook/useIntersectionObserver';
 import CategorySection from './categorySection';
 import ProjectCardSkeleton from '@/components/skeletons/projectCardSkeleton';
 import { projectsDetailData } from '@/data/projectsDetailData';
@@ -14,27 +15,23 @@ const ProjectCard = dynamic(() => import('./projectCard'), {
 
 const ProjectDetail = dynamic(
 	() => import('@/components/common/projectDetail'),
-	{
-		ssr: false,
-	},
+	{ ssr: false },
 );
 
 const ProjectsSection = () => {
 	const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 	const [selectedPlatform, setSelectedPlatform] = useState<Platform>('All');
 
+	// Intersection Observer로 뷰포트 진입 감지
+	const { ref, isIntersecting } = useIntersectionObserver({
+		threshold: 0.1,
+		freezeOnceVisible: true,
+	});
+
 	const filteredProjects = projectsDetailData.filter(
 		(project) =>
 			selectedPlatform === 'All' || project.platform.includes(selectedPlatform),
 	);
-
-	const handleProjectClick = (project: Project) => {
-		setSelectedProject(project);
-	};
-
-	const handleCloseDetail = () => {
-		setSelectedProject(null);
-	};
 
 	return (
 		<div
@@ -63,21 +60,30 @@ const ProjectsSection = () => {
 
 			{/* 프로젝트 그리드 섹션 */}
 			<section
+				ref={ref as React.RefObject<HTMLDivElement>}
 				className="w-full max-w-[1200px] grid grid-cols-1 md:grid-cols-2 
         lg:grid-cols-3 gap-6 md:gap-8"
 			>
-				{filteredProjects.map((project) => (
-					<ProjectCard
-						key={project.id}
-						project={project}
-						onClick={() => handleProjectClick(project)}
-					/>
-				))}
+				{isIntersecting
+					? filteredProjects.map((project, index) => (
+							<ProjectCard
+								key={project.id}
+								project={project}
+								onClick={() => setSelectedProject(project)}
+								index={index}
+							/>
+						))
+					: Array(6)
+							.fill(0)
+							.map((_, index) => <ProjectCardSkeleton key={index} />)}
 			</section>
 
 			{/* 프로젝트 상세 모달 */}
 			{selectedProject && (
-				<ProjectDetail project={selectedProject} onClose={handleCloseDetail} />
+				<ProjectDetail
+					project={selectedProject}
+					onClose={() => setSelectedProject(null)}
+				/>
 			)}
 		</div>
 	);

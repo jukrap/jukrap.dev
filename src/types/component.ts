@@ -11,6 +11,7 @@ export interface ImageViewerProps {
 export interface ProjectCardProps {
 	project: Project;
 	onClick: () => void;
+	index?: number;
 }
 
 export interface TechStackIconsProps {
@@ -42,6 +43,18 @@ export interface BaseImageProps {
 // 이미지 컴포넌트들의 Props
 export interface AspectRatioImageProps extends BaseImageProps {
 	onLoad?: () => void;
+	priority?: boolean; // 우선순위 이미지 여부
+	containerClassName?: string; // 컨테이너 스타일링
+}
+
+// 이미지 로딩 상태 관리를 위한 타입 추가
+export interface ImageLoadingState {
+	isLoading: boolean;
+	error: boolean;
+	dimensions: {
+		width: number;
+		height: number;
+	} | null;
 }
 
 export interface ImageWithAspectRatioProps extends BaseImageProps {

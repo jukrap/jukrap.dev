@@ -4,3 +4,10 @@ export interface TypingEffectOptions {
 	pauseDuration?: number;
 	onComplete?: () => void;
 }
+
+export interface UseIntersectionObserverProps {
+	threshold?: number;
+	root?: Element | null;
+	rootMargin?: string;
+	freezeOnceVisible?: boolean;
+}

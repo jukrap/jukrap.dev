@@ -6,52 +6,53 @@ import { useIcon } from '@/hook/useIcon';
 import TechStackIcons from '@/components/common/techStackIcons';
 import AspectRatioImage from '@/components/pages/projects/aspectRatioImage';
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
-  const { getIcon } = useIcon();
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, index = 0 }) => {
+	const { getIcon } = useIcon();
 
-  const backgroundStyle = project.projectData.background?.image
-    ? {
-        backgroundImage: `url(${project.projectData.background.image})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-      }
-    : project.projectData.background?.gradientStart
-    ? {
-        background: `linear-gradient(to bottom, ${project.projectData.background.gradientStart}, ${project.projectData.background.gradientStart}00)`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-      }
-    : {};
+	const backgroundStyle = project.projectData.background?.image
+		? {
+				backgroundImage: `url(${project.projectData.background.image})`,
+				backgroundPosition: 'center',
+				backgroundSize: 'cover',
+			}
+		: project.projectData.background?.gradientStart
+			? {
+					background: `linear-gradient(to bottom, ${project.projectData.background.gradientStart}, ${project.projectData.background.gradientStart}00)`,
+					backgroundPosition: 'center',
+					backgroundSize: 'cover',
+				}
+			: {};
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="group relative overflow-hidden rounded-xl bg-card hover:shadow-xl 
+	return (
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			className="group relative overflow-hidden rounded-xl bg-card hover:shadow-xl 
         transition-all duration-300 cursor-pointer border border-border/40 
         hover:border-accent/40 flex flex-col"
-      onClick={onClick}
-    >
-      {/* Project Thumbnail Section */}
-      <div className="aspect-[6/5] relative w-full overflow-hidden">
-        {(project.projectData.background?.image ||
-          project.projectData.background?.gradientStart) && (
-          <>
-            <div
-              className="absolute inset-0 filter blur-sm bg-center bg-cover"
-              style={backgroundStyle}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/15 via-background/75 to-background" />
-          </>
-        )}
+			onClick={onClick}
+		>
+			{/* Project Thumbnail Section */}
+			<div className="aspect-[6/5] relative w-full overflow-hidden">
+				{(project.projectData.background?.image ||
+					project.projectData.background?.gradientStart) && (
+					<>
+						<div
+							className="absolute inset-0 filter blur-sm bg-center bg-cover"
+							style={backgroundStyle}
+						/>
+						<div className="absolute inset-0 bg-gradient-to-b from-background/15 via-background/75 to-background" />
+					</>
+				)}
         <div className="absolute inset-0 flex items-center justify-center p-6 z-10">
           <AspectRatioImage
             src={project.projectData.images[0]}
             alt={project.title}
+            priority={index < 3}
+            containerClassName="max-w-[24rem] max-h-[16rem]"
           />
         </div>
-      </div>
-
+			</div>
 
 			{/* Project Info Section */}
 			<div className="p-6 flex-1 flex flex-col">

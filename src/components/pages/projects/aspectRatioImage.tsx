@@ -6,6 +6,9 @@ const AspectRatioImage: React.FC<AspectRatioImageProps> = ({
 	src,
 	alt,
 	className = '',
+	priority = false,
+	containerClassName = '',
+	onLoad,
 }) => {
 	const [isPortrait, setIsPortrait] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
@@ -31,27 +34,33 @@ const AspectRatioImage: React.FC<AspectRatioImageProps> = ({
 			className={`
         relative w-full h-full flex items-center justify-center
         ${containerClasses}
-        ${className}
+        ${containerClassName}
       `}
 		>
+			{isLoading && (
+				<div className="absolute inset-0 bg-secondary/30 animate-pulse rounded-lg" />
+			)}
+
 			<Image
 				src={src}
 				alt={alt}
 				width={300}
 				height={225}
 				quality={75}
-				loading="lazy"
+				priority={priority}
+				loading={priority ? 'eager' : 'lazy'}
+				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 				className={`
-    rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105
-    ${isPortrait ? 'object-contain w-auto h-full' : 'object-contain w-full h-auto'}
-    ${isLoading ? 'opacity-0' : 'opacity-100'}
-  `}
-				onLoad={() => setIsLoading(false)}
+          rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105
+          ${isPortrait ? 'object-contain w-auto h-full' : 'object-contain w-full h-auto'}
+          ${isLoading ? 'opacity-0' : 'opacity-100'}
+          ${className}
+        `}
+				onLoad={(e) => {
+					setIsLoading(false);
+					onLoad?.();
+				}}
 			/>
-
-			{isLoading && (
-				<div className="absolute inset-0 bg-secondary/30 rounded-lg animate-pulse" />
-			)}
 		</div>
 	);
 };

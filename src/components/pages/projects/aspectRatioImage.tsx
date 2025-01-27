@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { AspectRatioImageProps } from '@/types/component';
+import imageMetadata from '@/data/imageMetadata.json';
 
 const AspectRatioImage: React.FC<AspectRatioImageProps> = ({
 	src,
@@ -10,14 +11,13 @@ const AspectRatioImage: React.FC<AspectRatioImageProps> = ({
 	containerClassName = '',
 	onLoad,
 }) => {
-	const [isPortrait, setIsPortrait] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+	const [isPortrait, setIsPortrait] = useState(false);
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			const img = new window.Image();
 			img.src = src;
-
 			img.onload = () => {
 				setIsPortrait(img.height > img.width);
 				setIsLoading(false);
@@ -40,7 +40,6 @@ const AspectRatioImage: React.FC<AspectRatioImageProps> = ({
 			{isLoading && (
 				<div className="absolute inset-0 bg-secondary/30 animate-pulse rounded-lg" />
 			)}
-
 			<Image
 				src={src}
 				alt={alt}

@@ -45,6 +45,7 @@ export interface AspectRatioImageProps extends BaseImageProps {
 	onLoad?: () => void;
 	priority?: boolean; // 우선순위 이미지 여부
 	containerClassName?: string; // 컨테이너 스타일링
+	metadata?: ImageMetadata;
 }
 
 // 이미지 로딩 상태 관리를 위한 타입 추가
@@ -115,4 +116,10 @@ export interface TechStackIconsProps {
 // LoadingState 타입
 export interface LoadingState {
 	[key: number]: boolean;
+}
+
+export interface ImageMetadata {
+	width: number;
+	height: number;
+	isPortrait: boolean;
 }

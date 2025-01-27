@@ -73,7 +73,7 @@ export interface ImageViewerProps {
 	onIndexChange: (newIndex: number) => void;
 }
 
-export interface LoadingImageProps {
+export interface LoadImageProps {
 	src: string;
 	alt: string;
 	maxWidth?: number;

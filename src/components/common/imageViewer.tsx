@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useThemeStore } from '@/store/useThemeStore';
 import { ImageViewerProps } from '@/types/component';
 import { getIconPath } from '@/util/iconPaths';
-import LoadingImage from './LoadingImage';
+import LoadImage from './loadImage';
 import ImageSpinner from './ImageSpinner';
 
 const ImageViewer: React.FC<ImageViewerProps> = ({
@@ -84,7 +84,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 								<ImageSpinner />
 							</motion.div>
 						)}
-						<LoadingImage
+						<LoadImage
 							key={currentImageUrl} // 키를 추가하여 이미지 변경 시 컴포넌트 재생성
 							src={currentImageUrl}
 							alt="Project Image"

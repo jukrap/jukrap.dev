@@ -5,7 +5,7 @@ import { useThemeStore } from '@/store/useThemeStore';
 import { LoadingState } from '@/types/component';
 import { InfiniteCarouselProps } from '@/types/component';
 import { getIconPath } from '@/util/iconPaths';
-import LoadingImage from './LoadingImage';
+import LoadImage from './loadImage';
 
 const MIN_INDICATOR_WIDTH = 12; // 인디케이터 최소 너비 (w-2 = 0.5rem = 8px) + 간격 (gap-2 = 0.5rem = 8px)
 const CONTAINER_PADDING = 32; // 좌우 패딩값 (px-4 = 1rem = 16px * 2)
@@ -107,7 +107,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 								onClick={() => onImageClick(index % images.length)}
 							>
 								<div className="relative">
-									<LoadingImage
+									<LoadImage
 										src={image}
 										alt={`Project Image ${index + 1}`}
 										maxWidth={200}
@@ -141,7 +141,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 									onClick={() => onImageClick(index)}
 								>
 									<div className="relative w-full h-full flex items-center justify-center">
-										<LoadingImage
+										<LoadImage
 											src={image}
 											alt={`Project Image ${index + 1}`}
 											maxWidth={300}

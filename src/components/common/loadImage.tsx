@@ -1,9 +1,9 @@
 import React, { useState, useEffect, CSSProperties } from 'react';
 import Image from 'next/image';
-import { LoadingImageProps } from '@/types/component';
+import { LoadImageProps } from '@/types/component';
 import ImageSpinner from './ImageSpinner';
 
-const LoadingImage: React.FC<LoadingImageProps> = ({
+const LoadImage: React.FC<LoadImageProps> = ({
 	src,
 	alt,
 	maxWidth: width,
@@ -81,4 +81,4 @@ const LoadingImage: React.FC<LoadingImageProps> = ({
 	);
 };
 
-export default LoadingImage;
+export default LoadImage;

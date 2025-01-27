@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import { X, ExternalLink, Globe, Lock } from 'lucide-react';
 import { useThemeStore } from '@/store/useThemeStore';
 import { WebViewModalProps } from '@/types/modal';
-import LoadingImage from '@/components/common/LoadingImage';
+import LoadImage from '@/components/common/loadImage';
 
 const WebViewModal: React.FC<WebViewModalProps> = ({
 	isOpen,
@@ -117,7 +117,7 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 			<div className="relative overflow-auto h-[calc(85vh-8rem)] bg-secondary/10">
 				{isImageLink ? (
 					<div className="flex items-center justify-center p-8">
-						<LoadingImage
+						<LoadImage
 							src={selectedLink}
 							alt={linkText}
 							maxWidth={900}

@@ -24,7 +24,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 		>
 			{/* Project Thumbnail Section */}
 			<div className="aspect-[6/5] relative w-full overflow-hidden">
-				{project.projectData.background?.image && (
+				{project.projectData.background?.image ? (
 					<>
 						<div className="absolute inset-0">
 							<Image
@@ -39,7 +39,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 							<div className="absolute inset-0 bg-gradient-to-b from-background/15 via-background/75 to-background" />
 						</div>
 					</>
-				)}
+				) : project.projectData.background?.gradientStart ? (
+					<>
+						<div className="absolute inset-0">
+							<div
+								className="absolute inset-0"
+								style={{
+									background: `linear-gradient(to bottom, ${project.projectData.background.gradientStart}, ${project.projectData.background.gradientStart}00)`,
+								}}
+							/>
+							<div className="absolute inset-0 bg-gradient-to-b from-background/15 via-background/75 to-background" />
+						</div>
+					</>
+				) : null}
 				<div className="absolute inset-0 flex items-center justify-center p-6 z-10">
 					<AspectRatioImage
 						src={project.projectData.images[0]}

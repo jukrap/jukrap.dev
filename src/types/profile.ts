@@ -1,3 +1,14 @@
+export interface CoreValue {
+	title: string;
+	content: string;
+}
+
+export interface PersonalInfo {
+	name: string;
+	email: string;
+	introduction: string;
+}
+
 export interface Activity {
 	title: string;
 	period: string;

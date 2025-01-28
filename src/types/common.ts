@@ -1,4 +1,4 @@
-import { IconType } from '@/util/iconPaths';
+import { IconType } from '@/types/icon';
 
 export interface BaseLink {
 	type: IconType;

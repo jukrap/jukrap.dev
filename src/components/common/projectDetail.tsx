@@ -82,21 +82,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 		</ul>
 	);
 
-	const backgroundStyle = project.projectData.background?.image
-		? {
-				backgroundImage: `url(${project.projectData.background.image})`,
-				backgroundPosition: 'center',
-				backgroundSize: 'cover',
-				backgroundRepeat: 'no-repeat',
-			}
-		: project.projectData.background?.gradientStart
-			? {
-					background: `linear-gradient(to bottom, ${project.projectData.background.gradientStart}, ${project.projectData.background.gradientStart}00)`,
-					backgroundPosition: 'center',
-					backgroundSize: 'cover',
-				}
-			: {};
-
 	return (
 		<AnimatePresence mode="sync">
 			{isVisible && (
@@ -114,7 +99,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 						animate={{ scale: 1, opacity: 1 }}
 						exit={{ scale: 0.9, opacity: 0 }}
 						className="relative bg-background w-[90%] max-w-[900px] rounded-xl 
-          max-h-[90vh] overflow-hidden transform-gpu"
+            max-h-[90vh] overflow-hidden transform-gpu"
 					>
 						<div className="max-h-[90vh] overflow-y-auto scrollbar-hide">
 							<div className="relative">
@@ -126,14 +111,37 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 									{(project.projectData.background?.image ||
 										project.projectData.background?.gradientStart) && (
 										<>
-											<div
-												className="absolute inset-0 bg-center bg-cover transform-gpu"
-												style={backgroundStyle}
-											/>
-											<div
-												className="absolute inset-0 bg-center bg-cover filter blur-sm transform-gpu"
-												style={backgroundStyle}
-											/>
+											{project.projectData.background?.image ? (
+												<>
+													<div className="absolute inset-0">
+														<Image
+															src={project.projectData.background.image}
+															alt="background"
+															fill
+															quality={100}
+															className="object-cover transform-gpu"
+															sizes="(max-width: 900px) 90vw, 900px"
+														/>
+														<div className="absolute inset-0 backdrop-blur-sm transform-gpu">
+															<Image
+																src={project.projectData.background.image}
+																alt="background blur"
+																fill
+																quality={75}
+																className="object-cover"
+																sizes="(max-width: 900px) 90vw, 900px"
+															/>
+														</div>
+													</div>
+												</>
+											) : (
+												<div
+													className="absolute inset-0 bg-center bg-cover transform-gpu"
+													style={{
+														background: `linear-gradient(to bottom, ${project.projectData.background?.gradientStart}, ${project.projectData.background?.gradientStart}00)`,
+													}}
+												/>
+											)}
 											{/* 메인 그라데이션 - 더 강한 효과 */}
 											<div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/70 to-background/95 transform-gpu" />
 											{/* 추가 그라데이션 - 부드러운 전환을 위한 레이어 */}
@@ -166,8 +174,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 															target="_blank"
 															rel="noopener noreferrer"
 															className="flex items-center gap-2 px-4 py-2 rounded-lg 
-                               border border-accent bg-accent/10 text-accent
-                               hover:bg-accent/30 transition-colors duration-300"
+                              border border-accent bg-accent/10 text-accent
+                              hover:bg-accent/30 transition-colors duration-300"
 														>
 															<Image
 																src={getIcon(link.type)}
@@ -191,8 +199,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 										<button
 											onClick={handleCloseClick}
 											className="absolute top-8 right-8 p-2 rounded-full z-30
-                       bg-background/30 hover:bg-background/80 backdrop-blur-sm
-                       transition-colors duration-300"
+                      bg-background/30 hover:bg-background/80 backdrop-blur-sm
+                      transition-colors duration-300"
 											aria-label="Close modal"
 										>
 											<Image src={getIcon('close')} alt="Close" width={24} height={24} />
@@ -277,8 +285,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 																			target="_blank"
 																			rel="noopener noreferrer"
 																			className="flex items-center gap-2 px-4 py-2 rounded-lg 
-                                     bg-primary text-primary-foreground hover:bg-primary/50
-                                     transition-colors duration-300"
+                                      bg-primary text-primary-foreground hover:bg-primary/50
+                                      transition-colors duration-300"
 																		>
 																			<Image
 																				src={getIcon(link.type)}
@@ -307,8 +315,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 												<button
 													onClick={handleCloseClick}
 													className="w-full px-6 py-3 bg-primary hover:bg-primary/50 
-                           text-primary-foreground font-semibold rounded-lg
-                           transition-colors duration-300"
+                          text-primary-foreground font-semibold rounded-lg
+                          transition-colors duration-300"
 												>
 													닫기
 												</button>
@@ -326,7 +334,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 			<AnimatePresence mode="sync">
 				{isViewerOpen && (
 					<ImageViewer
-						key="image-viewer-component" // 고유 키 추가
+						key="image-viewer-component"
 						images={project.projectData.images}
 						currentIndex={currentImageIndex}
 						onClose={() => setIsViewerOpen(false)}

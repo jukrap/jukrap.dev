@@ -19,7 +19,7 @@ export interface TechStackIconsProps {
 	className?: string;
 }
 
-export interface CategorySectionProps {
+export interface CategoryFilterProps {
 	selectedPlatform: Platform;
 	onSelectPlatform: (platform: Platform) => void;
 }

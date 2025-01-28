@@ -1,15 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CategorySectionProps } from '@/types/component';
+import { CategoryFilterProps } from '@/types/component';
 
 import { PLATFORMS } from '@/data/constants/platforms';
 
-const CategorySection: React.FC<CategorySectionProps> = ({
+const CategoryFilter: React.FC<CategoryFilterProps> = ({
 	selectedPlatform,
 	onSelectPlatform,
 }) => {
 	return (
-		<section className="w-full max-w-[1200px] flex flex-wrap gap-4">
+		<section className="w-full max-w-[1200px] flex flex-wrap gap-4 pb-12">
 			{PLATFORMS.map((platform) => (
 				<motion.button
 					key={platform}
@@ -38,4 +38,4 @@ const CategorySection: React.FC<CategorySectionProps> = ({
 	);
 };
 
-export default CategorySection;
+export default CategoryFilter;

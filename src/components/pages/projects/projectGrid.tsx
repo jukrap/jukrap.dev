@@ -1,7 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Project } from '@/types/project';
 import { useIntersectionObserver } from '@/hook/useIntersectionObserver';
+import { Project } from '@/types/project';
 import ProjectCardSkeleton from '@/components/skeletons/projectCardSkeleton';
 
 const ProjectCard = dynamic(() => import('./projectCard'), {

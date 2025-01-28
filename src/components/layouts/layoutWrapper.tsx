@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import useIsMobile from '@/hook/useIsMobile';
+import { alerts } from '@/data/messages/alerts';
 import Footer from '@/components/layouts/footer';
 import { NavigationBar } from './navigationBar';
 import LoadingScreen from '@/components/common/loadingScreen';
 import AlertTopBanner from '@/components/common/alertTopBanner';
-import { alerts } from '@/data/messages/alerts';
 //import MobileWarningModal from '@/components/mobileWarningModal';
 
 const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({

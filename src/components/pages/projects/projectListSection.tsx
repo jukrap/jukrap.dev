@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Platform, Project } from '@/types/project';
+import { projectsDetailData } from '@/data/projectsDetailData';
 import CategoryFilter from './categoryFilter';
 import { ProjectGrid } from './projectGrid';
-import { projectsDetailData } from '@/data/projectsDetailData';
 
 const ProjectDetail = dynamic(
 	() => import('@/components/common/projectDetail'),

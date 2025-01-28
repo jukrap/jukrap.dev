@@ -1,8 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ProjectCardProps } from '@/types/component';
 import { useIcon } from '@/hook/useIcon';
+import { ProjectCardProps } from '@/types/component';
 import TechStackIcons from '@/components/common/techStackIcons';
 import AspectRatioImage from '@/components/pages/projects/aspectRatioImage';
 

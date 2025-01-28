@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
+import { useProfileInteraction } from '@/hook/useProfileInteraction';
+import { personalInfo } from '@/data/about/personalInfo';
 import { ProfileCard } from './profileCard';
 import { TypingGreeting } from './typingGreeting';
 import { CoreValuesList } from './coreValuesList';
-import { personalInfo } from '@/data/about/personalInfo';
-import { useProfileInteraction } from '@/hook/useProfileInteraction';
 
 const IntroSection: React.FC = () => {
 	const {

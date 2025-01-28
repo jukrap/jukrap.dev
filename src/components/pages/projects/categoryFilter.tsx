@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CategoryFilterProps } from '@/types/component';
-
 import { PLATFORMS } from '@/data/constants/platforms';
 
 const CategoryFilter: React.FC<CategoryFilterProps> = ({

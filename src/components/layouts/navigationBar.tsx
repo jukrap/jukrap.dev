@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { useThemeStore } from '@/store/useThemeStore';
-import NavigationLink from '../common/navigationLink';
 import { links } from '@/data/navigation/links';
+import NavigationLink from '../common/navigationLink';
 
 import WhiteModeSun from '../../../public/icons/whiteMode_sun.svg';
 import WhiteModeMoon from '../../../public/icons/whiteMode_moon.svg';

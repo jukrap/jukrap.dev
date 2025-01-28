@@ -1,25 +1,8 @@
-export const iconTypes = [
-	'appleStore',
-	'googleStore',
-	'github',
-	'url',
-	'detailView',
-	'video',
-	'ppt',
-	'doc',
-	'other',
-	'email',
-	'blog',
-	'linkedin',
-	'downArrow',
-	'forward',
-	'back',
-	'close',
-] as const;
-//googlePlay => googlePlay
-//appStore => appleStore
+import { IconType } from '@/types/icon';
+import { iconTypes } from '@/data/constants/iconTypes';
 
-export type IconType = (typeof iconTypes)[number];
+export { iconTypes };
+export type { IconType };
 
 export const getIconPath = (type: IconType, isDarkMode: boolean): string => {
 	const mode = isDarkMode ? 'blackMode' : 'whiteMode';

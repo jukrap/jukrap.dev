@@ -3,41 +3,16 @@
 import React from 'react';
 import Image from 'next/image';
 import { useThemeStore } from '@/store/useThemeStore';
-import { Link } from '@/types/common';
 import useTypingEffect from '@/hook/useTypingEffect';
 import { useIcon } from '@/hook/useIcon';
 import HomeBodyLink from '@/components/pages/home/homeBodyLink';
+import { links } from '@/data/home/links';
 
-const links: Link[] = [
-	{
-		text: 'Email',
-		type: 'email',
-		url: 'mailto:jukrap628@gmail.com',
-	},
-	{
-		text: 'Github',
-		type: 'github',
-		url: 'https://github.com/jukrap',
-		isExternal: true,
-	},
-	{
-		text: 'Blog',
-		type: 'blog',
-		url: 'https://valur.tistory.com/',
-		isExternal: true,
-	},
-	{
-		text: 'LinkedIn',
-		type: 'linkedin',
-		url: 'https://www.linkedin.com/in/jukrap/',
-		isExternal: true,
-	},
-];
+const names = ['Ju-cheol Park', 'Jukrap'];
 
 export default function HomePage() {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 	const { getIcon } = useIcon();
-	const names = ['Ju-cheol Park', 'Jukrap'];
 	const typedText = useTypingEffect(names, {
 		typingSpeed: 150,
 		deletingSpeed: 100,

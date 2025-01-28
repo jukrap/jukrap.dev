@@ -1,10 +1,7 @@
-import { DateCode } from '../types/util';
+import { DateCode } from '@/types/util';
+import { obfuscatedBirthDate } from '@/data/constants/dateConstants';
 
-export const obfuscatedBirthDate: DateCode = {
-	year: 7156,
-	month: 128,
-	day: 8923,
-};
+export { obfuscatedBirthDate };
 
 export const decodeBirthDate = (obfuscated: DateCode) => {
 	const actualYear = obfuscated.year - 5156;

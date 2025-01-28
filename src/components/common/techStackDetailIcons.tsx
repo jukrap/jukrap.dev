@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { TechStackIconsProps } from '@/types/component';
 import TechStackIcons from './techStackIcons';
 
-import { TECH_STACK_ICONS } from '@/app/projects/constants';
+import { TECH_STACK_ICONS } from '@/data/constants/techStack';
 
 const TechStackDetailIcons: React.FC<TechStackIconsProps> = ({
 	techStack,

@@ -2,7 +2,7 @@ import {
 	obfuscatedBirthDate,
 	decodeBirthDate,
 	calculateAge,
-} from '../util/dateUtils';
+} from '../../util/dateUtils';
 
 const birthDate = decodeBirthDate(obfuscatedBirthDate);
 const age = calculateAge(birthDate);

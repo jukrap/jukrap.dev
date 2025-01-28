@@ -1,5 +1,3 @@
-import { Platform } from '@/types/project';
-
 export const TECH_STACK_ICONS: Record<string, string> = {
 	TypeScript: '/icons/tech/typescript.svg',
 	React: '/icons/tech/react.svg',
@@ -46,5 +44,3 @@ export const TECH_STACK_ICONS: Record<string, string> = {
 	'Framer Motion': '/icons/tech/framermotion.svg',
 	Sharp: '/icons/tech/sharp.svg',
 };
-
-export const PLATFORMS: Platform[] = ['All', 'Web', 'Mobile', 'Game'];

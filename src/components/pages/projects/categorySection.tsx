@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CategorySectionProps } from '@/types/component';
 
-import { PLATFORMS } from '@/app/projects/constants';
+import { PLATFORMS } from '@/data/constants/platforms';
 
 const CategorySection: React.FC<CategorySectionProps> = ({
 	selectedPlatform,

@@ -4,19 +4,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { useThemeStore } from '@/store/useThemeStore';
-import { NavLink } from '@/types/navigation';
 import NavigationLink from '../common/navigationLink';
+import { links } from '@/data/navigation/links';
 
 import WhiteModeSun from '../../../public/icons/whiteMode_sun.svg';
 import WhiteModeMoon from '../../../public/icons/whiteMode_moon.svg';
 import BlackModeSun from '../../../public/icons/blackMode_sun.svg';
 import BlackModeMoon from '../../../public/icons/blackMode_moon.svg';
-
-const links: NavLink[] = [
-	{ label: 'Home', href: '/' },
-	{ label: 'About', href: '/about' },
-	{ label: 'Projects', href: '/projects' },
-];
 
 export function NavigationBar() {
 	const { isDarkMode, toggleMode } = useThemeStore();

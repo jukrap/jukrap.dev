@@ -6,6 +6,7 @@ import Footer from '@/components/layouts/footer';
 import { NavigationBar } from './navigationBar';
 import LoadingScreen from '@/components/common/loadingScreen';
 import AlertTopBanner from '@/components/common/alertTopBanner';
+import { alerts } from '@/data/messages/alerts';
 //import MobileWarningModal from '@/components/mobileWarningModal';
 
 const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -39,7 +40,7 @@ const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({
 				className={`flex flex-col min-h-screen transition-opacity duration-700 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
 			>
 				<NavigationBar />
-				<AlertTopBanner message="😭 *[깃허브 계정 정지]*:__https://valur.tistory.com/entry/Github-Organization%EC%9D%98-%EB%A9%A4%EB%B2%84-%EC%B4%88%EB%8C%80%EC%97%90%EC%84%9C-You-cant-do-that-at-this-time-%EA%B2%BD%EA%B3%A0__(섀도밴)로 인해, 깃허브 관련 링크가 작동하지 않는 상황입니다. 불편을 드려 죄송합니다." />
+				<AlertTopBanner message={alerts.githubSuspension} />
 				<main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					{children}
 				</main>

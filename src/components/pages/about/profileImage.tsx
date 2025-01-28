@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { ProfileImageProps } from '@/types/component';
+import { profileMessages } from '@/data/messages/profileMessages';
 
 const ProfileImage: React.FC<ProfileImageProps> = ({
 	isFlipped,
@@ -39,9 +40,11 @@ const ProfileImage: React.FC<ProfileImageProps> = ({
 			</div>
 			{showMessage && (
 				<div
-					className={`font-bold absolute -right-16 -top-16 bg-foreground text-background p-2 rounded-lg shadow-md ${isMessageFadingOut ? 'animate-fadeOut' : 'animate-fadeIn'}`}
+					className={`font-bold absolute -right-16 -top-16 bg-foreground text-background p-2 rounded-lg shadow-md ${
+						isMessageFadingOut ? 'animate-fadeOut' : 'animate-fadeIn'
+					}`}
 				>
-					{isFlipped ? '👨‍💻 저를 데려가 주세요!' : '🤔 여기를 눌러보세요!'}
+					{isFlipped ? profileMessages.flipped : profileMessages.default}
 					<div className="absolute left-4 bottom-0 transform translate-y-1/2 rotate-45 bg-foreground w-4 h-4"></div>
 				</div>
 			)}

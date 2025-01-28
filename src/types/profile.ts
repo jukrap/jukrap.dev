@@ -27,3 +27,12 @@ export interface Skill {
 	category: string;
 	items: string;
 }
+
+export interface ProfileInteractionProps {
+	isFlipped: boolean;
+	onClick: () => void;
+	onMouseEnter: () => void;
+	onMouseLeave: () => void;
+	showMessage: boolean;
+	isMessageFadingOut: boolean;
+}

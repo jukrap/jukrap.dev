@@ -4,9 +4,9 @@ import { links } from '@/data/about/links';
 import { personalInfo } from '@/data/about/personalInfo';
 import ProfileImage from './profileImage';
 import IntroSectionLink from './introSectionLinks';
-import { ProfileImageProps } from '@/types/component';
+import { ProfileInteractionProps } from '@/types/profile';
 
-export const ProfileCard: React.FC<ProfileImageProps> = ({
+export const ProfileCard: React.FC<ProfileInteractionProps> = ({
 	isFlipped,
 	showMessage,
 	isMessageFadingOut,

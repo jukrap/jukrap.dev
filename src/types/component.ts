@@ -19,15 +19,6 @@ export interface TechStackIconsProps {
 	className?: string;
 }
 
-export interface ProfileImageProps {
-	isFlipped: boolean;
-	onClick: () => void;
-	onMouseEnter: () => void;
-	onMouseLeave: () => void;
-	showMessage: boolean;
-	isMessageFadingOut: boolean;
-}
-
 export interface CategorySectionProps {
 	selectedPlatform: Platform;
 	onSelectPlatform: (platform: Platform) => void;
@@ -97,15 +88,6 @@ export interface InfiniteCarouselProps {
 // UI 컴포넌트 Props
 export interface AlertTopBannerProps {
 	message: string;
-}
-
-export interface ProfileImageProps {
-	isFlipped: boolean;
-	onClick: () => void;
-	onMouseEnter: () => void;
-	onMouseLeave: () => void;
-	showMessage: boolean;
-	isMessageFadingOut: boolean;
 }
 
 export interface TechStackIconsProps {

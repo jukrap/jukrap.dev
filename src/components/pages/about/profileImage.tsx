@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import { ProfileImageProps } from '@/types/component';
+import { ProfileInteractionProps } from '@/types/profile';
 import { profileMessages } from '@/data/messages/profileMessages';
 
-const ProfileImage: React.FC<ProfileImageProps> = ({
+const ProfileImage: React.FC<ProfileInteractionProps> = ({
 	isFlipped,
 	onClick,
 	onMouseEnter,

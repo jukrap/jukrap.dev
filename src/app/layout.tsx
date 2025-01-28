@@ -1,9 +1,9 @@
-import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { ThemeProvider } from '@/contexts/themeContext';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import LayoutWrapper from '@/components/layouts/layoutWrapper';
+import { siteMetadata } from '@/data/meta/siteMetaData';
 import './globals.css';
 
 const pretendard = localFont({
@@ -12,14 +12,7 @@ const pretendard = localFont({
 	weight: '45 920',
 });
 
-export const metadata: Metadata = {
-	title: 'Ju-cheol Park | Frontend engineer',
-	description: "Frontend engineer, This is Jukrap's website.",
-	icons: {
-		icon: '/favicon.ico',
-	},
-	viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
-};
+export const metadata = siteMetadata;
 
 export default function RootLayout({
 	children,
@@ -33,9 +26,7 @@ export default function RootLayout({
 			>
 				<ThemeProvider>
 					<div className="flex flex-col min-h-screen">
-						<LayoutWrapper>
-							{children}
-						</LayoutWrapper>
+						<LayoutWrapper>{children}</LayoutWrapper>
 					</div>
 					<Analytics />
 					<SpeedInsights />

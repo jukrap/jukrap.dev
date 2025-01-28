@@ -7,8 +7,8 @@ import AwardsSection from '@/components/pages/about/awardsSection';
 import SideProjectsSection from '@/components/pages/about/sideProjectsSection';
 
 export const metadata: Metadata = {
-	title: 'About | Ju-cheol Park',
-	description: 'About page of Ju-cheol Park, Frontend Engineer',
+  title: 'About | Ju-cheol Park',
+  description: 'About page of Ju-cheol Park, Frontend Engineer',
 };
 
 const About: React.FC = () => {

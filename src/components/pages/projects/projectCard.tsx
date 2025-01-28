@@ -6,22 +6,12 @@ import { useIcon } from '@/hook/useIcon';
 import TechStackIcons from '@/components/common/techStackIcons';
 import AspectRatioImage from '@/components/pages/projects/aspectRatioImage';
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, index = 0 }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+	project,
+	onClick,
+	index = 0,
+}) => {
 	const { getIcon } = useIcon();
-
-	const backgroundStyle = project.projectData.background?.image
-		? {
-				backgroundImage: `url(${project.projectData.background.image})`,
-				backgroundPosition: 'center',
-				backgroundSize: 'cover',
-			}
-		: project.projectData.background?.gradientStart
-			? {
-					background: `linear-gradient(to bottom, ${project.projectData.background.gradientStart}, ${project.projectData.background.gradientStart}00)`,
-					backgroundPosition: 'center',
-					backgroundSize: 'cover',
-				}
-			: {};
 
 	return (
 		<motion.div
@@ -34,24 +24,30 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, index = 0 }
 		>
 			{/* Project Thumbnail Section */}
 			<div className="aspect-[6/5] relative w-full overflow-hidden">
-				{(project.projectData.background?.image ||
-					project.projectData.background?.gradientStart) && (
+				{project.projectData.background?.image && (
 					<>
-						<div
-							className="absolute inset-0 filter blur-sm bg-center bg-cover"
-							style={backgroundStyle}
-						/>
-						<div className="absolute inset-0 bg-gradient-to-b from-background/15 via-background/75 to-background" />
+						<div className="absolute inset-0">
+							<Image
+								src={project.projectData.background.image}
+								alt="background"
+								fill
+								quality={75}
+								priority={index < 3}
+								className="object-cover blur-sm"
+								sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+							/>
+							<div className="absolute inset-0 bg-gradient-to-b from-background/15 via-background/75 to-background" />
+						</div>
 					</>
 				)}
-        <div className="absolute inset-0 flex items-center justify-center p-6 z-10">
-          <AspectRatioImage
-            src={project.projectData.images[0]}
-            alt={project.title}
-            priority={index < 3}
-            containerClassName="max-w-[24rem] max-h-[16rem]"
-          />
-        </div>
+				<div className="absolute inset-0 flex items-center justify-center p-6 z-10">
+					<AspectRatioImage
+						src={project.projectData.images[0]}
+						alt={project.title}
+						priority={index < 3}
+						containerClassName="max-w-[24rem] max-h-[16rem]"
+					/>
+				</div>
 			</div>
 
 			{/* Project Info Section */}

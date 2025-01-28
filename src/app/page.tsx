@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { WelcomeSection } from '@/components/pages/home/welcomeSection';
 import { LinksSection } from '@/components/pages/home/linksSection';

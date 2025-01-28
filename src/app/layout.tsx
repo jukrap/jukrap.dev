@@ -1,3 +1,4 @@
+import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import { ThemeProvider } from '@/contexts/themeContext';
 import { Analytics } from '@vercel/analytics/react';
@@ -13,6 +14,13 @@ const pretendard = localFont({
 });
 
 export const metadata = siteMetadata;
+
+export const viewport: Viewport = {
+	width: 'device-width',
+	initialScale: 1,
+	maximumScale: 1,
+	userScalable: true,
+};
 
 export default function RootLayout({
 	children,

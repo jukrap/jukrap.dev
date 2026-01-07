@@ -7,7 +7,7 @@ export const useIntersectionObserver = ({
 	rootMargin = '0px',
 	freezeOnceVisible = true,
 }: UseIntersectionObserverProps = {}): {
-	ref: RefObject<HTMLDivElement>;
+	ref: RefObject<HTMLDivElement | null>;
 	isIntersecting: boolean;
 } => {
 	const [isIntersecting, setIsIntersecting] = useState<boolean>(false);

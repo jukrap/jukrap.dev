@@ -6,7 +6,7 @@ const AlertTopBanner: React.FC<AlertTopBannerProps> = ({ message }) => {
 	const [isVisible, setIsVisible] = useState(true);
 
 	const parseMessage = (text: string) => {
-		const parts: (string | JSX.Element)[] = [];
+		const parts: (string | React.ReactElement)[] = [];
 		const regex = /\*\[(.*?)\]\*:__(.*?)__/g;
 		let lastIndex = 0;
 		let match;

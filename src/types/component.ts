@@ -88,6 +88,7 @@ export interface InfiniteCarouselProps {
 // UI 컴포넌트 Props
 export interface AlertTopBannerProps {
 	message: string;
+	closeLabel: string;
 }
 
 export interface TechStackIconsProps {

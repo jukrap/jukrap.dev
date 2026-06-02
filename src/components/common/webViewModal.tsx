@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { X, ExternalLink, Globe, Lock } from 'lucide-react';
 import { useThemeStore } from '@/store/useThemeStore';
+import { useLocale } from '@/contexts/localeContext';
 import { WebViewModalProps } from '@/types/modal';
 import LoadImage from '@/components/common/loadImage';
 
@@ -14,6 +15,7 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 	linkText,
 }) => {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
+	const { dictionary } = useLocale();
 	const [isLoading, setIsLoading] = useState(true);
 	const isImageLink = selectedLink.match(/\.(jpg|jpeg|png|gif|svg)$/i);
 	const isExternalLink = selectedLink.startsWith('http');
@@ -90,7 +92,9 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 							className="flex items-center gap-2 px-4 py-1.5 bg-accent/10 hover:bg-accent/35 text-accent rounded-full transition-all duration-300"
 						>
 							<ExternalLink className="w-4 h-4" />
-							<span className="text-sm font-medium">새 탭에서 열기</span>
+							<span className="text-sm font-medium">
+								{dictionary.webView.openNewTab}
+							</span>
 						</a>
 					)}
 				</div>
@@ -131,10 +135,10 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 						<Globe className="w-16 h-16 text-accent animate-pulse" />
 						<div className="text-center space-y-2 max-w-md">
 							<h3 className="text-xl font-bold text-foreground">
-								외부 웹사이트로 이동합니다
+								{dictionary.webView.externalTitle}
 							</h3>
 							<p className="text-sm text-muted-foreground">
-								{new URL(selectedLink).hostname}으로 이동할 수 있습니다
+								{dictionary.webView.externalDescription(new URL(selectedLink).hostname)}
 							</p>
 						</div>
 						<div className="flex flex-col sm:flex-row gap-4">
@@ -145,14 +149,14 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 								className="flex items-center justify-center gap-2 px-6 py-3 bg-accent hover:bg-accent/80 text-accent-foreground rounded-lg transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
 							>
 								<ExternalLink className="w-5 h-5" />
-								<span>새 탭에서 열기</span>
+								<span>{dictionary.webView.openNewTab}</span>
 							</a>
 							<button
 								onClick={() => setShowEmbedded(true)}
 								className="flex items-center justify-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground rounded-lg transition-all duration-300 font-medium"
 							>
 								<Globe className="w-5 h-5" />
-								<span>웹뷰에서 보기</span>
+								<span>{dictionary.webView.viewInWebView}</span>
 							</button>
 						</div>
 					</div>

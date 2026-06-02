@@ -1,11 +1,13 @@
 'use client';
 
 import React from 'react';
+import { useLocale } from '@/contexts/localeContext';
 import useTypingEffect from '@/hook/useTypingEffect';
 
 const names = ['Ju-cheol Park', 'Jukrap'];
 
 export const WelcomeSection = () => {
+	const { dictionary } = useLocale();
 	const typedText = useTypingEffect(names, {
 		typingSpeed: 150,
 		deletingSpeed: 100,
@@ -28,7 +30,7 @@ export const WelcomeSection = () => {
 				</h1>
 			</div>
 			<p className="font-bold text-xl md:text-2xl lg:text-3xl text-center text-foreground break-keep">
-				Jukrap의 개인 사이트에 오신 것을 환영합니다.
+				{dictionary.home.welcome}
 			</p>
 		</section>
 	);

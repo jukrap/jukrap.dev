@@ -4,12 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Project, BaseProjectTask } from '@/types/project';
 import { ProjectDetailProps } from '@/types/modal';
 import { useIcon } from '@/hook/useIcon';
+import { useLocale } from '@/contexts/localeContext';
 import ImageViewer from './imageViewer';
 import InfiniteCarousel from './infiniteCarousel';
 import TechStackDetailIcons from './techStackDetailIcons';
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	const { getIcon } = useIcon();
+	const { dictionary } = useLocale();
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const [isViewerOpen, setIsViewerOpen] = useState(false);
 	const [isVisible, setIsVisible] = useState(false);
@@ -212,7 +214,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 										<div className="p-8 space-y-8">
 											{/* 프로젝트 개요 */}
 											{renderSection(
-												'프로젝트 개요',
+												dictionary.projectDetail.overview,
 												<div className="space-y-4">
 													<p className="text-foreground leading-relaxed">
 														{project.overview}
@@ -223,48 +225,57 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 
 											{/* 프로젝트 정보 */}
 											{renderSection(
-												'프로젝트 정보',
+												dictionary.projectDetail.info,
 												<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 													<div className="p-4 bg-background rounded-lg border border-border/50">
 														<h4 className="font-semibold text-lg mb-2 text-foreground">
-															담당 역할
+															{dictionary.projectDetail.role}
 														</h4>
 														<p className="text-muted-foreground">{project.role.join(', ')}</p>
 													</div>
 													<div className="p-4 bg-background rounded-lg border border-border/50">
 														<h4 className="font-semibold text-lg mb-2 text-foreground">
-															팀 규모
+															{dictionary.projectDetail.teamSize}
 														</h4>
-														<p className="text-muted-foreground">{project.teamSize}명</p>
+														<p className="text-muted-foreground">
+															{project.teamSize}
+															{dictionary.projectDetail.teamSizeUnit}
+														</p>
 													</div>
 												</div>,
 											)}
 
 											{/* 주요 작업 */}
-											{renderSection('주요 작업', renderList(project.tasks))}
+											{renderSection(
+												dictionary.projectDetail.tasks,
+												renderList(project.tasks),
+											)}
 
 											{/* 문제 해결 */}
 											{project.troubleshooting &&
-												renderSection('문제 해결', renderList(project.troubleshooting))}
+												renderSection(
+													dictionary.projectDetail.troubleshooting,
+													renderList(project.troubleshooting),
+												)}
 
 											{/* 성능 개선 */}
 											{project.performanceImprovements &&
 												renderSection(
-													'성능 개선',
+													dictionary.projectDetail.performance,
 													renderList(project.performanceImprovements),
 												)}
 
 											{/* 특별 구현 사항 */}
 											{project.specialImplementations &&
 												renderSection(
-													'특별 사항',
+													dictionary.projectDetail.special,
 													renderList(project.specialImplementations),
 												)}
 
 											{/* 프로젝트 이미지 */}
 											{project.projectData.images.length > 0 &&
 												renderSection(
-													'프로젝트 스크린샷',
+													dictionary.projectDetail.screenshots,
 													<>
 														<InfiniteCarousel
 															images={project.projectData.images}
@@ -318,7 +329,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
                           text-primary-foreground font-semibold rounded-lg
                           transition-colors duration-300"
 												>
-													닫기
+													{dictionary.projectDetail.close}
 												</button>
 											</div>
 										</div>

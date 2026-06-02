@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { AlertTopBannerProps } from '@/types/component';
 
-const AlertTopBanner: React.FC<AlertTopBannerProps> = ({ message }) => {
+const AlertTopBanner: React.FC<AlertTopBannerProps> = ({
+	message,
+	closeLabel,
+}) => {
 	const [isVisible, setIsVisible] = useState(true);
 
 	const parseMessage = (text: string) => {
@@ -54,7 +57,7 @@ const AlertTopBanner: React.FC<AlertTopBannerProps> = ({ message }) => {
 					<button
 						onClick={() => setIsVisible(false)}
 						className="absolute right-0 p-1 rounded-md hover:bg-muted transition-colors duration-300"
-						aria-label="알림 닫기"
+						aria-label={closeLabel}
 					>
 						<X size={20} className="text-foreground" />
 					</button>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@/types/common';
-import { links } from '@/data/footer/links';
+import { useLocale } from '@/contexts/localeContext';
 
 const FooterLink: React.FC<Link> = ({ text, url, isExternal }) => (
 	<a
@@ -18,6 +18,9 @@ const FooterLink: React.FC<Link> = ({ text, url, isExternal }) => (
 
 const Footer: React.FC = () => {
 	const currentYear = new Date().getFullYear();
+	const {
+		data: { footerLinks },
+	} = useLocale();
 
 	return (
 		<footer className="w-full pt-12 pb-6 md:pt-16 md:pb-8 px-4 md:px-6 bg-background/50 backdrop-blur-sm">
@@ -26,10 +29,10 @@ const Footer: React.FC = () => {
 					Copyright © {currentYear} Ju-cheol Park · All Rights Reserved.
 				</p>
 				<div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 px-4">
-					{links.map((link, index) => (
+					{footerLinks.map((link, index) => (
 						<React.Fragment key={link.url}>
 							<FooterLink {...link} />
-							{index < links.length - 1 && (
+							{index < footerLinks.length - 1 && (
 								<span className="text-foreground/40 last:hidden">•</span>
 							)}
 						</React.Fragment>

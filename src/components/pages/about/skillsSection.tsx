@@ -1,11 +1,18 @@
+'use client';
+
 import React from 'react';
-import { skills } from '@/data/about/skills';
+import { useLocale } from '@/contexts/localeContext';
 
 const SkillsSection: React.FC = () => {
+	const {
+		dictionary,
+		data: { skills },
+	} = useLocale();
+
 	return (
 		<section className="w-full max-w-[670px] flex flex-col items-start gap-6 md:gap-8">
 			<h2 className="font-bold text-2xl md:text-4xl leading-relaxed tracking-tight text-foreground border-b border-border pb-2 w-full md:w-[153px] md:border-none md:pb-0 md:text-right">
-				Skills
+				{dictionary.about.skills}
 			</h2>
 
 			{/* 모바일에서는 카드 형태로, 데스크톱에서는 기존 레이아웃 유지 */}

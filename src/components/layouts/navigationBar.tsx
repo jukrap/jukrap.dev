@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { useThemeStore } from '@/store/useThemeStore';
-import { links } from '@/data/navigation/links';
+import { useLocale } from '@/contexts/localeContext';
+import { getAlternateLocalePath, getLocalizedPath } from '@/lib/locale';
+import { Locale } from '@/types/locale';
 import NavigationLink from '../common/navigationLink';
 
 import WhiteModeSun from '../../../public/icons/whiteMode_sun.svg';
@@ -14,8 +17,12 @@ import BlackModeMoon from '../../../public/icons/blackMode_moon.svg';
 
 export function NavigationBar() {
 	const { isDarkMode, toggleMode } = useThemeStore();
+	const { locale, dictionary } = useLocale();
+	const pathname = usePathname() ?? getLocalizedPath('/', locale);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const titleText = 'Jukrap';
+	const nextLocale: Locale = locale === 'ko' ? 'en' : 'ko';
+	const languageHref = getAlternateLocalePath(pathname, nextLocale);
 
 	useEffect(() => {
 		if (isMenuOpen) {
@@ -43,18 +50,28 @@ export function NavigationBar() {
 
 						{/* Desktop Navigation */}
 						<ul className="hidden md:flex space-x-4">
-							{links.map((link) => (
+							{dictionary.navigation.links.map((link) => (
 								<li key={link.href}>
-									<NavigationLink href={link.href}>{link.label}</NavigationLink>
+									<NavigationLink href={getLocalizedPath(link.href, locale)}>
+										{link.label}
+									</NavigationLink>
 								</li>
 							))}
 						</ul>
 
 						{/* Desktop Theme Toggle */}
-						<div className="hidden md:flex items-center">
+						<div className="hidden md:flex items-center gap-3">
+							<Link
+								href={languageHref}
+								className="px-4 py-2 rounded-full text-sm font-semibold bg-secondary text-secondary-foreground hover:text-accent transition-colors"
+								aria-label={dictionary.navigation.switchLanguage}
+							>
+								{dictionary.navigation.languageName}
+							</Link>
 							<button
 								className="flex items-center gap-4 px-4 py-2 rounded-full bg-primary transition-all duration-500"
 								onClick={toggleMode}
+								aria-label={dictionary.navigation.themeToggle}
 							>
 								<div className="flex items-center gap-4 transition-transform duration-500">
 									{isDarkMode ? (
@@ -113,27 +130,51 @@ export function NavigationBar() {
 								isMenuOpen ? 'opacity-100' : 'opacity-0'
 							}`}
 						>
-							{links.map((link, index) => (
+							{dictionary.navigation.links.map((link, index) => (
 								<Link
 									key={link.href}
-									href={link.href}
-									className={`text-lg font-medium text-foreground hover:text-accent 
-                    transition-all duration-300 py-2 border-b border-border
-                    transform ${isMenuOpen ? 'translate-y-0' : '-translate-y-4'}`}
+									href={getLocalizedPath(link.href, locale)}
+									className={[
+										'text-lg font-medium text-foreground hover:text-accent',
+										'transition-all duration-300 py-2 border-b border-border',
+										'transform',
+										isMenuOpen ? 'translate-y-0' : '-translate-y-4',
+									].join(' ')}
 									style={{ transitionDelay: `${index * 100}ms` }}
 									onClick={closeMenu}
 								>
 									{link.label}
 								</Link>
 							))}
+							<Link
+								href={languageHref}
+								className={[
+									'flex items-center justify-center px-4 py-3 rounded-lg',
+									'bg-secondary text-secondary-foreground transition-all duration-300',
+									'transform',
+									isMenuOpen ? 'translate-y-0' : '-translate-y-4',
+								].join(' ')}
+								style={{
+									transitionDelay: `${dictionary.navigation.links.length * 50}ms`,
+								}}
+								onClick={closeMenu}
+								aria-label={dictionary.navigation.switchLanguage}
+							>
+								{dictionary.navigation.languageName}
+							</Link>
 							<button
 								onClick={() => {
 									toggleMode();
 								}}
-								className={`flex items-center justify-center gap-4 px-4 py-3 rounded-lg 
-                  bg-primary text-primary-foreground transition-all duration-300 
-                  transform ${isMenuOpen ? 'translate-y-0' : '-translate-y-4'}`}
-								style={{ transitionDelay: `${links.length * 50}ms` }}
+								className={[
+									'flex items-center justify-center gap-4 px-4 py-3 rounded-lg',
+									'bg-primary text-primary-foreground transition-all duration-300',
+									'transform',
+									isMenuOpen ? 'translate-y-0' : '-translate-y-4',
+								].join(' ')}
+								style={{
+									transitionDelay: `${(dictionary.navigation.links.length + 1) * 50}ms`,
+								}}
 							>
 								<div className="flex items-center gap-4">
 									{isDarkMode ? (
@@ -148,7 +189,11 @@ export function NavigationBar() {
 										</>
 									)}
 								</div>
-								<span className="ml-2">{isDarkMode ? '라이트 모드' : '다크 모드'}</span>
+								<span className="ml-2">
+									{isDarkMode
+										? dictionary.navigation.themeToLight
+										: dictionary.navigation.themeToDark}
+								</span>
 							</button>
 						</div>
 					</div>

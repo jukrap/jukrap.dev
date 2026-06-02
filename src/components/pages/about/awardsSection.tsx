@@ -2,9 +2,13 @@
 
 import React from 'react';
 import WebViewModal from '@/components/common/webViewModal';
-import { awards } from '@/data/about/awards';
+import { useLocale } from '@/contexts/localeContext';
 
 const AwardsSection: React.FC = () => {
+	const {
+		dictionary,
+		data: { awards },
+	} = useLocale();
 	const [modalIsOpen, setModalIsOpen] = React.useState(false);
 	const [selectedLink, setSelectedLink] = React.useState('');
 	const [selectedLinkText, setSelectedLinkText] = React.useState('');
@@ -24,7 +28,7 @@ const AwardsSection: React.FC = () => {
 	return (
 		<section className="w-full max-w-[670px] flex flex-col items-start gap-6 md:gap-8">
 			<h2 className="font-bold text-2xl md:text-4xl leading-relaxed tracking-tight text-foreground border-b border-border pb-2 w-full md:w-[153px] md:border-none md:pb-0 md:text-right">
-				Awards
+				{dictionary.about.awards}
 			</h2>
 
 			<div className="w-full flex flex-col gap-6">

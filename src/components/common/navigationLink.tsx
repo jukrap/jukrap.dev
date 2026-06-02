@@ -6,8 +6,10 @@ import cn from 'clsx';
 import { NavLinkProps } from '@/types/navigation';
 
 export default function NavigationLink({ href, children }: NavLinkProps) {
-	const pathname = `/${usePathname()?.split('/')[1]}`;
-	const active = pathname === href;
+	const fullPathname = usePathname() ?? '/';
+	const active =
+		fullPathname === href ||
+		(href !== '/' && fullPathname.startsWith(`${href}/`));
 
 	return (
 		<Link

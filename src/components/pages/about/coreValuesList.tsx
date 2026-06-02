@@ -1,7 +1,13 @@
+'use client';
+
 import React from 'react';
-import { coreValues } from '@/data/about/coreValues';
+import { useLocale } from '@/contexts/localeContext';
 
 export const CoreValuesList = () => {
+	const {
+		data: { coreValues },
+	} = useLocale();
+
 	return (
 		<div className="space-y-6 md:space-y-6">
 			{coreValues.map((item, index) => (

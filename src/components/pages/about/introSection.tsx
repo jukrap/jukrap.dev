@@ -2,12 +2,16 @@
 
 import React from 'react';
 import { useProfileInteraction } from '@/hook/useProfileInteraction';
-import { personalInfo } from '@/data/about/personalInfo';
+import { useLocale } from '@/contexts/localeContext';
 import { ProfileCard } from './profileCard';
 import { TypingGreeting } from './typingGreeting';
 import { CoreValuesList } from './coreValuesList';
 
 const IntroSection: React.FC = () => {
+	const {
+		dictionary,
+		data: { personalInfo },
+	} = useLocale();
 	const {
 		isFlipped,
 		showMessage,
@@ -30,7 +34,7 @@ const IntroSection: React.FC = () => {
 
 			<div className="flex flex-col items-start w-full md:w-fit">
 				<h2 className="font-bold text-2xl md:text-4xl leading-relaxed tracking-tight text-foreground border-b border-border pb-2 w-full md:w-auto md:border-none md:pb-0">
-					About Me
+					{dictionary.about.title}
 				</h2>
 
 				<TypingGreeting />

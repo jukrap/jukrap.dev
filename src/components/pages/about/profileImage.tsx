@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ProfileInteractionProps } from '@/types/profile';
-import { profileMessages } from '@/data/messages/profileMessages';
+import { useLocale } from '@/contexts/localeContext';
 import ProfileImageSkeleton from '@/components/skeletons/profileImageSkeleton';
 
 const ProfileImage: React.FC<ProfileInteractionProps> = ({
@@ -14,6 +14,7 @@ const ProfileImage: React.FC<ProfileInteractionProps> = ({
 	isMessageFadingOut,
 }) => {
 	const [isLoaded, setIsLoaded] = useState(false);
+	const { dictionary } = useLocale();
 
 	useEffect(() => {
 		const loadImages = async () => {
@@ -105,7 +106,9 @@ const ProfileImage: React.FC<ProfileInteractionProps> = ({
 						isMessageFadingOut ? 'animate-fadeOut' : 'animate-fadeIn'
 					}`}
 				>
-					{isFlipped ? profileMessages.flipped : profileMessages.default}
+					{isFlipped
+						? dictionary.about.profileMessageFlipped
+						: dictionary.about.profileMessageDefault}
 					<div className="absolute left-4 bottom-0 transform translate-y-1/2 rotate-45 bg-foreground w-4 h-4" />
 				</div>
 			)}

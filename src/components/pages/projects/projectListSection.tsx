@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Platform, Project } from '@/types/project';
-import { projectsDetailData } from '@/data/projectsDetailData';
+import { useLocale } from '@/contexts/localeContext';
 import CategoryFilter from './categoryFilter';
 import { ProjectGrid } from './projectGrid';
 
@@ -15,10 +15,13 @@ const ProjectDetail = dynamic(
 );
 
 export function ProjectListSection() {
+	const {
+		data: { projectDetails },
+	} = useLocale();
 	const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 	const [selectedPlatform, setSelectedPlatform] = useState<Platform>('All');
 
-	const filteredProjects = projectsDetailData.filter(
+	const filteredProjects = projectDetails.filter(
 		(project) =>
 			selectedPlatform === 'All' || project.platform.includes(selectedPlatform),
 	);

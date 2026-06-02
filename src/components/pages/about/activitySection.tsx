@@ -1,11 +1,18 @@
+'use client';
+
 import React from 'react';
-import { activities } from '@/data/about/activities';
+import { useLocale } from '@/contexts/localeContext';
 
 const ActivitySection: React.FC = () => {
+	const {
+		dictionary,
+		data: { activities },
+	} = useLocale();
+
 	return (
 		<section className="w-full max-w-[670px] flex flex-col items-start gap-6 md:gap-8">
 			<h2 className="font-bold text-2xl md:text-4xl leading-relaxed tracking-tight text-foreground border-b border-border pb-2 w-full md:w-[153px] md:border-none md:pb-0 md:text-right">
-				Activity
+				{dictionary.about.activity}
 			</h2>
 
 			<div className="w-full flex flex-col gap-6">

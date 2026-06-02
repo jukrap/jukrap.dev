@@ -1,12 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CategoryFilterProps } from '@/types/component';
+import { useLocale } from '@/contexts/localeContext';
 import { PLATFORMS } from '@/data/constants/platforms';
 
 const CategoryFilter: React.FC<CategoryFilterProps> = ({
 	selectedPlatform,
 	onSelectPlatform,
 }) => {
+	const { dictionary } = useLocale();
+
 	return (
 		<section className="w-full max-w-[1200px] flex flex-wrap gap-4 pb-12">
 			{PLATFORMS.map((platform) => (
@@ -23,7 +26,9 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 				>
-					<span className="relative z-10">{platform}</span>
+					<span className="relative z-10">
+						{dictionary.projects.platforms[platform]}
+					</span>
 					{selectedPlatform === platform && (
 						<motion.div
 							layoutId="categoryBackground"

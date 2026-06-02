@@ -5,9 +5,8 @@ import Image from 'next/image';
 import { useThemeStore } from '@/store/useThemeStore';
 import { ProjectLink, SimpleProject, Project } from '@/types/project';
 import { useIcon } from '@/hook/useIcon';
+import { useLocale } from '@/contexts/localeContext';
 import ProjectDetail from '@/components/common/projectDetail';
-import { projectsData } from '@/data/projectsData';
-import { projectsDetailData } from '@/data/projectsDetailData';
 
 const SideProjectsLink: React.FC<ProjectLink> = ({ type, url }) => {
 	const { getIcon } = useIcon();
@@ -32,19 +31,23 @@ const SideProjectsLink: React.FC<ProjectLink> = ({ type, url }) => {
 
 const SideProjectsSection: React.FC = () => {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
+	const {
+		dictionary,
+		data: { projects, projectDetails },
+	} = useLocale();
 	const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 	const { getIcon } = useIcon();
 
 	const openProjectDetail = (projectId: string) => {
-		if (projectsDetailData) {
-			const detailProject = projectsDetailData.find((p) => p.id === projectId);
+		if (projectDetails) {
+			const detailProject = projectDetails.find((p) => p.id === projectId);
 			if (detailProject) {
 				setSelectedProject(detailProject);
 			} else {
 				console.error('No matching project found for id:', projectId);
 			}
 		} else {
-			console.error('projectsDetailData is undefined');
+			console.error('projectDetails is undefined');
 		}
 	};
 
@@ -55,11 +58,11 @@ const SideProjectsSection: React.FC = () => {
 	return (
 		<section className="w-full max-w-[670px] flex flex-col items-start gap-6 md:gap-8">
 			<h2 className="font-bold text-2xl md:text-4xl leading-relaxed tracking-tight text-foreground border-b border-border pb-2 w-full md:w-[153px] md:border-none md:pb-0 md:text-right">
-				S.Projects
+				{dictionary.about.sideProjects}
 			</h2>
 
 			<div className="w-full flex flex-col gap-6">
-				{projectsData
+				{projects
 					.filter((project) => project.major)
 					.map((project, index) => (
 						<div
@@ -87,7 +90,7 @@ const SideProjectsSection: React.FC = () => {
 													key={`detail-${project.id}`}
 													onClick={() => openProjectDetail(project.id)}
 													className="flex flex-row items-center justify-center transition-transform duration-300 hover:scale-125"
-													aria-label="상세 보기"
+													aria-label={dictionary.projectDetail.detailView}
 												>
 													<Image
 														src={

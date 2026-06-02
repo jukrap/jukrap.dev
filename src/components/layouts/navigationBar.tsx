@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Languages, Menu, Moon, Sun, X } from 'lucide-react';
+import cn from 'clsx';
 import { useThemeStore } from '@/store/useThemeStore';
 import { useLocale } from '@/contexts/localeContext';
 import { getAlternateLocalePath, getLocalizedPath } from '@/lib/locale';
@@ -85,9 +86,25 @@ export function NavigationBar() {
 			<nav className="bg-background border-b border-border/25 transition-colors duration-300">
 				<div className="max-w-7xl mx-auto px-5 sm:px-7 lg:px-9">
 					<div className="flex justify-between items-center h-16">
-						<Link href={getLocalizedPath('/', locale)} className="shrink-0">
-							<span className="font-bold text-xl text-primary transition-colors duration-500">
-								{titleText}
+						<Link
+							href={getLocalizedPath('/', locale)}
+							className="shrink-0"
+							aria-label={titleText}
+						>
+							<span
+								className="brand-link font-bold text-xl text-primary"
+								aria-hidden="true"
+							>
+								{titleText.split('').map((letter, index) => (
+									<span
+										key={`${letter}-${index}`}
+										className="brand-letter"
+										style={{ transitionDelay: `${index * 28}ms` }}
+										aria-hidden="true"
+									>
+										{letter}
+									</span>
+								))}
 							</span>
 						</Link>
 
@@ -168,19 +185,29 @@ export function NavigationBar() {
 								isMenuOpen ? 'opacity-100' : 'opacity-0'
 							}`}
 						>
-							{dictionary.navigation.links.map((link) => (
-								<Link
-									key={link.href}
-									href={getLocalizedPath(link.href, locale)}
-									className={[
-										'rounded-md px-3 py-2 text-lg font-medium text-foreground',
-										'interactive-soft transition-colors duration-200 hover:bg-secondary/45 hover:text-accent',
-									].join(' ')}
-									onClick={closeMenu}
-								>
-									{link.label}
-								</Link>
-							))}
+							{dictionary.navigation.links.map((link) => {
+								const href = getLocalizedPath(link.href, locale);
+								const isRootHref = href.split('/').filter(Boolean).length <= 1;
+								const active =
+									pathname === href ||
+									(!isRootHref && href !== '/' && pathname.startsWith(`${href}/`));
+
+								return (
+									<Link
+										key={link.href}
+										href={href}
+										className={cn(
+											'nav-link w-full justify-start text-lg font-medium',
+											active && 'nav-link-active',
+										)}
+										onClick={closeMenu}
+										aria-current={active ? 'page' : undefined}
+									>
+										<span className="nav-link-indicator" aria-hidden="true" />
+										<span className="nav-link-label">{link.label}</span>
+									</Link>
+								);
+							})}
 							<Link
 								href={languageHref}
 								className={[

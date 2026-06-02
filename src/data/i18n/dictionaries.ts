@@ -30,7 +30,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		alerts: {
 			aiAgentPlaybook:
-				'🤖 *[ai-agent-playbook]*:__https://github.com/jukrap/ai-agent-playbook__ AI 에이전트 스킬과 AGENTS.md 템플릿을 모아둔 저장소입니다.',
+				'🤖 AI 에이전트 작업 방식이 궁금하다면 *[ai-agent-playbook]*:__https://github.com/jukrap/ai-agent-playbook__를 한 번 써보세요.',
 			close: '알림 닫기',
 		},
 		home: {
@@ -118,7 +118,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		alerts: {
 			aiAgentPlaybook:
-				'🤖 *[ai-agent-playbook]*:__https://github.com/jukrap/ai-agent-playbook__ collects AI agent skills, AGENTS.md templates, and local-ai bundles.',
+				'🤖 Curious about my AI agent workflow? Try *[ai-agent-playbook]*:__https://github.com/jukrap/ai-agent-playbook__.',
 			close: 'Close alert',
 		},
 		home: {

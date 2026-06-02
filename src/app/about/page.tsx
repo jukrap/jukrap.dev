@@ -1,5 +1,10 @@
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { getPreferredLocale } from '@/lib/locale';
 
-export default function AboutRedirect() {
-	redirect('/ko/about');
+export default async function AboutRedirect() {
+	const requestHeaders = await headers();
+	const locale = getPreferredLocale(requestHeaders.get('accept-language'));
+
+	redirect(`/${locale}/about`);
 }

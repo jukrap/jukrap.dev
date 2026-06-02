@@ -14,15 +14,12 @@ export default function NavigationLink({ href, children }: NavLinkProps) {
 
 	return (
 		<Link
-			className={cn(
-				'px-5 py-1.5 rounded-full text-xl font-normal interactive-soft',
-				active
-					? 'surface-minimal text-foreground'
-					: 'text-muted-foreground hover:bg-secondary/45 hover:text-accent',
-			)}
+			className={cn('nav-link text-xl font-normal', active && 'nav-link-active')}
 			href={href}
+			aria-current={active ? 'page' : undefined}
 		>
-			{children}
+			<span className="nav-link-indicator" aria-hidden="true" />
+			<span className="nav-link-label">{children}</span>
 		</Link>
 	);
 }

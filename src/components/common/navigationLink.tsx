@@ -18,7 +18,6 @@ export default function NavigationLink({ href, children }: NavLinkProps) {
 			href={href}
 			aria-current={active ? 'page' : undefined}
 		>
-			<span className="nav-link-indicator" aria-hidden="true" />
 			<span className="nav-link-label">{children}</span>
 		</Link>
 	);

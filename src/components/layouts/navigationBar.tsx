@@ -203,7 +203,6 @@ export function NavigationBar() {
 										onClick={closeMenu}
 										aria-current={active ? 'page' : undefined}
 									>
-										<span className="nav-link-indicator" aria-hidden="true" />
 										<span className="nav-link-label">{link.label}</span>
 									</Link>
 								);

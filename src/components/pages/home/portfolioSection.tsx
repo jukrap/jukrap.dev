@@ -7,7 +7,8 @@ import { useIcon } from '@/hook/useIcon';
 
 export const PortfolioSection = () => {
 	const { getIcon } = useIcon();
-	const { dictionary } = useLocale();
+	const { dictionary, locale } = useLocale();
+	const ctaSuffixSeparator = locale === 'en' ? ' ' : '';
 
 	return (
 		<section className="flex flex-col items-center gap-8 md:gap-16 px-4">
@@ -19,6 +20,7 @@ export const PortfolioSection = () => {
 					<br />
 					{dictionary.home.portfolioCtaPrefix}{' '}
 					<span className="font-bold">{dictionary.home.portfolioCtaStrong}</span>
+					{ctaSuffixSeparator}
 					{dictionary.home.portfolioCtaSuffix}
 				</p>
 				<a

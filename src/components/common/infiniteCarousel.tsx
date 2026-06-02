@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
-import debounce from 'lodash/debounce';
 import { useThemeStore } from '@/store/useThemeStore';
 import { LoadingState } from '@/types/component';
 import { InfiniteCarouselProps } from '@/types/component';
@@ -9,6 +8,15 @@ import LoadImage from './loadImage';
 
 const MIN_INDICATOR_WIDTH = 12; // 인디케이터 최소 너비 (w-2 = 0.5rem = 8px) + 간격 (gap-2 = 0.5rem = 8px)
 const CONTAINER_PADDING = 32; // 좌우 패딩값 (px-4 = 1rem = 16px * 2)
+
+const debounce = (callback: () => void, delay: number) => {
+	let timer: ReturnType<typeof setTimeout> | undefined;
+
+	return () => {
+		if (timer) clearTimeout(timer);
+		timer = setTimeout(callback, delay);
+	};
+};
 
 const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 	images,

@@ -1,19 +1,75 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Languages, Menu, Moon, Sun, X } from 'lucide-react';
 import { useThemeStore } from '@/store/useThemeStore';
 import { useLocale } from '@/contexts/localeContext';
 import { getAlternateLocalePath, getLocalizedPath } from '@/lib/locale';
-import { Locale } from '@/types/locale';
+import type { Locale } from '@/types/locale';
 import NavigationLink from '../common/navigationLink';
 
-import WhiteModeSun from '../../../public/icons/whiteMode_sun.svg';
-import WhiteModeMoon from '../../../public/icons/whiteMode_moon.svg';
-import BlackModeSun from '../../../public/icons/blackMode_sun.svg';
-import BlackModeMoon from '../../../public/icons/blackMode_moon.svg';
+interface ThemeToggleProps {
+	isDarkMode: boolean;
+	label: string;
+	text?: string;
+	onToggle: () => void;
+}
+
+const ThemeToggle: React.FC<ThemeToggleProps> = ({
+	isDarkMode,
+	label,
+	text,
+	onToggle,
+}) => (
+	<button
+		type="button"
+		onClick={onToggle}
+		aria-label={label}
+		aria-pressed={isDarkMode}
+		className={[
+			'group inline-flex items-center justify-center gap-3 rounded-full px-2 py-1',
+			'surface-glass text-foreground transition-colors duration-300',
+			'hover:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/45',
+			text ? 'w-full py-3' : 'h-10',
+		].join(' ')}
+	>
+		<span className="relative h-8 w-[72px] rounded-full bg-secondary/70 shadow-inner">
+			<Sun
+				className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+				aria-hidden="true"
+			/>
+			<Moon
+				className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+				aria-hidden="true"
+			/>
+			<motion.span
+				className="absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-foreground text-background shadow-md"
+				animate={{ x: isDarkMode ? 40 : 0 }}
+				transition={{ type: 'spring', stiffness: 420, damping: 30 }}
+			>
+				<AnimatePresence mode="wait" initial={false}>
+					<motion.span
+						key={isDarkMode ? 'moon' : 'sun'}
+						initial={{ opacity: 0, y: 8, rotate: -20 }}
+						animate={{ opacity: 1, y: 0, rotate: 0 }}
+						exit={{ opacity: 0, y: -8, rotate: 20 }}
+						transition={{ duration: 0.2 }}
+					>
+						{isDarkMode ? (
+							<Moon className="h-4 w-4" aria-hidden="true" />
+						) : (
+							<Sun className="h-4 w-4" aria-hidden="true" />
+						)}
+					</motion.span>
+				</AnimatePresence>
+			</motion.span>
+		</span>
+		{text && <span className="text-sm font-semibold">{text}</span>}
+	</button>
+);
 
 export function NavigationBar() {
 	const { isDarkMode, toggleMode } = useThemeStore();
@@ -25,13 +81,12 @@ export function NavigationBar() {
 	const languageHref = getAlternateLocalePath(pathname, nextLocale);
 
 	useEffect(() => {
-		if (isMenuOpen) {
-			document.body.style.overflow = 'hidden';
-		} else {
-			document.body.style.overflow = 'unset';
-		}
+		if (!isMenuOpen) return;
+		const previousOverflow = document.body.style.overflow;
+		document.body.style.overflow = 'hidden';
+
 		return () => {
-			document.body.style.overflow = 'unset';
+			document.body.style.overflow = previousOverflow;
 		};
 	}, [isMenuOpen]);
 
@@ -39,10 +94,10 @@ export function NavigationBar() {
 
 	return (
 		<header className="sticky top-0 w-full z-50">
-			<nav className="bg-background/95 transition-colors duration-500 border-b border-border">
+			<nav className="surface-glass border-x-0 border-t-0 transition-colors duration-500">
 				<div className="max-w-7xl mx-auto px-5 sm:px-7 lg:px-9">
 					<div className="flex justify-between items-center h-16">
-						<Link href="/" className="shrink-0">
+						<Link href={getLocalizedPath('/', locale)} className="shrink-0">
 							<span className="font-bold text-xl text-primary transition-colors duration-500">
 								{titleText}
 							</span>
@@ -63,37 +118,29 @@ export function NavigationBar() {
 						<div className="hidden md:flex items-center gap-3">
 							<Link
 								href={languageHref}
-								className="px-4 py-2 rounded-full text-sm font-semibold bg-secondary text-secondary-foreground hover:text-accent transition-colors"
+								className="surface-glass inline-flex h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold text-foreground transition-colors hover:border-accent/50 hover:text-accent"
 								aria-label={dictionary.navigation.switchLanguage}
 							>
+								<Languages className="h-4 w-4" aria-hidden="true" />
 								{dictionary.navigation.languageName}
 							</Link>
-							<button
-								className="flex items-center gap-4 px-4 py-2 rounded-full bg-primary transition-all duration-500"
-								onClick={toggleMode}
-								aria-label={dictionary.navigation.themeToggle}
-							>
-								<div className="flex items-center gap-4 transition-transform duration-500">
-									{isDarkMode ? (
-										<>
-											<BlackModeSun className="transition-opacity duration-500 dark:opacity-100" />
-											<BlackModeMoon className="transition-opacity duration-500 dark:opacity-100" />
-										</>
-									) : (
-										<>
-											<WhiteModeSun className="transition-opacity duration-500 opacity-100 dark:opacity-0" />
-											<WhiteModeMoon className="transition-opacity duration-500 opacity-100 dark:opacity-0" />
-										</>
-									)}
-								</div>
-							</button>
+							<ThemeToggle
+								isDarkMode={isDarkMode}
+								label={dictionary.navigation.themeToggle}
+								onToggle={toggleMode}
+							/>
 						</div>
 
 						{/* Mobile Menu Button */}
 						<button
 							onClick={() => setIsMenuOpen(!isMenuOpen)}
 							className="md:hidden z-50 p-2 rounded-md text-foreground hover:bg-muted transition-all duration-300"
-							aria-label="Toggle menu"
+							aria-label={
+								isMenuOpen
+									? dictionary.navigation.closeMenu
+									: dictionary.navigation.openMenu
+							}
+							aria-expanded={isMenuOpen}
 						>
 							<div className="relative w-6 h-6">
 								<div
@@ -113,16 +160,15 @@ export function NavigationBar() {
 
 				{/* Mobile Navigation Overlay */}
 				<div
-					className={`fixed inset-0 bg-background/50 transition-opacity duration-300 md:hidden ${
+					className={`fixed inset-0 top-16 bg-background/55 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
 						isMenuOpen ? 'opacity-100 z-40' : 'opacity-0 pointer-events-none'
 					}`}
 					onClick={closeMenu}
 				>
 					<div
-						className={`fixed inset-x-0 top-[64px] bg-background border-t border-border
-              transition-transform duration-500 ease-in-out ${
-															isMenuOpen ? 'translate-y-0' : '-translate-y-full'
-														}`}
+						className={`absolute inset-x-3 top-3 surface-glass-strong rounded-lg transition-transform duration-500 ease-in-out ${
+							isMenuOpen ? 'translate-y-0' : '-translate-y-full'
+						}`}
 						onClick={(e) => e.stopPropagation()}
 					>
 						<div
@@ -150,7 +196,7 @@ export function NavigationBar() {
 								href={languageHref}
 								className={[
 									'flex items-center justify-center px-4 py-3 rounded-lg',
-									'bg-secondary text-secondary-foreground transition-all duration-300',
+									'surface-glass text-foreground transition-all duration-300',
 									'transform',
 									isMenuOpen ? 'translate-y-0' : '-translate-y-4',
 								].join(' ')}
@@ -160,41 +206,32 @@ export function NavigationBar() {
 								onClick={closeMenu}
 								aria-label={dictionary.navigation.switchLanguage}
 							>
+								<Languages className="mr-2 h-4 w-4" aria-hidden="true" />
 								{dictionary.navigation.languageName}
 							</Link>
-							<button
-								onClick={() => {
-									toggleMode();
-								}}
+							<div
 								className={[
-									'flex items-center justify-center gap-4 px-4 py-3 rounded-lg',
-									'bg-primary text-primary-foreground transition-all duration-300',
-									'transform',
+									'transform transition-all duration-300',
 									isMenuOpen ? 'translate-y-0' : '-translate-y-4',
 								].join(' ')}
 								style={{
 									transitionDelay: `${(dictionary.navigation.links.length + 1) * 50}ms`,
 								}}
 							>
-								<div className="flex items-center gap-4">
-									{isDarkMode ? (
-										<>
-											<BlackModeSun className="transition-opacity duration-500 dark:opacity-100" />
-											<BlackModeMoon className="transition-opacity duration-500 dark:opacity-100" />
-										</>
-									) : (
-										<>
-											<WhiteModeSun className="transition-opacity duration-500 opacity-100 dark:opacity-0" />
-											<WhiteModeMoon className="transition-opacity duration-500 opacity-100 dark:opacity-0" />
-										</>
-									)}
-								</div>
-								<span className="ml-2">
-									{isDarkMode
-										? dictionary.navigation.themeToLight
-										: dictionary.navigation.themeToDark}
-								</span>
-							</button>
+								<ThemeToggle
+									isDarkMode={isDarkMode}
+									label={dictionary.navigation.themeToggle}
+									text={
+										isDarkMode
+											? dictionary.navigation.themeToLight
+											: dictionary.navigation.themeToDark
+									}
+									onToggle={() => {
+										toggleMode();
+										closeMenu();
+									}}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>

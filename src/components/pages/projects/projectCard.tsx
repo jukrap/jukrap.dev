@@ -17,9 +17,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 		<motion.div
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			className="group relative overflow-hidden rounded-xl bg-card hover:shadow-xl 
-        transition-all duration-300 cursor-pointer border border-border/40 
-        hover:border-accent/40 flex flex-col"
+			className={[
+				'group relative overflow-hidden rounded-lg surface-glass',
+				'transition-all duration-300 cursor-pointer hover:border-accent/40',
+				'hover:shadow-xl flex flex-col',
+			].join(' ')}
 			onClick={onClick}
 		>
 			{/* Project Thumbnail Section */}

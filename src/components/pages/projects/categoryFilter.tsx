@@ -16,13 +16,13 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 				<motion.button
 					key={platform}
 					onClick={() => onSelectPlatform(platform)}
-					className={`relative px-6 py-2 rounded-full text-base md:text-lg 
-            transition-colors duration-300 overflow-hidden
-            ${
-													selectedPlatform === platform
-														? 'bg-accent text-accent-foreground'
-														: 'bg-secondary hover:bg-secondary/80 text-secondary-foreground'
-												}`}
+					className={[
+						'relative overflow-hidden rounded-full px-6 py-2 text-base md:text-lg',
+						'transition-colors duration-300',
+						selectedPlatform === platform
+							? 'text-background'
+							: 'surface-glass text-foreground hover:border-accent/50',
+					].join(' ')}
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 				>
@@ -32,7 +32,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 					{selectedPlatform === platform && (
 						<motion.div
 							layoutId="categoryBackground"
-							className="absolute inset-0 bg-accent"
+							className="absolute inset-0 bg-foreground"
 							transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
 						/>
 					)}

@@ -1,4 +1,4 @@
-import { PersonalInfo } from "@/types/profile";
+import { PersonalInfo } from '@/types/profile';
 
 export const personalInfo: PersonalInfo = {
 	name: 'Ju-cheol Park',

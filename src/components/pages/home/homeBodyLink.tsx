@@ -2,12 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { IconLink } from '@/types/common';
 
-const HomeBodyLink: React.FC<IconLink> = ({
-	text,
-	url,
-	icon,
-	isExternal,
-}) => {
+const HomeBodyLink: React.FC<IconLink> = ({ text, url, icon, isExternal }) => {
 	return (
 		<a
 			href={url}

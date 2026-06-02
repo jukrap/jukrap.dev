@@ -13,7 +13,7 @@ const IntroSectionLink: React.FC<IconLink> = ({
 			href={url}
 			target={isExternal ? '_blank' : undefined}
 			rel={isExternal ? 'noopener noreferrer' : undefined}
-			className="icon-link"
+			className="icon-link hover:text-accent"
 		>
 			<div className="relative w-6 h-6">
 				<Image

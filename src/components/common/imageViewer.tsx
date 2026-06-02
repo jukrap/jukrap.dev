@@ -105,29 +105,29 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
 				{/* 네비게이션 버튼 - 모바일에서는 양쪽 여백 축소 */}
 				<button
-					className="absolute top-1/2 left-2 md:left-[-70px] transform -translate-y-1/2 icon-link transition-colors duration-200"
+					className="absolute top-1/2 left-2 md:left-[-70px] flex h-10 w-10 md:h-11 md:w-11 -translate-y-1/2 transform items-center justify-center rounded-full border border-border/35 bg-background/95 transition-colors duration-200 hover:border-accent/55 hover:bg-secondary"
 					onClick={prevImage}
 					aria-label="Previous image"
 				>
 					<Image
 						src={getIconPath('back', isDarkMode)}
 						alt="Previous"
-						width={24}
-						height={24}
-						className="md:w-8 md:h-8"
+						width={18}
+						height={18}
+						className="h-4 w-4 md:h-5 md:w-5"
 					/>
 				</button>
 				<button
-					className="absolute top-1/2 right-2 md:right-[-70px] transform -translate-y-1/2 icon-link transition-colors duration-200"
+					className="absolute top-1/2 right-2 md:right-[-70px] flex h-10 w-10 md:h-11 md:w-11 -translate-y-1/2 transform items-center justify-center rounded-full border border-border/35 bg-background/95 transition-colors duration-200 hover:border-accent/55 hover:bg-secondary"
 					onClick={nextImage}
 					aria-label="Next image"
 				>
 					<Image
 						src={getIconPath('forward', isDarkMode)}
 						alt="Next"
-						width={24}
-						height={24}
-						className="md:w-8 md:h-8"
+						width={18}
+						height={18}
+						className="h-4 w-4 md:h-5 md:w-5"
 					/>
 				</button>
 			</div>
@@ -135,7 +135,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 			{/* 닫기 버튼 */}
 			<button
 				type="button"
-				className="absolute top-6 right-6 icon-link transition-colors duration-200 no-select"
+				className="absolute top-6 right-6 flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full border border-border/35 bg-background/95 transition-colors duration-200 hover:border-accent/55 hover:bg-secondary no-select"
 				onClick={(e) => {
 					e.stopPropagation();
 					handleClose();
@@ -145,9 +145,9 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 				<Image
 					src={getIconPath('close', isDarkMode)}
 					alt="Close"
-					width={24}
-					height={24}
-					className="md:w-8 md:h-8"
+					width={18}
+					height={18}
+					className="h-4 w-4 md:h-5 md:w-5"
 				/>
 			</button>
 
@@ -157,9 +157,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 					<button
 						key={index}
 						className={`w-2 h-2 md:w-4 md:h-4 aspect-square rounded-full transition-colors duration-300 ${
-							index === currentIndex
-								? 'bg-foreground'
-								: 'bg-gray-300 hover:bg-gray-400'
+							index === currentIndex ? 'bg-accent' : 'bg-gray-300 hover:bg-gray-400'
 						}`}
 						onClick={(e) => {
 							e.stopPropagation();

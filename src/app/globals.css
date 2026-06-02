@@ -38,10 +38,10 @@
 		/* #ECECE9 */
 		--muted-foreground: 45 2% 43%;
 		/* #706F6C */
-		--accent: 45 2% 43%;
-		/* #706F6C */
-		--accent-opacity: 45 2% 43%;
-		/* #706F6C */
+		--accent: 164 76% 43%;
+		/* #1AC397 */
+		--accent-opacity: 164 76% 43%;
+		/* #1AC397 */
 		--accent-foreground: 60 20% 99%;
 		/* #FDFDFC */
 		--destructive: 0 84% 60%;
@@ -92,10 +92,10 @@
 		/* #706F6C */
 		--muted-foreground: 60 7% 92%;
 		/* #ECECE9 */
-		--accent: 60 7% 92%;
-		/* #ECECE9 */
-		--accent-opacity: 60 7% 92%;
-		/* #ECECE9 */
+		--accent: 164 76% 43%;
+		/* #1AC397 */
+		--accent-opacity: 164 76% 43%;
+		/* #1AC397 */
 		--accent-foreground: 60 20% 99%;
 		/* #FDFDFC */
 		--destructive: 0 84% 60%;
@@ -178,12 +178,22 @@
 		background-color: hsl(var(--background));
 		border: 1px solid hsl(var(--border) / 0.28);
 		box-shadow: 0 1px 2px hsl(var(--blacks) / 0.04);
+		transition:
+			transform 180ms ease,
+			background-color 180ms ease,
+			border-color 180ms ease,
+			box-shadow 180ms ease;
 	}
 
 	.surface-minimal-strong {
 		background-color: hsl(var(--background));
 		border: 1px solid hsl(var(--border) / 0.36);
 		box-shadow: 0 18px 60px hsl(var(--blacks) / 0.18);
+		transition:
+			transform 220ms ease,
+			background-color 180ms ease,
+			border-color 180ms ease,
+			box-shadow 180ms ease;
 	}
 
 	.dark .surface-minimal,
@@ -202,18 +212,39 @@
 		background-color: hsl(var(--background));
 		border: 1px solid hsl(var(--border) / 0.28);
 		transition:
+			transform 180ms ease,
 			background-color 180ms ease,
 			border-color 180ms ease,
 			color 180ms ease;
 	}
 
 	.icon-link:hover {
+		transform: translateY(-1px);
 		background-color: hsl(var(--secondary) / 0.55);
-		border-color: hsl(var(--foreground) / 0.32);
+		border-color: hsl(var(--accent) / 0.55);
 	}
 
 	.icon-link:active {
+		transform: translateY(0);
 		background-color: hsl(var(--secondary) / 0.8);
+	}
+
+	.interactive-soft {
+		transition:
+			transform 180ms ease,
+			background-color 180ms ease,
+			border-color 180ms ease,
+			color 180ms ease,
+			box-shadow 180ms ease,
+			opacity 180ms ease;
+	}
+
+	.interactive-soft:hover {
+		transform: translateY(-1px);
+	}
+
+	.interactive-soft:active {
+		transform: translateY(0);
 	}
 
 	.ReactModal__Body--open {

@@ -15,10 +15,10 @@ export default function NavigationLink({ href, children }: NavLinkProps) {
 	return (
 		<Link
 			className={cn(
-				'px-5 py-1.5 rounded-full text-xl font-normal transition-colors duration-200',
+				'px-5 py-1.5 rounded-full text-xl font-normal interactive-soft',
 				active
 					? 'surface-minimal text-foreground'
-					: 'text-muted-foreground hover:bg-secondary/45 hover:text-foreground',
+					: 'text-muted-foreground hover:bg-secondary/45 hover:text-accent',
 			)}
 			href={href}
 		>

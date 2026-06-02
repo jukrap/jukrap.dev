@@ -40,7 +40,8 @@
 - Consolidate theme state into one client store with persistence and document
   class synchronization.
 - Keep the theme button as a minimal sun/moon control with restrained motion.
-- Keep navigation, banner, cards, and modals in flat black/white/gray surfaces.
+- Keep navigation, banner, cards, and modals in flat black/white/gray surfaces,
+  with the green accent reserved for small interactive states.
 - Update dependencies in a dedicated build commit before deeper feature work.
 
 ## Risks

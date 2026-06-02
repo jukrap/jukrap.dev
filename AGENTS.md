@@ -45,8 +45,8 @@ product specification.
 
 ## UI And Styling
 
-- The visual direction is black-and-white first, with restrained accent color
-  limited to gray-scale treatment.
+- The visual direction is black-and-white first, with gray surfaces and the
+  existing green accent used only for small interactive signals.
 - CSS variables and Tailwind utilities should own shared theme tokens, layout,
   and reusable visual language.
 - Inline styles are acceptable for truly dynamic values such as measured sizes,
@@ -57,6 +57,8 @@ product specification.
 - Do not use decorative effects that fight the portfolio content. Avoid
   glassmorphism, liquid-glass imitation, heavy blur, bouncy hover states, and
   excessive shadows.
+- Prefer subtle easing, opacity, border, underline, and 1px movement for hover
+  and click feedback instead of removing interaction entirely.
 
 ## Verification
 

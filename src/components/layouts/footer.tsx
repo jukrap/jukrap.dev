@@ -7,7 +7,7 @@ const FooterLink: React.FC<Link> = ({ text, url, isExternal }) => (
 		href={url}
 		target={isExternal ? '_blank' : undefined}
 		rel={isExternal ? 'noopener noreferrer' : undefined}
-		className="inline-flex items-center text-foreground transition-colors duration-200 hover:text-muted-foreground hover:underline decoration-border decoration-2 underline-offset-4"
+		className="inline-flex items-center text-foreground transition-colors duration-200 hover:text-accent hover:underline decoration-accent/70 decoration-2 underline-offset-4"
 	>
 		<span className="font-medium text-sm md:text-base lg:text-lg">{text}</span>
 	</a>

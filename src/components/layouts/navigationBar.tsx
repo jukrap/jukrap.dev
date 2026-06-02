@@ -31,9 +31,9 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
 		aria-pressed={isDarkMode}
 		className={[
 			'group inline-flex items-center justify-center gap-3 rounded-full',
-			'surface-minimal text-foreground transition-colors duration-200',
-			'hover:bg-secondary/45 active:bg-secondary/70',
-			'focus:outline-none focus:ring-2 focus:ring-foreground/30',
+			'surface-minimal interactive-soft text-foreground',
+			'hover:bg-secondary/45 hover:border-accent/45 active:bg-secondary/70',
+			'focus:outline-none focus:ring-2 focus:ring-accent/35',
 			text ? 'w-full px-4 py-3' : 'h-10 w-10',
 		].join(' ')}
 	>
@@ -106,7 +106,7 @@ export function NavigationBar() {
 						<div className="hidden md:flex items-center gap-3">
 							<Link
 								href={languageHref}
-								className="surface-minimal inline-flex h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold text-foreground transition-colors duration-200 hover:bg-secondary/45 active:bg-secondary/70"
+								className="surface-minimal interactive-soft inline-flex h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold text-foreground hover:bg-secondary/45 hover:border-accent/45 hover:text-accent active:bg-secondary/70"
 								aria-label={dictionary.navigation.switchLanguage}
 							>
 								<Languages className="h-4 w-4" aria-hidden="true" />
@@ -126,7 +126,7 @@ export function NavigationBar() {
 								event.stopPropagation();
 								setIsMenuOpen((current) => !current);
 							}}
-							className="relative z-50 p-2 rounded-md text-foreground transition-colors duration-200 hover:bg-muted md:hidden"
+							className="relative z-50 p-2 rounded-md text-foreground transition-colors duration-200 hover:bg-muted hover:text-accent md:hidden"
 							aria-label={
 								isMenuOpen
 									? dictionary.navigation.closeMenu
@@ -174,7 +174,7 @@ export function NavigationBar() {
 									href={getLocalizedPath(link.href, locale)}
 									className={[
 										'rounded-md px-3 py-2 text-lg font-medium text-foreground',
-										'transition-colors duration-200 hover:bg-secondary/45',
+										'interactive-soft transition-colors duration-200 hover:bg-secondary/45 hover:text-accent',
 									].join(' ')}
 									onClick={closeMenu}
 								>
@@ -185,7 +185,7 @@ export function NavigationBar() {
 								href={languageHref}
 								className={[
 									'flex items-center justify-center px-4 py-3 rounded-lg',
-									'surface-minimal text-foreground transition-colors duration-200 hover:bg-secondary/45',
+									'surface-minimal interactive-soft text-foreground transition-colors duration-200 hover:bg-secondary/45 hover:border-accent/45 hover:text-accent',
 								].join(' ')}
 								onClick={closeMenu}
 								aria-label={dictionary.navigation.switchLanguage}

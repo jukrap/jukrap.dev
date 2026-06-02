@@ -29,7 +29,7 @@ const AlertTopBanner: React.FC<AlertTopBannerProps> = ({
 					href={linkPart}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="font-bold underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-muted-foreground"
+					className="font-bold underline decoration-accent/60 underline-offset-4 transition-colors duration-200 hover:text-accent"
 				>
 					{textPart}
 				</a>,
@@ -56,7 +56,7 @@ const AlertTopBanner: React.FC<AlertTopBannerProps> = ({
 					</p>
 					<button
 						onClick={() => setIsVisible(false)}
-						className="absolute right-0 p-1 rounded-md hover:bg-muted/80 transition-colors duration-300"
+						className="absolute right-0 p-1 rounded-md transition-colors duration-200 hover:bg-muted/80 hover:text-accent"
 						aria-label={closeLabel}
 					>
 						<X size={20} className="text-foreground" />

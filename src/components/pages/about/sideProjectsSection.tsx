@@ -12,7 +12,12 @@ const SideProjectsLink: React.FC<ProjectLink> = ({ type, url }) => {
 	const { getIcon } = useIcon();
 
 	return (
-		<a href={url} target="_blank" rel="noopener noreferrer" className="icon-link">
+		<a
+			href={url}
+			target="_blank"
+			rel="noopener noreferrer"
+			className="icon-link hover:text-accent"
+		>
 			<Image
 				src={getIcon(type)}
 				alt={`${type} Icon`}
@@ -68,7 +73,7 @@ const SideProjectsSection: React.FC = () => {
 							<div className="flex flex-col md:w-[153px] items-start md:items-end gap-0.5">
 								<button
 									onClick={() => openProjectDetail(project.id)}
-									className="font-medium text-lg md:text-xl leading-6 text-left md:text-right text-foreground transition-colors duration-200 cursor-pointer break-keep hover:text-muted-foreground hover:underline decoration-border decoration-2 underline-offset-4"
+									className="font-medium text-lg md:text-xl leading-6 text-left md:text-right text-foreground transition-colors duration-200 cursor-pointer break-keep hover:text-accent hover:underline decoration-accent/70 decoration-2 underline-offset-4"
 								>
 									{project.title}
 								</button>
@@ -83,7 +88,7 @@ const SideProjectsSection: React.FC = () => {
 												<button
 													key={`detail-${project.id}`}
 													onClick={() => openProjectDetail(project.id)}
-													className="icon-link"
+													className="icon-link hover:text-accent"
 													aria-label={dictionary.projectDetail.detailView}
 												>
 													<Image

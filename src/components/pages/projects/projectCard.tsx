@@ -19,7 +19,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 			animate={{ opacity: 1 }}
 			className={[
 				'group relative overflow-hidden rounded-lg surface-minimal',
-				'transition-colors duration-200 cursor-pointer hover:border-foreground/35',
+				'interactive-soft cursor-pointer hover:border-accent/45 hover:shadow-[0_8px_24px_hsl(var(--blacks)/0.08)]',
 				'flex flex-col',
 			].join(' ')}
 			onClick={onClick}
@@ -80,7 +80,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 								key={platform}
 								className="px-2.5 py-1 text-xs font-medium rounded-full 
                   border border-border/40 bg-secondary/25 text-foreground
-                  transition-colors duration-200 hover:bg-secondary/55"
+                  transition-colors duration-200 group-hover:border-accent/40"
 							>
 								{platform}
 							</span>
@@ -110,7 +110,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 										target="_blank"
 										rel="noopener noreferrer"
 										onClick={(e) => e.stopPropagation()}
-										className="icon-link"
+										className="icon-link hover:text-accent"
 									>
 										<Image
 											src={getIcon(link.type)}

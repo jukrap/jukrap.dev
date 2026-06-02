@@ -122,7 +122,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 															src={project.projectData.background.image}
 															alt="background"
 															fill
-															quality={100}
+															quality={75}
 															className="object-cover transform-gpu"
 															sizes="(max-width: 900px) 90vw, 900px"
 														/>

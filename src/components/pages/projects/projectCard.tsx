@@ -110,14 +110,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 										target="_blank"
 										rel="noopener noreferrer"
 										onClick={(e) => e.stopPropagation()}
-										className="transition-transform duration-300 hover:scale-125"
+										className="liquid-icon-link surface-glass"
 									>
 										<Image
 											src={getIcon(link.type)}
 											alt={link.type}
 											width={24}
 											height={24}
-											className="transition-filter duration-300 hover:brightness-125"
+											className="transition-opacity duration-300 hover:opacity-80"
 										/>
 									</a>
 								))}

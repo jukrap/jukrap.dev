@@ -180,38 +180,78 @@
 	}
 
 	.surface-glass {
-		background: linear-gradient(
-			135deg,
-			hsl(var(--background) / 0.84),
-			hsl(var(--secondary) / 0.46)
-		);
-		border: 1px solid hsl(var(--border) / 0.24);
+		background:
+			linear-gradient(
+				145deg,
+				hsl(var(--whites) / 0.46),
+				hsl(var(--background) / 0.3) 42%,
+				hsl(var(--foreground) / 0.08)
+			),
+			hsl(var(--background) / 0.34);
+		border: 1px solid hsl(var(--whites) / 0.44);
 		box-shadow:
-			0 1px 0 hsl(var(--whites) / 0.35) inset,
-			0 18px 60px hsl(var(--foreground) / 0.08);
-		backdrop-filter: blur(18px) saturate(145%);
-		-webkit-backdrop-filter: blur(18px) saturate(145%);
+			0 1px 0 hsl(var(--whites) / 0.6) inset,
+			0 -1px 0 hsl(var(--foreground) / 0.1) inset,
+			0 18px 56px hsl(var(--blacks) / 0.1);
+		backdrop-filter: blur(24px) saturate(180%) brightness(1.04);
+		-webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.04);
 	}
 
 	.surface-glass-strong {
-		background: linear-gradient(
-			135deg,
-			hsl(var(--background) / 0.92),
-			hsl(var(--secondary) / 0.58)
-		);
-		border: 1px solid hsl(var(--border) / 0.32);
+		background:
+			linear-gradient(
+				145deg,
+				hsl(var(--whites) / 0.58),
+				hsl(var(--background) / 0.42) 46%,
+				hsl(var(--foreground) / 0.1)
+			),
+			hsl(var(--background) / 0.46);
+		border: 1px solid hsl(var(--whites) / 0.52);
 		box-shadow:
-			0 1px 0 hsl(var(--whites) / 0.35) inset,
-			0 28px 90px hsl(var(--foreground) / 0.14);
-		backdrop-filter: blur(24px) saturate(155%);
-		-webkit-backdrop-filter: blur(24px) saturate(155%);
+			0 1px 0 hsl(var(--whites) / 0.7) inset,
+			0 -1px 0 hsl(var(--foreground) / 0.12) inset,
+			0 28px 90px hsl(var(--blacks) / 0.14);
+		backdrop-filter: blur(30px) saturate(190%) brightness(1.06);
+		-webkit-backdrop-filter: blur(30px) saturate(190%) brightness(1.06);
 	}
 
 	.dark .surface-glass,
 	.dark .surface-glass-strong {
+		border-color: hsl(var(--whites) / 0.14);
+		background:
+			linear-gradient(
+				145deg,
+				hsl(var(--whites) / 0.1),
+				hsl(var(--background) / 0.36) 46%,
+				hsl(var(--blacks) / 0.26)
+			),
+			hsl(var(--background) / 0.48);
 		box-shadow:
-			0 1px 0 hsl(var(--whites) / 0.08) inset,
-			0 24px 80px hsl(var(--blacks) / 0.46);
+			0 1px 0 hsl(var(--whites) / 0.16) inset,
+			0 -1px 0 hsl(var(--blacks) / 0.42) inset,
+			0 24px 80px hsl(var(--blacks) / 0.5);
+	}
+
+	.liquid-icon-link {
+		display: inline-flex;
+		width: 2.25rem;
+		height: 2.25rem;
+		align-items: center;
+		justify-content: center;
+		border-radius: 9999px;
+		transition:
+			transform 220ms ease,
+			border-color 220ms ease,
+			box-shadow 220ms ease;
+	}
+
+	.liquid-icon-link:hover {
+		transform: translateY(-1px);
+		border-color: hsl(var(--accent) / 0.45);
+	}
+
+	.liquid-icon-link:active {
+		transform: translateY(0);
 	}
 
 	.ReactModal__Body--open {

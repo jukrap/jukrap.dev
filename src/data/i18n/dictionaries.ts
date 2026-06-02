@@ -30,7 +30,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		alerts: {
 			aiAgentPlaybook:
-				'🤖 *[ai-agent-playbook]*:__https://github.com/jukrap/ai-agent-playbook__ 저장소에는 AI 에이전트 스킬, AGENTS.md 템플릿, local-ai 작업 번들이 들어 있습니다. 한 번 써보시는 건 어떨까요?',
+				'🤖 *[ai-agent-playbook]*:__https://github.com/jukrap/ai-agent-playbook__ AI 에이전트 스킬과 AGENTS.md 템플릿을 모아둔 저장소입니다.',
 			close: '알림 닫기',
 		},
 		home: {
@@ -95,11 +95,11 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			},
 			about: {
 				title: 'About | Ju-cheol Park',
-				description: 'About page of Ju-cheol Park, Frontend Engineer',
+				description: 'About Ju-cheol Park, Frontend Engineer',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
-				description: 'Projects page of Ju-cheol Park, Frontend Engineer',
+				description: 'Projects by Ju-cheol Park, Frontend Engineer',
 			},
 		},
 		navigation: {
@@ -118,7 +118,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		alerts: {
 			aiAgentPlaybook:
-				'🤖 *[ai-agent-playbook]*:__https://github.com/jukrap/ai-agent-playbook__ includes AI agent skills, AGENTS.md templates, and local-ai work bundles. Would you like to try it?',
+				'🤖 *[ai-agent-playbook]*:__https://github.com/jukrap/ai-agent-playbook__ collects AI agent skills, AGENTS.md templates, and local-ai bundles.',
 			close: 'Close alert',
 		},
 		home: {
@@ -157,18 +157,18 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			role: 'Role',
 			teamSize: 'Team Size',
 			teamSizeUnit: ' people',
-			tasks: 'Major Work',
+			tasks: 'Key Work',
 			troubleshooting: 'Troubleshooting',
 			performance: 'Performance Improvements',
-			special: 'Special Notes',
+			special: 'Highlights',
 			screenshots: 'Project Screenshots',
 			close: 'Close',
 			detailView: 'View details',
 		},
 		webView: {
 			openNewTab: 'Open in new tab',
-			externalTitle: 'You are moving to an external website',
-			externalDescription: (host) => `You can open ${host}.`,
+			externalTitle: 'External website',
+			externalDescription: (host) => `Open ${host} in a new tab or webview.`,
 			viewInWebView: 'View in webview',
 		},
 	},

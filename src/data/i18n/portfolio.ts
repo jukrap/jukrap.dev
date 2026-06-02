@@ -47,7 +47,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 		description: [
 			'Frontend development and DevOps',
 			'Blog feature development',
-			'Development through tests and error detection',
+			'Test-based development and error monitoring',
 		],
 	},
 	'jukrap-website': {
@@ -75,7 +75,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 	},
 	'posture-teacher': {
 		title: 'Posture Teacher',
-		introduction: 'An app that detects posture and produces posture results.',
+		introduction: 'An app that detects posture and summarizes posture results.',
 		description: [
 			'Team lead and Android developer',
 			'Owned sitting and exercise posture detection pages',
@@ -85,7 +85,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 	},
 	chatterbox: {
 		title: 'Chatterbox',
-		introduction: 'An app that detects reading through voice.',
+		introduction: 'A voice-based app that recognizes reading aloud.',
 		description: [
 			'Solo development',
 			'Used Android built-in Speech-to-Text while offline',
@@ -94,7 +94,8 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 	},
 	'labyrinth-escape-game': {
 		title: 'Labyrinth Escape Game',
-		introduction: 'A first-person shooter game about escaping a labyrinth.',
+		introduction:
+			'A first-person shooter game where the player escapes a labyrinth.',
 		description: [
 			'Solo development',
 			'Used Unity Asset Store resources',
@@ -724,7 +725,7 @@ const coreValuesEn = [
 			'In the Itzip project, I improved reusability and maintainability through composition-based shared component design and component-driven development with Storybook. This became a key foundation for consistent UI/UX in a 15-person team.',
 	},
 	{
-		title: '3. I place high value on communication.',
+		title: '3. I value communication highly.',
 		content:
 			'I have actively collaborated with designers and backend developers across several projects. In Itzip, I helped build a communication system for a 15-person team and improved work efficiency. Since development is ultimately interaction between people, I consider communication a priority.',
 	},
@@ -737,9 +738,9 @@ const coreValuesEn = [
 
 const activitiesEn = [
 	{
-		title: 'Study Group Operation',
+		title: 'Study Group Organizer',
 		period: '2024.05 ~ 2025.06',
-		role: 'Coding test and development knowledge study groups',
+		role: 'Coding-test and development knowledge study groups',
 		details: [
 			'Operated two study groups covering coding tests and development knowledge.',
 		],
@@ -747,7 +748,7 @@ const activitiesEn = [
 	{
 		title: 'Programmers Dev Course',
 		period: '2024.05 ~ 2024.09',
-		role: 'Cloud Application Engineering course - assistant mentor',
+		role: 'Cloud Application Engineering Course - Assistant Mentor',
 		details: [
 			'After being selected as an excellent graduate in a previous cohort, I mentored students in the second cohort of the course.',
 			'Mentoring topics included weekly development information sharing, graduate concerns, daily scrum participation, development problem solving, and project checks.',
@@ -756,10 +757,10 @@ const activitiesEn = [
 	{
 		title: 'Programmers Dev Course',
 		period: '2023.12 ~ 2024.05',
-		role: 'Cloud Application Engineering course - student',
+		role: 'Cloud Application Engineering Course - Student',
 		details: [
 			'Completed a Cloud Application Engineering course focused on React and React Native development.',
-			'Training area: React and React Native.',
+			'Training focus: React and React Native.',
 		],
 	},
 	{
@@ -776,11 +777,11 @@ const awardsEn = [
 	{
 		title: 'DIVE 2024 Hackathon',
 		period: '2024.10',
-		award: 'Busan Technopark President Award',
+		award: "Busan Technopark President's Award",
 		details: [
 			'Submitted project: Captain Donghae',
 			{
-				text: 'Sponsor track 3rd place',
+				text: '3rd place in the sponsor track',
 				link: '/images/captain-donghae/award.png',
 			},
 		],
@@ -800,7 +801,7 @@ const awardsEn = [
 	{
 		title: 'Gyeongnam Software Competition',
 		period: '2021.08 ~ 2021.10',
-		award: 'Top Prize',
+		award: 'Grand Prize',
 		details: [
 			'Submitted project: ESD HotDeal',
 			{

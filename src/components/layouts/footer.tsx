@@ -7,12 +7,9 @@ const FooterLink: React.FC<Link> = ({ text, url, isExternal }) => (
 		href={url}
 		target={isExternal ? '_blank' : undefined}
 		rel={isExternal ? 'noopener noreferrer' : undefined}
-		className="relative group inline-flex items-center"
+		className="inline-flex items-center text-foreground transition-colors duration-300 hover:text-accent hover:underline decoration-accent decoration-2 underline-offset-4"
 	>
-		<span className="font-medium text-sm md:text-base lg:text-lg text-foreground group-hover:text-accent transition-colors duration-300">
-			{text}
-		</span>
-		<span className="absolute left-0 bottom-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+		<span className="font-medium text-sm md:text-base lg:text-lg">{text}</span>
 	</a>
 );
 

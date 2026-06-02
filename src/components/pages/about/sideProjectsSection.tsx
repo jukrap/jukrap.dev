@@ -16,14 +16,14 @@ const SideProjectsLink: React.FC<ProjectLink> = ({ type, url }) => {
 			href={url}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="flex flex-row items-center justify-center transition-transform duration-300 hover:scale-125"
+			className="liquid-icon-link surface-glass"
 		>
 			<Image
 				src={getIcon(type)}
 				alt={`${type} Icon`}
 				width={24}
 				height={24}
-				className="transition-filter duration-300 hover:brightness-125"
+				className="transition-opacity duration-300 hover:opacity-80"
 			/>
 		</a>
 	);
@@ -73,10 +73,9 @@ const SideProjectsSection: React.FC = () => {
 							<div className="flex flex-col md:w-[153px] items-start md:items-end gap-0.5">
 								<button
 									onClick={() => openProjectDetail(project.id)}
-									className="font-medium text-lg md:text-xl leading-6 text-left md:text-right text-foreground transition-colors duration-300 cursor-pointer group relative break-keep"
+									className="font-medium text-lg md:text-xl leading-6 text-left md:text-right text-foreground transition-colors duration-300 cursor-pointer break-keep hover:text-accent hover:underline decoration-accent decoration-2 underline-offset-4"
 								>
 									{project.title}
-									<span className="absolute left-0 md:right-0 bottom-0 mt-1 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
 								</button>
 								<p className="font-medium text-sm leading-6 text-left md:text-right text-muted-foreground">
 									{project.duration}
@@ -89,7 +88,7 @@ const SideProjectsSection: React.FC = () => {
 												<button
 													key={`detail-${project.id}`}
 													onClick={() => openProjectDetail(project.id)}
-													className="flex flex-row items-center justify-center transition-transform duration-300 hover:scale-125"
+													className="liquid-icon-link surface-glass"
 													aria-label={dictionary.projectDetail.detailView}
 												>
 													<Image
@@ -101,7 +100,7 @@ const SideProjectsSection: React.FC = () => {
 														alt="Detail View"
 														width={24}
 														height={24}
-														className="transition-filter duration-300 hover:brightness-125"
+														className="transition-opacity duration-300 hover:opacity-80"
 													/>
 												</button>
 											) : (

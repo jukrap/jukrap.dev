@@ -30,42 +30,34 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
 		aria-label={label}
 		aria-pressed={isDarkMode}
 		className={[
-			'group inline-flex items-center justify-center gap-3 rounded-full px-2 py-1',
-			'surface-glass text-foreground transition-colors duration-300',
-			'hover:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/45',
-			text ? 'w-full py-3' : 'h-10',
+			'group inline-flex items-center justify-center gap-3 rounded-full',
+			'surface-glass text-foreground transition-all duration-300',
+			'hover:-translate-y-0.5 hover:border-accent/50 active:translate-y-0',
+			'focus:outline-none focus:ring-2 focus:ring-accent/45',
+			text ? 'w-full px-4 py-3' : 'h-10 w-12',
 		].join(' ')}
 	>
-		<span className="relative h-8 w-[72px] rounded-full bg-secondary/70 shadow-inner">
-			<Sun
-				className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+		<span className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-background/25 shadow-inner">
+			<span
+				className="absolute inset-x-2 top-1 h-px rounded-full bg-white/70 opacity-70"
 				aria-hidden="true"
 			/>
-			<Moon
-				className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
-				aria-hidden="true"
-			/>
-			<motion.span
-				className="absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-foreground text-background shadow-md"
-				animate={{ x: isDarkMode ? 40 : 0 }}
-				transition={{ type: 'spring', stiffness: 420, damping: 30 }}
-			>
-				<AnimatePresence mode="wait" initial={false}>
-					<motion.span
-						key={isDarkMode ? 'moon' : 'sun'}
-						initial={{ opacity: 0, y: 8, rotate: -20 }}
-						animate={{ opacity: 1, y: 0, rotate: 0 }}
-						exit={{ opacity: 0, y: -8, rotate: 20 }}
-						transition={{ duration: 0.2 }}
-					>
-						{isDarkMode ? (
-							<Moon className="h-4 w-4" aria-hidden="true" />
-						) : (
-							<Sun className="h-4 w-4" aria-hidden="true" />
-						)}
-					</motion.span>
-				</AnimatePresence>
-			</motion.span>
+			<AnimatePresence mode="wait" initial={false}>
+				<motion.span
+					key={isDarkMode ? 'moon' : 'sun'}
+					initial={{ opacity: 0, y: 18, scale: 0.76, rotate: -24 }}
+					animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+					exit={{ opacity: 0, y: 18, scale: 0.76, rotate: 24 }}
+					transition={{ type: 'spring', stiffness: 360, damping: 26 }}
+					className="absolute flex h-6 w-6 items-center justify-center rounded-full bg-foreground text-background shadow-md"
+				>
+					{isDarkMode ? (
+						<Moon className="h-4 w-4" aria-hidden="true" />
+					) : (
+						<Sun className="h-4 w-4" aria-hidden="true" />
+					)}
+				</motion.span>
+			</AnimatePresence>
 		</span>
 		{text && <span className="text-sm font-semibold">{text}</span>}
 	</button>
@@ -118,7 +110,7 @@ export function NavigationBar() {
 						<div className="hidden md:flex items-center gap-3">
 							<Link
 								href={languageHref}
-								className="surface-glass inline-flex h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold text-foreground transition-colors hover:border-accent/50 hover:text-accent"
+								className="surface-glass inline-flex h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent active:translate-y-0"
 								aria-label={dictionary.navigation.switchLanguage}
 							>
 								<Languages className="h-4 w-4" aria-hidden="true" />

@@ -8,23 +8,21 @@ const HomeBodyLink: React.FC<IconLink> = ({ text, url, icon, isExternal }) => {
 			href={url}
 			target={isExternal ? '_blank' : '_self'}
 			rel={isExternal ? 'noopener noreferrer' : ''}
-			className="group flex items-center justify-between w-full md:w-auto gap-2 p-3 md:p-2 rounded-lg 
-        no-select transition-all duration-300
-        hover:bg-accent/10 active:bg-accent/20
-        border border-transparent hover:border-accent/20
-        md:justify-center md:flex-row"
+			className="group surface-glass flex items-center justify-between w-full md:w-auto gap-2 p-3 md:p-2 rounded-lg
+        no-select transition-all duration-300 hover:-translate-y-0.5
+        hover:border-accent/45 active:translate-y-0 md:justify-center md:flex-row"
 		>
 			<div className="flex items-center gap-3">
 				<div
 					className="flex items-center justify-center w-10 h-10 md:w-8 md:h-8 rounded-full 
-          bg-muted group-hover:bg-accent/5 transition-colors duration-300"
+          bg-background/25 shadow-inner transition-colors duration-300"
 				>
 					<Image
 						src={icon}
 						alt={text}
 						width={24}
 						height={24}
-						className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:scale-110"
+						className="w-5 h-5 md:w-6 md:h-6 transition-opacity duration-300 group-hover:opacity-80"
 					/>
 				</div>
 				<span

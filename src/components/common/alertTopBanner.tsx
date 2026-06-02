@@ -48,10 +48,10 @@ const AlertTopBanner: React.FC<AlertTopBannerProps> = ({
 	if (!isVisible) return null;
 
 	return (
-		<div className="sticky top-16 z-40 w-full surface-glass border-x-0 border-t-0 transition-colors duration-300">
+		<div className="relative z-40 w-full surface-glass border-x-0 border-t-0 transition-colors duration-300">
 			<div className="max-w-7xl mx-auto py-2.5 px-4 sm:px-6 lg:px-8">
 				<div className="max-w-3xl mx-auto flex items-center justify-center relative">
-					<p className="text-sm sm:text-base font-medium text-foreground text-center line-clamp-2 sm:line-clamp-1 break-keep pr-8">
+					<p className="text-sm sm:text-base font-medium text-foreground text-center break-keep pr-8">
 						{parseMessage(message)}
 					</p>
 					<button

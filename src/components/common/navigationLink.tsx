@@ -7,17 +7,18 @@ import { NavLinkProps } from '@/types/navigation';
 
 export default function NavigationLink({ href, children }: NavLinkProps) {
 	const fullPathname = usePathname() ?? '/';
+	const isRootHref = href.split('/').filter(Boolean).length <= 1;
 	const active =
 		fullPathname === href ||
-		(href !== '/' && fullPathname.startsWith(`${href}/`));
+		(!isRootHref && href !== '/' && fullPathname.startsWith(`${href}/`));
 
 	return (
 		<Link
 			className={cn(
-				'px-6 py-1 rounded-full text-xl font-normal transition-colors',
+				'px-5 py-1.5 rounded-full text-xl font-normal transition-all duration-300',
 				active
-					? 'bg-muted text-secondary-foreground hover:text-secondary-foreground'
-					: 'text-muted-foreground hover:text-accent',
+					? 'surface-glass text-foreground hover:border-accent/45'
+					: 'text-muted-foreground hover:bg-background/25 hover:text-foreground',
 			)}
 			href={href}
 		>

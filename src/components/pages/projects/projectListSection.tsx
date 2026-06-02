@@ -1,18 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
 import { Platform, Project } from '@/types/project';
 import { useLocale } from '@/contexts/localeContext';
+import ProjectDetail from '@/components/common/projectDetail';
 import CategoryFilter from './categoryFilter';
 import { ProjectGrid } from './projectGrid';
-
-const ProjectDetail = dynamic(
-	() => import('@/components/common/projectDetail'),
-	{
-		ssr: false,
-	},
-);
 
 export function ProjectListSection() {
 	const {

@@ -18,9 +18,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			className={[
-				'group relative overflow-hidden rounded-lg surface-glass',
-				'transition-all duration-300 cursor-pointer hover:border-accent/40',
-				'hover:shadow-xl flex flex-col',
+				'group relative overflow-hidden rounded-lg surface-minimal',
+				'transition-colors duration-200 cursor-pointer hover:border-foreground/35',
+				'flex flex-col',
 			].join(' ')}
 			onClick={onClick}
 		>
@@ -79,8 +79,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 							<span
 								key={platform}
 								className="px-2.5 py-1 text-xs font-medium rounded-full 
-                  border border-accent bg-accent/10 text-accent
-                  transition-colors duration-300 hover:bg-accent/20"
+                  border border-border/40 bg-secondary/25 text-foreground
+                  transition-colors duration-200 hover:bg-secondary/55"
 							>
 								{platform}
 							</span>
@@ -110,14 +110,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 										target="_blank"
 										rel="noopener noreferrer"
 										onClick={(e) => e.stopPropagation()}
-										className="liquid-icon-link surface-glass"
+										className="icon-link"
 									>
 										<Image
 											src={getIcon(link.type)}
 											alt={link.type}
 											width={24}
 											height={24}
-											className="transition-opacity duration-300 hover:opacity-80"
+											className="transition-opacity duration-200 hover:opacity-80"
 										/>
 									</a>
 								))}

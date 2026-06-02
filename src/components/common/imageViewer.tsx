@@ -85,7 +85,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								exit={{ opacity: 0 }}
-								className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm"
+								className="absolute inset-0 flex items-center justify-center bg-black/20"
 							>
 								<ImageSpinner />
 							</motion.div>
@@ -105,7 +105,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
 				{/* 네비게이션 버튼 - 모바일에서는 양쪽 여백 축소 */}
 				<button
-					className="absolute top-1/2 left-2 md:left-[-70px] transform -translate-y-1/2 surface-glass rounded-full p-2 transition-colors duration-300 hover:border-accent/50"
+					className="absolute top-1/2 left-2 md:left-[-70px] transform -translate-y-1/2 icon-link transition-colors duration-200"
 					onClick={prevImage}
 					aria-label="Previous image"
 				>
@@ -118,7 +118,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 					/>
 				</button>
 				<button
-					className="absolute top-1/2 right-2 md:right-[-70px] transform -translate-y-1/2 surface-glass rounded-full p-2 transition-colors duration-300 hover:border-accent/50"
+					className="absolute top-1/2 right-2 md:right-[-70px] transform -translate-y-1/2 icon-link transition-colors duration-200"
 					onClick={nextImage}
 					aria-label="Next image"
 				>
@@ -135,7 +135,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 			{/* 닫기 버튼 */}
 			<button
 				type="button"
-				className="absolute top-6 right-6 surface-glass rounded-full p-2 transition-colors duration-300 hover:border-accent/50 no-select"
+				className="absolute top-6 right-6 icon-link transition-colors duration-200 no-select"
 				onClick={(e) => {
 					e.stopPropagation();
 					handleClose();
@@ -157,7 +157,9 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 					<button
 						key={index}
 						className={`w-2 h-2 md:w-4 md:h-4 aspect-square rounded-full transition-colors duration-300 ${
-							index === currentIndex ? 'bg-accent' : 'bg-gray-300 hover:bg-gray-400'
+							index === currentIndex
+								? 'bg-foreground'
+								: 'bg-gray-300 hover:bg-gray-400'
 						}`}
 						onClick={(e) => {
 							e.stopPropagation();

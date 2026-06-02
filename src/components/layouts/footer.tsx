@@ -7,7 +7,7 @@ const FooterLink: React.FC<Link> = ({ text, url, isExternal }) => (
 		href={url}
 		target={isExternal ? '_blank' : undefined}
 		rel={isExternal ? 'noopener noreferrer' : undefined}
-		className="inline-flex items-center text-foreground transition-colors duration-300 hover:text-accent hover:underline decoration-accent decoration-2 underline-offset-4"
+		className="inline-flex items-center text-foreground transition-colors duration-200 hover:text-muted-foreground hover:underline decoration-border decoration-2 underline-offset-4"
 	>
 		<span className="font-medium text-sm md:text-base lg:text-lg">{text}</span>
 	</a>
@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
 	} = useLocale();
 
 	return (
-		<footer className="w-full pt-12 pb-6 md:pt-16 md:pb-8 px-4 md:px-6 bg-background/50 backdrop-blur-sm">
+		<footer className="w-full pt-12 pb-6 md:pt-16 md:pb-8 px-4 md:px-6 bg-background">
 			<div className="max-w-7xl mx-auto flex flex-col items-center gap-4 md:gap-6 no-select">
 				<p className="text-sm md:text-base lg:text-lg text-center text-foreground">
 					Copyright © {currentYear} Ju-cheol Park · All Rights Reserved.

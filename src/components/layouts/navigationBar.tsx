@@ -31,25 +31,21 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
 		aria-pressed={isDarkMode}
 		className={[
 			'group inline-flex items-center justify-center gap-3 rounded-full',
-			'surface-glass text-foreground transition-all duration-300',
-			'hover:-translate-y-0.5 hover:border-accent/50 active:translate-y-0',
-			'focus:outline-none focus:ring-2 focus:ring-accent/45',
-			text ? 'w-full px-4 py-3' : 'h-10 w-12',
+			'surface-minimal text-foreground transition-colors duration-200',
+			'hover:bg-secondary/45 active:bg-secondary/70',
+			'focus:outline-none focus:ring-2 focus:ring-foreground/30',
+			text ? 'w-full px-4 py-3' : 'h-10 w-10',
 		].join(' ')}
 	>
-		<span className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-background/25 shadow-inner">
-			<span
-				className="absolute inset-x-2 top-1 h-px rounded-full bg-white/70 opacity-70"
-				aria-hidden="true"
-			/>
+		<span className="relative flex h-5 w-5 items-center justify-center overflow-hidden">
 			<AnimatePresence mode="wait" initial={false}>
 				<motion.span
 					key={isDarkMode ? 'moon' : 'sun'}
-					initial={{ opacity: 0, y: 18, scale: 0.76, rotate: -24 }}
-					animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-					exit={{ opacity: 0, y: 18, scale: 0.76, rotate: 24 }}
-					transition={{ type: 'spring', stiffness: 360, damping: 26 }}
-					className="absolute flex h-6 w-6 items-center justify-center rounded-full bg-foreground text-background shadow-md"
+					initial={{ opacity: 0, y: 5 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -5 }}
+					transition={{ duration: 0.18, ease: 'easeOut' }}
+					className="absolute flex h-5 w-5 items-center justify-center"
 				>
 					{isDarkMode ? (
 						<Moon className="h-4 w-4" aria-hidden="true" />
@@ -86,7 +82,7 @@ export function NavigationBar() {
 
 	return (
 		<header className="sticky top-0 w-full z-50">
-			<nav className="surface-glass border-x-0 border-t-0 transition-colors duration-500">
+			<nav className="bg-background border-b border-border/25 transition-colors duration-300">
 				<div className="max-w-7xl mx-auto px-5 sm:px-7 lg:px-9">
 					<div className="flex justify-between items-center h-16">
 						<Link href={getLocalizedPath('/', locale)} className="shrink-0">
@@ -110,7 +106,7 @@ export function NavigationBar() {
 						<div className="hidden md:flex items-center gap-3">
 							<Link
 								href={languageHref}
-								className="surface-glass inline-flex h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent active:translate-y-0"
+								className="surface-minimal inline-flex h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold text-foreground transition-colors duration-200 hover:bg-secondary/45 active:bg-secondary/70"
 								aria-label={dictionary.navigation.switchLanguage}
 							>
 								<Languages className="h-4 w-4" aria-hidden="true" />
@@ -125,8 +121,12 @@ export function NavigationBar() {
 
 						{/* Mobile Menu Button */}
 						<button
-							onClick={() => setIsMenuOpen(!isMenuOpen)}
-							className="md:hidden z-50 p-2 rounded-md text-foreground hover:bg-muted transition-all duration-300"
+							type="button"
+							onClick={(event) => {
+								event.stopPropagation();
+								setIsMenuOpen((current) => !current);
+							}}
+							className="relative z-50 p-2 rounded-md text-foreground transition-colors duration-200 hover:bg-muted md:hidden"
 							aria-label={
 								isMenuOpen
 									? dictionary.navigation.closeMenu
@@ -152,33 +152,30 @@ export function NavigationBar() {
 
 				{/* Mobile Navigation Overlay */}
 				<div
-					className={`fixed inset-0 top-16 bg-background/55 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+					className={`fixed inset-0 top-16 bg-background/90 transition-opacity duration-200 md:hidden ${
 						isMenuOpen ? 'opacity-100 z-40' : 'opacity-0 pointer-events-none'
 					}`}
 					onClick={closeMenu}
 				>
 					<div
-						className={`absolute inset-x-3 top-3 surface-glass-strong rounded-lg transition-transform duration-500 ease-in-out ${
+						className={`absolute inset-x-3 top-3 surface-minimal-strong rounded-lg transition-transform duration-200 ease-out ${
 							isMenuOpen ? 'translate-y-0' : '-translate-y-full'
 						}`}
 						onClick={(e) => e.stopPropagation()}
 					>
 						<div
-							className={`px-6 py-8 flex flex-col gap-6 transition-opacity duration-300 ${
+							className={`px-6 py-8 flex flex-col gap-4 transition-opacity duration-200 ${
 								isMenuOpen ? 'opacity-100' : 'opacity-0'
 							}`}
 						>
-							{dictionary.navigation.links.map((link, index) => (
+							{dictionary.navigation.links.map((link) => (
 								<Link
 									key={link.href}
 									href={getLocalizedPath(link.href, locale)}
 									className={[
-										'text-lg font-medium text-foreground hover:text-accent',
-										'transition-all duration-300 py-2 border-b border-border',
-										'transform',
-										isMenuOpen ? 'translate-y-0' : '-translate-y-4',
+										'rounded-md px-3 py-2 text-lg font-medium text-foreground',
+										'transition-colors duration-200 hover:bg-secondary/45',
 									].join(' ')}
-									style={{ transitionDelay: `${index * 100}ms` }}
 									onClick={closeMenu}
 								>
 									{link.label}
@@ -188,28 +185,15 @@ export function NavigationBar() {
 								href={languageHref}
 								className={[
 									'flex items-center justify-center px-4 py-3 rounded-lg',
-									'surface-glass text-foreground transition-all duration-300',
-									'transform',
-									isMenuOpen ? 'translate-y-0' : '-translate-y-4',
+									'surface-minimal text-foreground transition-colors duration-200 hover:bg-secondary/45',
 								].join(' ')}
-								style={{
-									transitionDelay: `${dictionary.navigation.links.length * 50}ms`,
-								}}
 								onClick={closeMenu}
 								aria-label={dictionary.navigation.switchLanguage}
 							>
 								<Languages className="mr-2 h-4 w-4" aria-hidden="true" />
 								{dictionary.navigation.languageName}
 							</Link>
-							<div
-								className={[
-									'transform transition-all duration-300',
-									isMenuOpen ? 'translate-y-0' : '-translate-y-4',
-								].join(' ')}
-								style={{
-									transitionDelay: `${(dictionary.navigation.links.length + 1) * 50}ms`,
-								}}
-							>
+							<div className="transition-colors duration-200">
 								<ThemeToggle
 									isDarkMode={isDarkMode}
 									label={dictionary.navigation.themeToggle}

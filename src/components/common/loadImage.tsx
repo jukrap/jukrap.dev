@@ -38,7 +38,7 @@ const LoadImage: React.FC<LoadImageProps> = ({
 	return (
 		<div style={containerStyle}>
 			{isLoading && showSpinner && (
-				<div className="absolute inset-0 flex items-center justify-center bg-secondary/20 backdrop-blur-sm rounded-lg">
+				<div className="absolute inset-0 flex items-center justify-center bg-secondary/30 rounded-lg">
 					<ImageSpinner />
 				</div>
 			)}

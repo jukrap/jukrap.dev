@@ -8,14 +8,13 @@ const HomeBodyLink: React.FC<IconLink> = ({ text, url, icon, isExternal }) => {
 			href={url}
 			target={isExternal ? '_blank' : '_self'}
 			rel={isExternal ? 'noopener noreferrer' : ''}
-			className="group surface-glass flex items-center justify-between w-full md:w-auto gap-2 p-3 md:p-2 rounded-lg
-        no-select transition-all duration-300 hover:-translate-y-0.5
-        hover:border-accent/45 active:translate-y-0 md:justify-center md:flex-row"
+			className="group surface-minimal flex items-center justify-between w-full md:w-auto gap-2 p-3 md:p-2 rounded-lg
+        no-select transition-colors duration-200 hover:bg-secondary/45 md:justify-center md:flex-row"
 		>
 			<div className="flex items-center gap-3">
 				<div
 					className="flex items-center justify-center w-10 h-10 md:w-8 md:h-8 rounded-full 
-          bg-background/25 shadow-inner transition-colors duration-300"
+          bg-secondary/45 transition-colors duration-200 group-hover:bg-secondary/70"
 				>
 					<Image
 						src={icon}
@@ -27,7 +26,7 @@ const HomeBodyLink: React.FC<IconLink> = ({ text, url, icon, isExternal }) => {
 				</div>
 				<span
 					className="font-medium text-base md:text-lg lg:text-xl text-foreground 
-          group-hover:text-accent transition-colors duration-300"
+          transition-colors duration-200"
 				>
 					{text}
 				</span>
@@ -37,7 +36,7 @@ const HomeBodyLink: React.FC<IconLink> = ({ text, url, icon, isExternal }) => {
 				height="20"
 				viewBox="0 0 20 20"
 				fill="none"
-				className="text-muted-foreground group-hover:text-accent transition-colors duration-300 md:hidden"
+				className="text-muted-foreground group-hover:text-foreground transition-colors duration-200 md:hidden"
 				aria-hidden="true"
 			>
 				<path

@@ -50,9 +50,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 
 	const renderSection = (title: string, content: React.ReactNode) => (
 		<motion.div
-			initial={{ opacity: 0, y: 20 }}
+			initial={{ opacity: 0, y: 8 }}
 			animate={{ opacity: 1, y: 0 }}
-			className="mb-8 p-6 surface-glass rounded-lg"
+			className="mb-8 p-6 surface-minimal rounded-lg"
 		>
 			<h3 className="font-bold text-2xl text-foreground mb-4 pb-2 border-b border-border">
 				{title}
@@ -66,10 +66,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 			{items.map((item, index) => (
 				<motion.li
 					key={index}
-					initial={{ opacity: 0, x: -20 }}
-					animate={{ opacity: 1, x: 0 }}
-					transition={{ delay: index * 0.1 }}
-					className="bg-background/55 p-4 rounded-md border border-border/35"
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ delay: index * 0.04 }}
+					className="bg-secondary/20 p-4 rounded-md border border-border/30"
 				>
 					<h4 className="font-semibold text-lg mb-2 text-foreground">
 						{item.title}
@@ -94,15 +94,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					className="fixed inset-0 bg-background/78 backdrop-blur-md flex items-center justify-center z-50 p-4"
+					className="fixed inset-0 bg-background/90 flex items-center justify-center z-50 p-4"
 					onClick={handleBackgroundClick}
 				>
 					<motion.div
 						key="project-detail-content"
-						initial={{ scale: 0.9, opacity: 0 }}
-						animate={{ scale: 1, opacity: 1 }}
-						exit={{ scale: 0.9, opacity: 0 }}
-						className="relative surface-glass-strong w-[90%] max-w-[900px] rounded-lg
+						initial={{ y: 12, opacity: 0 }}
+						animate={{ y: 0, opacity: 1 }}
+						exit={{ y: 12, opacity: 0 }}
+						className="relative surface-minimal-strong w-[90%] max-w-[900px] rounded-lg
             max-h-[90vh] overflow-hidden transform-gpu"
 					>
 						<div className="max-h-[90vh] overflow-y-auto scrollbar-hide">
@@ -126,16 +126,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 															className="object-cover transform-gpu"
 															sizes="(max-width: 900px) 90vw, 900px"
 														/>
-														<div className="absolute inset-0 backdrop-blur-sm transform-gpu">
-															<Image
-																src={project.projectData.background.image}
-																alt="background blur"
-																fill
-																quality={75}
-																className="object-cover"
-																sizes="(max-width: 900px) 90vw, 900px"
-															/>
-														</div>
 													</div>
 												</>
 											) : (
@@ -146,9 +136,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 													}}
 												/>
 											)}
-											{/* 메인 그라데이션 - 더 강한 효과 */}
+											{/* 메인 그라데이션 */}
 											<div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/70 to-background/95 transform-gpu" />
-											{/* 추가 그라데이션 - 부드러운 전환을 위한 레이어 */}
+											{/* 추가 그라데이션 */}
 											<div className="absolute bottom-0 h-3/5 w-full bg-gradient-to-t from-background via-background/100 to-transparent transform-gpu" />
 										</>
 									)}
@@ -178,8 +168,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 															target="_blank"
 															rel="noopener noreferrer"
 															className="flex items-center gap-2 px-4 py-2 rounded-lg 
-                              border border-accent bg-accent/10 text-accent
-                              hover:bg-accent/30 transition-colors duration-300"
+                              border border-border/45 bg-secondary/30 text-foreground
+                              hover:bg-secondary/60 transition-colors duration-200"
 														>
 															<Image
 																src={getIcon(link.type)}
@@ -203,8 +193,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 										<button
 											onClick={handleCloseClick}
 											className="absolute top-8 right-8 p-2 rounded-full z-30
-                      bg-background/30 hover:bg-background/80 backdrop-blur-sm
-                      transition-colors duration-300"
+                      bg-background/85 hover:bg-secondary
+                      transition-colors duration-200 border border-border/30"
 											aria-label={dictionary.projectDetail.close}
 										>
 											<Image
@@ -217,7 +207,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 									</div>
 
 									{/* 콘텐츠 섹션 */}
-									<div className="relative bg-background/72">
+									<div className="relative bg-background">
 										<div className="p-8 space-y-8">
 											{/* 프로젝트 개요 */}
 											{renderSection(
@@ -234,13 +224,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 											{renderSection(
 												dictionary.projectDetail.info,
 												<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-													<div className="p-4 bg-background/55 rounded-lg border border-border/35">
+													<div className="p-4 bg-secondary/20 rounded-lg border border-border/30">
 														<h4 className="font-semibold text-lg mb-2 text-foreground">
 															{dictionary.projectDetail.role}
 														</h4>
 														<p className="text-muted-foreground">{project.role.join(', ')}</p>
 													</div>
-													<div className="p-4 bg-background/55 rounded-lg border border-border/35">
+													<div className="p-4 bg-secondary/20 rounded-lg border border-border/30">
 														<h4 className="font-semibold text-lg mb-2 text-foreground">
 															{dictionary.projectDetail.teamSize}
 														</h4>
@@ -303,8 +293,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 																			target="_blank"
 																			rel="noopener noreferrer"
 																			className="flex items-center gap-2 px-4 py-2 rounded-lg 
-                                      bg-primary text-primary-foreground hover:bg-primary/50
-                                      transition-colors duration-300"
+                                      bg-primary text-primary-foreground hover:bg-primary/80
+                                      transition-colors duration-200"
 																		>
 																			<Image
 																				src={getIcon(link.type)}
@@ -334,7 +324,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 													onClick={handleCloseClick}
 													className="w-full px-6 py-3 bg-primary hover:bg-primary/50 
                           text-primary-foreground font-semibold rounded-lg
-                          transition-colors duration-300"
+                          transition-colors duration-200"
 												>
 													{dictionary.projectDetail.close}
 												</button>

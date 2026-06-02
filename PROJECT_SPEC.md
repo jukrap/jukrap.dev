@@ -19,14 +19,15 @@ polished while preserving the existing Korean portfolio record.
 - Static portfolio pages: home, about, projects.
 - URL-based locale routing for Korean and English.
 - Dark/light theme support with a smoother theme toggle.
-- Restrained black-and-white visual system with subtle glass treatment.
+- Restrained black-and-white visual system with gray surfaces and minimal motion.
 - Package/security modernization for the current Next.js/npm stack.
 
 ## Design Direction
 
 - Default mood: monochrome, personal, quiet, developer-focused.
-- Accent color may remain limited and purposeful.
-- Glassmorphism should be used as a depth layer, not as heavy decoration.
+- Accent treatment should stay within black, white, and gray tones.
+- Avoid glassmorphism, liquid-glass imitation, heavy blur, and decorative depth
+  effects.
 - Mobile navigation and modal interactions should feel deliberate and stable.
 
 ## Data Policy

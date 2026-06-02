@@ -24,7 +24,7 @@ export const PortfolioSection = () => {
 				<a
 					href="/files/Ju-cheol-Park_Frontend.pdf"
 					download
-					className="relative flex items-center gap-2 px-4 py-2 font-bold text-lg md:text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-accent transition-colors duration-300 select-none"
+					className="relative flex items-center gap-2 px-4 py-2 font-bold text-lg md:text-xl leading-5 text-center text-background bg-foreground rounded-lg hover:bg-foreground/80 transition-colors duration-200 select-none"
 				>
 					<div className="relative flex items-center justify-center w-6 h-6">
 						<Image

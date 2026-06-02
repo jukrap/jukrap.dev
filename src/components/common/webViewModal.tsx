@@ -36,8 +36,6 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 	const modalStyles = {
 		overlay: {
 			backgroundColor: 'rgba(0, 0, 0, 0.62)',
-			backdropFilter: 'blur(12px)',
-			WebkitBackdropFilter: 'blur(12px)',
 			zIndex: 50,
 			display: 'flex',
 			alignItems: 'center',
@@ -57,11 +55,9 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 			padding: 0,
 			border: '1px solid hsl(var(--border) / 0.32)',
 			borderRadius: '0.5rem',
-			background: 'hsl(var(--background) / 0.9)',
-			backdropFilter: 'blur(24px) saturate(155%)',
-			WebkitBackdropFilter: 'blur(24px) saturate(155%)',
+			background: 'hsl(var(--background))',
 			overflow: 'hidden',
-			boxShadow: '0 28px 90px hsl(var(--foreground) / 0.14)',
+			boxShadow: '0 24px 70px hsl(var(--blacks) / 0.22)',
 		},
 	};
 
@@ -77,7 +73,7 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 			{/* 브라우저 스타일 헤더 */}
 			<div className="flex flex-col border-b border-border">
 				{/* 상단 컨트롤 */}
-				<div className="flex items-center justify-between px-4 py-3 surface-glass border-x-0 border-t-0">
+				<div className="flex items-center justify-between px-4 py-3 bg-background">
 					<div className="flex items-center gap-2">
 						<button
 							onClick={onRequestClose}
@@ -92,7 +88,7 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 							href={selectedLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="flex items-center gap-2 px-4 py-1.5 bg-accent/10 hover:bg-accent/35 text-accent rounded-full transition-all duration-300"
+							className="flex items-center gap-2 px-4 py-1.5 bg-secondary/35 hover:bg-secondary/65 text-foreground rounded-full transition-colors duration-200"
 						>
 							<ExternalLink className="w-4 h-4" />
 							<span className="text-sm font-medium">
@@ -105,7 +101,7 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 				{/* URL/제목 바 */}
 				<div className="flex items-center gap-3 px-4 py-3 bg-background/72 border-t border-border">
 					{selectedLink.startsWith('https') ? (
-						<Lock className="w-4 h-4 text-accent" />
+						<Lock className="w-4 h-4 text-foreground" />
 					) : (
 						<Globe className="w-4 h-4 text-muted-foreground" />
 					)}
@@ -135,7 +131,7 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 					</div>
 				) : isExternalLink && !showEmbedded ? (
 					<div className="flex flex-col items-center justify-center p-12 space-y-6">
-						<Globe className="w-16 h-16 text-accent animate-pulse" />
+						<Globe className="w-16 h-16 text-muted-foreground" />
 						<div className="text-center space-y-2 max-w-md">
 							<h3 className="text-xl font-bold text-foreground">
 								{dictionary.webView.externalTitle}
@@ -149,14 +145,14 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 								href={selectedLink}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="flex items-center justify-center gap-2 px-6 py-3 bg-accent hover:bg-accent/80 text-accent-foreground rounded-lg transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
+								className="flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary/80 text-primary-foreground rounded-lg transition-colors duration-200 font-medium"
 							>
 								<ExternalLink className="w-5 h-5" />
 								<span>{dictionary.webView.openNewTab}</span>
 							</a>
 							<button
 								onClick={() => setShowEmbedded(true)}
-								className="flex items-center justify-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground rounded-lg transition-all duration-300 font-medium"
+								className="flex items-center justify-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground rounded-lg transition-colors duration-200 font-medium"
 							>
 								<Globe className="w-5 h-5" />
 								<span>{dictionary.webView.viewInWebView}</span>
@@ -174,8 +170,8 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 
 				{/* 로딩 스피너 */}
 				{isLoading && !isExternalLink && (
-					<div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-						<div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent shadow-lg" />
+					<div className="absolute inset-0 flex items-center justify-center bg-background/90">
+						<div className="animate-spin rounded-full h-12 w-12 border-4 border-foreground/70 border-t-transparent" />
 					</div>
 				)}
 			</div>

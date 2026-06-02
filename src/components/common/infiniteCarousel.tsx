@@ -120,7 +120,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 										alt={`Project Image ${index + 1}`}
 										maxWidth={200}
 										maxHeight={300}
-										className="rounded-lg transition-transform duration-300 hover:scale-105"
+										className="rounded-lg transition-opacity duration-200 hover:opacity-85"
 										onLoad={() => handleImageLoad(index)}
 									/>
 								</div>
@@ -166,7 +166,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 			</div>
 			{/* 네비게이션 버튼 */}
 			<button
-				className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 z-10 transition-colors duration-300"
+				className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-background/90 hover:bg-secondary border border-border/35 rounded-full p-2 z-10 transition-colors duration-200"
 				onClick={(e) => {
 					e.stopPropagation();
 					prevSlide();
@@ -182,7 +182,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 				/>
 			</button>
 			<button
-				className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 z-10 transition-colors duration-300"
+				className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-background/90 hover:bg-secondary border border-border/35 rounded-full p-2 z-10 transition-colors duration-200"
 				onClick={(e) => {
 					e.stopPropagation();
 					nextSlide();
@@ -208,7 +208,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 									key={index}
 									className={`w-2 h-2 rounded-full transition-colors duration-300 ${
 										index === currentIndex % images.length
-											? 'bg-accent'
+											? 'bg-foreground'
 											: 'bg-gray-300 hover:bg-gray-400'
 									}`}
 									onClick={(e) => {
@@ -222,7 +222,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 					) : (
 						// 숫자 인디케이터
 						<div className="text-sm text-muted-foreground font-medium">
-							<span className="text-accent">{currentIndex + 1}</span>
+							<span className="text-foreground">{currentIndex + 1}</span>
 							<span className="mx-1">/</span>
 							<span>{images.length}</span>
 						</div>

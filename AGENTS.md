@@ -46,7 +46,7 @@ product specification.
 ## UI And Styling
 
 - The visual direction is black-and-white first, with restrained accent color
-  and subtle glass effects where they improve depth.
+  limited to gray-scale treatment.
 - CSS variables and Tailwind utilities should own shared theme tokens, layout,
   and reusable visual language.
 - Inline styles are acceptable for truly dynamic values such as measured sizes,
@@ -54,8 +54,9 @@ product specification.
 - Prefer class names or shared utilities for static styling.
 - Verify desktop and mobile widths for navigation, modals, text wrapping, image
   containers, loading, empty, error, hover, and disabled states.
-- Do not use decorative effects that fight the portfolio content. Glassmorphism
-  should stay subtle and readable.
+- Do not use decorative effects that fight the portfolio content. Avoid
+  glassmorphism, liquid-glass imitation, heavy blur, bouncy hover states, and
+  excessive shadows.
 
 ## Verification
 

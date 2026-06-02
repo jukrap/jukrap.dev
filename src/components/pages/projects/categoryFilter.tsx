@@ -18,13 +18,11 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 					onClick={() => onSelectPlatform(platform)}
 					className={[
 						'relative overflow-hidden rounded-full px-6 py-2 text-base md:text-lg',
-						'transition-colors duration-300',
+						'transition-colors duration-200',
 						selectedPlatform === platform
 							? 'text-background'
-							: 'surface-glass text-foreground hover:border-accent/50',
+							: 'surface-minimal text-foreground hover:bg-secondary/45',
 					].join(' ')}
-					whileHover={{ scale: 1.05 }}
-					whileTap={{ scale: 0.95 }}
 				>
 					<span className="relative z-10">
 						{dictionary.projects.platforms[platform]}

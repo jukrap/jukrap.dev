@@ -258,6 +258,7 @@
 		transform: translateZ(0);
 		transition:
 			color 180ms ease,
+			opacity 180ms ease,
 			transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
 	}
 
@@ -285,57 +286,14 @@
 	}
 
 	.nav-link-label {
-		position: relative;
-		z-index: 1;
 		white-space: nowrap;
-	}
-
-	.nav-link-label::before {
-		content: '';
-		position: absolute;
-		left: -0.1rem;
-		right: -0.1rem;
-		bottom: 0.08rem;
-		z-index: -1;
-		height: 0.38em;
-		border-radius: 2px;
-		background: linear-gradient(
-			90deg,
-			hsl(var(--accent) / 0.18),
-			hsl(var(--foreground) / 0.08)
-		);
-		opacity: 0;
-		transform: scaleX(0.18) skewX(-8deg);
-		transform-origin: left;
 		transition:
-			opacity 180ms ease,
-			transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+			font-weight 180ms ease,
+			opacity 180ms ease;
 	}
 
-	.nav-link-label::after {
-		content: '';
-		position: absolute;
-		left: 0;
-		right: 100%;
-		bottom: -0.2rem;
-		height: 1px;
-		background-color: currentColor;
-		opacity: 0;
-		transition:
-			opacity 180ms ease,
-			right 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
-	}
-
-	.nav-link:hover .nav-link-label::before,
-	.nav-link-active .nav-link-label::before {
-		opacity: 1;
-		transform: scaleX(1) skewX(-8deg);
-	}
-
-	.nav-link:hover .nav-link-label::after,
-	.nav-link-active .nav-link-label::after {
-		right: 0;
-		opacity: 0.48;
+	.nav-link-active .nav-link-label {
+		font-weight: 600;
 	}
 
 	.brand-link {

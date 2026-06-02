@@ -20,7 +20,13 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
 	useEffect(() => {
 		setIsVisible(true);
-		return () => setIsVisible(false);
+		const previousOverflow = document.body.style.overflow;
+		document.body.style.overflow = 'hidden';
+
+		return () => {
+			setIsVisible(false);
+			document.body.style.overflow = previousOverflow;
+		};
 	}, []);
 
 	useEffect(() => {
@@ -99,8 +105,9 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
 				{/* 네비게이션 버튼 - 모바일에서는 양쪽 여백 축소 */}
 				<button
-					className="absolute top-1/2 left-2 md:left-[-70px] transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 transition-colors duration-300"
+					className="absolute top-1/2 left-2 md:left-[-70px] transform -translate-y-1/2 surface-glass rounded-full p-2 transition-colors duration-300 hover:border-accent/50"
 					onClick={prevImage}
+					aria-label="Previous image"
 				>
 					<Image
 						src={getIconPath('back', isDarkMode)}
@@ -111,8 +118,9 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 					/>
 				</button>
 				<button
-					className="absolute top-1/2 right-2 md:right-[-70px] transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 transition-colors duration-300"
+					className="absolute top-1/2 right-2 md:right-[-70px] transform -translate-y-1/2 surface-glass rounded-full p-2 transition-colors duration-300 hover:border-accent/50"
 					onClick={nextImage}
+					aria-label="Next image"
 				>
 					<Image
 						src={getIconPath('forward', isDarkMode)}
@@ -125,12 +133,14 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 			</div>
 
 			{/* 닫기 버튼 */}
-			<div
-				className="absolute top-6 right-6 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 transition-colors duration-300 no-select"
+			<button
+				type="button"
+				className="absolute top-6 right-6 surface-glass rounded-full p-2 transition-colors duration-300 hover:border-accent/50 no-select"
 				onClick={(e) => {
 					e.stopPropagation();
 					handleClose();
 				}}
+				aria-label="Close image viewer"
 			>
 				<Image
 					src={getIconPath('close', isDarkMode)}
@@ -139,7 +149,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 					height={24}
 					className="md:w-8 md:h-8"
 				/>
-			</div>
+			</button>
 
 			{/* 인디케이터 */}
 			<div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 md:gap-4">

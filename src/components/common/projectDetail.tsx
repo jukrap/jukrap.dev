@@ -20,12 +20,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 		setIsVisible(true);
 		const scrollBarWidth =
 			window.innerWidth - document.documentElement.clientWidth;
+		const previousOverflow = document.body.style.overflow;
+		const previousPaddingRight = document.body.style.paddingRight;
 		document.body.style.overflow = 'hidden';
 		document.body.style.paddingRight = `${scrollBarWidth}px`;
 
 		return () => {
-			document.body.style.overflow = 'unset';
-			document.body.style.paddingRight = '0';
+			document.body.style.overflow = previousOverflow;
+			document.body.style.paddingRight = previousPaddingRight;
 		};
 	}, []);
 
@@ -50,7 +52,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
-			className="mb-8 p-6 bg-secondary/50 rounded-lg"
+			className="mb-8 p-6 surface-glass rounded-lg"
 		>
 			<h3 className="font-bold text-2xl text-foreground mb-4 pb-2 border-b border-border">
 				{title}
@@ -67,7 +69,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 					initial={{ opacity: 0, x: -20 }}
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ delay: index * 0.1 }}
-					className="bg-background/50 p-4 rounded-md border border-border/50"
+					className="bg-background/55 p-4 rounded-md border border-border/35"
 				>
 					<h4 className="font-semibold text-lg mb-2 text-foreground">
 						{item.title}
@@ -92,7 +94,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+					className="fixed inset-0 bg-background/78 backdrop-blur-md flex items-center justify-center z-50 p-4"
 					onClick={handleBackgroundClick}
 				>
 					<motion.div
@@ -100,7 +102,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 						initial={{ scale: 0.9, opacity: 0 }}
 						animate={{ scale: 1, opacity: 1 }}
 						exit={{ scale: 0.9, opacity: 0 }}
-						className="relative bg-background w-[90%] max-w-[900px] rounded-xl 
+						className="relative surface-glass-strong w-[90%] max-w-[900px] rounded-lg
             max-h-[90vh] overflow-hidden transform-gpu"
 					>
 						<div className="max-h-[90vh] overflow-y-auto scrollbar-hide">
@@ -203,14 +205,19 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 											className="absolute top-8 right-8 p-2 rounded-full z-30
                       bg-background/30 hover:bg-background/80 backdrop-blur-sm
                       transition-colors duration-300"
-											aria-label="Close modal"
+											aria-label={dictionary.projectDetail.close}
 										>
-											<Image src={getIcon('close')} alt="Close" width={24} height={24} />
+											<Image
+												src={getIcon('close')}
+												alt={dictionary.projectDetail.close}
+												width={24}
+												height={24}
+											/>
 										</button>
 									</div>
 
 									{/* 콘텐츠 섹션 */}
-									<div className="relative bg-background">
+									<div className="relative bg-background/72">
 										<div className="p-8 space-y-8">
 											{/* 프로젝트 개요 */}
 											{renderSection(
@@ -227,13 +234,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 											{renderSection(
 												dictionary.projectDetail.info,
 												<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-													<div className="p-4 bg-background rounded-lg border border-border/50">
+													<div className="p-4 bg-background/55 rounded-lg border border-border/35">
 														<h4 className="font-semibold text-lg mb-2 text-foreground">
 															{dictionary.projectDetail.role}
 														</h4>
 														<p className="text-muted-foreground">{project.role.join(', ')}</p>
 													</div>
-													<div className="p-4 bg-background rounded-lg border border-border/50">
+													<div className="p-4 bg-background/55 rounded-lg border border-border/35">
 														<h4 className="font-semibold text-lg mb-2 text-foreground">
 															{dictionary.projectDetail.teamSize}
 														</h4>

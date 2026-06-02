@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { X, ExternalLink, Globe, Lock } from 'lucide-react';
-import { useThemeStore } from '@/store/useThemeStore';
 import { useLocale } from '@/contexts/localeContext';
 import { WebViewModalProps } from '@/types/modal';
 import LoadImage from '@/components/common/loadImage';
@@ -14,7 +13,6 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 	selectedLink,
 	linkText,
 }) => {
-	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 	const { dictionary } = useLocale();
 	const [isLoading, setIsLoading] = useState(true);
 	const isImageLink = selectedLink.match(/\.(jpg|jpeg|png|gif|svg)$/i);
@@ -37,7 +35,9 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 
 	const modalStyles = {
 		overlay: {
-			backgroundColor: 'rgba(0, 0, 0, 0.75)',
+			backgroundColor: 'rgba(0, 0, 0, 0.62)',
+			backdropFilter: 'blur(12px)',
+			WebkitBackdropFilter: 'blur(12px)',
 			zIndex: 50,
 			display: 'flex',
 			alignItems: 'center',
@@ -55,11 +55,13 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 			maxHeight: '85vh',
 			margin: '0 auto',
 			padding: 0,
-			border: 'none',
-			borderRadius: '1rem',
-			background: isDarkMode ? 'hsl(var(--background))' : 'hsl(var(--background))',
+			border: '1px solid hsl(var(--border) / 0.32)',
+			borderRadius: '0.5rem',
+			background: 'hsl(var(--background) / 0.9)',
+			backdropFilter: 'blur(24px) saturate(155%)',
+			WebkitBackdropFilter: 'blur(24px) saturate(155%)',
 			overflow: 'hidden',
-			boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+			boxShadow: '0 28px 90px hsl(var(--foreground) / 0.14)',
 		},
 	};
 
@@ -69,17 +71,18 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 			onRequestClose={onRequestClose}
 			style={modalStyles}
 			shouldCloseOnOverlayClick={true}
-			contentLabel={`${linkText} 보기`}
+			bodyOpenClassName="ReactModal__Body--open"
+			contentLabel={`${linkText} ${dictionary.projectDetail.detailView}`}
 		>
 			{/* 브라우저 스타일 헤더 */}
 			<div className="flex flex-col border-b border-border">
 				{/* 상단 컨트롤 */}
-				<div className="flex items-center justify-between px-4 py-3 bg-secondary/30">
+				<div className="flex items-center justify-between px-4 py-3 surface-glass border-x-0 border-t-0">
 					<div className="flex items-center gap-2">
 						<button
 							onClick={onRequestClose}
 							className="p-2 hover:bg-foreground/30 rounded-full transition-colors duration-300"
-							aria-label="close"
+							aria-label={dictionary.projectDetail.close}
 						>
 							<X className="w-5 h-5 text-foreground" />
 						</button>
@@ -100,7 +103,7 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 				</div>
 
 				{/* URL/제목 바 */}
-				<div className="flex items-center gap-3 px-4 py-3 bg-background border-t border-border">
+				<div className="flex items-center gap-3 px-4 py-3 bg-background/72 border-t border-border">
 					{selectedLink.startsWith('https') ? (
 						<Lock className="w-4 h-4 text-accent" />
 					) : (

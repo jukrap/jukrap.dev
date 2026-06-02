@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { AlertTopBannerProps } from '@/types/component';
 
-const AlertTopBanner: React.FC<AlertTopBannerProps> = ({ message }) => {
+const AlertTopBanner: React.FC<AlertTopBannerProps> = ({
+	message,
+	closeLabel,
+}) => {
 	const [isVisible, setIsVisible] = useState(true);
 
 	const parseMessage = (text: string) => {
@@ -26,7 +29,7 @@ const AlertTopBanner: React.FC<AlertTopBannerProps> = ({ message }) => {
 					href={linkPart}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="font-bold underline decoration-accent hover:decoration-accent hover:text-accent transition-colors duration-300"
+					className="font-bold underline decoration-accent/60 underline-offset-4 transition-colors duration-200 hover:text-accent"
 				>
 					{textPart}
 				</a>,
@@ -45,16 +48,16 @@ const AlertTopBanner: React.FC<AlertTopBannerProps> = ({ message }) => {
 	if (!isVisible) return null;
 
 	return (
-		<div className="sticky z-40 w-full bg-background/95 border-b border-border transition-colors duration-300">
+		<div className="relative z-40 w-full bg-background border-b border-border/25 transition-colors duration-300">
 			<div className="max-w-7xl mx-auto py-2.5 px-4 sm:px-6 lg:px-8">
 				<div className="max-w-3xl mx-auto flex items-center justify-center relative">
-					<p className="text-sm sm:text-base font-medium text-foreground text-center line-clamp-2 sm:line-clamp-1 break-keep pr-8">
+					<p className="text-sm sm:text-base font-medium text-foreground text-center break-keep pr-8">
 						{parseMessage(message)}
 					</p>
 					<button
 						onClick={() => setIsVisible(false)}
-						className="absolute right-0 p-1 rounded-md hover:bg-muted transition-colors duration-300"
-						aria-label="알림 닫기"
+						className="absolute right-0 p-1 rounded-md transition-colors duration-200 hover:bg-muted/80 hover:text-accent"
+						aria-label={closeLabel}
 					>
 						<X size={20} className="text-foreground" />
 					</button>

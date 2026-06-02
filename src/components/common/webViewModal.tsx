@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { X, ExternalLink, Globe, Lock } from 'lucide-react';
-import { useThemeStore } from '@/store/useThemeStore';
+import { useLocale } from '@/contexts/localeContext';
 import { WebViewModalProps } from '@/types/modal';
 import LoadImage from '@/components/common/loadImage';
 
@@ -13,7 +13,7 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 	selectedLink,
 	linkText,
 }) => {
-	const isDarkMode = useThemeStore((state) => state.isDarkMode);
+	const { dictionary } = useLocale();
 	const [isLoading, setIsLoading] = useState(true);
 	const isImageLink = selectedLink.match(/\.(jpg|jpeg|png|gif|svg)$/i);
 	const isExternalLink = selectedLink.startsWith('http');
@@ -35,7 +35,7 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 
 	const modalStyles = {
 		overlay: {
-			backgroundColor: 'rgba(0, 0, 0, 0.75)',
+			backgroundColor: 'rgba(0, 0, 0, 0.62)',
 			zIndex: 50,
 			display: 'flex',
 			alignItems: 'center',
@@ -53,11 +53,11 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 			maxHeight: '85vh',
 			margin: '0 auto',
 			padding: 0,
-			border: 'none',
-			borderRadius: '1rem',
-			background: isDarkMode ? 'hsl(var(--background))' : 'hsl(var(--background))',
+			border: '1px solid hsl(var(--border) / 0.32)',
+			borderRadius: '0.5rem',
+			background: 'hsl(var(--background))',
 			overflow: 'hidden',
-			boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+			boxShadow: '0 24px 70px hsl(var(--blacks) / 0.22)',
 		},
 	};
 
@@ -67,17 +67,18 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 			onRequestClose={onRequestClose}
 			style={modalStyles}
 			shouldCloseOnOverlayClick={true}
-			contentLabel={`${linkText} 보기`}
+			bodyOpenClassName="ReactModal__Body--open"
+			contentLabel={`${linkText} ${dictionary.projectDetail.detailView}`}
 		>
 			{/* 브라우저 스타일 헤더 */}
 			<div className="flex flex-col border-b border-border">
 				{/* 상단 컨트롤 */}
-				<div className="flex items-center justify-between px-4 py-3 bg-secondary/30">
+				<div className="flex items-center justify-between px-4 py-3 bg-background">
 					<div className="flex items-center gap-2">
 						<button
 							onClick={onRequestClose}
 							className="p-2 hover:bg-foreground/30 rounded-full transition-colors duration-300"
-							aria-label="close"
+							aria-label={dictionary.projectDetail.close}
 						>
 							<X className="w-5 h-5 text-foreground" />
 						</button>
@@ -87,18 +88,20 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 							href={selectedLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="flex items-center gap-2 px-4 py-1.5 bg-accent/10 hover:bg-accent/35 text-accent rounded-full transition-all duration-300"
+							className="flex items-center gap-2 px-4 py-1.5 bg-secondary/35 hover:bg-secondary/65 text-foreground rounded-full transition-colors duration-200"
 						>
 							<ExternalLink className="w-4 h-4" />
-							<span className="text-sm font-medium">새 탭에서 열기</span>
+							<span className="text-sm font-medium">
+								{dictionary.webView.openNewTab}
+							</span>
 						</a>
 					)}
 				</div>
 
 				{/* URL/제목 바 */}
-				<div className="flex items-center gap-3 px-4 py-3 bg-background border-t border-border">
+				<div className="flex items-center gap-3 px-4 py-3 bg-background/72 border-t border-border">
 					{selectedLink.startsWith('https') ? (
-						<Lock className="w-4 h-4 text-accent" />
+						<Lock className="w-4 h-4 text-foreground" />
 					) : (
 						<Globe className="w-4 h-4 text-muted-foreground" />
 					)}
@@ -128,13 +131,13 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 					</div>
 				) : isExternalLink && !showEmbedded ? (
 					<div className="flex flex-col items-center justify-center p-12 space-y-6">
-						<Globe className="w-16 h-16 text-accent animate-pulse" />
+						<Globe className="w-16 h-16 text-muted-foreground" />
 						<div className="text-center space-y-2 max-w-md">
 							<h3 className="text-xl font-bold text-foreground">
-								외부 웹사이트로 이동합니다
+								{dictionary.webView.externalTitle}
 							</h3>
 							<p className="text-sm text-muted-foreground">
-								{new URL(selectedLink).hostname}으로 이동할 수 있습니다
+								{dictionary.webView.externalDescription(new URL(selectedLink).hostname)}
 							</p>
 						</div>
 						<div className="flex flex-col sm:flex-row gap-4">
@@ -142,17 +145,17 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 								href={selectedLink}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="flex items-center justify-center gap-2 px-6 py-3 bg-accent hover:bg-accent/80 text-accent-foreground rounded-lg transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
+								className="flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary/80 text-primary-foreground rounded-lg transition-colors duration-200 font-medium"
 							>
 								<ExternalLink className="w-5 h-5" />
-								<span>새 탭에서 열기</span>
+								<span>{dictionary.webView.openNewTab}</span>
 							</a>
 							<button
 								onClick={() => setShowEmbedded(true)}
-								className="flex items-center justify-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground rounded-lg transition-all duration-300 font-medium"
+								className="flex items-center justify-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground rounded-lg transition-colors duration-200 font-medium"
 							>
 								<Globe className="w-5 h-5" />
-								<span>웹뷰에서 보기</span>
+								<span>{dictionary.webView.viewInWebView}</span>
 							</button>
 						</div>
 					</div>
@@ -167,8 +170,8 @@ const WebViewModal: React.FC<WebViewModalProps> = ({
 
 				{/* 로딩 스피너 */}
 				{isLoading && !isExternalLink && (
-					<div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-						<div className="animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent shadow-lg" />
+					<div className="absolute inset-0 flex items-center justify-center bg-background/90">
+						<div className="animate-spin rounded-full h-12 w-12 border-4 border-foreground/70 border-t-transparent" />
 					</div>
 				)}
 			</div>

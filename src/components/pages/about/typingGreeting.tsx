@@ -1,8 +1,11 @@
 import React from 'react';
+import { useLocale } from '@/contexts/localeContext';
 import useTypingEffect from '@/hook/useTypingEffect';
-import { greetings } from '@/data/about/greetings';
 
 export const TypingGreeting = () => {
+	const {
+		data: { greetings },
+	} = useLocale();
 	const typedText = useTypingEffect(greetings, {
 		typingSpeed: 40,
 		deletingSpeed: 20,

@@ -3,7 +3,6 @@ import localFont from 'next/font/local';
 import { ThemeProvider } from '@/contexts/themeContext';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import LayoutWrapper from '@/components/layouts/layoutWrapper';
 import { siteMetadata } from '@/data/meta/siteMetaData';
 import './globals.css';
 
@@ -28,14 +27,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="ko">
+		<html lang="ko" suppressHydrationWarning>
 			<body
 				className={`${pretendard.className} bg-background transition-colors duration-500`}
 			>
 				<ThemeProvider>
-					<div className="flex flex-col min-h-screen">
-						<LayoutWrapper>{children}</LayoutWrapper>
-					</div>
+					{children}
 					<Analytics />
 					<SpeedInsights />
 				</ThemeProvider>

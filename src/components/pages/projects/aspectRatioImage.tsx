@@ -67,7 +67,7 @@ const AspectRatioImage: React.FC<AspectRatioImageProps> = ({
 				loading={priority ? 'eager' : 'lazy'}
 				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 				className={`
-          rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105
+          rounded-lg transition-opacity duration-300
           ${dimensions.isPortrait ? 'object-contain w-auto h-full' : 'object-contain w-full h-auto'}
           ${isLoading ? 'opacity-0' : 'opacity-100'}
           ${className}

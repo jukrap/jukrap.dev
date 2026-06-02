@@ -5,9 +5,8 @@ import Image from 'next/image';
 import { useThemeStore } from '@/store/useThemeStore';
 import { ProjectLink, SimpleProject, Project } from '@/types/project';
 import { useIcon } from '@/hook/useIcon';
+import { useLocale } from '@/contexts/localeContext';
 import ProjectDetail from '@/components/common/projectDetail';
-import { projectsData } from '@/data/projectsData';
-import { projectsDetailData } from '@/data/projectsDetailData';
 
 const SideProjectsLink: React.FC<ProjectLink> = ({ type, url }) => {
 	const { getIcon } = useIcon();
@@ -17,14 +16,14 @@ const SideProjectsLink: React.FC<ProjectLink> = ({ type, url }) => {
 			href={url}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="flex flex-row items-center justify-center transition-transform duration-300 hover:scale-125"
+			className="icon-link hover:text-accent"
 		>
 			<Image
 				src={getIcon(type)}
 				alt={`${type} Icon`}
 				width={24}
 				height={24}
-				className="transition-filter duration-300 hover:brightness-125"
+				className="transition-opacity duration-200 hover:opacity-80"
 			/>
 		</a>
 	);
@@ -32,19 +31,23 @@ const SideProjectsLink: React.FC<ProjectLink> = ({ type, url }) => {
 
 const SideProjectsSection: React.FC = () => {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
+	const {
+		dictionary,
+		data: { projects, projectDetails },
+	} = useLocale();
 	const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 	const { getIcon } = useIcon();
 
 	const openProjectDetail = (projectId: string) => {
-		if (projectsDetailData) {
-			const detailProject = projectsDetailData.find((p) => p.id === projectId);
+		if (projectDetails) {
+			const detailProject = projectDetails.find((p) => p.id === projectId);
 			if (detailProject) {
 				setSelectedProject(detailProject);
 			} else {
 				console.error('No matching project found for id:', projectId);
 			}
 		} else {
-			console.error('projectsDetailData is undefined');
+			console.error('projectDetails is undefined');
 		}
 	};
 
@@ -55,11 +58,11 @@ const SideProjectsSection: React.FC = () => {
 	return (
 		<section className="w-full max-w-[670px] flex flex-col items-start gap-6 md:gap-8">
 			<h2 className="font-bold text-2xl md:text-4xl leading-relaxed tracking-tight text-foreground border-b border-border pb-2 w-full md:w-[153px] md:border-none md:pb-0 md:text-right">
-				S.Projects
+				{dictionary.about.sideProjects}
 			</h2>
 
 			<div className="w-full flex flex-col gap-6">
-				{projectsData
+				{projects
 					.filter((project) => project.major)
 					.map((project, index) => (
 						<div
@@ -70,10 +73,9 @@ const SideProjectsSection: React.FC = () => {
 							<div className="flex flex-col md:w-[153px] items-start md:items-end gap-0.5">
 								<button
 									onClick={() => openProjectDetail(project.id)}
-									className="font-medium text-lg md:text-xl leading-6 text-left md:text-right text-foreground transition-colors duration-300 cursor-pointer group relative break-keep"
+									className="font-medium text-lg md:text-xl leading-6 text-left md:text-right text-foreground transition-colors duration-200 cursor-pointer break-keep hover:text-accent hover:underline decoration-accent/70 decoration-2 underline-offset-4"
 								>
 									{project.title}
-									<span className="absolute left-0 md:right-0 bottom-0 mt-1 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
 								</button>
 								<p className="font-medium text-sm leading-6 text-left md:text-right text-muted-foreground">
 									{project.duration}
@@ -86,8 +88,8 @@ const SideProjectsSection: React.FC = () => {
 												<button
 													key={`detail-${project.id}`}
 													onClick={() => openProjectDetail(project.id)}
-													className="flex flex-row items-center justify-center transition-transform duration-300 hover:scale-125"
-													aria-label="상세 보기"
+													className="icon-link hover:text-accent"
+													aria-label={dictionary.projectDetail.detailView}
 												>
 													<Image
 														src={
@@ -98,7 +100,7 @@ const SideProjectsSection: React.FC = () => {
 														alt="Detail View"
 														width={24}
 														height={24}
-														className="transition-filter duration-300 hover:brightness-125"
+														className="transition-opacity duration-200 hover:opacity-80"
 													/>
 												</button>
 											) : (

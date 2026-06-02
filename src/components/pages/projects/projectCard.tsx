@@ -17,9 +17,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 		<motion.div
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			className="group relative overflow-hidden rounded-xl bg-card hover:shadow-xl 
-        transition-all duration-300 cursor-pointer border border-border/40 
-        hover:border-accent/40 flex flex-col"
+			className={[
+				'group relative overflow-hidden rounded-lg surface-minimal',
+				'interactive-soft cursor-pointer hover:border-accent/45 hover:shadow-[0_8px_24px_hsl(var(--blacks)/0.08)]',
+				'flex flex-col',
+			].join(' ')}
 			onClick={onClick}
 		>
 			{/* Project Thumbnail Section */}
@@ -77,8 +79,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 							<span
 								key={platform}
 								className="px-2.5 py-1 text-xs font-medium rounded-full 
-                  border border-accent bg-accent/10 text-accent
-                  transition-colors duration-300 hover:bg-accent/20"
+                  border border-border/40 bg-secondary/25 text-foreground
+                  transition-colors duration-200 group-hover:border-accent/40"
 							>
 								{platform}
 							</span>
@@ -108,14 +110,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 										target="_blank"
 										rel="noopener noreferrer"
 										onClick={(e) => e.stopPropagation()}
-										className="transition-transform duration-300 hover:scale-125"
+										className="icon-link hover:text-accent"
 									>
 										<Image
 											src={getIcon(link.type)}
 											alt={link.type}
 											width={24}
 											height={24}
-											className="transition-filter duration-300 hover:brightness-125"
+											className="transition-opacity duration-200 hover:opacity-80"
 										/>
 									</a>
 								))}

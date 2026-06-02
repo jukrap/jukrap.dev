@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
-import debounce from 'lodash/debounce';
 import { useThemeStore } from '@/store/useThemeStore';
 import { LoadingState } from '@/types/component';
 import { InfiniteCarouselProps } from '@/types/component';
@@ -9,6 +8,15 @@ import LoadImage from './loadImage';
 
 const MIN_INDICATOR_WIDTH = 12; // 인디케이터 최소 너비 (w-2 = 0.5rem = 8px) + 간격 (gap-2 = 0.5rem = 8px)
 const CONTAINER_PADDING = 32; // 좌우 패딩값 (px-4 = 1rem = 16px * 2)
+
+const debounce = (callback: () => void, delay: number) => {
+	let timer: ReturnType<typeof setTimeout> | undefined;
+
+	return () => {
+		if (timer) clearTimeout(timer);
+		timer = setTimeout(callback, delay);
+	};
+};
 
 const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 	images,
@@ -112,7 +120,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 										alt={`Project Image ${index + 1}`}
 										maxWidth={200}
 										maxHeight={300}
-										className="rounded-lg transition-transform duration-300 hover:scale-105"
+										className="rounded-lg transition-opacity duration-200 hover:opacity-85"
 										onLoad={() => handleImageLoad(index)}
 									/>
 								</div>
@@ -158,7 +166,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 			</div>
 			{/* 네비게이션 버튼 */}
 			<button
-				className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 z-10 transition-colors duration-300"
+				className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-background/90 hover:bg-secondary hover:border-accent/55 border border-border/35 rounded-full p-2 z-10 transition-colors duration-200"
 				onClick={(e) => {
 					e.stopPropagation();
 					prevSlide();
@@ -174,7 +182,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 				/>
 			</button>
 			<button
-				className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 z-10 transition-colors duration-300"
+				className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-background/90 hover:bg-secondary hover:border-accent/55 border border-border/35 rounded-full p-2 z-10 transition-colors duration-200"
 				onClick={(e) => {
 					e.stopPropagation();
 					nextSlide();

@@ -1,42 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Transition } from 'framer-motion';
 import { Project, BaseProjectTask } from '@/types/project';
 import { ProjectDetailProps } from '@/types/modal';
 import { useIcon } from '@/hook/useIcon';
+import { useLocale } from '@/contexts/localeContext';
 import ImageViewer from './imageViewer';
 import InfiniteCarousel from './infiniteCarousel';
 import TechStackDetailIcons from './techStackDetailIcons';
 
+const overlayTransition: Transition = {
+	duration: 0.12,
+	ease: 'easeOut',
+};
+const panelTransition: Transition = {
+	duration: 0.1,
+	ease: 'easeOut',
+};
+
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	const { getIcon } = useIcon();
+	const { dictionary } = useLocale();
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const [isViewerOpen, setIsViewerOpen] = useState(false);
-	const [isVisible, setIsVisible] = useState(false);
+	const [isVisible, setIsVisible] = useState(true);
 
 	useEffect(() => {
-		setIsVisible(true);
 		const scrollBarWidth =
 			window.innerWidth - document.documentElement.clientWidth;
+		const previousOverflow = document.body.style.overflow;
+		const previousPaddingRight = document.body.style.paddingRight;
 		document.body.style.overflow = 'hidden';
 		document.body.style.paddingRight = `${scrollBarWidth}px`;
 
 		return () => {
-			document.body.style.overflow = 'unset';
-			document.body.style.paddingRight = '0';
+			document.body.style.overflow = previousOverflow;
+			document.body.style.paddingRight = previousPaddingRight;
 		};
 	}, []);
 
 	const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (e.target === e.currentTarget) {
 			setIsVisible(false);
-			setTimeout(onClose, 300);
 		}
 	};
 
 	const handleCloseClick = () => {
 		setIsVisible(false);
-		setTimeout(onClose, 300);
 	};
 
 	const handleImageClick = (index: number) => {
@@ -45,27 +55,20 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	};
 
 	const renderSection = (title: string, content: React.ReactNode) => (
-		<motion.div
-			initial={{ opacity: 0, y: 20 }}
-			animate={{ opacity: 1, y: 0 }}
-			className="mb-8 p-6 bg-secondary/50 rounded-lg"
-		>
+		<div className="mb-8 p-6 surface-minimal rounded-lg">
 			<h3 className="font-bold text-2xl text-foreground mb-4 pb-2 border-b border-border">
 				{title}
 			</h3>
 			{content}
-		</motion.div>
+		</div>
 	);
 
 	const renderList = (items: BaseProjectTask[]) => (
 		<ul className="space-y-4">
 			{items.map((item, index) => (
-				<motion.li
+				<li
 					key={index}
-					initial={{ opacity: 0, x: -20 }}
-					animate={{ opacity: 1, x: 0 }}
-					transition={{ delay: index * 0.1 }}
-					className="bg-background/50 p-4 rounded-md border border-border/50"
+					className="bg-secondary/20 p-4 rounded-md border border-border/30"
 				>
 					<h4 className="font-semibold text-lg mb-2 text-foreground">
 						{item.title}
@@ -77,31 +80,37 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 							</li>
 						))}
 					</ul>
-				</motion.li>
+				</li>
 			))}
 		</ul>
 	);
 
 	return (
-		<AnimatePresence mode="sync">
+		<AnimatePresence mode="sync" onExitComplete={onClose}>
 			{isVisible && (
 				<motion.div
 					key="project-detail-modal"
 					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
-					className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+					animate={{ opacity: 1, transition: overlayTransition }}
+					exit={{ opacity: 0, transition: overlayTransition }}
+					className="fixed inset-0 z-50 flex items-stretch justify-center bg-background/90 p-0 md:items-center md:p-4"
 					onClick={handleBackgroundClick}
 				>
 					<motion.div
 						key="project-detail-content"
-						initial={{ scale: 0.9, opacity: 0 }}
-						animate={{ scale: 1, opacity: 1 }}
-						exit={{ scale: 0.9, opacity: 0 }}
-						className="relative bg-background w-[90%] max-w-[900px] rounded-xl 
-            max-h-[90vh] overflow-hidden transform-gpu"
+						initial={{ opacity: 0 }}
+						animate={{
+							opacity: 1,
+							transition: panelTransition,
+						}}
+						exit={{
+							opacity: 0,
+							transition: panelTransition,
+						}}
+						className="relative surface-minimal-strong h-[100dvh] max-h-[100dvh] w-full overflow-hidden rounded-none
+            md:h-auto md:max-h-[90vh] md:w-[90%] md:max-w-[900px] md:rounded-lg"
 					>
-						<div className="max-h-[90vh] overflow-y-auto scrollbar-hide">
+						<div className="h-full overflow-y-auto scrollbar-hide md:max-h-[90vh]">
 							<div className="relative">
 								{/* 배경 컨테이너 */}
 								<div
@@ -118,20 +127,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 															src={project.projectData.background.image}
 															alt="background"
 															fill
-															quality={100}
+															quality={75}
 															className="object-cover transform-gpu"
 															sizes="(max-width: 900px) 90vw, 900px"
 														/>
-														<div className="absolute inset-0 backdrop-blur-sm transform-gpu">
-															<Image
-																src={project.projectData.background.image}
-																alt="background blur"
-																fill
-																quality={75}
-																className="object-cover"
-																sizes="(max-width: 900px) 90vw, 900px"
-															/>
-														</div>
 													</div>
 												</>
 											) : (
@@ -142,9 +141,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 													}}
 												/>
 											)}
-											{/* 메인 그라데이션 - 더 강한 효과 */}
+											{/* 메인 그라데이션 */}
 											<div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/70 to-background/95 transform-gpu" />
-											{/* 추가 그라데이션 - 부드러운 전환을 위한 레이어 */}
+											{/* 추가 그라데이션 */}
 											<div className="absolute bottom-0 h-3/5 w-full bg-gradient-to-t from-background via-background/100 to-transparent transform-gpu" />
 										</>
 									)}
@@ -153,7 +152,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 								{/* 메인 콘텐츠 */}
 								<div className="relative z-[1]">
 									{/* 헤더 섹션 */}
-									<div className="relative h-[300px] flex flex-col justify-end p-8">
+									<div className="relative h-[260px] md:h-[300px] flex flex-col justify-end p-5 md:p-8">
 										<div>
 											<h2 className="text-4xl font-bold text-foreground pb-0.5 break-keep">
 												{project.title}
@@ -174,8 +173,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 															target="_blank"
 															rel="noopener noreferrer"
 															className="flex items-center gap-2 px-4 py-2 rounded-lg 
-                              border border-accent bg-accent/10 text-accent
-                              hover:bg-accent/30 transition-colors duration-300"
+                              border border-accent/45 bg-accent/10 text-foreground
+                              hover:bg-accent/15 hover:border-accent/70 hover:text-accent transition-colors duration-200"
 														>
 															<Image
 																src={getIcon(link.type)}
@@ -198,21 +197,26 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 										{/* 닫기 버튼 */}
 										<button
 											onClick={handleCloseClick}
-											className="absolute top-8 right-8 p-2 rounded-full z-30
-                      bg-background/30 hover:bg-background/80 backdrop-blur-sm
-                      transition-colors duration-300"
-											aria-label="Close modal"
+											className="absolute top-5 right-5 md:top-8 md:right-8 p-2 rounded-full z-30
+                      bg-background/85 hover:bg-secondary
+                      transition-colors duration-200 border border-border/30 hover:border-accent/45"
+											aria-label={dictionary.projectDetail.close}
 										>
-											<Image src={getIcon('close')} alt="Close" width={24} height={24} />
+											<Image
+												src={getIcon('close')}
+												alt={dictionary.projectDetail.close}
+												width={24}
+												height={24}
+											/>
 										</button>
 									</div>
 
 									{/* 콘텐츠 섹션 */}
 									<div className="relative bg-background">
-										<div className="p-8 space-y-8">
+										<div className="p-5 md:p-8 space-y-8">
 											{/* 프로젝트 개요 */}
 											{renderSection(
-												'프로젝트 개요',
+												dictionary.projectDetail.overview,
 												<div className="space-y-4">
 													<p className="text-foreground leading-relaxed">
 														{project.overview}
@@ -223,48 +227,57 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 
 											{/* 프로젝트 정보 */}
 											{renderSection(
-												'프로젝트 정보',
+												dictionary.projectDetail.info,
 												<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-													<div className="p-4 bg-background rounded-lg border border-border/50">
+													<div className="p-4 bg-secondary/20 rounded-lg border border-border/30">
 														<h4 className="font-semibold text-lg mb-2 text-foreground">
-															담당 역할
+															{dictionary.projectDetail.role}
 														</h4>
 														<p className="text-muted-foreground">{project.role.join(', ')}</p>
 													</div>
-													<div className="p-4 bg-background rounded-lg border border-border/50">
+													<div className="p-4 bg-secondary/20 rounded-lg border border-border/30">
 														<h4 className="font-semibold text-lg mb-2 text-foreground">
-															팀 규모
+															{dictionary.projectDetail.teamSize}
 														</h4>
-														<p className="text-muted-foreground">{project.teamSize}명</p>
+														<p className="text-muted-foreground">
+															{project.teamSize}
+															{dictionary.projectDetail.teamSizeUnit}
+														</p>
 													</div>
 												</div>,
 											)}
 
 											{/* 주요 작업 */}
-											{renderSection('주요 작업', renderList(project.tasks))}
+											{renderSection(
+												dictionary.projectDetail.tasks,
+												renderList(project.tasks),
+											)}
 
 											{/* 문제 해결 */}
 											{project.troubleshooting &&
-												renderSection('문제 해결', renderList(project.troubleshooting))}
+												renderSection(
+													dictionary.projectDetail.troubleshooting,
+													renderList(project.troubleshooting),
+												)}
 
 											{/* 성능 개선 */}
 											{project.performanceImprovements &&
 												renderSection(
-													'성능 개선',
+													dictionary.projectDetail.performance,
 													renderList(project.performanceImprovements),
 												)}
 
 											{/* 특별 구현 사항 */}
 											{project.specialImplementations &&
 												renderSection(
-													'특별 사항',
+													dictionary.projectDetail.special,
 													renderList(project.specialImplementations),
 												)}
 
 											{/* 프로젝트 이미지 */}
 											{project.projectData.images.length > 0 &&
 												renderSection(
-													'프로젝트 스크린샷',
+													dictionary.projectDetail.screenshots,
 													<>
 														<InfiniteCarousel
 															images={project.projectData.images}
@@ -285,8 +298,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 																			target="_blank"
 																			rel="noopener noreferrer"
 																			className="flex items-center gap-2 px-4 py-2 rounded-lg 
-                                      bg-primary text-primary-foreground hover:bg-primary/50
-                                      transition-colors duration-300"
+                                      bg-primary text-primary-foreground hover:bg-primary/80
+                                      transition-colors duration-200"
 																		>
 																			<Image
 																				src={getIcon(link.type)}
@@ -316,9 +329,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 													onClick={handleCloseClick}
 													className="w-full px-6 py-3 bg-primary hover:bg-primary/50 
                           text-primary-foreground font-semibold rounded-lg
-                          transition-colors duration-300"
+                          transition-colors duration-200"
 												>
-													닫기
+													{dictionary.projectDetail.close}
 												</button>
 											</div>
 										</div>

@@ -20,7 +20,13 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
 	useEffect(() => {
 		setIsVisible(true);
-		return () => setIsVisible(false);
+		const previousOverflow = document.body.style.overflow;
+		document.body.style.overflow = 'hidden';
+
+		return () => {
+			setIsVisible(false);
+			document.body.style.overflow = previousOverflow;
+		};
 	}, []);
 
 	useEffect(() => {
@@ -79,7 +85,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								exit={{ opacity: 0 }}
-								className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm"
+								className="absolute inset-0 flex items-center justify-center bg-black/20"
 							>
 								<ImageSpinner />
 							</motion.div>
@@ -99,47 +105,51 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 
 				{/* 네비게이션 버튼 - 모바일에서는 양쪽 여백 축소 */}
 				<button
-					className="absolute top-1/2 left-2 md:left-[-70px] transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 transition-colors duration-300"
+					className="absolute top-1/2 left-2 md:left-[-70px] flex h-10 w-10 md:h-11 md:w-11 -translate-y-1/2 transform items-center justify-center rounded-full border border-border/35 bg-background/95 transition-colors duration-200 hover:border-accent/55 hover:bg-secondary"
 					onClick={prevImage}
+					aria-label="Previous image"
 				>
 					<Image
 						src={getIconPath('back', isDarkMode)}
 						alt="Previous"
-						width={24}
-						height={24}
-						className="md:w-8 md:h-8"
+						width={18}
+						height={18}
+						className="h-4 w-4 md:h-5 md:w-5"
 					/>
 				</button>
 				<button
-					className="absolute top-1/2 right-2 md:right-[-70px] transform -translate-y-1/2 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 transition-colors duration-300"
+					className="absolute top-1/2 right-2 md:right-[-70px] flex h-10 w-10 md:h-11 md:w-11 -translate-y-1/2 transform items-center justify-center rounded-full border border-border/35 bg-background/95 transition-colors duration-200 hover:border-accent/55 hover:bg-secondary"
 					onClick={nextImage}
+					aria-label="Next image"
 				>
 					<Image
 						src={getIconPath('forward', isDarkMode)}
 						alt="Next"
-						width={24}
-						height={24}
-						className="md:w-8 md:h-8"
+						width={18}
+						height={18}
+						className="h-4 w-4 md:h-5 md:w-5"
 					/>
 				</button>
 			</div>
 
 			{/* 닫기 버튼 */}
-			<div
-				className="absolute top-6 right-6 bg-accent-opacity hover:bg-accent bg-opacity-75 rounded-full p-2 transition-colors duration-300 no-select"
+			<button
+				type="button"
+				className="absolute top-6 right-6 flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full border border-border/35 bg-background/95 transition-colors duration-200 hover:border-accent/55 hover:bg-secondary no-select"
 				onClick={(e) => {
 					e.stopPropagation();
 					handleClose();
 				}}
+				aria-label="Close image viewer"
 			>
 				<Image
 					src={getIconPath('close', isDarkMode)}
 					alt="Close"
-					width={24}
-					height={24}
-					className="md:w-8 md:h-8"
+					width={18}
+					height={18}
+					className="h-4 w-4 md:h-5 md:w-5"
 				/>
-			</div>
+			</button>
 
 			{/* 인디케이터 */}
 			<div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 md:gap-4">

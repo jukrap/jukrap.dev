@@ -253,22 +253,23 @@
 		min-height: 2.5rem;
 		align-items: center;
 		overflow: visible;
-		padding: 0 0.35rem;
+		padding: 0 0.5rem;
+		border-radius: 0.25rem;
 		color: hsl(var(--muted-foreground));
 		transform: translateZ(0);
 		transition:
+			background-color 160ms ease,
 			color 180ms ease,
-			opacity 180ms ease,
-			transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+			opacity 180ms ease;
 	}
 
 	.nav-link:hover {
 		color: hsl(var(--foreground));
-		transform: translateY(-1px);
+		background-color: hsl(var(--secondary) / 0.48);
 	}
 
 	.nav-link:active {
-		transform: translateY(0) scale(0.99);
+		background-color: hsl(var(--secondary) / 0.68);
 	}
 
 	.nav-link:focus-visible {
@@ -306,20 +307,6 @@
 			transform 180ms ease;
 	}
 
-	.brand-link::after {
-		content: '';
-		width: 0.08em;
-		height: 0.95em;
-		margin-left: 0.14em;
-		background-color: hsl(var(--accent));
-		opacity: 0;
-		transform: scaleY(0.2);
-		transform-origin: bottom;
-		transition:
-			opacity 180ms ease,
-			transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
-	}
-
 	.brand-letter {
 		position: relative;
 		display: inline-block;
@@ -330,19 +317,17 @@
 	}
 
 	.brand-link:hover {
+		color: hsl(var(--accent));
 		transform: translateY(-1px);
 	}
 
-	.brand-link:hover::after {
-		opacity: 0.9;
-		transform: scaleY(1);
-	}
-
 	.brand-link:hover .brand-letter {
+		color: hsl(var(--accent));
 		transform: translateY(-2px);
 	}
 
 	.brand-link:hover .brand-letter:nth-child(2n) {
+		color: hsl(var(--accent));
 		transform: translateY(1px);
 	}
 

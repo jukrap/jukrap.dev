@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Transition } from 'framer-motion';
 import { Project, BaseProjectTask } from '@/types/project';
 import { ProjectDetailProps } from '@/types/modal';
 import { useIcon } from '@/hook/useIcon';
@@ -8,6 +8,16 @@ import { useLocale } from '@/contexts/localeContext';
 import ImageViewer from './imageViewer';
 import InfiniteCarousel from './infiniteCarousel';
 import TechStackDetailIcons from './techStackDetailIcons';
+
+const MODAL_TRANSITION_MS = 180;
+const modalTransition: Transition = {
+	duration: MODAL_TRANSITION_MS / 1000,
+	ease: [0.16, 1, 0.3, 1],
+};
+const sectionTransition: Transition = {
+	duration: 0.16,
+	ease: [0.16, 1, 0.3, 1],
+};
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	const { getIcon } = useIcon();
@@ -34,13 +44,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (e.target === e.currentTarget) {
 			setIsVisible(false);
-			setTimeout(onClose, 300);
+			setTimeout(onClose, MODAL_TRANSITION_MS);
 		}
 	};
 
 	const handleCloseClick = () => {
 		setIsVisible(false);
-		setTimeout(onClose, 300);
+		setTimeout(onClose, MODAL_TRANSITION_MS);
 	};
 
 	const handleImageClick = (index: number) => {
@@ -50,8 +60,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 
 	const renderSection = (title: string, content: React.ReactNode) => (
 		<motion.div
-			initial={{ opacity: 0, y: 8 }}
+			initial={{ opacity: 0, y: 4 }}
 			animate={{ opacity: 1, y: 0 }}
+			transition={sectionTransition}
 			className="mb-8 p-6 surface-minimal rounded-lg"
 		>
 			<h3 className="font-bold text-2xl text-foreground mb-4 pb-2 border-b border-border">
@@ -68,7 +79,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 					key={index}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
-					transition={{ delay: index * 0.04 }}
+					transition={{ duration: 0.14, delay: index * 0.015 }}
 					className="bg-secondary/20 p-4 rounded-md border border-border/30"
 				>
 					<h4 className="font-semibold text-lg mb-2 text-foreground">
@@ -94,16 +105,18 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
+					transition={modalTransition}
 					className="fixed inset-0 z-50 flex items-stretch justify-center bg-background/90 p-0 md:items-center md:p-4"
 					onClick={handleBackgroundClick}
 				>
 					<motion.div
 						key="project-detail-content"
-						initial={{ y: 12, opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
-						exit={{ y: 12, opacity: 0 }}
+						initial={{ y: 4, scale: 0.99, opacity: 0 }}
+						animate={{ y: 0, scale: 1, opacity: 1 }}
+						exit={{ y: 4, scale: 0.99, opacity: 0 }}
+						transition={modalTransition}
 						className="relative surface-minimal-strong h-[100dvh] max-h-[100dvh] w-full overflow-hidden rounded-none
-            transform-gpu md:h-auto md:max-h-[90vh] md:w-[90%] md:max-w-[900px] md:rounded-lg"
+            transform-gpu will-change-transform md:h-auto md:max-h-[90vh] md:w-[90%] md:max-w-[900px] md:rounded-lg"
 					>
 						<div className="h-full overflow-y-auto scrollbar-hide md:max-h-[90vh]">
 							<div className="relative">

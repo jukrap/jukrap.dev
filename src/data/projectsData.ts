@@ -15,7 +15,7 @@ export const projectsData: SimpleProject[] = [
 			'DIVE 2024 해커톤 발제사 3위 수상',
 		],
 		techStack:
-			'TypeScript・React・Next.js・Tailwind CSS・Google Maps・Storybook・AWS・Github Actions・Docker',
+			'TypeScript・React・Next.js・Tailwind CSS・Google Maps Platform・Storybook',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },
@@ -40,7 +40,7 @@ export const projectsData: SimpleProject[] = [
 			'테스트 및 오류 검출을 통한 개발',
 		],
 		techStack:
-			'TypeScript・React・Next.js・Tailwind CSS・React Spring・Jotai・Jest・Prisma・Storybook・Postman・Sentry・AWS・Jenkins・Docker',
+			'TypeScript・React・Next.js・Tailwind CSS・Jotai・Jest・Storybook・Sentry・AWS・Jenkins・Docker',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },
@@ -94,7 +94,7 @@ export const projectsData: SimpleProject[] = [
 			'Pull to Refresh와 Infinite Scroll 적용',
 			'데이터베이스 설계',
 		],
-		techStack: 'JavaScriptㆍReact NativeㆍFirebaseㆍFaster Image',
+		techStack: 'JavaScriptㆍReact NativeㆍFirebaseㆍRealtime Database',
 		links: [
 			{
 				type: 'appleStore',
@@ -123,7 +123,7 @@ export const projectsData: SimpleProject[] = [
 			'자세 감지 기능 제작, Mediapipe 추출',
 			'멀티 스레드 및 최적화',
 		],
-		techStack: 'JavaㆍJetpackㆍMediapipeㆍSQLite',
+		techStack: 'JavaㆍAndroid JetpackㆍMediaPipeㆍSQLite',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{
@@ -225,7 +225,7 @@ export const projectsData: SimpleProject[] = [
 			'Express와 Firebase 기반의 백엔드 작업',
 			'경남소프트웨어경진대회 최우수상 수상',
 		],
-		techStack: 'JavaScriptㆍReactㆍFirebaseㆍNode.jsㆍExpressㆍPuppeteer',
+		techStack: 'JavaScriptㆍReactㆍNode.jsㆍExpressㆍFirebaseㆍPuppeteer',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },

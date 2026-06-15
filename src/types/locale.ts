@@ -8,6 +8,7 @@ import type {
 	Skill,
 } from '@/types/profile';
 import type { Project, SimpleProject } from '@/types/project';
+import type { ProfessionalCase } from '@/types/work';
 
 export const locales = ['ko', 'en'] as const;
 
@@ -19,6 +20,7 @@ export interface LocaleDictionary {
 	metadata: {
 		home: Metadata;
 		about: Metadata;
+		work: Metadata;
 		projects: Metadata;
 	};
 	navigation: {
@@ -48,11 +50,35 @@ export interface LocaleDictionary {
 	about: {
 		title: string;
 		skills: string;
+		career: string;
 		activity: string;
 		awards: string;
 		sideProjects: string;
+		careerSummary: {
+			company: string;
+			period: string;
+			role: string;
+			details: string[];
+		};
+		workSummary: {
+			title: string;
+		};
 		profileMessageDefault: string;
 		profileMessageFlipped: string;
+	};
+	work: {
+		title: string;
+		intro: string;
+		indexTitle: string;
+		featuredTitle: string;
+		compactTitle: string;
+		labels: {
+			stack: string;
+			scope: string;
+			contribution: string;
+			outcome: string;
+			verification: string;
+		};
 	};
 	projects: {
 		title: string;
@@ -90,6 +116,7 @@ export interface PortfolioData {
 	awards: Award[];
 	projects: SimpleProject[];
 	projectDetails: Project[];
+	workCases: ProfessionalCase[];
 	homeLinks: Link[];
 	aboutLinks: Link[];
 	footerLinks: Link[];

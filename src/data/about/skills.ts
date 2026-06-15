@@ -3,18 +3,18 @@ import { Skill } from '@/types/profile';
 export const skills: Skill[] = [
 	{
 		category: 'Languages',
-		items: 'JavaScript, TypeScript, Java',
+		items: 'TypeScript, JavaScript, Java, GLSL',
 	},
 	{
-		category: 'Frameworks',
-		items: 'React & React Native, Next.js, Android Jetpack',
+		category: 'Frontend',
+		items: 'React, Next.js, Vite, TanStack Query, Zustand, Chart.js',
 	},
 	{
-		category: 'Databases',
-		items: 'NoSQL, SQLite',
+		category: 'Mobile',
+		items: 'React Native, Expo, Android WebView, Android Java, Gradle',
 	},
 	{
-		category: 'DevOps',
-		items: 'Firebase, Google Cloud Platform, AWS, Jenkins',
+		category: 'Tooling',
+		items: 'Node.js, Excel/xlsx, WebGL/GLSL(OpenGL 계열), Firebase, AWS, Jenkins',
 	},
 ];

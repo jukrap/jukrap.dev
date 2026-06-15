@@ -10,14 +10,14 @@ const SkillsSection: React.FC = () => {
 	} = useLocale();
 
 	return (
-		<section className="w-full max-w-[670px] flex flex-col items-start gap-6 md:gap-8">
-			<h2 className="font-bold text-2xl md:text-4xl leading-relaxed tracking-tight text-foreground border-b border-border pb-2 w-full md:w-[153px] md:border-none md:pb-0 md:text-right">
+		<section className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
+			<h2 className="font-bold text-2xl md:text-4xl leading-relaxed tracking-tight text-foreground border-b border-border pb-2 w-full md:w-[170px] md:border-none md:pb-0 md:text-right">
 				{dictionary.about.skills}
 			</h2>
 
 			{/* 모바일에서는 카드 형태로, 데스크톱에서는 기존 레이아웃 유지 */}
 			<div className="w-full flex flex-col md:flex-row md:justify-between gap-4 md:gap-12">
-				<div className="hidden md:flex md:w-[153px] flex-col items-end gap-8">
+				<div className="hidden md:flex md:w-[170px] flex-col items-end gap-8">
 					{skills.map((skill, index) => (
 						<p
 							key={index}

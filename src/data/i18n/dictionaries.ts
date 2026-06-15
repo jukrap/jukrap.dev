@@ -62,7 +62,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				role: '프론트엔드 엔지니어',
 				details: [
 					'React 기반 업무 화면, 모바일 WebView, Android 연동처럼 사용자 흐름과 시스템 경계가 맞물리는 영역을 설계하고 구현합니다.',
-					'신규 구축과 레거시 개선을 함께 다루며 상태, 라우팅, 출력, 검증 기준을 코드와 문서로 남깁니다.',
+					'신규 구축과 레거시 개선을 함께 다루며 상태, 라우팅, 출력, 검증 기준을 코드와 문서로 남겨둡니다.',
 				],
 			},
 			workSummary: {

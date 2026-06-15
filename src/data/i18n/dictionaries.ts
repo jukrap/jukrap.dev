@@ -12,7 +12,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'운영 웹, 모바일, Android, 개발 도구 작업을 정리한 Ju-cheol Park의 Work 페이지',
+					'업무 웹, 모바일 앱, Android, 개발 도구 경험을 정리한 Ju-cheol Park의 Work 페이지',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
@@ -61,8 +61,8 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				period: '2026.02 ~ Present',
 				role: '프론트엔드 엔지니어',
 				details: [
-					'React 기반 업무 화면과 모바일 WebView/Android 연동처럼 운영 흐름에 맞닿은 프론트엔드 경계를 설계하고 구현합니다.',
-					'신규 구축과 레거시 개선을 함께 다루며, 상태·라우팅·출력·검증 기준을 코드와 문서로 정리합니다.',
+					'React 기반 업무 화면, 모바일 WebView, Android 연동처럼 사용자 흐름과 시스템 경계가 맞물리는 영역을 설계하고 구현합니다.',
+					'신규 구축과 레거시 개선을 함께 다루며 상태, 라우팅, 출력, 검증 기준을 코드와 문서로 남깁니다.',
 				],
 			},
 			workSummary: {
@@ -74,7 +74,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'회사에서 맡은 웹/앱 작업을 공개 가능한 수준으로 정리했습니다. 신규 구축한 프로젝트는 케이스 노트로, 유지보수와 기능 추가 작업은 짧은 기록으로 나눴습니다.',
+				'회사에서 담당한 웹/앱 작업을 범위, 선택, 검증 기준으로 정리했습니다. 신규 구축 프로젝트는 케이스 노트로, 유지보수와 기능 추가 작업은 짧은 기록으로 나눴습니다.',
 			indexTitle: 'Work Index',
 			featuredTitle: 'Case Notes',
 			compactTitle: 'Additional Work',
@@ -134,7 +134,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'Work page by Ju-cheol Park, covering operations web, mobile, Android, and developer tooling work.',
+					'Work by Ju-cheol Park, covering operations web, mobile apps, Android, and developer tooling.',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
@@ -183,8 +183,8 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				period: '2026.02 ~ Present',
 				role: 'Frontend Engineer',
 				details: [
-					'Designing and implementing frontend boundaries around business screens, mobile WebView, and Android integration.',
-					'Handling both end-to-end builds and legacy improvements with clear state, routing, output, and verification boundaries.',
+					'Designing and implementing user-facing flows across React business screens, mobile WebView, and Android integration.',
+					'Handling both end-to-end builds and legacy improvements with clear state, routing, output, and verification baselines.',
 				],
 			},
 			workSummary: {
@@ -196,7 +196,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'A public summary of web and app work I handled at work. End-to-end builds are written as case notes, while maintenance and feature work stays shorter.',
+				'A summary of web and app work through scope, decisions, and verification evidence. End-to-end builds are written as case notes, while maintenance and feature work stays shorter.',
 			indexTitle: 'Work Index',
 			featuredTitle: 'Case Notes',
 			compactTitle: 'Additional Work',

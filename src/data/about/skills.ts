@@ -16,6 +16,6 @@ export const skills: Skill[] = [
 	{
 		category: 'Tooling/Ops',
 		items:
-			'Node.js, Firebase, Vitest, Jest, Storybook, Sentry, AWS, Jenkins, Docker',
+			'Node.js, Firebase, Google Cloud Platform, Vitest, Jest, Storybook, Sentry, AWS, Jenkins, Docker',
 	},
 ];

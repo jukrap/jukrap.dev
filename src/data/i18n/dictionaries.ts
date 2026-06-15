@@ -9,6 +9,11 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				title: 'About | Ju-cheol Park',
 				description: 'About page of Ju-cheol Park, Frontend Engineer',
 			},
+			work: {
+				title: 'Work | Ju-cheol Park',
+				description:
+					'운영 웹, 모바일, Android, 개발 도구 작업을 정리한 Ju-cheol Park의 Work 페이지',
+			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
 				description: 'Projects page of Ju-cheol Park, Frontend Engineer',
@@ -18,6 +23,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			links: [
 				{ label: 'Home', href: '/' },
 				{ label: 'About', href: '/about' },
+				{ label: 'Work', href: '/work' },
 				{ label: 'Projects', href: '/projects' },
 			],
 			openMenu: '메뉴 열기',
@@ -46,11 +52,39 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		about: {
 			title: 'About Me',
 			skills: 'Skills',
+			career: 'Career',
 			activity: 'Activity',
 			awards: 'Awards',
 			sideProjects: 'S.Projects',
+			careerSummary: {
+				company: '트리포스㈜',
+				period: '2026.02 ~ Present',
+				role: '프론트엔드 엔지니어',
+				details: [
+					'React 기반 업무 화면과 모바일 WebView/Android 연동처럼 운영 흐름에 맞닿은 프론트엔드 경계를 설계하고 구현합니다.',
+					'신규 구축과 레거시 개선을 함께 다루며, 상태·라우팅·출력·검증 기준을 코드와 문서로 정리합니다.',
+				],
+			},
+			workSummary: {
+				title: 'Work',
+			},
 			profileMessageDefault: '🤔 여기를 눌러보세요!',
 			profileMessageFlipped: '👨‍💻 저를 데려가 주세요!',
+		},
+		work: {
+			title: 'Work',
+			intro:
+				'회사에서 맡은 웹/앱 작업을 공개 가능한 수준으로 정리했습니다. 신규 구축한 프로젝트는 케이스 노트로, 유지보수와 기능 추가 작업은 짧은 기록으로 나눴습니다.',
+			indexTitle: 'Work Index',
+			featuredTitle: 'Case Notes',
+			compactTitle: 'Additional Work',
+			labels: {
+				stack: '사용 기술',
+				scope: '범위',
+				contribution: '맡은 일',
+				outcome: '결과',
+				verification: '검증',
+			},
 		},
 		projects: {
 			title: 'Projects',
@@ -97,6 +131,11 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				title: 'About | Ju-cheol Park',
 				description: 'About Ju-cheol Park, Frontend Engineer',
 			},
+			work: {
+				title: 'Work | Ju-cheol Park',
+				description:
+					'Work page by Ju-cheol Park, covering operations web, mobile, Android, and developer tooling work.',
+			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
 				description: 'Projects by Ju-cheol Park, Frontend Engineer',
@@ -106,6 +145,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			links: [
 				{ label: 'Home', href: '/' },
 				{ label: 'About', href: '/about' },
+				{ label: 'Work', href: '/work' },
 				{ label: 'Projects', href: '/projects' },
 			],
 			openMenu: 'Open menu',
@@ -134,11 +174,39 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		about: {
 			title: 'About Me',
 			skills: 'Skills',
+			career: 'Career',
 			activity: 'Activity',
 			awards: 'Awards',
 			sideProjects: 'S.Projects',
+			careerSummary: {
+				company: 'Triphos',
+				period: '2026.02 ~ Present',
+				role: 'Frontend Engineer',
+				details: [
+					'Designing and implementing frontend boundaries around business screens, mobile WebView, and Android integration.',
+					'Handling both end-to-end builds and legacy improvements with clear state, routing, output, and verification boundaries.',
+				],
+			},
+			workSummary: {
+				title: 'Work',
+			},
 			profileMessageDefault: '🤔 Try clicking here!',
 			profileMessageFlipped: '👨‍💻 Please take me with you!',
+		},
+		work: {
+			title: 'Work',
+			intro:
+				'A public summary of web and app work I handled at work. End-to-end builds are written as case notes, while maintenance and feature work stays shorter.',
+			indexTitle: 'Work Index',
+			featuredTitle: 'Case Notes',
+			compactTitle: 'Additional Work',
+			labels: {
+				stack: 'Stack',
+				scope: 'Scope',
+				contribution: 'Contribution',
+				outcome: 'Outcome',
+				verification: 'Verification',
+			},
 		},
 		projects: {
 			title: 'Projects',

@@ -9,6 +9,7 @@ import { links as footerLinks } from '@/data/footer/links';
 import { links as homeLinks } from '@/data/home/links';
 import { projectsDetailData } from '@/data/projectsDetailData';
 import { projectsData } from '@/data/projectsData';
+import { workCases } from '@/data/workCases';
 import { Localized, PortfolioData } from '@/types/locale';
 import { Project, SimpleProject } from '@/types/project';
 
@@ -833,6 +834,7 @@ export const portfolioData: Localized<PortfolioData> = {
 		awards,
 		projects: projectsData,
 		projectDetails: projectsDetailData,
+		workCases: workCases.ko,
 		homeLinks,
 		aboutLinks,
 		footerLinks,
@@ -846,6 +848,7 @@ export const portfolioData: Localized<PortfolioData> = {
 		awards: awardsEn,
 		projects: projectsDataEn,
 		projectDetails: projectsDetailDataEn,
+		workCases: workCases.en,
 		homeLinks,
 		aboutLinks,
 		footerLinks,

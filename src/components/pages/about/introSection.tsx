@@ -22,7 +22,7 @@ const IntroSection: React.FC = () => {
 	} = useProfileInteraction();
 
 	return (
-		<section className="w-full max-w-[670px] flex flex-col md:flex-row justify-start items-center md:items-start gap-8 md:gap-11">
+		<section className="w-full max-w-[700px] flex flex-col md:flex-row justify-start items-center md:items-start gap-8 md:gap-11">
 			<ProfileCard
 				isFlipped={isFlipped}
 				onClick={handleImageClick}

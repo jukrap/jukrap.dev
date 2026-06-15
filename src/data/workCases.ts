@@ -23,12 +23,12 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 			headline: '조회, 예약, 엑셀, 출력 흐름을 갖춘 업무 웹을 구축했습니다.',
 			summary:
-				'배송 조회, 예약 접수, 현황, 주소록, 엑셀 처리, 라벨 출력까지 이어지는 운영 웹을 처음부터 구축했습니다. 화면을 많이 만드는 것보다 업무 흐름이 PC와 모바일 환경에서 같은 기준으로 동작하도록 정리하는 데 중점을 뒀습니다.',
+				'배송 조회, 예약 접수, 현황, 주소록, 엑셀 처리, 라벨 출력까지 이어지는 운영 웹을 처음부터 구축했습니다. 기능 수를 늘리는 것보다 PC와 모바일에서 같은 업무 기준으로 동작하는 흐름을 만드는 데 중점을 뒀습니다.',
 			metrics: [
 				{
 					value: '2,405.50 kB -> 616.59 kB',
-					label: '초기 로드 JS 번들',
-					detail: '라우트와 Excel 관련 라이브러리 lazy loading 적용',
+					label: '초기 로드 번들',
+					detail: '라우트와 엑셀 처리 라이브러리 지연 로딩 적용',
 				},
 				{
 					value: '815.10 kB -> 204.38 kB',
@@ -42,20 +42,20 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				},
 			],
 			scope: [
-				'배송 조회, 예약 접수, 현황, 주소록 라우트',
+				'배송 조회, 예약 접수, 현황, 주소록 화면',
 				'반응형 테이블, 중첩 모달, 날짜/드롭다운 UI',
 				'엑셀 업로드/다운로드, 미리보기, 전송 데이터 변환',
 				'PC 출력과 모바일 WebView 출력 경로',
 			],
 			contribution: [
-				'무거운 라우트와 Excel 처리 코드를 초기 진입에서 분리했습니다.',
+				'용량이 큰 화면과 엑셀 처리 코드를 초기 진입에서 분리했습니다.',
 				'모의 데이터와 실제 API 어댑터 경계를 나눠 화면 상태와 연동 상태를 따로 확인할 수 있게 했습니다.',
 				'PC 브라우저, 일반 모바일 브라우저, 모바일 앱 WebView의 출력 분기를 명확히 나눴습니다.',
 			],
 			outcome: [
-				'초기 로드 JS 번들을 2,405.50 kB에서 616.59 kB로 줄였습니다.',
-				'가로 넘침, 모달 잘림, 드롭다운 위치 문제를 viewport별로 확인했습니다.',
-				'개인 프로젝트가 아니라 실제 운영 업무 화면을 구축하고 안정화한 대표 사례입니다.',
+				'초기 로드 번들을 2,405.50 kB에서 616.59 kB로 줄였습니다.',
+				'가로 넘침, 모달 잘림, 드롭다운 위치 문제를 화면 폭별로 확인했습니다.',
+				'조회, 예약, 출력이 이어지는 운영 업무 흐름을 한 화면 체계 안에서 설명할 수 있게 됐습니다.',
 			],
 			verification: [
 				'390px~1366px 주요 화면 반응형 확인',
@@ -83,17 +83,17 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			headline:
 				'배송 운영 웹을 모바일 WebView로 열고, 프린터 SDK를 네이티브로 연결했습니다.',
 			summary:
-				'배송 운영 웹을 모바일 앱 WebView로 제공하면서, 모바일에서만 필요한 Bluetooth 프린터 SDK 연동을 네이티브 모듈로 붙였습니다. 단독 프린터 앱이라기보다 운영 웹의 모바일 출력 경로를 담당하는 앱에 가깝습니다.',
+				'배송 운영 웹을 모바일 앱 WebView로 제공하면서, 모바일에서만 필요한 Bluetooth 프린터 SDK 연동을 네이티브 모듈로 연결했습니다. 단독 프린터 앱이라기보다 운영 웹의 모바일 출력 경로를 담당하는 앱에 가깝습니다.',
 			metrics: [
 				{
 					value: 'Bluetooth 권한',
 					label: '모바일 출력 준비',
-					detail: '최신 Android 런타임 권한 흐름 확인',
+					detail: '최근 Android 런타임 권한 흐름 확인',
 				},
 				{
 					value: '개발/운영 분리',
 					label: '앱 배포 흐름',
-					detail: 'URL, 앱 식별자, APK 이름 기준 정리',
+					detail: 'URL, 앱 식별자, 설치 파일 기준 정리',
 				},
 				{
 					value: '실기기 출력',
@@ -105,21 +105,21 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'운영 웹 WebView 진입과 개발/운영 URL 분리',
 				'JavaScript-to-native 출력 데이터 계약',
 				'Android 네이티브 Bluetooth 출력 모듈',
-				'앱 버전, APK 이름, 업데이트 확인 흐름',
+				'개발/운영 설치와 업데이트 확인 흐름',
 			],
 			contribution: [
-				'WebView bridge action과 네이티브 출력 모듈 사이의 요청/응답 계약을 정리했습니다.',
+				'WebView 브리지 요청과 네이티브 출력 모듈 사이의 요청/응답 계약을 정리했습니다.',
 				'Bluetooth 장비 탐색, 상태 확인, 출력 명령의 네이티브 흐름을 연결했습니다.',
 				'Android 실기기에서 로컬 개발 서버와 API 요청이 잘못된 로컬 루프백으로 향하는 문제를 보정했습니다.',
 			],
 			outcome: [
 				'웹 전송 데이터와 네이티브 출력 레이아웃을 분리해 이후 라벨 필드 추가 위험을 줄였습니다.',
 				'출력 기능을 웹 버튼이 아니라 실제 모바일 장비 연동으로 검증했습니다.',
-				'앱 식별자, 버전, APK 파일 기준을 맞춰 현장 설치 흐름을 설명할 수 있게 했습니다.',
+				'개발/운영 설치 기준을 맞춰 현장 설치 흐름을 설명할 수 있게 했습니다.',
 			],
 			verification: [
 				'실제 Android 기기에서 Bluetooth 출력 확인',
-				'최신 Android 권한 오류 재현 및 수정 확인',
+				'최근 Android 권한 흐름 재현 및 수정 확인',
 				'WebView bridge와 네이티브 출력 요청 흐름 확인',
 			],
 		},
@@ -141,7 +141,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Vitest',
 			],
 			headline:
-				'착수 자료와 저장소 근거를 바탕으로 문서 초안을 만드는 도구를 만들었습니다.',
+				'착수 자료와 저장소 근거를 바탕으로 문서 초안을 생성하는 도구를 구축했습니다.',
 			summary:
 				'프로젝트 착수 시 전달받는 자료와 로컬 저장소 근거를 바탕으로 요구사항, 기능, 화면 단위의 문서 초안을 만드는 도구를 구축했습니다. AI API는 생성과 일부 재작성 단계에 쓰고, 그 전에 규칙 기반 스캔으로 근거를 먼저 모으는 구조로 잡았습니다.',
 			metrics: [
@@ -151,36 +151,36 @@ export const workCases: Localized<ProfessionalCase[]> = {
 					detail: '스캔 근거를 바탕으로 문서 초안 생성',
 				},
 				{
-					value: 'xlsx workbook',
+					value: 'xlsx 워크북',
 					label: '시트형 산출물',
 					detail: '요구사항/기능/화면 단위를 표 형태로 검토',
 				},
 				{
-					value: 'AI 셀 재작성',
+					value: 'AI 기반 셀 재작성',
 					label: '검토 후 수정',
-					detail: '선택 sheet/cell 기준으로 일부 항목 재생성',
+					detail: '선택 시트/셀 기준으로 일부 항목 재생성',
 				},
 			],
 			scope: [
 				'로컬 저장소 스캔과 evidence JSON 생성',
-				'미리보기, 상세 산출물, 이전 run 재열기',
-				'요구사항 원장, 기능 정의서, 화면 설계서 workbook 편집',
+				'미리보기, 상세 산출물, 이전 실행 결과 재열기',
+				'요구사항 원장, 기능 정의서, 화면 설계서 워크북 편집',
 				'Markdown, JSON, ZIP, xlsx 내보내기',
 			],
 			contribution: [
 				'규칙 기반 스캐너 결과를 생성 단계의 입력으로 사용하도록 흐름을 나눴습니다.',
-				'긴 텍스트 문서뿐 아니라 표 기반 검토와 수정이 가능하도록 workbook 편집을 붙였습니다.',
+				'긴 텍스트 문서뿐 아니라 표 기반 검토와 수정이 가능하도록 워크북 편집을 연결했습니다.',
 				'사람이 검토한 뒤 특정 셀만 다시 쓰는 흐름을 만들어 수정 단위를 줄였습니다.',
 			],
 			outcome: [
-				'착수 자료 분석과 문서 초안 작성을 반복 가능한 run 단위로 만들었습니다.',
+				'착수 자료 분석과 문서 초안 작성을 반복 가능한 실행 단위로 만들었습니다.',
 				'생성 결과를 그대로 쓰는 구조가 아니라 근거, 미리보기, 사람 검토, 내보내기가 이어지는 흐름으로 만들었습니다.',
 				'신규 프로젝트를 시작할 때 요구사항과 화면 단위를 빠르게 잡기 위한 내부 도구로 정리했습니다.',
 			],
 			verification: [
-				'자료 스캔, AI 초안 생성, workbook 내보내기 흐름 확인',
+				'자료 스캔, AI 초안 생성, 워크북 내보내기 흐름 확인',
 				'선택 셀 재작성과 이전 결과 재열기 확인',
-				'빌드/테스트 기준 확인',
+				'Markdown/JSON/ZIP/xlsx 내보내기 확인',
 			],
 		},
 		{
@@ -210,14 +210,14 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'데이터 필드 매핑, 차트 미리보기, 옵션 패널, 드래그 앤 드롭, 툴팁 같은 편집 흐름을 구축했습니다. 차트 출력 화면이 아니라 사용자가 차트 구성을 직접 조정하는 편집 도구에 가까운 작업이었습니다.',
 			metrics: [
 				{
-					value: '6-tab option panel',
+					value: '6개 탭 설정 패널',
 					label: '설정 구조',
 					detail: '차트 설정을 영역별로 분리',
 				},
 				{
 					value: 'Chart.js + WebGL/GLSL',
 					label: '렌더링 기반',
-					detail: '차트 미리보기와 OGL(WebGL) 기반 editor shell 배경',
+					detail: '차트 미리보기와 OGL(WebGL) 기반 편집 화면 배경',
 				},
 				{
 					value: 'Vitest / MSW',
@@ -229,12 +229,12 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'필드/값 매핑과 차트 미리보기',
 				'옵션 패널, 접힘 패널, 툴팁',
 				'드래그 앤 드롭 기반 편집 UX',
-				'WebGL/GLSL shader 기반 editor shell background renderer',
+				'WebGL/GLSL 셰이더 기반 편집 화면 배경 렌더러',
 			],
 			contribution: [
 				'차트 렌더링과 설정 패널 상태가 따로 놀지 않도록 옵션 모델을 정리했습니다.',
 				'편집 중 사용자가 현재 설정을 이해할 수 있게 미리보기와 옵션 라벨을 맞췄습니다.',
-				'WebGL/GLSL fragment shader로 여러 배경 모드를 구성하고 pointer/time/resolution uniform을 사용해 editor shell의 시각 요소를 만들었습니다.',
+				'WebGL/GLSL fragment shader로 여러 배경 모드를 구성하고 pointer/time/resolution uniform을 사용해 편집 화면의 시각 요소를 만들었습니다.',
 			],
 			outcome: [
 				'단순 차트 렌더링이 아니라 조작 가능한 편집 도구 경험으로 정리했습니다.',
@@ -244,7 +244,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			verification: [
 				'미리보기 렌더링, 옵션 변경, 패널 접기 흐름 확인',
 				'드래그 앤 드롭, 툴팁, 필드 매핑 동작 확인',
-				'mock 기반 데이터 흐름 확인',
+				'모의 데이터 기반 흐름 확인',
 			],
 		},
 		{
@@ -270,7 +270,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			metrics: [
 				{
 					value: '4 -> 1',
-					label: '직접 DOM 조작 축소 사례',
+					label: 'DOM 조작 지점 정리',
 					detail: '발표 자료 기준 sidebar 상태 정리 예시',
 				},
 				{
@@ -308,9 +308,9 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Scanner SDK',
 			],
 			headline:
-				'운영 signing과 최신 빌드 환경을 분리해 현장 앱을 다시 확인 가능한 상태로 만들었습니다.',
+				'운영 서명과 최근 빌드 환경을 분리해 현장 앱을 다시 확인 가능한 상태로 만들었습니다.',
 			summary:
-				'현장 단말에서 쓰이는 Android 앱의 빌드와 런타임 흐름을 복구했습니다. Gradle/JDK 충돌, 운영 signing 유무, 스캔/입력 흐름, 초기 데이터 동기화처럼 현장에서 바로 막히는 지점을 좁혔습니다.',
+				'현장 단말에서 쓰이는 Android 앱의 빌드와 런타임 흐름을 복구했습니다. Gradle/JDK 충돌, 운영 서명 유무, 스캔/입력 흐름, 초기 데이터 동기화처럼 현장에서 바로 막히는 지점을 좁혔습니다.',
 			metrics: [
 				{
 					value: '빌드 복구',
@@ -323,19 +323,19 @@ export const workCases: Localized<ProfessionalCase[]> = {
 					detail: '로그인, 초기 동기화, 입력 흐름을 나눠 확인',
 				},
 				{
-					value: 'debug/release',
+					value: '개발/배포',
 					label: '빌드 흐름 복구',
-					detail: '운영 서명 fallback을 포함한 빌드 경로 확인',
+					detail: '운영 서명 대체 경로를 포함한 빌드 확인',
 				},
 			],
 			scope: [
 				'Gradle, AGP, JDK, Kotlin dependency 충돌 정리',
-				'운영 signing 유무에 따른 debug/release 빌드',
+				'운영 서명 유무에 따른 개발/배포 빌드',
 				'스캐너 호출, 장비 입력, 로그인/초기 동기화 흐름',
 				'현장 단말 기준의 런타임 호환성',
 			],
 			contribution: [
-				'운영 서명이 없어도 개발 빌드가 막히지 않도록 signing 조건을 분리했습니다.',
+				'운영 서명이 없어도 개발 빌드가 막히지 않도록 서명 조건을 분리했습니다.',
 				'로그인 실패와 초기 데이터 동기화 실패를 나눠 원인을 확인할 수 있게 했습니다.',
 				'현장 단말 입력과 스캔 흐름에서 앱이 멈추는 지점을 우선 확인했습니다.',
 			],
@@ -367,14 +367,14 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'WebView',
 			],
 			headline:
-				'오래된 WebView 앱을 최신 Android 빌드 환경에서 다시 확인했습니다.',
+				'오래된 WebView 앱을 최근 Android 빌드 환경에서 다시 확인했습니다.',
 			summary:
-				'정적 웹 기반 Android 앱의 빌드, WebView, 파일 처리, 뒤로가기, OS 호환성을 점검했습니다. 오래된 라이브러리와 최신 빌드 도구 사이에서 최소 변경으로 확인 가능한 상태를 만드는 작업이었습니다.',
+				'정적 웹 기반 Android 앱의 빌드, WebView, 파일 처리, 뒤로가기, OS 호환성을 점검했습니다. 오래된 라이브러리와 최근 빌드 도구 사이에서 최소 변경으로 확인 가능한 상태를 만드는 작업이었습니다.',
 			metrics: [
 				{
 					value: '빌드 환경 복구',
 					label: '레거시 Android 앱',
-					detail: '최신 빌드 도구 기준에서 주요 진입 흐름 확인',
+					detail: '최근 빌드 환경에서 주요 진입 흐름 확인',
 				},
 			],
 			scope: [
@@ -383,7 +383,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'AndroidX 및 legacy dependency 충돌',
 			],
 			contribution: [
-				'WebView와 네이티브 사이의 null/error 흐름을 방어적으로 정리했습니다.',
+				'WebView와 네이티브 사이의 예외 흐름을 방어적으로 정리했습니다.',
 				'파일 처리 경로를 최근 Android 권한 정책 기준으로 점검했습니다.',
 			],
 			outcome: ['빌드 가능 상태와 주요 진입 흐름을 다시 확인할 수 있게 했습니다.'],
@@ -408,7 +408,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			headline:
 				'WebView 앱과 레거시 웹 서버 사이의 기능, 라우팅, 파일 선택 흐름을 정리했습니다.',
 			summary:
-				'메일 확인, 이미지 판독, 하단 탭 라우트, WebView bridge, 파일 선택, 실기기 QA를 함께 다뤘습니다. 외부 API key는 서버 프록시 뒤에 두고, 앱은 WebView 라우트와 네이티브 동작 검증에 집중하도록 나눴습니다.',
+				'메일 확인, 이미지 판독, 하단 탭 라우트, WebView bridge, 파일 선택, 실기기 QA를 함께 다뤘습니다. 외부 API 키는 서버 프록시 뒤에 두고, 앱은 WebView 라우트와 네이티브 동작 검증에 집중하도록 나눴습니다.',
 			metrics: [
 				{
 					value: '앱/서버 분리',
@@ -428,9 +428,9 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'카메라/앨범/파일 선택과 실기기 QA',
 			],
 			contribution: [
-				'외부 API 인증 정보가 client에 노출되지 않도록 서버 프록시 계약으로 나눴습니다.',
+				'외부 API 인증 정보가 클라이언트에 노출되지 않도록 서버 프록시 계약으로 나눴습니다.',
 				'홈 카드, 하단 탭, WebView 라우트가 같은 기능 화면을 바라보도록 동기화했습니다.',
-				'Android WebView file chooser를 소스별 input과 네이티브 picker 흐름으로 분리했습니다.',
+				'Android WebView file chooser를 입력 소스와 네이티브 picker 흐름으로 분리했습니다.',
 			],
 			outcome: [
 				'브라우저 화면만이 아니라 Android WebView에서 로그인, bridge, 라우트, file chooser까지 함께 확인했습니다.',
@@ -438,7 +438,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 			verification: [
 				'에뮬레이터와 실기기에서 라우트, file chooser, tab sync 확인',
-				'WebView bridge 누락, cleartext 차단, fatal exception 패턴 확인',
+				'WebView bridge 누락, cleartext 차단, 앱 중단 패턴 확인',
 				'서버 JVM 인코딩과 WebView 렌더링 문제를 분리해 확인',
 			],
 		},
@@ -498,8 +498,8 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			metrics: [
 				{
 					value: '2,405.50 kB -> 616.59 kB',
-					label: 'Initial JS bundle',
-					detail: 'route and Excel-library lazy loading',
+					label: 'Initial load bundle',
+					detail: 'route and spreadsheet-library lazy loading',
 				},
 				{
 					value: '815.10 kB -> 204.38 kB',
@@ -519,12 +519,12 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'PC print and mobile WebView print paths',
 			],
 			contribution: [
-				'Separated heavy routes and Excel handling from the initial entry path.',
+				'Separated heavy screens and spreadsheet handling from the initial entry path.',
 				'Kept mock data and remote API adapter boundaries separate for independent checks.',
 				'Separated PC browser, mobile browser, and mobile-app WebView print paths.',
 			],
 			outcome: [
-				'Reduced the initial JS bundle from 2,405.50 kB to 616.59 kB.',
+				'Reduced the initial load bundle from 2,405.50 kB to 616.59 kB.',
 				'Checked overflow, modal clipping, and dropdown behavior across viewports.',
 				'This became the strongest example of building and stabilizing an operating business screen.',
 			],
@@ -564,7 +564,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				{
 					value: 'dev/prod split',
 					label: 'App delivery flow',
-					detail: 'URL, app id, and APK naming baselines',
+					detail: 'URL, app id, and installation artifact baselines',
 				},
 				{
 					value: 'Real device output',
@@ -576,7 +576,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'operations WebView entry and develop/production URL split',
 				'JavaScript-to-native print payloads',
 				'Android native Bluetooth print module',
-				'app version, APK naming, and update checks',
+				'installation and update-check flows',
 			],
 			contribution: [
 				'Defined the request/response contract between WebView actions and the native module.',
@@ -586,7 +586,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			outcome: [
 				'Kept web payloads separate from native output layout mapping.',
 				'Verified the feature as real hardware integration, not just a web button.',
-				'Aligned app identity, versioning, and package output for field installation.',
+				'Aligned development and production installation baselines for field setup.',
 			],
 			verification: [
 				'Checked Bluetooth output on a real Android device.',
@@ -681,14 +681,14 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Built data field mapping, chart previews, option panels, drag/drop, and tooltip behavior for an editable visualization workflow.',
 			metrics: [
 				{
-					value: '6-tab option panel',
+					value: '6-tab settings panel',
 					label: 'Settings structure',
 					detail: 'options separated by editing area',
 				},
 				{
 					value: 'Chart.js + WebGL/GLSL',
 					label: 'Rendering base',
-					detail: 'chart preview and OGL(WebGL)-based editor shell background',
+					detail: 'chart preview and OGL(WebGL)-based editor background',
 				},
 				{
 					value: 'Vitest / MSW',
@@ -700,7 +700,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'field/value mapping and chart preview',
 				'option panels, collapsible panels, and tooltips',
 				'drag/drop editing UX',
-				'WebGL/GLSL shader-based editor shell background renderer',
+				'WebGL/GLSL shader-based editor background renderer',
 			],
 			contribution: [
 				'Kept chart rendering and panel state connected through a clearer option model.',
@@ -780,7 +780,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Navigation',
 				'Scanner SDK',
 			],
-			headline: 'Separated operational signing from modern build recovery.',
+			headline: 'Separated operational signing from current build recovery.',
 			summary:
 				'Recovered build and runtime flows for an Android app used on field devices, narrowing issues around Gradle/JDK conflicts, signing, scan/input flows, and initial data sync.',
 			metrics: [
@@ -795,14 +795,14 @@ export const workCases: Localized<ProfessionalCase[]> = {
 					detail: 'checked login, initial sync, and input stages separately',
 				},
 				{
-					value: 'debug/release',
+					value: 'dev/release',
 					label: 'Build paths',
 					detail: 'including an operational signing fallback',
 				},
 			],
 			scope: [
 				'Gradle, AGP, JDK, and Kotlin dependency conflicts',
-				'debug/release builds with conditional signing',
+				'development/release builds with conditional signing',
 				'scanner invocation, field input, login, and initial sync',
 				'field-device runtime compatibility',
 			],

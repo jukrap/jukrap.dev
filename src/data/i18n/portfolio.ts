@@ -772,29 +772,24 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 const personalInfoEn = {
 	...personalInfo,
 	introduction:
-		"Frontend developer Park Ju-cheol, still fighting today's errors.",
+		"I'm Ju-cheol Park, a frontend developer who checks the flow beyond the screen.",
 };
 
 const coreValuesEn = [
 	{
-		title: '1. I value both process and results.',
+		title: 'I try to build features that users can actually finish with.',
 		content:
-			'I proved this during the DIVE 2024 hackathon by building a polished service within 72 hours. From selecting Google Maps Platform to technical validation and implementation, I went through the process and achieved an award-winning result. I try to approach development with equal respect for process and outcome.',
+			'While building a logistics management web flow and mobile label-printing features, I learned that a working button on the screen is not enough. Reservation intake, Excel upload, label printing, mobile permissions, device selection, and output results all had to connect before the workflow could be used in actual operations. Since then, I try to check the user order and likely blocking points before building a feature.',
 	},
 	{
-		title: '2. I try to write flexible, reusable code.',
+		title: 'I try to write code where state and data flow are visible.',
 		content:
-			'In the Itzip project, I improved reusability and maintainability through composition-based shared component design and component-driven development with Storybook. This became a key foundation for consistent UI/UX in a 15-person team.',
+			'While building several business screens with React and TypeScript, I saw how quickly small changes become hard to predict when reads, writes, and screen state are mixed together. I used TanStack Query to organize server-data refresh flows and Zustand to separate screen state such as modals and tables, with maintainability in mind.',
 	},
 	{
-		title: '3. I value communication highly.',
+		title: 'I narrow unfamiliar problems down under real conditions.',
 		content:
-			'I have actively collaborated with designers and backend developers across several projects. In Itzip, I helped build a communication system for a 15-person team and improved work efficiency. Since development is ultimately interaction between people, I consider communication a priority.',
-	},
-	{
-		title: '4. I enjoy the problem-solving process.',
-		content:
-			'In Posture Teacher, I improved performance by 5-10 times by switching from OpenCV to Mediapipe, and in Captain Donghae I worked through challenges in external API integration. Development challenges have always been learning opportunities for me.',
+			'When connecting a mobile WebView to Android native modules for Bluetooth printer output, browser-side debugging alone was not enough. I narrowed down causes by checking Android permissions, the WebView bridge, device SDK behavior, and label data formats on real devices. In the Posture Teacher project, I also improved a performance issue by moving from an OpenCV-based implementation to Mediapipe.',
 	},
 ];
 

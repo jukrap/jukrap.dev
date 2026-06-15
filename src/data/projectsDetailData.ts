@@ -258,7 +258,7 @@ export const projectsDetailData: Project[] = [
 		title: '잇집',
 		subtitle: 'Itzip',
 		platform: ['Web'],
-		duration: '2024.07 ~ Present',
+		duration: '2024.07 ~ 2025.06',
 		links: [
 			{
 				type: 'github',

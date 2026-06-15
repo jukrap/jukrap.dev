@@ -61,7 +61,7 @@ export const projectsData: SimpleProject[] = [
 	{
 		id: 'itzip',
 		title: 'Itzip',
-		duration: '2024.07 ~ Present',
+		duration: '2024.07 ~ 2025.06',
 		major: true,
 		introduction: '개발자 취준생을 위한 종합 취업 준비 웹서비스.',
 		description: [

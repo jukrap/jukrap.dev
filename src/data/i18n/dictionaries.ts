@@ -74,7 +74,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'회사에서 담당한 웹/앱 작업을 범위, 선택, 검증 기준으로 정리했습니다. 신규 구축 프로젝트는 케이스 노트로, 유지보수와 기능 추가 작업은 짧은 기록으로 나눴습니다.',
+				'웹, 모바일 앱, Android, 개발 도구 중심의 업무 경험을 정리했습니다. 각 항목에서는 맡은 범위와 기술 선택, 확인한 결과를 보실 수 있습니다.',
 			indexTitle: 'Work Index',
 			featuredTitle: 'Case Notes',
 			compactTitle: 'Additional Work',
@@ -134,7 +134,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'Work by Ju-cheol Park, covering operations web, mobile apps, Android, and developer tooling.',
+					'Work by Ju-cheol Park, covering logistics web, mobile apps, Android, and developer tooling.',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
@@ -196,7 +196,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'A summary of web and app work through scope, decisions, and verification evidence. End-to-end builds are written as case notes, while maintenance and feature work stays shorter.',
+				'I organized work experience across web, mobile apps, Android, and developer tooling. Each item shows scope, technical decisions, and verified results.',
 			indexTitle: 'Work Index',
 			featuredTitle: 'Case Notes',
 			compactTitle: 'Additional Work',

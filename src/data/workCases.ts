@@ -5,7 +5,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 	ko: [
 		{
 			id: 'operations-web-performance',
-			title: '배송 운영 웹',
+			title: '물류 관리-운영 웹',
 			platform: 'Web',
 			area: '업무 운영 / 성능',
 			period: '2026.04 ~ 2026.06',
@@ -21,14 +21,14 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'XLSX',
 				'Vitest',
 			],
-			headline: '조회, 예약, 엑셀, 출력 흐름을 갖춘 업무 웹을 구축했습니다.',
+			headline: '조회, 예약, 엑셀, 출력 흐름을 갖춘 물류 업무 웹을 구축했습니다.',
 			summary:
-				'배송 조회, 예약 접수, 현황, 주소록, 엑셀 처리, 라벨 출력까지 이어지는 운영 웹을 처음부터 구축했습니다. 기능 수를 늘리는 것보다 PC와 모바일에서 같은 업무 기준으로 동작하는 흐름을 만드는 데 중점을 뒀습니다.',
+				'물류 조회, 예약 접수, 현황, 주소록, 엑셀 처리, 라벨 출력까지 이어지는 관리-운영 웹을 처음부터 구축했습니다. 기능 수를 늘리는 것보다 PC와 모바일에서 같은 업무 기준으로 동작하는 흐름을 만드는 데 중점을 뒀습니다.',
 			metrics: [
 				{
 					value: '2,405.50 kB -> 616.59 kB',
 					label: '초기 로드 번들',
-					detail: '라우트와 엑셀 처리 라이브러리 지연 로딩 적용',
+					detail: '라우트 단위 코드 분리와 엑셀 처리 라이브러리 지연 로딩 적용',
 				},
 				{
 					value: '815.10 kB -> 204.38 kB',
@@ -42,20 +42,20 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				},
 			],
 			scope: [
-				'배송 조회, 예약 접수, 현황, 주소록 화면',
+				'물류 조회, 예약 접수, 현황, 주소록 화면',
 				'반응형 테이블, 중첩 모달, 날짜/드롭다운 UI',
 				'엑셀 업로드/다운로드, 미리보기, 전송 데이터 변환',
 				'PC 출력과 모바일 WebView 출력 경로',
 			],
 			contribution: [
-				'용량이 큰 화면과 엑셀 처리 코드를 초기 진입에서 분리했습니다.',
+				'초기 진입에 바로 필요하지 않은 화면과 엑셀 처리 코드를 라우트 단위로 분리했습니다.',
 				'모의 데이터와 실제 API 어댑터 경계를 나눠 화면 상태와 연동 상태를 따로 확인할 수 있게 했습니다.',
 				'PC 브라우저, 일반 모바일 브라우저, 모바일 앱 WebView의 출력 분기를 명확히 나눴습니다.',
 			],
 			outcome: [
-				'초기 로드 번들을 2,405.50 kB에서 616.59 kB로 줄였습니다.',
+				'라우트 분리와 엑셀 처리 라이브러리 지연 로딩으로 초기 로드 번들을 2,405.50 kB에서 616.59 kB로 줄였습니다.',
 				'가로 넘침, 모달 잘림, 드롭다운 위치 문제를 화면 폭별로 확인했습니다.',
-				'조회, 예약, 출력이 이어지는 운영 업무 흐름을 한 화면 체계 안에서 설명할 수 있게 됐습니다.',
+				'조회, 예약, 출력이 이어지는 물류 업무 흐름을 한 화면 체계 안에서 설명할 수 있게 됐습니다.',
 			],
 			verification: [
 				'390px~1366px 주요 화면 반응형 확인',
@@ -67,7 +67,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			id: 'mobile-print-bridge',
 			title: '모바일 라벨 출력 앱',
 			platform: 'Mobile',
-			area: '배송 운영 웹 WebView / Printer SDK',
+			area: '물류 관리-운영 웹 WebView / Printer SDK',
 			period: '2026.04 ~ 2026.06',
 			role: '신규 구축',
 			weight: 'featured',
@@ -81,9 +81,9 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Zustand',
 			],
 			headline:
-				'배송 운영 웹을 모바일 WebView로 열고, 프린터 SDK를 네이티브로 연결했습니다.',
+				'물류 관리-운영 웹을 모바일 WebView로 열고, 프린터 SDK를 네이티브로 연결했습니다.',
 			summary:
-				'배송 운영 웹을 모바일 앱 WebView로 제공하면서, 모바일에서만 필요한 Bluetooth 프린터 SDK 연동을 네이티브 모듈로 연결했습니다. 단독 프린터 앱이라기보다 운영 웹의 모바일 출력 경로를 담당하는 앱에 가깝습니다.',
+				'물류 관리-운영 웹을 모바일 앱 WebView로 제공하면서, 모바일에서만 필요한 Bluetooth 프린터 SDK 연동을 네이티브 모듈로 연결했습니다. 단독 프린터 앱이라기보다 운영 웹의 모바일 출력 경로를 담당하는 앱에 가깝습니다.',
 			metrics: [
 				{
 					value: 'Bluetooth 권한',
@@ -475,7 +475,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 	en: [
 		{
 			id: 'operations-web-performance',
-			title: 'Delivery Operations Web',
+			title: 'Logistics Management Web',
 			platform: 'Web',
 			area: 'Operations / Performance',
 			period: '2026.04 ~ 2026.06',
@@ -492,14 +492,14 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Vitest',
 			],
 			headline:
-				'Built operations web flows for lookup, reservations, Excel, and printing.',
+				'Built logistics management flows for lookup, reservations, Excel, and printing.',
 			summary:
-				'Built an operations web app covering delivery lookup, reservation intake, status views, contacts, Excel handling, and label printing. The focus was keeping business workflows stable across desktop and mobile contexts.',
+				'Built a logistics management web app covering lookup, reservation intake, status views, contacts, Excel handling, and label printing. The focus was keeping business workflows stable across desktop and mobile contexts.',
 			metrics: [
 				{
 					value: '2,405.50 kB -> 616.59 kB',
 					label: 'Initial load bundle',
-					detail: 'route and spreadsheet-library lazy loading',
+					detail: 'route-level code splitting and spreadsheet-library lazy loading',
 				},
 				{
 					value: '815.10 kB -> 204.38 kB',
@@ -513,20 +513,20 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				},
 			],
 			scope: [
-				'lookup, reservation intake, status, and contact routes',
+				'logistics lookup, reservation intake, status, and contact routes',
 				'responsive tables, nested modals, date/dropdown UI',
 				'Excel upload/download, preview, and payload conversion',
 				'PC print and mobile WebView print paths',
 			],
 			contribution: [
-				'Separated heavy screens and spreadsheet handling from the initial entry path.',
+				'Split non-initial screens and spreadsheet handling out of the initial entry path.',
 				'Kept mock data and remote API adapter boundaries separate for independent checks.',
 				'Separated PC browser, mobile browser, and mobile-app WebView print paths.',
 			],
 			outcome: [
-				'Reduced the initial load bundle from 2,405.50 kB to 616.59 kB.',
+				'Reduced the initial load bundle from 2,405.50 kB to 616.59 kB through route splitting and spreadsheet-library lazy loading.',
 				'Checked overflow, modal clipping, and dropdown behavior across viewports.',
-				'This became the strongest example of building and stabilizing an operating business screen.',
+				'This became the clearest example of building and stabilizing a logistics management workflow.',
 			],
 			verification: [
 				'Checked key screens across 390px to 1366px widths.',
@@ -538,7 +538,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			id: 'mobile-print-bridge',
 			title: 'Mobile Label Print App',
 			platform: 'Mobile',
-			area: 'Operations WebView / Printer SDK',
+			area: 'Logistics Management WebView / Printer SDK',
 			period: '2026.04 ~ 2026.06',
 			role: 'End-to-end build',
 			weight: 'featured',
@@ -552,9 +552,9 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Zustand',
 			],
 			headline:
-				'Wrapped the operations web in a mobile WebView and connected native printer SDK work.',
+				'Wrapped the logistics management web in a mobile WebView and connected native printer SDK work.',
 			summary:
-				'Built the mobile path for the operations web, using WebView for the business screen and Android native modules for Bluetooth label printing. It is closer to a mobile operations shell than a standalone printer app.',
+				'Built the mobile path for the logistics management web, using WebView for the business screen and Android native modules for Bluetooth label printing. It is closer to a mobile operations shell than a standalone printer app.',
 			metrics: [
 				{
 					value: 'Bluetooth permission',
@@ -573,7 +573,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				},
 			],
 			scope: [
-				'operations WebView entry and develop/production URL split',
+				'logistics management WebView entry and develop/production URL split',
 				'JavaScript-to-native print payloads',
 				'Android native Bluetooth print module',
 				'installation and update-check flows',

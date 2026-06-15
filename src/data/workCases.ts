@@ -299,14 +299,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.03 ~ 2026.04',
 			role: '유지보수/기능 추가',
 			weight: 'featured',
-			stack: [
-				'Android Java',
-				'Gradle/AGP',
-				'AndroidX',
-				'DataBinding',
-				'Navigation',
-				'Scanner SDK',
-			],
+			stack: ['Android Java', 'Gradle/AGP', 'Scanner SDK'],
 			headline:
 				'운영 서명과 최근 빌드 환경을 분리해 현장 앱을 다시 확인 가능한 상태로 만들었습니다.',
 			summary:
@@ -358,14 +351,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.03 ~ 2026.04',
 			role: '유지보수/기능 추가',
 			weight: 'compact',
-			stack: [
-				'Android Java',
-				'Gradle/AGP',
-				'AndroidX',
-				'RxJava2',
-				'OkHttp',
-				'WebView',
-			],
+			stack: ['Android Java', 'WebView', 'Gradle/AGP', 'OkHttp', 'RxJava2'],
 			headline:
 				'오래된 WebView 앱을 최근 Android 빌드 환경에서 다시 확인했습니다.',
 			summary:
@@ -450,7 +436,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.06',
 			role: '유지보수/기능 추가',
 			weight: 'compact',
-			stack: ['JSP', 'jQuery', 'Server-rendered web', 'Browser regression'],
+			stack: ['JSP', 'jQuery', 'Server-rendered web'],
 			headline: '문서/게시판형 패널의 회귀 기준선을 정리했습니다.',
 			summary:
 				'JSP/jQuery 기반 웹 패널에서 문서, 게시판형 목록, 메뉴 라우팅, 페이지 로더를 분리해 변경 영향 범위를 확인했습니다.',
@@ -772,14 +758,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.03 ~ 2026.04',
 			role: 'Maintenance / feature work',
 			weight: 'featured',
-			stack: [
-				'Android Java',
-				'Gradle/AGP',
-				'AndroidX',
-				'DataBinding',
-				'Navigation',
-				'Scanner SDK',
-			],
+			stack: ['Android Java', 'Gradle/AGP', 'Scanner SDK'],
 			headline: 'Separated operational signing from current build recovery.',
 			summary:
 				'Recovered build and runtime flows for an Android app used on field devices, narrowing issues around Gradle/JDK conflicts, signing, scan/input flows, and initial data sync.',
@@ -830,14 +809,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.03 ~ 2026.04',
 			role: 'Maintenance / feature work',
 			weight: 'compact',
-			stack: [
-				'Android Java',
-				'Gradle/AGP',
-				'AndroidX',
-				'RxJava2',
-				'OkHttp',
-				'WebView',
-			],
+			stack: ['Android Java', 'WebView', 'Gradle/AGP', 'OkHttp', 'RxJava2'],
 			headline: 'Checked an old WebView app against a modern Android build setup.',
 			summary:
 				'Reviewed build, WebView behavior, file handling, back navigation, and OS compatibility for a static-web-based Android app while keeping changes narrow.',
@@ -921,7 +893,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.06',
 			role: 'Maintenance / feature work',
 			weight: 'compact',
-			stack: ['JSP', 'jQuery', 'Server-rendered web', 'Browser regression'],
+			stack: ['JSP', 'jQuery', 'Server-rendered web'],
 			headline:
 				'Separated regression baselines for document and board-style panels.',
 			summary:

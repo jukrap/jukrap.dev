@@ -2,6 +2,36 @@ import { SimpleProject } from '@/types/project';
 
 export const projectsData: SimpleProject[] = [
 	{
+		id: 'ai-agent-playbook',
+		title: 'AI Agent Playbook',
+		duration: '2026.06 ~ Present',
+		major: false,
+		introduction:
+			'AI 에이전트 작업 규칙과 프로젝트 메모리를 재사용하기 위한 개인용 개발 도구.',
+		description: [
+			'1인 개발',
+			'CLI, 스킬, 템플릿, 프로젝트 playbook 구조 정리',
+			'MCP 기반 읽기 도구와 operator check/search 흐름 구성',
+			'npm 패키지와 GitHub 저장소로 공개',
+		],
+		techStack: 'JavaScript・Node.js・MCP・AI Agent workflow・GitHub Actions',
+		links: [
+			{ type: 'appleStore', url: '/', visible: false },
+			{ type: 'googleStore', url: '/', visible: false },
+			{
+				type: 'github',
+				url: 'https://github.com/jukrap/ai-agent-playbook',
+				visible: true,
+			},
+			{
+				type: 'url',
+				url: 'https://www.npmjs.com/package/ai-agent-playbook',
+				visible: true,
+			},
+			{ type: 'detailView', url: '/detailView', visible: true },
+		],
+	},
+	{
 		id: 'captain-donghae',
 		title: 'C. Donghae',
 		duration: '2024.10',

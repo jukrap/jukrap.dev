@@ -2,6 +2,115 @@ import { Project } from '@/types/project';
 
 export const projectsDetailData: Project[] = [
 	{
+		id: 'ai-agent-playbook',
+		title: 'AI Agent Playbook',
+		subtitle: 'Personal AI agent harness',
+		platform: ['Tooling'],
+		duration: '2026.06 ~ Present',
+		links: [
+			{
+				type: 'github',
+				url: 'https://github.com/jukrap/ai-agent-playbook',
+				visible: true,
+			},
+			{
+				type: 'appleStore',
+				url: '/',
+				visible: false,
+			},
+			{
+				type: 'googleStore',
+				url: '/',
+				visible: false,
+			},
+			{
+				type: 'url',
+				url: 'https://www.npmjs.com/package/ai-agent-playbook',
+				visible: true,
+			},
+		],
+		overview:
+			'AI 에이전트가 저장소를 다룰 때 필요한 작업 규칙, 스킬, 템플릿, 점검 명령을 재사용하기 위해 만든 개인용 개발 도구.',
+		techStack: ['JavaScript', 'Node.js', 'Github Actions'],
+		role: ['Tooling', 'Documentation'],
+		teamSize: 1,
+		tasks: [
+			{
+				title: 'CLI와 런타임 하네스 구성',
+				details: [
+					'npx 또는 전역 명령으로 실행할 수 있는 Node.js 기반 CLI를 구성했습니다.',
+					'대상 프로젝트를 확인하고 dry-run 결과를 먼저 볼 수 있도록 초기화, 점검, 검색 흐름을 명령 단위로 나누었습니다.',
+					'프로젝트별 작업 규칙과 현재 상태를 `.ai-playbook/` 형태로 정리할 수 있는 구조를 만들었습니다.',
+				],
+			},
+			{
+				title: '스킬과 템플릿 체계 정리',
+				details: [
+					'저장소 온보딩, UI 품질, 리뷰, Git, 레거시 유지보수처럼 반복되는 작업을 짧은 스킬 문서로 분리했습니다.',
+					'프로젝트 루트 규칙, 작업 메모리, 실행 기록, 계약 문서 템플릿을 별도 디렉터리로 정리했습니다.',
+					'영문 원본과 한국어 번역 문서를 분리해 공개 문서와 개인 사용 흐름을 함께 유지할 수 있게 했습니다.',
+				],
+			},
+			{
+				title: 'MCP 기반 읽기 도구 구성',
+				details: [
+					'AI 앱이 로컬 저장소의 컨텍스트, 검색 결과, 점검 결과를 이름 있는 도구로 읽을 수 있도록 MCP 서버 진입점을 구성했습니다.',
+					'기본 동작은 읽기 전용으로 두고, 파일을 쓰는 작업은 명령과 dry-run 확인을 거치도록 경계를 나누었습니다.',
+					'operator check/search/research 같은 점검 흐름을 CLI와 MCP 양쪽에서 활용할 수 있게 정리했습니다.',
+				],
+			},
+		],
+		troubleshooting: [
+			{
+				title: '자동화보다 명시적인 실행 흐름을 우선',
+				details: [
+					'에이전트가 저장소에 곧바로 쓰기 작업을 하는 구조 대신, 사용자가 명령을 실행하고 결과를 확인한 뒤 적용 여부를 고르는 흐름으로 설계했습니다.',
+					'설치, 스킬 복사, 프로젝트 playbook 초기화, MCP 등록을 자동으로 묶지 않고 각각 분리해 예측 가능한 사용 방식을 유지했습니다.',
+				],
+			},
+		],
+		specialImplementations: [
+			{
+				title: '공개 패키지와 문서화',
+				details: [
+					'npm 패키지와 GitHub 저장소로 공개해 `npx ai-agent-playbook` 형태로 바로 확인할 수 있게 했습니다.',
+					'처음 사용하는 사람이 실행 순서와 쓰기 여부를 파악할 수 있도록 Quick Start, Command Guide, 설치/삭제 문서를 함께 정리했습니다.',
+				],
+			},
+		],
+		projectData: {
+			images: [
+				'/images/ai-agent-playbook/logo-wide.png',
+				'/images/ai-agent-playbook/npm-overview.png',
+				'/images/ai-agent-playbook/quick-start.png',
+				'/images/ai-agent-playbook/command-guide.png',
+				'/images/ai-agent-playbook/repository-map.png',
+				'/images/ai-agent-playbook/mcp-settings.png',
+			],
+			subLinks: [
+				{
+					type: 'video',
+					url: '/',
+					visible: false,
+				},
+				{
+					type: 'ppt',
+					url: '/',
+					visible: false,
+				},
+				{
+					type: 'doc',
+					url: 'https://github.com/jukrap/ai-agent-playbook#readme',
+					visible: true,
+				},
+				{ type: 'other', url: '/', visible: false },
+			],
+			background: {
+				image: '/images/ai-agent-playbook/npm-overview.png',
+			},
+		},
+	},
+	{
 		id: 'captain-donghae',
 		title: '동해선장',
 		subtitle: 'Captain Donghae',

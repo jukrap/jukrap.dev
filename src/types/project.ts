@@ -44,5 +44,5 @@ export interface SimpleProject {
 	links: ProjectLink[];
 }
 
-export type Platform = 'All' | 'Web' | 'Mobile' | 'Game';
+export type Platform = 'All' | 'Web' | 'Mobile' | 'Tooling' | 'Game';
 export type { ProjectLink };

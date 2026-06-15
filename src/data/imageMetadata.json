@@ -1,4 +1,44 @@
 {
+  "/public/images/ai-agent-playbook/command-guide.png": {
+    "width": 2111,
+    "height": 1210,
+    "isPortrait": false
+  },
+  "/public/images/ai-agent-playbook/icon.png": {
+    "width": 1254,
+    "height": 1254,
+    "isPortrait": false
+  },
+  "/public/images/ai-agent-playbook/logo-wide.png": {
+    "width": 1254,
+    "height": 706,
+    "isPortrait": false
+  },
+  "/public/images/ai-agent-playbook/logo.png": {
+    "width": 1254,
+    "height": 1254,
+    "isPortrait": false
+  },
+  "/public/images/ai-agent-playbook/mcp-settings.png": {
+    "width": 2187,
+    "height": 1353,
+    "isPortrait": false
+  },
+  "/public/images/ai-agent-playbook/npm-overview.png": {
+    "width": 2535,
+    "height": 1241,
+    "isPortrait": false
+  },
+  "/public/images/ai-agent-playbook/quick-start.png": {
+    "width": 2120,
+    "height": 1092,
+    "isPortrait": false
+  },
+  "/public/images/ai-agent-playbook/repository-map.png": {
+    "width": 2523,
+    "height": 1238,
+    "isPortrait": false
+  },
   "/public/images/captain-donghae/award.png": {
     "width": 1037,
     "height": 890,

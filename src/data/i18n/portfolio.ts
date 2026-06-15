@@ -61,6 +61,17 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'Built light and dark mode switching with Zustand and Tailwind',
 		],
 	},
+	'ai-agent-playbook': {
+		title: 'AI Agent Playbook',
+		introduction:
+			'A personal developer tool for reusing AI agent working rules and project memory.',
+		description: [
+			'Solo development',
+			'Organized a CLI, reusable skills, templates, and project playbook structure',
+			'Built MCP-based read tools and operator check/search flows',
+			'Published as an npm package and GitHub repository',
+		],
+	},
 	sharebby: {
 		title: 'ShareBBy',
 		introduction:
@@ -341,6 +352,56 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Developed a useTypingEffect hook to implement typing animation for titles and content.',
 					'Made the hook reusable and configurable for typing speed and delay.',
+				],
+			},
+		],
+	},
+	'ai-agent-playbook': {
+		title: 'AI Agent Playbook',
+		subtitle: 'Personal AI agent harness',
+		overview:
+			'A personal developer tool for reusing working rules, skills, templates, and check commands when AI agents work inside software repositories.',
+		tasks: [
+			{
+				title: 'Built the CLI and runtime harness',
+				details: [
+					'Built a Node.js CLI that can run through npx or a global command.',
+					'Separated bootstrap, checks, and search flows into explicit commands so a target project can be inspected and dry-run output can be reviewed first.',
+					'Created a project playbook structure for keeping project-specific working rules and current context under `.ai-playbook/`.',
+				],
+			},
+			{
+				title: 'Organized reusable skills and templates',
+				details: [
+					'Separated recurring work such as repository onboarding, UI quality, review, Git, and legacy maintenance into short skill documents.',
+					'Organized templates for root rules, project memory, run ledgers, and contract notes into dedicated directories.',
+					'Kept English source documents and Korean reading copies separate so public docs and personal usage could evolve together.',
+				],
+			},
+			{
+				title: 'Added MCP-based read tools',
+				details: [
+					'Added an MCP server entry so AI apps can read local repository context, search results, and check results through named tools.',
+					'Kept the default MCP surface read-only, while file-writing flows stay behind explicit CLI commands and dry-run checks.',
+					'Made operator check/search/research flows usable from both the CLI and MCP surfaces.',
+				],
+			},
+		],
+		troubleshooting: [
+			{
+				title: 'Kept execution explicit instead of fully automatic',
+				details: [
+					'Designed the tool so a user runs a command, reviews the result, and then decides whether to apply changes instead of letting an agent write to a repository immediately.',
+					'Kept installation, skill copying, project playbook bootstrap, and MCP registration as separate actions to make the tool easier to reason about.',
+				],
+			},
+		],
+		specialImplementations: [
+			{
+				title: 'Published package and documentation',
+				details: [
+					'Published the project as an npm package and GitHub repository so it can be checked with `npx ai-agent-playbook`.',
+					'Documented Quick Start, Command Guide, and install/uninstall flows so first-time users can tell what each command does and whether it writes files.',
 				],
 			},
 		],

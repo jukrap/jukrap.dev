@@ -89,11 +89,12 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		projects: {
 			title: 'Projects',
 			description:
-				'웹과 모바일 플랫폼에서 다양한 프로젝트를 진행했습니다. 각 프로젝트를 클릭하면 상세 내용을 확인하실 수 있습니다.',
+				'웹, 모바일, 개발 도구 중심의 개인 프로젝트를 정리했습니다. 각 프로젝트를 클릭하면 상세 내용을 확인하실 수 있습니다.',
 			platforms: {
 				All: 'All',
 				Web: 'Web',
 				Mobile: 'Mobile',
+				Tooling: 'Tooling',
 				Game: 'Game',
 			},
 		},
@@ -211,11 +212,12 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		projects: {
 			title: 'Projects',
 			description:
-				'I have worked on projects across web and mobile platforms. Select a project to view its details.',
+				'I have organized personal projects across web, mobile, and developer tooling. Select a project to view its details.',
 			platforms: {
 				All: 'All',
 				Web: 'Web',
 				Mobile: 'Mobile',
+				Tooling: 'Tooling',
 				Game: 'Game',
 			},
 		},

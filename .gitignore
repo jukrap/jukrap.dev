@@ -34,3 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local agent docs and imported references
+.ai-playbook/
+_reference/
+.claude/settings.local.json
+output/

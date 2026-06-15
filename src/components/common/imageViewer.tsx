@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useThemeStore } from '@/store/useThemeStore';
 import { ImageViewerProps } from '@/types/component';
 import { getIconPath } from '@/util/iconPaths';
@@ -14,17 +14,14 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 	onIndexChange,
 }) => {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
-	const [isVisible, setIsVisible] = useState(false);
 	const [isImageLoading, setIsImageLoading] = useState(true);
 	const [currentImageUrl, setCurrentImageUrl] = useState(images[currentIndex]);
 
 	useEffect(() => {
-		setIsVisible(true);
 		const previousOverflow = document.body.style.overflow;
 		document.body.style.overflow = 'hidden';
 
 		return () => {
-			setIsVisible(false);
 			document.body.style.overflow = previousOverflow;
 		};
 	}, []);
@@ -34,10 +31,9 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 		setCurrentImageUrl(images[currentIndex]);
 	}, [currentIndex, images]);
 
-	const handleClose = () => {
-		setIsVisible(false);
-		setTimeout(onClose, 300);
-	};
+	const handleClose = useCallback(() => {
+		onClose();
+	}, [onClose]);
 
 	const handleImageLoad = () => {
 		setIsImageLoading(false);
@@ -63,20 +59,24 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 		};
 		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, [currentIndex, images.length, onIndexChange]);
+	}, [currentIndex, handleClose, images.length, onIndexChange]);
 
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
-			className={`fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 
-        transition-all duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+			transition={{ duration: 0.16, ease: 'easeOut' }}
+			className="fixed inset-0 z-[70] flex items-center justify-center bg-black/75"
 			onClick={handleClose}
 		>
-			<div
-				className={`relative w-full md:w-[60vw] h-[70vh] flex items-center justify-center 
-          transition-transform duration-300 ${isVisible ? 'scale-100' : 'scale-95'}`}
+			<motion.div
+				initial={{ opacity: 0, scale: 0.98 }}
+				animate={{ opacity: 1, scale: 1 }}
+				exit={{ opacity: 0, scale: 0.98 }}
+				transition={{ duration: 0.14, ease: 'easeOut' }}
+				className="relative flex h-[70vh] w-full transform-gpu items-center justify-center md:w-[60vw]"
+				onClick={(e) => e.stopPropagation()}
 			>
 				<div className="relative w-full h-full px-4 md:px-0">
 					<div className="relative w-full h-full">
@@ -130,7 +130,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
 						className="h-4 w-4 md:h-5 md:w-5"
 					/>
 				</button>
-			</div>
+			</motion.div>
 
 			{/* 닫기 버튼 */}
 			<button

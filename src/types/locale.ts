@@ -39,12 +39,13 @@ export interface LocaleDictionary {
 	};
 	home: {
 		welcome: string;
-		portfolioQuestion: string;
-		portfolioFile: string;
-		portfolioQuestionSuffix: string;
-		portfolioCtaPrefix: string;
-		portfolioCtaStrong: string;
-		portfolioCtaSuffix: string;
+		documentsTitle: string;
+		documentsDescription: string;
+		resumeTitle: string;
+		resumeDescription: string;
+		resumeDownload: string;
+		portfolioTitle: string;
+		portfolioDescription: string;
 		portfolioDownload: string;
 	};
 	about: {

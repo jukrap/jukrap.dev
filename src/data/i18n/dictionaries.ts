@@ -41,12 +41,16 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		home: {
 			welcome: 'Jukrap의 개인 사이트에 오신 것을 환영합니다.',
-			portfolioQuestion: '혹시 저의',
-			portfolioFile: '포트폴리오 파일',
-			portfolioQuestionSuffix: '이 필요하신가요?',
-			portfolioCtaPrefix: '그렇다면 아래의',
-			portfolioCtaStrong: 'PDF 다운로드 버튼',
-			portfolioCtaSuffix: '을 눌러주세요!',
+			documentsTitle: '필요한 문서를 바로 받을 수 있습니다.',
+			documentsDescription:
+				'이력서는 경력과 기술 요약을, 포트폴리오는 프로젝트와 작업 내용을 조금 더 자세히 담았습니다.',
+			resumeTitle: '이력서',
+			resumeDescription:
+				'경력, 기술 스택, 핵심 이력을 빠르게 확인할 수 있는 문서입니다.',
+			resumeDownload: 'resume.PDF',
+			portfolioTitle: '포트폴리오',
+			portfolioDescription:
+				'프로젝트와 작업 내용을 사례 중심으로 정리한 문서입니다.',
 			portfolioDownload: 'portfolio.PDF',
 		},
 		about: {
@@ -164,12 +168,16 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		home: {
 			welcome: "Welcome to Jukrap's personal website.",
-			portfolioQuestion: 'Do you need my',
-			portfolioFile: 'portfolio file',
-			portfolioQuestionSuffix: '?',
-			portfolioCtaPrefix: 'If so, please use the',
-			portfolioCtaStrong: 'PDF download button',
-			portfolioCtaSuffix: 'below.',
+			documentsTitle: 'Download the document you need.',
+			documentsDescription:
+				'The resume gives a quick career and skill summary. The portfolio adds project and work details.',
+			resumeTitle: 'Resume',
+			resumeDescription:
+				'A concise document for checking career history, skills, and key experience.',
+			resumeDownload: 'resume.PDF',
+			portfolioTitle: 'Portfolio',
+			portfolioDescription:
+				'A case-oriented document covering projects and selected work in more detail.',
 			portfolioDownload: 'portfolio.PDF',
 		},
 		about: {

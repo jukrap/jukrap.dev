@@ -836,7 +836,10 @@ const awardsEn = [
 		period: '2024.10',
 		award: "Busan Technopark President's Award",
 		details: [
-			'Submitted project: Captain Donghae',
+			{
+				text: 'Submitted project: Captain Donghae',
+				projectId: 'captain-donghae',
+			},
 			{
 				text: '3rd place in the sponsor track',
 				link: '/images/captain-donghae/award.png',
@@ -853,14 +856,22 @@ const awardsEn = [
 		title: 'Coding Competency Enhancement Campus Competition',
 		period: '2021.10 ~ 2021.11',
 		award: 'Pioneer Award',
-		details: ['Submitted project: ESD HotDeal'],
+		details: [
+			{
+				text: 'Submitted project: ESD HotDeal',
+				projectId: 'esd-hotdeal',
+			},
+		],
 	},
 	{
 		title: 'Gyeongnam Software Competition',
 		period: '2021.08 ~ 2021.10',
 		award: 'Grand Prize',
 		details: [
-			'Submitted project: ESD HotDeal',
+			{
+				text: 'Submitted project: ESD HotDeal',
+				projectId: 'esd-hotdeal',
+			},
 			{
 				text:
 					'[Gyeongnam Ilbo] "These are the talents who will lead the local software industry"',

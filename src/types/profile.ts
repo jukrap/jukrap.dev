@@ -20,7 +20,11 @@ export interface Award {
 	title: string;
 	period: string;
 	award: string;
-	details: (string | { text: string; link: string })[];
+	details: (
+		| string
+		| { text: string; link: string }
+		| { text: string; projectId: string }
+	)[];
 }
 
 export interface Skill {

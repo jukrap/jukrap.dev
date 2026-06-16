@@ -5,7 +5,7 @@ export const projectsData: SimpleProject[] = [
 		id: 'ai-agent-playbook',
 		title: 'AI Agent Playbook',
 		duration: '2026.06 ~ Present',
-		major: false,
+		major: true,
 		introduction:
 			'AI 에이전트 작업 규칙과 프로젝트 메모리를 재사용하기 위한 개인용 개발 도구.',
 		description: [
@@ -246,7 +246,7 @@ export const projectsData: SimpleProject[] = [
 		id: 'esd-hotdeal',
 		title: 'ESD HotDeal',
 		duration: '2021.07 ~ 2021.10',
-		major: true,
+		major: false,
 		introduction: '다양한 ESD의 핫딜 데이터를 모아서 제공하는 웹서비스.',
 		description: [
 			'팀장, 프론트엔드 및 백엔드 개발',

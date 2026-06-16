@@ -3,17 +3,20 @@
 import React from 'react';
 import WebViewModal from '@/components/common/webViewModal';
 import { useLocale } from '@/contexts/localeContext';
+import { Project } from '@/types/project';
+import ProjectDetail from '@/components/common/projectDetail';
 
 const AwardsSection: React.FC = () => {
 	const {
 		dictionary,
-		data: { awards },
+		data: { awards, projectDetails },
 	} = useLocale();
 	const [modalIsOpen, setModalIsOpen] = React.useState(false);
 	const [selectedLink, setSelectedLink] = React.useState('');
 	const [selectedLinkText, setSelectedLinkText] = React.useState('');
-
-	selectedLinkText;
+	const [selectedProject, setSelectedProject] = React.useState<Project | null>(
+		null,
+	);
 
 	const openModal = (link: string, text: string) => {
 		setSelectedLink(link);
@@ -23,6 +26,19 @@ const AwardsSection: React.FC = () => {
 
 	const closeModal = () => {
 		setModalIsOpen(false);
+	};
+
+	const openProjectDetail = (projectId: string) => {
+		const detailProject = projectDetails.find(
+			(project) => project.id === projectId,
+		);
+		if (detailProject) {
+			setSelectedProject(detailProject);
+		}
+	};
+
+	const closeProjectDetail = () => {
+		setSelectedProject(null);
 	};
 
 	return (
@@ -60,14 +76,23 @@ const AwardsSection: React.FC = () => {
 									>
 										<span className="w-1.5 h-1.5 bg-foreground rounded-full mt-2"></span>
 										{typeof detail !== 'string' ? (
-											<button
-												onClick={() =>
-													openModal(detail.link as string, detail.text as string)
-												}
-												className="text-sm md:text-base leading-6 text-left text-foreground hover:text-accent transition-colors duration-300 underline break-keep"
-											>
-												{detail.text}
-											</button>
+											'projectId' in detail ? (
+												<button
+													type="button"
+													onClick={() => openProjectDetail(detail.projectId)}
+													className="text-sm md:text-base leading-6 text-left text-foreground hover:text-accent transition-colors duration-300 underline decoration-foreground/45 underline-offset-4 hover:decoration-accent break-keep"
+												>
+													{detail.text}
+												</button>
+											) : (
+												<button
+													type="button"
+													onClick={() => openModal(detail.link, detail.text)}
+													className="text-sm md:text-base leading-6 text-left text-foreground hover:text-accent transition-colors duration-300 underline decoration-foreground/45 underline-offset-4 hover:decoration-accent break-keep"
+												>
+													{detail.text}
+												</button>
+											)
 										) : (
 											<span className="text-sm md:text-base leading-6 text-left text-foreground">
 												{detail}
@@ -86,6 +111,9 @@ const AwardsSection: React.FC = () => {
 				selectedLink={selectedLink}
 				linkText={selectedLinkText}
 			/>
+			{selectedProject && (
+				<ProjectDetail project={selectedProject} onClose={closeProjectDetail} />
+			)}
 		</section>
 	);
 };

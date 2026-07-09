@@ -18,15 +18,12 @@ const CaseIndex = ({
 		<p className="text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
 			{title}
 		</p>
-		<nav
-			className="flex flex-wrap gap-1.5 lg:flex-col lg:gap-2"
-			aria-label={title}
-		>
+		<nav className="flex flex-wrap gap-1.5 sm:gap-2" aria-label={title}>
 			{cases.map((workCase) => (
 				<a
 					key={workCase.id}
 					href={`#${workCase.id}`}
-					className="group inline-flex w-full min-w-0 max-w-full items-center gap-2 rounded-full border border-border/35 px-2.5 py-1.5 text-sm interactive-soft hover:border-accent/45 hover:bg-secondary/25 sm:w-auto lg:w-full lg:rounded-lg lg:px-3 lg:py-2"
+					className="group inline-flex max-w-full min-w-0 items-center gap-2 rounded-full border border-border/35 px-2.5 py-1.5 text-sm interactive-soft hover:border-accent/45 hover:bg-secondary/25 sm:w-auto"
 				>
 					<span className="shrink-0 text-xs font-bold uppercase tracking-[0.08em] text-accent">
 						{workCase.platform}
@@ -64,6 +61,9 @@ const CompactCase = ({
 				<div className="flex flex-wrap items-center gap-2">
 					<span className="rounded-full border border-border/45 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.1em] text-accent">
 						{workCase.platform}
+					</span>
+					<span className="rounded-full bg-secondary/45 px-2.5 py-1 text-xs font-semibold text-foreground">
+						{workCase.workType}
 					</span>
 					<span className="text-xs font-semibold text-muted-foreground">
 						{workCase.period}
@@ -157,56 +157,62 @@ export const WorkPage = () => {
 					</p>
 				</section>
 
-				<div className="grid min-w-0 gap-8 lg:grid-cols-[15rem_minmax(0,1fr)] lg:items-start">
-					<aside className="min-w-0 space-y-4 lg:sticky lg:top-24 lg:space-y-5">
-						<h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl lg:text-xl">
-							{work.indexTitle}
+				<section className="space-y-4" aria-labelledby="work-index-title">
+					<h2
+						id="work-index-title"
+						className="text-xl font-bold tracking-tight text-foreground sm:text-2xl"
+					>
+						{work.indexTitle}
+					</h2>
+					<CaseIndex title={work.featuredTitle} cases={featuredCases} />
+				</section>
+
+				<div className="min-w-0 space-y-12">
+					<section className="space-y-1" aria-labelledby="work-featured-title">
+						<h2
+							id="work-featured-title"
+							className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+						>
+							{work.featuredTitle}
 						</h2>
-						<CaseIndex title={work.featuredTitle} cases={featuredCases} />
-						<CaseIndex
-							title={work.compactTitle}
-							cases={compactCases}
-							className="hidden lg:block"
-						/>
-					</aside>
+						<div>
+							{featuredCases.map((workCase) => (
+								<WorkCaseDetail
+									key={workCase.id}
+									workCase={workCase}
+									labels={work.labels}
+								/>
+							))}
+						</div>
+					</section>
 
-					<div className="min-w-0 space-y-12">
-						<section className="space-y-1" aria-labelledby="work-featured-title">
-							<h2
-								id="work-featured-title"
-								className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
-							>
-								{work.featuredTitle}
-							</h2>
-							<div>
-								{featuredCases.map((workCase) => (
-									<WorkCaseDetail
-										key={workCase.id}
-										workCase={workCase}
-										labels={work.labels}
-									/>
-								))}
-							</div>
-						</section>
-
-						<section className="space-y-4" aria-labelledby="work-compact-title">
+					<section className="space-y-4" aria-labelledby="work-compact-title">
+						<div className="flex flex-col gap-3 border-t border-border/40 pt-8 sm:flex-row sm:items-end sm:justify-between">
 							<h2
 								id="work-compact-title"
 								className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
 							>
 								{work.compactTitle}
 							</h2>
-							<div className="rounded-lg border border-border/35 px-4 sm:px-5">
-								{compactCases.map((workCase) => (
-									<CompactCase
-										key={workCase.id}
-										workCase={workCase}
-										labels={work.labels}
-									/>
-								))}
-							</div>
-						</section>
-					</div>
+							<p className="max-w-2xl text-sm leading-6 text-muted-foreground break-keep">
+								{work.compactIntro}
+							</p>
+						</div>
+						<CaseIndex
+							title={work.compactTitle}
+							cases={compactCases}
+							className="border-b border-border/35 pb-4"
+						/>
+						<div className="rounded-lg border border-border/35 px-4 sm:px-5">
+							{compactCases.map((workCase) => (
+								<CompactCase
+									key={workCase.id}
+									workCase={workCase}
+									labels={work.labels}
+								/>
+							))}
+						</div>
+					</section>
 				</div>
 			</div>
 		</main>

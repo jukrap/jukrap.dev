@@ -73,6 +73,7 @@ export interface LocaleDictionary {
 		indexTitle: string;
 		featuredTitle: string;
 		compactTitle: string;
+		compactIntro: string;
 		labels: {
 			stack: string;
 			problem: string;

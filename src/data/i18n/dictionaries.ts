@@ -82,6 +82,8 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			indexTitle: '업무 사례',
 			featuredTitle: '핵심 사례',
 			compactTitle: '함께 정리한 업무',
+			compactIntro:
+				'신규 개발 중심 사례와 별개로, 유지보수·기능 확장·영향 분석처럼 실제 업무에서 맡은 성격이 다른 작업을 분리했습니다.',
 			labels: {
 				stack: '사용 기술',
 				problem: '문제',
@@ -211,6 +213,8 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			indexTitle: 'Work Index',
 			featuredTitle: 'Case Notes',
 			compactTitle: 'Additional Work',
+			compactIntro:
+				'These are separated from build-heavy cases to show maintenance, feature extension, integration, and analysis work without mixing their scope.',
 			labels: {
 				stack: 'Stack',
 				problem: 'Problem',

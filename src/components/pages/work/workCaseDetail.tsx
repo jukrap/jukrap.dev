@@ -62,6 +62,9 @@ export const WorkCaseDetail = ({ workCase, labels }: WorkCaseDetailProps) => (
 					<span className="rounded-full border border-border/45 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.1em] text-accent">
 						{workCase.platform}
 					</span>
+					<span className="rounded-full bg-secondary/45 px-2.5 py-1 text-xs font-semibold text-foreground">
+						{workCase.workType}
+					</span>
 					<span className="text-xs font-semibold text-muted-foreground break-keep">
 						{workCase.area}
 					</span>

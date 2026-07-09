@@ -10,6 +10,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: '업무 운영 / 성능',
 			period: '2026.04 ~ 2026.06',
 			role: '신규 구축/안정화',
+			workType: '신규 개발',
 			weight: 'featured',
 			stack: [
 				'React',
@@ -72,6 +73,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: '레거시 웹 / Android WebView / 운영',
 			period: '2026.06 ~ 2026.07',
 			role: '기능 안정화/운영 반영',
+			workType: '기능 안정화',
 			weight: 'featured',
 			stack: [
 				'Spring MVC',
@@ -133,6 +135,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'AI API / 개발 생산성',
 			period: '2026.04',
 			role: '내부 도구 구축',
+			workType: '내부 도구 개발',
 			weight: 'featured',
 			stack: [
 				'Node.js',
@@ -188,49 +191,105 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
-			id: 'mobile-webview-device-runtime',
-			title: '모바일 WebView·장비 연동 안정화',
+			id: 'mobile-output-bridge',
+			title: '모바일 출력 브릿지 앱',
 			platform: 'Mobile',
-			area: 'Android / WebView / 장비 연동',
-			period: '2026.03 ~ 2026.06',
-			role: '유지보수/연동 안정화',
-			weight: 'compact',
+			area: 'WebView / Android native module',
+			period: '2026.04 ~ 2026.06',
+			role: '신규 구축/출력 연동',
+			workType: '신규 개발',
+			weight: 'featured',
 			stack: [
-				'Android Java',
 				'Expo',
-				'React Native WebView',
-				'Gradle/AGP',
+				'React Native',
+				'Expo Router',
+				'WebView',
+				'Android native module',
+				'TypeScript',
 				'Bluetooth',
-				'Scanner SDK',
 			],
 			headline:
-				'앱, WebView, native module, 장비 입력/출력 문제를 계층별로 나눠 재현 가능한 상태로 만들었습니다.',
+				'운영 웹의 모바일 출력 경로를 WebView와 Android native module로 연결했습니다.',
 			summary:
-				'화면 오류처럼 보이는 문제를 build, permission, WebView bridge, native module, 실제 장비 흐름으로 나눠 추적했습니다.',
+				'웹 화면은 WebView로 유지하면서, 모바일에서만 필요한 장비 출력은 native module에 맡기도록 경계를 나눴습니다.',
 			impact: [
 				{
-					value: 'AGP/JDK/SDK',
-					label: '빌드-런타임 분리',
-					detail: 'toolchain 호환과 실행 정책을 따로 추적',
+					value: 'WebView -> native',
+					label: '출력 요청 경계',
+					detail: '웹 payload와 장비 출력 명령을 분리',
+				},
+				{
+					value: '실기기 확인',
+					label: '장비 출력 검증',
+					detail: 'emulator가 아닌 Android 기기 기준으로 확인',
 				},
 			],
 			problem:
-				'최신 SDK 정책에 맞추는 작업이 구형 런타임 회귀를 만들 수 있고, emulator에서 되는 흐름이 실제 장비에서는 권한이나 입력 timing 때문에 실패할 수 있었습니다.',
+				'웹 버튼으로 출력 요청을 보내는 것과 실제 모바일 장비에서 출력되는 것은 다른 문제였습니다. WebView, 권한, native module, 장비 상태가 한 흐름에 묶이면 실패 지점을 찾기 어려웠습니다.',
 			thinking: [
-				'빌드 도구 최신화와 런타임 동작 변경을 분리했습니다.',
-				'WebView bridge 요청과 native module 응답은 구조화된 contract로 다뤘습니다.',
+				'업무 화면은 웹에 두고, 장비와 직접 맞닿는 출력 책임은 native module로 분리했습니다.',
+				'WebView bridge 요청과 native 응답을 구조화된 contract로 다뤘습니다.',
+				'개발/운영 URL과 앱 식별자, 설치 산출물 기준을 나눴습니다.',
 			],
 			process: [
-				'실패 지점을 build, permission, bridge, device 단계로 나눠 다시 확인했습니다.',
-				'emulator에서 재현 가능한 흐름과 실기기에서만 확인해야 하는 흐름을 분리했습니다.',
+				'웹에서 전달되는 출력 데이터를 native 출력 payload로 변환하는 경계를 먼저 잡았습니다.',
+				'Bluetooth 권한, 장비 탐색, 연결 상태, 출력 명령을 단계별로 확인했습니다.',
+				'로컬 개발, 테스트 설치, 운영 설치 조건을 분리해 잘못된 환경으로 붙는 문제를 줄였습니다.',
 			],
 			solution: [
-				'초기화 sequence, 재시도 조건, 실패 메시지, 요약 로그를 단계별로 나눴습니다.',
-				'WebView 요청을 native 출력 payload로 변환하는 경계를 정리했습니다.',
+				'WebView bridge와 Android native module 사이의 요청/응답 흐름을 정리했습니다.',
+				'출력 payload 변환, 장비 상태 확인, 실패 메시지를 별도 단계로 나눴습니다.',
+				'모바일 브라우저 fallback과 앱 WebView 출력 경로를 구분했습니다.',
 			],
 			checks: [
-				'compile, helper test, Android build를 작업 성격에 맞춰 확인했습니다.',
-				'여러 OS 수준의 emulator와 Android 실기기에서 주요 흐름을 확인했습니다.',
+				'Android 실기기에서 권한, 장비 연결, 출력 요청 흐름을 확인했습니다.',
+				'WebView bridge 요청과 native 출력 응답이 분리되는지 확인했습니다.',
+				'개발/운영 설치 기준과 URL 분기를 확인했습니다.',
+			],
+		},
+		{
+			id: 'field-terminal-android',
+			title: '현장 단말 Android 앱',
+			platform: 'Android',
+			area: '빌드 복구 / 현장 입력',
+			period: '2026.03 ~ 2026.04',
+			role: '유지보수/빌드 복구',
+			workType: '유지보수',
+			weight: 'compact',
+			stack: ['Android Java', 'Gradle/AGP', 'Scanner SDK'],
+			headline:
+				'운영 서명과 최근 빌드 환경을 분리해 현장 앱을 다시 확인 가능한 상태로 만들었습니다.',
+			summary:
+				'현장 단말에서 쓰이는 Android 앱의 빌드와 런타임 흐름을 복구했습니다. 빌드 도구, 서명, 로그인, 초기 데이터, 스캔 입력을 나눠 확인했습니다.',
+			impact: [
+				{
+					value: '빌드 복구',
+					label: 'Gradle/JDK 정리',
+					detail: '운영 서명 유무와 개발 빌드 경로 분리',
+				},
+				{
+					value: '현장 입력',
+					label: '스캔/장비 흐름',
+					detail: '로그인, 초기 동기화, 입력 흐름을 나눠 확인',
+				},
+			],
+			problem:
+				'운영 서명이나 오래된 빌드 조건이 맞지 않으면 개발자가 기능을 확인하기 전부터 막힐 수 있고, emulator에서 되는 흐름이 실제 단말에서는 입력 timing 때문에 실패할 수 있었습니다.',
+			thinking: [
+				'운영 배포 조건과 로컬 개발 빌드 가능 여부를 분리했습니다.',
+				'빌드 도구 최신화와 런타임 동작 변경을 같은 문제로 묶지 않았습니다.',
+			],
+			process: [
+				'Gradle, JDK, SDK, 서명 조건을 나눠 빌드 실패 원인을 좁혔습니다.',
+				'로그인, 초기 데이터, 스캔 입력 흐름을 별도 단계로 확인했습니다.',
+			],
+			solution: [
+				'운영 서명이 없어도 개발 빌드가 막히지 않도록 조건을 분리했습니다.',
+				'입력 장비 흐름은 실제 단말 기준으로 확인해야 하는 항목으로 남겼습니다.',
+			],
+			checks: [
+				'개발/운영 빌드 경로와 주요 진입 흐름을 확인했습니다.',
+				'스캔 입력과 초기 데이터 흐름을 단계별로 확인했습니다.',
 			],
 		},
 		{
@@ -240,7 +299,8 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: '시각화 / 편집 UI',
 			period: '2026.03 ~ 2026.04',
 			role: '편집 도구 구축',
-			weight: 'compact',
+			workType: '신규 개발',
+			weight: 'featured',
 			stack: ['React', 'TypeScript', 'Vite', 'Chart.js', 'MSW', 'Vitest'],
 			headline:
 				'차트 렌더링이 아니라, 데이터 역할·preview·설정 패널이 맞물리는 편집 경험으로 정리했습니다.',
@@ -279,6 +339,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'Server Proxy / WebView QA',
 			period: '2026.06',
 			role: '기능 통합/보안 경계 정리',
+			workType: '기능 확장',
 			weight: 'compact',
 			stack: ['Android WebView', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
@@ -318,6 +379,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'Admin UI / 상태 경계',
 			period: '2026.03',
 			role: '업무 화면 구축',
+			workType: '업무 화면 개발',
 			weight: 'compact',
 			stack: [
 				'React',
@@ -361,6 +423,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'JSP / jQuery 영향 범위 분석',
 			period: '2026.06',
 			role: '분리 분석/회귀 기준선',
+			workType: '영향 분석',
 			weight: 'compact',
 			stack: ['JSP', 'jQuery', 'Server-rendered web'],
 			headline:
@@ -399,6 +462,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'Operations / Performance',
 			period: '2026.04 ~ 2026.06',
 			role: 'Build and stabilization',
+			workType: 'Build',
 			weight: 'featured',
 			stack: [
 				'React',
@@ -461,6 +525,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'Legacy Web / Android WebView / Operations',
 			period: '2026.06 ~ 2026.07',
 			role: 'Feature stabilization and operations rollout',
+			workType: 'Stabilization',
 			weight: 'featured',
 			stack: [
 				'Spring MVC',
@@ -522,6 +587,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'AI API / developer productivity',
 			period: '2026.04',
 			role: 'Internal tool build',
+			workType: 'Internal tool',
 			weight: 'featured',
 			stack: [
 				'Node.js',
@@ -577,49 +643,105 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
-			id: 'mobile-webview-device-runtime',
-			title: 'Mobile WebView and Device Runtime Stabilization',
+			id: 'mobile-output-bridge',
+			title: 'Mobile Output Bridge App',
 			platform: 'Mobile',
-			area: 'Android / WebView / device integration',
-			period: '2026.03 ~ 2026.06',
-			role: 'Maintenance and integration stabilization',
-			weight: 'compact',
+			area: 'WebView / Android native module',
+			period: '2026.04 ~ 2026.06',
+			role: 'Build and output integration',
+			workType: 'Build',
+			weight: 'featured',
 			stack: [
-				'Android Java',
 				'Expo',
-				'React Native WebView',
-				'Gradle/AGP',
+				'React Native',
+				'Expo Router',
+				'WebView',
+				'Android native module',
+				'TypeScript',
 				'Bluetooth',
-				'Scanner SDK',
 			],
 			headline:
-				'Separated app, WebView, native module, and device input/output issues into reproducible layers.',
+				'Connected a mobile output path through WebView and an Android native module.',
 			summary:
-				'Treated screen failures as layered issues across build, permission, WebView bridge, native module, and physical device flows.',
+				'The app kept the business screen in WebView while moving device-specific output responsibilities into a native module boundary.',
 			impact: [
 				{
-					value: 'AGP/JDK/SDK',
-					label: 'build-runtime split',
-					detail: 'toolchain compatibility tracked apart from execution policy',
+					value: 'WebView -> native',
+					label: 'output boundary',
+					detail: 'web payload separated from device output commands',
+				},
+				{
+					value: 'real device check',
+					label: 'device output',
+					detail: 'verified against Android device behavior, not only emulator flow',
 				},
 			],
 			problem:
-				'Modern SDK policy work can introduce old-runtime regressions, and emulator-passing flows can still fail on real devices because of permissions or input timing.',
+				'Sending a print/output request from a web button is different from making the physical mobile device complete it. WebView, permission, native module, and device state needed separate failure boundaries.',
 			thinking: [
-				'Separated build-tool modernization from runtime behavior changes.',
-				'Handled WebView bridge requests and native module responses as structured contracts.',
+				'Kept the business screen in the web layer and moved device-facing output into the native module.',
+				'Handled WebView bridge requests and native responses as structured contracts.',
+				'Separated development and production URLs, app identifiers, and install artifacts.',
 			],
 			process: [
-				'Checked failures by build, permission, bridge, and device layer.',
-				'Separated emulator-reproducible flows from flows that needed real device checks.',
+				'Defined the boundary that converts web output data into a native output payload.',
+				'Checked Bluetooth permission, device lookup, connection state, and output command stages.',
+				'Separated local development, test install, and production install conditions.',
 			],
 			solution: [
-				'Split initialization sequence, retry conditions, failure messages, and summary logs by stage.',
-				'Defined the boundary that converts WebView requests into native output payloads.',
+				'Organized the request/response path between the WebView bridge and Android native module.',
+				'Separated payload conversion, device-state checks, and failure messaging.',
+				'Kept mobile browser fallback distinct from app WebView output.',
 			],
 			checks: [
-				'Checked compile, helper tests, and Android builds depending on the work type.',
-				'Checked key flows on multiple emulator OS levels and real Android devices.',
+				'Checked permission, device connection, and output request flows on an Android device.',
+				'Checked that WebView bridge requests and native output responses stayed separated.',
+				'Checked development and production install baselines.',
+			],
+		},
+		{
+			id: 'field-terminal-android',
+			title: 'Field Terminal Android App',
+			platform: 'Android',
+			area: 'Build recovery / field input',
+			period: '2026.03 ~ 2026.04',
+			role: 'Maintenance and build recovery',
+			workType: 'Maintenance',
+			weight: 'compact',
+			stack: ['Android Java', 'Gradle/AGP', 'Scanner SDK'],
+			headline:
+				'Separated operational signing from current build recovery so the field app could be verified again.',
+			summary:
+				'Recovered build and runtime flows for an Android app used on field devices, separating build tools, signing, login, initial data, and scan input checks.',
+			impact: [
+				{
+					value: 'build recovery',
+					label: 'Gradle/JDK cleanup',
+					detail: 'development build path separated from operational signing',
+				},
+				{
+					value: 'field input',
+					label: 'scan/device flow',
+					detail: 'login, initial sync, and input stages checked separately',
+				},
+			],
+			problem:
+				'When operational signing or old build assumptions block local builds, developers cannot verify features. Emulator-passing flows can also fail on field devices because of input timing.',
+			thinking: [
+				'Separated deployment signing conditions from whether local development builds could run.',
+				'Avoided treating build-tool updates and runtime behavior changes as one issue.',
+			],
+			process: [
+				'Narrowed build failures by Gradle, JDK, SDK, and signing condition.',
+				'Checked login, initial data, and scan input as separate stages.',
+			],
+			solution: [
+				'Separated signing conditions so development builds did not stop before verification.',
+				'Left device input behavior as a real-device verification item.',
+			],
+			checks: [
+				'Checked development and production build paths with the main entry flow.',
+				'Checked scan input and initial data flow by stage.',
 			],
 		},
 		{
@@ -629,7 +751,8 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'Visualization / editor UI',
 			period: '2026.03 ~ 2026.04',
 			role: 'Editor tool build',
-			weight: 'compact',
+			workType: 'Build',
+			weight: 'featured',
 			stack: ['React', 'TypeScript', 'Vite', 'Chart.js', 'MSW', 'Vitest'],
 			headline:
 				'Built an editing workflow where data roles, preview, and settings panels stayed connected.',
@@ -668,6 +791,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'Server Proxy / WebView QA',
 			period: '2026.06',
 			role: 'Feature integration and security boundary',
+			workType: 'Feature extension',
 			weight: 'compact',
 			stack: ['Android WebView', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
@@ -707,6 +831,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'Admin UI / state boundary',
 			period: '2026.03',
 			role: 'Business screen build',
+			workType: 'Business UI build',
 			weight: 'compact',
 			stack: [
 				'React',
@@ -750,6 +875,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			area: 'JSP / jQuery impact mapping',
 			period: '2026.06',
 			role: 'Split analysis and regression baseline',
+			workType: 'Impact analysis',
 			weight: 'compact',
 			stack: ['JSP', 'jQuery', 'Server-rendered web'],
 			headline:

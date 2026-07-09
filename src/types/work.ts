@@ -13,6 +13,7 @@ export interface ProfessionalCase {
 	area: string;
 	period: string;
 	role: string;
+	workType: string;
 	weight: WorkCaseWeight;
 	stack: string[];
 	headline: string;

@@ -1,6 +1,6 @@
 export type WorkCaseWeight = 'featured' | 'compact';
 
-export interface WorkMetric {
+export interface WorkImpact {
 	value: string;
 	label: string;
 	detail?: string;
@@ -17,9 +17,10 @@ export interface ProfessionalCase {
 	stack: string[];
 	headline: string;
 	summary: string;
-	metrics: WorkMetric[];
-	scope: string[];
-	contribution: string[];
-	outcome: string[];
-	verification: string[];
+	problem: string;
+	thinking: string[];
+	process: string[];
+	solution: string[];
+	impact: WorkImpact[];
+	checks: string[];
 }

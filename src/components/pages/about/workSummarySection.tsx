@@ -5,11 +5,11 @@ import { useLocale } from '@/contexts/localeContext';
 import { getLocalizedPath } from '@/lib/locale';
 
 const ABOUT_WORK_CASE_IDS = [
-	'operations-web-performance',
-	'mobile-print-bridge',
-	'finance-admin-web',
-	'chart-editor',
-	'kickoff-documentation-tool',
+	'delivery-operations-web',
+	'hybrid-life-info-platform',
+	'ai-kickoff-documentation-tool',
+	'mobile-webview-device-runtime',
+	'hybrid-security-boundary',
 ];
 
 const WorkSummarySection = () => {

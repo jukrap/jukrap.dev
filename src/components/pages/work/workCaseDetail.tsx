@@ -5,7 +5,6 @@ import type { ProfessionalCase } from '@/types/work';
 
 interface WorkCaseDetailProps {
 	workCase: ProfessionalCase;
-	relatedCase?: ProfessionalCase;
 	labels: {
 		stack: string;
 		problem: string;
@@ -52,11 +51,7 @@ const FlowList = ({ items }: { items: string[] }) => (
 	</ul>
 );
 
-export const WorkCaseDetail = ({
-	workCase,
-	relatedCase,
-	labels,
-}: WorkCaseDetailProps) => (
+export const WorkCaseDetail = ({ workCase, labels }: WorkCaseDetailProps) => (
 	<article
 		id={workCase.id}
 		className="scroll-mt-24 border-t border-border/45 py-10 sm:py-12"
@@ -87,21 +82,6 @@ export const WorkCaseDetail = ({
 					<p className="text-sm leading-6 text-muted-foreground break-keep">
 						{workCase.summary}
 					</p>
-					{relatedCase && workCase.relatedLabel && (
-						<a
-							href={`#${relatedCase.id}`}
-							className="inline-flex max-w-full flex-col gap-1 rounded-lg border border-border/35 px-3 py-2 text-sm interactive-soft hover:border-accent/45 hover:bg-secondary/25"
-						>
-							<span className="font-bold text-accent">
-								{workCase.relatedLabel} · {relatedCase.title}
-							</span>
-							{workCase.relatedDescription && (
-								<span className="text-xs leading-5 text-muted-foreground break-keep">
-									{workCase.relatedDescription}
-								</span>
-							)}
-						</a>
-					)}
 				</div>
 			</div>
 

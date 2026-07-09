@@ -5,6 +5,7 @@ import type { ProfessionalCase } from '@/types/work';
 
 interface WorkCaseDetailProps {
 	workCase: ProfessionalCase;
+	linkedFromPrevious?: boolean;
 	labels: {
 		stack: string;
 		problem: string;
@@ -51,10 +52,19 @@ const FlowList = ({ items }: { items: string[] }) => (
 	</ul>
 );
 
-export const WorkCaseDetail = ({ workCase, labels }: WorkCaseDetailProps) => (
+export const WorkCaseDetail = ({
+	workCase,
+	linkedFromPrevious = false,
+	labels,
+}: WorkCaseDetailProps) => (
 	<article
 		id={workCase.id}
-		className="scroll-mt-24 border-t border-border/45 py-10 sm:py-12"
+		className={[
+			'scroll-mt-24 pb-10 sm:pb-12',
+			linkedFromPrevious
+				? 'pt-8 sm:pt-10'
+				: 'border-t border-border/45 pt-10 sm:pt-12',
+		].join(' ')}
 	>
 		<header className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start">
 			<div className="min-w-0 space-y-4">

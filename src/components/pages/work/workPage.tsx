@@ -57,10 +57,17 @@ const CaseBridge = ({
 	source: ProfessionalCase;
 	target: ProfessionalCase;
 }) => (
-	<div className="-my-2 px-0 sm:-my-3 sm:px-6">
-		<div className="relative">
-			<div className="absolute left-0 right-0 top-1/2 hidden h-px -translate-y-1/2 bg-border/45 sm:block" />
-			<div className="relative mx-auto max-w-3xl rounded-lg border border-border/35 bg-background px-4 py-3 sm:px-5">
+	<div className="-my-1 px-0 py-1 sm:-my-2 sm:px-6">
+		<div className="relative mx-auto max-w-3xl pl-7">
+			<div
+				className="absolute left-2 top-[-0.75rem] flex h-[calc(100%+1.5rem)] flex-col items-center"
+				aria-hidden="true"
+			>
+				<span className="h-2 w-2 rounded-full border border-accent/55 bg-background" />
+				<span className="w-px flex-1 bg-accent/35" />
+				<span className="h-2 w-2 rounded-full border border-accent/55 bg-background" />
+			</div>
+			<div className="relative rounded-lg border border-accent/25 bg-secondary/20 px-4 py-3 sm:px-5">
 				<div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 					<div className="min-w-0 space-y-1">
 						<p className="text-xs font-bold uppercase tracking-[0.12em] text-accent">
@@ -75,17 +82,20 @@ const CaseBridge = ({
 					<div className="flex shrink-0 flex-wrap items-center gap-2 text-sm font-bold">
 						<a
 							href={`#${source.id}`}
-							className="rounded-full border border-border/35 px-2.5 py-1 interactive-soft hover:border-accent/45 hover:text-accent"
+							className="inline-flex items-center gap-1 rounded-full border border-border/35 bg-background px-2.5 py-1 interactive-soft hover:border-accent/45 hover:text-accent"
 						>
+							<span className="text-accent" aria-hidden="true">
+								↑
+							</span>
 							{source.title}
 						</a>
-						<span className="text-muted-foreground" aria-hidden="true">
-							↔
-						</span>
 						<a
 							href={`#${target.id}`}
-							className="rounded-full border border-border/35 px-2.5 py-1 interactive-soft hover:border-accent/45 hover:text-accent"
+							className="inline-flex items-center gap-1 rounded-full border border-border/35 bg-background px-2.5 py-1 interactive-soft hover:border-accent/45 hover:text-accent"
 						>
+							<span className="text-accent" aria-hidden="true">
+								↓
+							</span>
 							{target.title}
 						</a>
 					</div>
@@ -245,14 +255,20 @@ export const WorkPage = () => {
 						</h2>
 						<div>
 							{featuredCases.map((workCase, index) => {
+								const previousCase = featuredCases[index - 1];
 								const nextCase = featuredCases[index + 1];
+								const linkedFromPrevious = previousCase?.relatedCaseId === workCase.id;
 								const shouldBridge =
 									workCase.id === 'delivery-operations-web' &&
 									nextCase?.id === 'mobile-output-bridge';
 
 								return (
 									<Fragment key={workCase.id}>
-										<WorkCaseDetail workCase={workCase} labels={work.labels} />
+										<WorkCaseDetail
+											workCase={workCase}
+											linkedFromPrevious={linkedFromPrevious}
+											labels={work.labels}
+										/>
 										{shouldBridge && <CaseBridge source={workCase} target={nextCase} />}
 									</Fragment>
 								);

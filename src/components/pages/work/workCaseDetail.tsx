@@ -5,6 +5,7 @@ import type { ProfessionalCase } from '@/types/work';
 
 interface WorkCaseDetailProps {
 	workCase: ProfessionalCase;
+	relatedCase?: ProfessionalCase;
 	labels: {
 		stack: string;
 		problem: string;
@@ -51,7 +52,11 @@ const FlowList = ({ items }: { items: string[] }) => (
 	</ul>
 );
 
-export const WorkCaseDetail = ({ workCase, labels }: WorkCaseDetailProps) => (
+export const WorkCaseDetail = ({
+	workCase,
+	relatedCase,
+	labels,
+}: WorkCaseDetailProps) => (
 	<article
 		id={workCase.id}
 		className="scroll-mt-24 border-t border-border/45 py-10 sm:py-12"
@@ -82,6 +87,21 @@ export const WorkCaseDetail = ({ workCase, labels }: WorkCaseDetailProps) => (
 					<p className="text-sm leading-6 text-muted-foreground break-keep">
 						{workCase.summary}
 					</p>
+					{relatedCase && workCase.relatedLabel && (
+						<a
+							href={`#${relatedCase.id}`}
+							className="inline-flex max-w-full flex-col gap-1 rounded-lg border border-border/35 px-3 py-2 text-sm interactive-soft hover:border-accent/45 hover:bg-secondary/25"
+						>
+							<span className="font-bold text-accent">
+								{workCase.relatedLabel} · {relatedCase.title}
+							</span>
+							{workCase.relatedDescription && (
+								<span className="text-xs leading-5 text-muted-foreground break-keep">
+									{workCase.relatedDescription}
+								</span>
+							)}
+						</a>
+					)}
 				</div>
 			</div>
 
@@ -115,14 +135,14 @@ export const WorkCaseDetail = ({ workCase, labels }: WorkCaseDetailProps) => (
 			</FlowBlock>
 		</div>
 
-		<footer className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-			<section className="min-w-0 space-y-3">
+		<footer className="mt-8 grid items-stretch gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+			<section className="flex min-w-0 flex-col gap-3">
 				<h4 className="text-sm font-bold text-foreground">{labels.impact}</h4>
-				<dl className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+				<dl className="grid flex-1 auto-rows-fr gap-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
 					{workCase.impact.map((item) => (
 						<div
 							key={`${item.value}-${item.label}`}
-							className="min-w-0 rounded-lg bg-secondary/25 px-3 py-3"
+							className="flex h-full min-w-0 flex-col rounded-lg bg-secondary/25 px-3 py-3"
 						>
 							<dt className="text-base font-bold text-foreground tabular-nums break-words">
 								{item.value}
@@ -140,13 +160,13 @@ export const WorkCaseDetail = ({ workCase, labels }: WorkCaseDetailProps) => (
 				</dl>
 			</section>
 
-			<section className="min-w-0 space-y-3">
+			<section className="flex min-w-0 flex-col gap-3">
 				<h4 className="text-sm font-bold text-foreground">{labels.checks}</h4>
-				<ul className="grid gap-2 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+				<ul className="grid flex-1 auto-rows-fr gap-2 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
 					{workCase.checks.map((item) => (
 						<li
 							key={item}
-							className="rounded-lg border border-border/30 px-3 py-2 text-sm leading-6 text-muted-foreground break-keep"
+							className="flex h-full items-start rounded-lg border border-border/30 px-3 py-2 text-sm leading-6 text-muted-foreground break-keep"
 						>
 							{item}
 						</li>

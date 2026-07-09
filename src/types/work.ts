@@ -15,6 +15,9 @@ export interface ProfessionalCase {
 	role: string;
 	workType: string;
 	weight: WorkCaseWeight;
+	relatedCaseId?: string;
+	relatedLabel?: string;
+	relatedDescription?: string;
 	stack: string[];
 	headline: string;
 	summary: string;

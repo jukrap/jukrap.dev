@@ -1,29 +1,53 @@
 'use client';
 
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { useLocale } from '@/contexts/localeContext';
 import type { ProfessionalCase } from '@/types/work';
 import { WorkCaseDetail } from './workCaseDetail';
+
+const featuredCaseOrder = [
+	'delivery-operations-web',
+	'mobile-output-bridge',
+	'ai-kickoff-documentation-tool',
+	'structured-editor-ui',
+	'hybrid-life-info-platform',
+];
+
+const byFeaturedOrder = (workCase: ProfessionalCase) => {
+	const index = featuredCaseOrder.indexOf(workCase.id);
+	return index === -1 ? featuredCaseOrder.length : index;
+};
 
 const CaseIndex = ({
 	title,
 	cases,
 	className = '',
+	variant = 'inline',
 }: {
 	title: string;
 	cases: ProfessionalCase[];
 	className?: string;
+	variant?: 'inline' | 'vertical';
 }) => (
-	<div className={`space-y-2 ${className}`}>
-		<p className="text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
-			{title}
-		</p>
-		<nav className="flex flex-wrap gap-1.5 sm:gap-2" aria-label={title}>
+	<div className={className}>
+		<nav
+			className={
+				variant === 'vertical'
+					? 'flex flex-col gap-2'
+					: 'flex flex-wrap gap-1.5 sm:gap-2'
+			}
+			aria-label={title}
+		>
 			{cases.map((workCase) => (
 				<a
 					key={workCase.id}
 					href={`#${workCase.id}`}
-					className="group inline-flex max-w-full min-w-0 items-center gap-2 rounded-full border border-border/35 px-2.5 py-1.5 text-sm interactive-soft hover:border-accent/45 hover:bg-secondary/25 sm:w-auto"
+					className={[
+						'group inline-flex max-w-full min-w-0 items-center gap-2 border border-border/35 text-sm interactive-soft hover:border-accent/45 hover:bg-secondary/25',
+						variant === 'vertical'
+							? 'w-full rounded-lg px-2.5 py-2'
+							: 'rounded-full px-2.5 py-1.5 sm:w-auto',
+					].join(' ')}
 				>
 					<span className="shrink-0 text-xs font-bold uppercase tracking-[0.08em] text-accent">
 						{workCase.platform}
@@ -34,6 +58,59 @@ const CaseIndex = ({
 				</a>
 			))}
 		</nav>
+	</div>
+);
+
+const WorkSideToc = ({
+	title,
+	featuredTitle,
+	compactTitle,
+	featuredCases,
+	compactCases,
+}: {
+	title: string;
+	featuredTitle: string;
+	compactTitle: string;
+	featuredCases: ProfessionalCase[];
+	compactCases: ProfessionalCase[];
+}) => (
+	<aside className="hidden xl:sticky xl:top-24 xl:block">
+		<div className="space-y-4 rounded-lg border border-border/35 px-4 py-4">
+			<h2 className="text-sm font-bold tracking-tight text-foreground">{title}</h2>
+			<CaseIndex title={featuredTitle} cases={featuredCases} variant="vertical" />
+			<div className="border-t border-border/30 pt-4">
+				<CaseIndex title={compactTitle} cases={compactCases} variant="vertical" />
+			</div>
+		</div>
+	</aside>
+);
+
+const CaseBridge = ({
+	source,
+	target,
+}: {
+	source: ProfessionalCase;
+	target: ProfessionalCase;
+}) => (
+	<div className="-my-3 flex items-center gap-3 px-1 sm:-my-4 sm:px-4">
+		<div className="hidden h-px flex-1 bg-border/45 sm:block" />
+		<a
+			href={`#${target.id}`}
+			className="flex min-w-0 flex-col rounded-lg border border-border/35 bg-background px-4 py-3 text-center interactive-soft hover:border-accent/45 hover:bg-secondary/20 sm:max-w-xl"
+		>
+			<span className="text-xs font-bold uppercase tracking-[0.12em] text-accent">
+				{source.relatedLabel}
+			</span>
+			<span className="mt-1 text-sm font-bold text-foreground break-keep">
+				{source.title} ↔ {target.title}
+			</span>
+			{source.relatedDescription && (
+				<span className="mt-1 text-xs leading-5 text-muted-foreground break-keep">
+					{source.relatedDescription}
+				</span>
+			)}
+		</a>
+		<div className="hidden h-px flex-1 bg-border/45 sm:block" />
 	</div>
 );
 
@@ -137,17 +214,22 @@ export const WorkPage = () => {
 	const { dictionary, data } = useLocale();
 	const { work } = dictionary;
 	const featuredCases = useMemo(
-		() => data.workCases.filter((workCase) => workCase.weight === 'featured'),
+		() =>
+			data.workCases
+				.filter((workCase) => workCase.weight === 'featured')
+				.sort((a, b) => byFeaturedOrder(a) - byFeaturedOrder(b)),
 		[data.workCases],
 	);
 	const compactCases = useMemo(
 		() => data.workCases.filter((workCase) => workCase.weight === 'compact'),
 		[data.workCases],
 	);
+	const getCaseById = (id?: string) =>
+		id ? data.workCases.find((workCase) => workCase.id === id) : undefined;
 
 	return (
 		<main className="flex w-full flex-col items-center px-4 py-8 sm:px-6 sm:py-12 lg:px-20 lg:py-20">
-			<div className="flex w-full max-w-6xl flex-col gap-10 sm:gap-14">
+			<div className="flex w-full max-w-7xl flex-col gap-10 sm:gap-14">
 				<section className="space-y-5 border-b border-border/40 pb-8 sm:pb-10">
 					<h1 className="font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight">
 						{work.title}
@@ -157,7 +239,7 @@ export const WorkPage = () => {
 					</p>
 				</section>
 
-				<section className="space-y-4" aria-labelledby="work-index-title">
+				<section className="space-y-4 xl:hidden" aria-labelledby="work-index-title">
 					<h2
 						id="work-index-title"
 						className="text-xl font-bold tracking-tight text-foreground sm:text-2xl"
@@ -167,52 +249,72 @@ export const WorkPage = () => {
 					<CaseIndex title={work.featuredTitle} cases={featuredCases} />
 				</section>
 
-				<div className="min-w-0 space-y-12">
-					<section className="space-y-1" aria-labelledby="work-featured-title">
-						<h2
-							id="work-featured-title"
-							className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
-						>
-							{work.featuredTitle}
-						</h2>
-						<div>
-							{featuredCases.map((workCase) => (
-								<WorkCaseDetail
-									key={workCase.id}
-									workCase={workCase}
-									labels={work.labels}
-								/>
-							))}
-						</div>
-					</section>
-
-					<section className="space-y-4" aria-labelledby="work-compact-title">
-						<div className="flex flex-col gap-3 border-t border-border/40 pt-8 sm:flex-row sm:items-end sm:justify-between">
+				<div className="grid min-w-0 gap-10 xl:grid-cols-[minmax(0,1fr)_13rem] xl:items-start">
+					<div className="min-w-0 space-y-12">
+						<section className="space-y-1" aria-labelledby="work-featured-title">
 							<h2
-								id="work-compact-title"
+								id="work-featured-title"
 								className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
 							>
-								{work.compactTitle}
+								{work.featuredTitle}
 							</h2>
-							<p className="max-w-2xl text-sm leading-6 text-muted-foreground break-keep">
-								{work.compactIntro}
-							</p>
-						</div>
-						<CaseIndex
-							title={work.compactTitle}
-							cases={compactCases}
-							className="border-b border-border/35 pb-4"
-						/>
-						<div className="rounded-lg border border-border/35 px-4 sm:px-5">
-							{compactCases.map((workCase) => (
-								<CompactCase
-									key={workCase.id}
-									workCase={workCase}
-									labels={work.labels}
-								/>
-							))}
-						</div>
-					</section>
+							<div>
+								{featuredCases.map((workCase, index) => {
+									const relatedCase = getCaseById(workCase.relatedCaseId);
+									const nextCase = featuredCases[index + 1];
+									const shouldBridge =
+										workCase.id === 'delivery-operations-web' &&
+										nextCase?.id === 'mobile-output-bridge';
+
+									return (
+										<Fragment key={workCase.id}>
+											<WorkCaseDetail
+												workCase={workCase}
+												relatedCase={relatedCase}
+												labels={work.labels}
+											/>
+											{shouldBridge && <CaseBridge source={workCase} target={nextCase} />}
+										</Fragment>
+									);
+								})}
+							</div>
+						</section>
+
+						<section className="space-y-4" aria-labelledby="work-compact-title">
+							<div className="flex flex-col gap-3 border-t border-border/40 pt-8 sm:flex-row sm:items-end sm:justify-between">
+								<h2
+									id="work-compact-title"
+									className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+								>
+									{work.compactTitle}
+								</h2>
+								<p className="max-w-2xl text-sm leading-6 text-muted-foreground break-keep">
+									{work.compactIntro}
+								</p>
+							</div>
+							<CaseIndex
+								title={work.compactTitle}
+								cases={compactCases}
+								className="border-b border-border/35 pb-4 xl:hidden"
+							/>
+							<div className="rounded-lg border border-border/35 px-4 sm:px-5">
+								{compactCases.map((workCase) => (
+									<CompactCase
+										key={workCase.id}
+										workCase={workCase}
+										labels={work.labels}
+									/>
+								))}
+							</div>
+						</section>
+					</div>
+					<WorkSideToc
+						title={work.indexTitle}
+						featuredTitle={work.featuredTitle}
+						compactTitle={work.compactTitle}
+						featuredCases={featuredCases}
+						compactCases={compactCases}
+					/>
 				</div>
 			</div>
 		</main>

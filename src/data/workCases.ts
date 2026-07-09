@@ -12,6 +12,10 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			role: '신규 구축/안정화',
 			workType: '신규 개발',
 			weight: 'featured',
+			relatedCaseId: 'mobile-output-bridge',
+			relatedLabel: '같은 업무 흐름',
+			relatedDescription:
+				'프린터 SDK 제약 때문에 웹 운영 화면과 모바일 출력 앱을 분리해 구축했습니다.',
 			stack: [
 				'React',
 				'TypeScript',
@@ -199,6 +203,10 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			role: '신규 구축/출력 연동',
 			workType: '신규 개발',
 			weight: 'featured',
+			relatedCaseId: 'delivery-operations-web',
+			relatedLabel: '같은 업무 흐름',
+			relatedDescription:
+				'웹 버전과 같은 업무 흐름을 모바일 WebView와 native 출력 경로로 연결했습니다.',
 			stack: [
 				'Expo',
 				'React Native',
@@ -374,12 +382,12 @@ export const workCases: Localized<ProfessionalCase[]> = {
 		},
 		{
 			id: 'react-admin-state-migration',
-			title: 'React 상태 기반 업무 UI 전환',
+			title: '금융 업무 관리 웹',
 			platform: 'Web',
-			area: 'Admin UI / 상태 경계',
+			area: '금융 업무 / 관리 화면',
 			period: '2026.03',
-			role: '업무 화면 구축',
-			workType: '업무 화면 개발',
+			role: '관리 화면 구현/안정화',
+			workType: '기능 구현',
 			weight: 'compact',
 			stack: [
 				'React',
@@ -390,9 +398,9 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Zustand',
 			],
 			headline:
-				'반복 업무 화면을 직접 DOM 조작이 아니라 React 상태와 서버 상태 흐름으로 옮겼습니다.',
+				'금융 업무 화면의 목록, 필터, 모달, 세션 흐름을 React 상태와 서버 상태 흐름으로 옮겼습니다.',
 			summary:
-				'데이터가 많은 관리 화면에서 table, filter, modal, session 흐름을 공통 구조로 잡았습니다.',
+				'목록 조회, 검색 모달, 상세 확인, 등록/수정, 상태 변경처럼 반복되는 관리 흐름을 공통 구조로 잡았습니다.',
 			impact: [
 				{
 					value: 'React Query',
@@ -401,7 +409,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				},
 			],
 			problem:
-				'직접 DOM 조작에 의존하면 비슷한 테이블과 모달이 늘어날수록 변경 지점이 흩어지고, 공통 문제가 화면별 예외로 남을 수 있었습니다.',
+				'금융성 업무 화면에서 직접 DOM 조작에 의존하면 비슷한 테이블과 모달이 늘어날수록 변경 지점이 흩어지고, 공통 문제가 화면별 예외로 남을 수 있었습니다.',
 			thinking: [
 				'반복 table/filter/modal 패턴은 공통 primitive로 묶되, 업무별 의미는 각 화면에 남겼습니다.',
 				'서버 데이터 갱신은 React Query 흐름으로 모으고 화면 상태는 별도로 관리했습니다.',
@@ -464,6 +472,10 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			role: 'Build and stabilization',
 			workType: 'Build',
 			weight: 'featured',
+			relatedCaseId: 'mobile-output-bridge',
+			relatedLabel: 'Same workflow',
+			relatedDescription:
+				'The web operations screen and mobile output app were split because of printer SDK constraints.',
 			stack: [
 				'React',
 				'TypeScript',
@@ -651,6 +663,10 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			role: 'Build and output integration',
 			workType: 'Build',
 			weight: 'featured',
+			relatedCaseId: 'delivery-operations-web',
+			relatedLabel: 'Same workflow',
+			relatedDescription:
+				'The same business workflow was connected through mobile WebView and native output paths.',
 			stack: [
 				'Expo',
 				'React Native',
@@ -826,12 +842,12 @@ export const workCases: Localized<ProfessionalCase[]> = {
 		},
 		{
 			id: 'react-admin-state-migration',
-			title: 'React State-driven Admin UI Migration',
+			title: 'Financial Operations Admin Web',
 			platform: 'Web',
-			area: 'Admin UI / state boundary',
+			area: 'Financial operations / admin screens',
 			period: '2026.03',
-			role: 'Business screen build',
-			workType: 'Business UI build',
+			role: 'Admin screen implementation and stabilization',
+			workType: 'Feature build',
 			weight: 'compact',
 			stack: [
 				'React',
@@ -842,9 +858,9 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Zustand',
 			],
 			headline:
-				'Moved repeated business screens from direct DOM manipulation toward React state and server-state flows.',
+				'Moved financial operations lists, filters, modals, and session flows toward React state and server-state flows.',
 			summary:
-				'Built data-heavy admin screens around shared table, filter, modal, and session-flow patterns.',
+				'Organized repeated admin flows such as lookup, search modals, detail checks, create/update, and status changes into shared structures.',
 			impact: [
 				{
 					value: 'React Query',
@@ -853,7 +869,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				},
 			],
 			problem:
-				'Direct DOM manipulation spreads change points as similar tables and modals grow, while shared concerns can become screen-by-screen exceptions.',
+				'In financial operations screens, direct DOM manipulation spreads change points as similar tables and modals grow, while shared concerns can become screen-by-screen exceptions.',
 			thinking: [
 				'Grouped repeated table/filter/modal behavior into common primitives while leaving domain meaning at the screen level.',
 				'Consolidated server data refresh through React Query and kept screen state separate.',

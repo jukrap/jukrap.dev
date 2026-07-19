@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: 'Pretendard Fallback';
+	src: local('Arial');
+	font-style: normal;
+	font-weight: 45 920;
+	ascent-override: 93.76%;
+	descent-override: 23.75%;
+	line-gap-override: 0%;
+	size-adjust: 101.55%;
+}
+
 @layer base {
 	:root {
 		--blacks: 60 6% 10%;
@@ -118,6 +129,17 @@
 
 	body {
 		@apply bg-background text-foreground;
+		font-family:
+			'Pretendard Variable',
+			'Pretendard Fallback',
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			'Apple SD Gothic Neo',
+			'Noto Sans KR',
+			'Malgun Gothic',
+			Arial,
+			sans-serif;
 	}
 }
 
@@ -140,36 +162,6 @@
 	100% {
 		transform: translateY(0);
 		opacity: 1;
-	}
-}
-
-@keyframes tracking-in-expand {
-	0% {
-		letter-spacing: -0.5em;
-		opacity: 0;
-	}
-
-	40% {
-		opacity: 0.6;
-	}
-
-	100% {
-		opacity: 1;
-	}
-}
-
-@keyframes tracking-out-contract {
-	0% {
-		opacity: 1;
-	}
-
-	50% {
-		opacity: 1;
-	}
-
-	100% {
-		letter-spacing: -0.5em;
-		opacity: 0;
 	}
 }
 
@@ -349,15 +341,6 @@
 		/* IE and Edge */
 		scrollbar-width: none;
 		/* Firefox */
-	}
-
-	.tracking-in-expand {
-		animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
-	}
-
-	.tracking-out-contract {
-		animation: tracking-out-contract 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53)
-			both;
 	}
 
 	.backface-hidden {

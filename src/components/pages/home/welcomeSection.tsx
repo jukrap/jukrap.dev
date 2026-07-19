@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useLocale } from '@/contexts/localeContext';
 import useTypingEffect from '@/hook/useTypingEffect';
 
@@ -15,9 +14,9 @@ export const WelcomeSection = () => {
 	});
 
 	return (
-		<section className="flex flex-col items-center gap-6 md:gap-10 w-full max-w-3xl">
-			<div className="flex items-center border-foreground leading-6 py-3 border-t border-b gap-65">
-				<h1 className="font-bold text-4xl md:text-6xl lg:text-8xl text-center text-foreground min-h-[3rem] md:min-h-[4.5rem] w-full select-none">
+		<section className="flex w-full max-w-3xl flex-col items-center gap-6 md:gap-10">
+			<div className="gap-65 flex items-center border-y border-foreground py-3 leading-6">
+				<h1 className="min-h-[3rem] w-full select-none text-center text-4xl font-bold text-foreground md:min-h-[4.5rem] md:text-6xl lg:text-8xl">
 					{typedText.split('').map((char, index) => (
 						<span
 							key={index}
@@ -29,7 +28,7 @@ export const WelcomeSection = () => {
 					{typedText === '' && <span className="opacity-0">_</span>}
 				</h1>
 			</div>
-			<p className="font-bold text-xl md:text-2xl lg:text-3xl text-center text-foreground break-keep">
+			<p className="break-keep text-center text-xl font-bold text-foreground md:text-2xl lg:text-3xl">
 				{dictionary.home.welcome}
 			</p>
 		</section>

@@ -78,17 +78,24 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'웹, 모바일 앱, Android, 개발 도구 중심의 업무 경험을 정리했습니다. 각 항목에서는 문제 상황, 판단 이유, 해결 방식, 확인한 결과를 보실 수 있습니다.',
+				'웹과 모바일 앱에서 사용자 흐름을 완결하고, WebView·Android·운영 환경의 경계를 조율한 업무 경험을 정리했습니다.',
 			indexTitle: '업무 사례',
+			currentStory: '현재 업무',
+			openTableOfContents: '목차 열기',
+			closeTableOfContents: '목차 닫기',
 			featuredTitle: '핵심 사례',
 			compactTitle: '함께 정리한 업무',
 			compactIntro:
 				'신규 개발 중심 사례와 별개로, 유지보수·기능 확장·영향 분석처럼 실제 업무에서 맡은 성격이 다른 작업을 분리했습니다.',
 			labels: {
 				stack: '사용 기술',
+				context: '상황과 제약',
+				decisions: '판단과 실행',
+				results: '결과와 검증',
+				additionalEvidence: '추가 근거',
 				problem: '문제',
 				thinking: '판단',
-				process: '과정',
+				process: '실행',
 				solution: '해결',
 				impact: '성과',
 				checks: '확인',
@@ -209,17 +216,24 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'I organized work experience across web, mobile apps, Android, and developer tooling. Each item focuses on the problem, the decision behind the work, the solution, and the checks that followed.',
+				'Work across web and mobile apps, connecting user workflows while managing WebView, Android, and production boundaries.',
 			indexTitle: 'Work Index',
+			currentStory: 'Current story',
+			openTableOfContents: 'Open table of contents',
+			closeTableOfContents: 'Close table of contents',
 			featuredTitle: 'Case Notes',
 			compactTitle: 'Additional Work',
 			compactIntro:
 				'These are separated from build-heavy cases to show maintenance, feature extension, integration, and analysis work without mixing their scope.',
 			labels: {
 				stack: 'Stack',
+				context: 'Context and constraints',
+				decisions: 'Decisions and execution',
+				results: 'Results and verification',
+				additionalEvidence: 'Additional evidence',
 				problem: 'Problem',
 				thinking: 'Decision',
-				process: 'Process',
+				process: 'Execution',
 				solution: 'Solution',
 				impact: 'Impact',
 				checks: 'Checks',

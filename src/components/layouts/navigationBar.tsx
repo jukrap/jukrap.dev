@@ -12,6 +12,8 @@ import { getAlternateLocalePath, getLocalizedPath } from '@/lib/locale';
 import type { Locale } from '@/types/locale';
 import NavigationLink from '../common/navigationLink';
 
+const HASH_SYNC_EVENT = 'portfolio:hashchange';
+
 interface ThemeToggleProps {
 	isDarkMode: boolean;
 	label: string;
@@ -65,9 +67,25 @@ export function NavigationBar() {
 	const { locale, dictionary } = useLocale();
 	const pathname = usePathname() ?? getLocalizedPath('/', locale);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [currentHash, setCurrentHash] = useState('');
 	const titleText = 'Jukrap';
 	const nextLocale: Locale = locale === 'ko' ? 'en' : 'ko';
-	const languageHref = getAlternateLocalePath(pathname, nextLocale);
+	const languageHref = `${getAlternateLocalePath(pathname, nextLocale)}${currentHash}`;
+
+	useEffect(() => {
+		const syncHash = () => setCurrentHash(window.location.hash);
+
+		syncHash();
+		window.addEventListener('hashchange', syncHash);
+		window.addEventListener('popstate', syncHash);
+		window.addEventListener(HASH_SYNC_EVENT, syncHash);
+
+		return () => {
+			window.removeEventListener('hashchange', syncHash);
+			window.removeEventListener('popstate', syncHash);
+			window.removeEventListener(HASH_SYNC_EVENT, syncHash);
+		};
+	}, [pathname]);
 
 	useEffect(() => {
 		if (!isMenuOpen) return;

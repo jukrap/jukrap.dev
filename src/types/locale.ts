@@ -8,7 +8,7 @@ import type {
 	Skill,
 } from '@/types/profile';
 import type { Project, SimpleProject } from '@/types/project';
-import type { ProfessionalCase } from '@/types/work';
+import type { ProfessionalStory } from '@/types/work';
 
 export const locales = ['ko', 'en'] as const;
 
@@ -71,11 +71,18 @@ export interface LocaleDictionary {
 		title: string;
 		intro: string;
 		indexTitle: string;
+		currentStory: string;
+		openTableOfContents: string;
+		closeTableOfContents: string;
 		featuredTitle: string;
 		compactTitle: string;
 		compactIntro: string;
 		labels: {
 			stack: string;
+			context: string;
+			decisions: string;
+			results: string;
+			additionalEvidence: string;
 			problem: string;
 			thinking: string;
 			process: string;
@@ -120,7 +127,7 @@ export interface PortfolioData {
 	awards: Award[];
 	projects: SimpleProject[];
 	projectDetails: Project[];
-	workCases: ProfessionalCase[];
+	workStories: ProfessionalStory[];
 	homeLinks: Link[];
 	aboutLinks: Link[];
 	footerLinks: Link[];

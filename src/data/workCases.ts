@@ -1,9 +1,10 @@
 import type { Localized } from '@/types/locale';
-import type { ProfessionalCase } from '@/types/work';
+import type { WorkCaseRecord } from '@/types/work';
 
-export const workCases: Localized<ProfessionalCase[]> = {
+export const workCases: Localized<WorkCaseRecord[]> = {
 	ko: [
 		{
+			workstreamId: 'WS07',
 			id: 'delivery-operations-web',
 			title: '물류 운영 웹',
 			platform: 'Web',
@@ -11,11 +12,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.04 ~ 2026.06',
 			role: '신규 구축/안정화',
 			workType: '신규 개발',
-			weight: 'featured',
-			relatedCaseId: 'mobile-output-bridge',
-			relatedLabel: '같은 업무 흐름',
-			relatedDescription:
-				'프린터 SDK 제약 때문에 웹 운영 화면과 모바일 출력 앱을 분리해 구축했습니다.',
 			stack: [
 				'React',
 				'TypeScript',
@@ -58,6 +54,8 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'조회, 예약, 주소록, Excel, 출력 흐름을 같은 shell 안에서 이어지도록 먼저 묶었습니다.',
 				'모의 데이터와 실제 API adapter를 분리해 화면 상태와 연동 상태를 따로 확인했습니다.',
 				'출력 흐름은 PC와 모바일 조건을 나눠 formatter, preview, native 요청을 각각 검증했습니다.',
+				'앱, 인증, 공개 API, UI를 더 나눈 실험에서는 500.67 kB(gzip 164.69 kB)까지 줄었지만 초기 인증·API 경계와 첫 클릭 loading 부담이 커져 채택하지 않았습니다.',
+				'최종 지연 로딩 범위는 116개 파일·573개 테스트로 확인했고, PC 실물 라벨 출력 경로는 별도로 8개 파일·73개 테스트를 확인했습니다.',
 			],
 			solution: [
 				'공통 shell, table, modal, form, feedback 구조 위에 주요 업무 흐름을 얹었습니다.',
@@ -71,6 +69,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS10',
 			id: 'hybrid-life-info-platform',
 			title: '생활정보 하이브리드 서비스',
 			platform: 'Hybrid',
@@ -78,7 +77,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.06 ~ 2026.07',
 			role: '기능 안정화/운영 반영',
 			workType: '기능 안정화',
-			weight: 'featured',
 			stack: [
 				'Spring MVC',
 				'JSP',
@@ -120,6 +118,9 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'외부 API 호출, 기준 데이터 조회, 위치 fallback을 화면 loading 순서와 맞춰 다시 나눴습니다.',
 				'기준 데이터는 수집, 임시 저장, 필수값 검증, 교체 순서로 운영 반영 위험을 줄였습니다.',
 				'운영 파일은 변경 범위와 hash를 확인한 뒤 smoke로 실제 화면 흐름을 다시 확인했습니다.',
+				'요청 경로 밖에 대기질 측정소 673행과 법정동 20,560행의 기준 cache를 준비했습니다.',
+				'2026-07-02의 111개 파일 배포와 2026-07-08의 42개 manifest 배포는 서로 다른 작업으로 나눠 검증했습니다.',
+				'기준 데이터 갱신과 catalog 축소 자동화는 후속 과제로 남았고, JVM memory cache는 단일 Tomcat 범위라는 제한이 있습니다.',
 			],
 			solution: [
 				'핵심 정보 우선 loading과 section별 cache 기준을 구성했습니다.',
@@ -133,6 +134,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS06',
 			id: 'ai-kickoff-documentation-tool',
 			title: 'AI 보조 프로젝트 문서화 도구',
 			platform: 'Tooling',
@@ -140,7 +142,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.04',
 			role: '내부 도구 구축',
 			workType: '내부 도구 개발',
-			weight: 'featured',
 			stack: [
 				'Node.js',
 				'TypeScript',
@@ -182,6 +183,8 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'자료 스캔 결과를 preview로 보여준 뒤 사용자가 문서화 방향을 확인할 수 있게 했습니다.',
 				'생성 결과는 긴 문장 묶음이 아니라 workbook sheet 단위로 나눠 검토할 수 있게 했습니다.',
 				'수정은 전체 재생성이 아니라 선택한 sheet/cell 문맥을 기준으로 다시 요청하도록 좁혔습니다.',
+				'부분 실패는 manifest와 current/history artifact를 분리해 성공한 결과와 실패한 실행을 함께 추적했습니다.',
+				'AI가 정리할 수 있는 항목과 사용자가 결정해야 하는 항목을 나누고, 근거 없는 placeholder 생성을 억제했습니다.',
 			],
 			solution: [
 				'run workflow, scanner 결과, preview, detail artifact, logs, export 흐름을 연결했습니다.',
@@ -195,6 +198,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS05',
 			id: 'mobile-output-bridge',
 			title: '모바일 출력 브릿지 앱',
 			platform: 'Mobile',
@@ -202,11 +206,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.04 ~ 2026.06',
 			role: '신규 구축/출력 연동',
 			workType: '신규 개발',
-			weight: 'featured',
-			relatedCaseId: 'delivery-operations-web',
-			relatedLabel: '같은 업무 흐름',
-			relatedDescription:
-				'웹 버전과 같은 업무 흐름을 모바일 WebView와 native 출력 경로로 연결했습니다.',
 			stack: [
 				'Expo',
 				'React Native',
@@ -243,6 +242,8 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'웹에서 전달되는 출력 데이터를 native 출력 payload로 변환하는 경계를 먼저 잡았습니다.',
 				'Bluetooth 권한, 장비 탐색, 연결 상태, 출력 명령을 단계별로 확인했습니다.',
 				'로컬 개발, 테스트 설치, 운영 설치 조건을 분리해 잘못된 환경으로 붙는 문제를 줄였습니다.',
+				'Android 16/API 36에서 SDK 내부 장비 탐색 호출까지 따라가 취소 흐름과 BLUETOOTH_SCAN·BLUETOOTH_CONNECT 권한을 보완했습니다.',
+				'명령 queue 수락과 실제 종이 출력 완료는 다른 검증 기준으로 분리했습니다.',
 			],
 			solution: [
 				'WebView bridge와 Android native module 사이의 요청/응답 흐름을 정리했습니다.',
@@ -256,6 +257,62 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS01',
+			id: 'legacy-mobile-compatibility',
+			title: '레거시 모바일 앱 호환성',
+			platform: 'Android / Hybrid',
+			area: '빌드 체인 / OS 호환성 / WebView',
+			period: '2026.03',
+			role: '호환성 안정화/회귀 분리',
+			workType: '유지보수',
+			stack: [
+				'Android Java',
+				'Gradle/AGP',
+				'Android WebView',
+				'RxJava',
+				'FileProvider',
+			],
+			headline:
+				'최신 Android 빌드 정책 대응과 구형 런타임 회귀를 서로 다른 검증 축으로 분리했습니다.',
+			summary:
+				'오래된 Android 하이브리드 앱에서 빌드 체인, 권한과 파일 처리, WebView bridge, 로그인과 초기 동기화를 한꺼번에 바꾸지 않고 실패 경계별로 안정화했습니다.',
+			impact: [
+				{
+					value: '빌드 기준선 복구',
+					label: 'Gradle/AGP/JDK/SDK',
+					detail: '빌드 도구 변경과 target SDK·런타임 동작 변경을 분리',
+				},
+				{
+					value: '호환성 경계',
+					label: 'OS별 분기',
+					detail: '권한, 파일 URI, back API, service 호출을 helper로 격리',
+				},
+			],
+			problem:
+				'구형 Gradle·AGP와 최신 개발 환경이 맞지 않았고, 최신 SDK 정책을 그대로 적용하면 파일 접근, 권한, service, back API가 구형 OS 진입과 WebView 흐름에 별도 회귀를 만들 수 있었습니다.',
+			thinking: [
+				'빌드 성공과 런타임 호환성을 같은 완료 조건으로 취급하지 않았습니다.',
+				'최신 API 타입과 OS별 권한·파일 처리는 화면 코드가 아니라 compatibility helper 경계에 두었습니다.',
+				'로그인, 초기 동기화, WebView navigation, bridge 오류를 서로 다른 실패 채널로 나눴습니다.',
+			],
+			process: [
+				'Gradle, AGP, JDK, compile SDK와 module namespace를 단계적으로 정렬했습니다.',
+				'content URI, FileProvider, Bluetooth 권한, scanner와 service 실행 조건을 OS 정책별로 점검했습니다.',
+				'bridge null/error 응답, 비동기 종료, 로그인과 초기 동기화 실패를 분리해 회귀 원인을 좁혔습니다.',
+			],
+			solution: [
+				'레거시 support 의존성의 전면 재작성 없이 컴파일 가능한 기준선을 만들었습니다.',
+				'최신 back API 직접 참조와 파일·권한 분기를 helper 안으로 캡슐화했습니다.',
+				'WebView bridge 응답과 비동기 오류를 정규화하고, 장비·외부 기능 실패가 앱 전체 종료로 번지지 않는 fallback을 정리했습니다.',
+			],
+			checks: [
+				'debug와 release 빌드, IDE sync와 compile 경로를 확인했습니다.',
+				'호환성 helper와 bridge fallback의 단위 테스트를 확인했습니다.',
+				'구형 OS 확인이 필요한 항목과 정적 빌드로 확인한 항목을 분리해 남겼습니다.',
+			],
+		},
+		{
+			workstreamId: 'WS02',
 			id: 'field-terminal-android',
 			title: '현장 단말 Android 앱',
 			platform: 'Android',
@@ -263,7 +320,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.03 ~ 2026.04',
 			role: '유지보수/빌드 복구',
 			workType: '유지보수',
-			weight: 'compact',
 			stack: ['Android Java', 'Gradle/AGP', 'Scanner SDK'],
 			headline:
 				'운영 서명과 최근 빌드 환경을 분리해 현장 앱을 다시 확인 가능한 상태로 만들었습니다.',
@@ -301,6 +357,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS04',
 			id: 'structured-editor-ui',
 			title: '구조화된 차트 편집 UI',
 			platform: 'Web',
@@ -308,7 +365,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.03 ~ 2026.04',
 			role: '편집 도구 구축',
 			workType: '신규 개발',
-			weight: 'featured',
 			stack: ['React', 'TypeScript', 'Vite', 'Chart.js', 'MSW', 'Vitest'],
 			headline:
 				'차트 렌더링이 아니라, 데이터 역할·preview·설정 패널이 맞물리는 편집 경험으로 정리했습니다.',
@@ -330,6 +386,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			process: [
 				'차트 타입, field mapping, preview, option panel을 같은 편집 흐름으로 맞췄습니다.',
 				'설정 변경 때 preview가 불필요하게 다시 붙는 조건을 줄였습니다.',
+				'portal 도움말, drag overlay, loading·empty·error 상태와 renderer 경계를 별도로 확인했습니다.',
 			],
 			solution: [
 				'6개 영역의 설정 패널과 preview 흐름을 구성했습니다.',
@@ -341,6 +398,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS08',
 			id: 'hybrid-security-boundary',
 			title: '하이브리드 보안 기능 경계 설계',
 			platform: 'Hybrid',
@@ -348,7 +406,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.06',
 			role: '기능 통합/보안 경계 정리',
 			workType: '기능 확장',
-			weight: 'compact',
 			stack: ['Android WebView', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
 				'외부 인증 정보를 클라이언트에 두지 않고 서버 프록시와 WebView QA 경계로 나눴습니다.',
@@ -381,6 +438,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS03',
 			id: 'react-admin-state-migration',
 			title: '금융 업무 관리 웹',
 			platform: 'Web',
@@ -388,7 +446,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.03',
 			role: '관리 화면 구현/안정화',
 			workType: '기능 구현',
-			weight: 'compact',
 			stack: [
 				'React',
 				'TypeScript',
@@ -425,6 +482,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			checks: ['table, filter, modal, session 흐름을 화면 단위로 확인했습니다.'],
 		},
 		{
+			workstreamId: 'WS09',
 			id: 'legacy-panel-baseline',
 			title: '레거시 웹 패널 분리 기준선',
 			platform: 'Legacy Web',
@@ -432,7 +490,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.06',
 			role: '분리 분석/회귀 기준선',
 			workType: '영향 분석',
-			weight: 'compact',
 			stack: ['JSP', 'jQuery', 'Server-rendered web'],
 			headline:
 				'레거시 화면을 바로 쪼개기 전에 coupling, API contract, browser baseline을 먼저 만들었습니다.',
@@ -464,6 +521,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 	],
 	en: [
 		{
+			workstreamId: 'WS07',
 			id: 'delivery-operations-web',
 			title: 'Logistics Operations Web',
 			platform: 'Web',
@@ -471,11 +529,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.04 ~ 2026.06',
 			role: 'Build and stabilization',
 			workType: 'Build',
-			weight: 'featured',
-			relatedCaseId: 'mobile-output-bridge',
-			relatedLabel: 'Same workflow',
-			relatedDescription:
-				'The web operations screen and mobile output app were split because of printer SDK constraints.',
 			stack: [
 				'React',
 				'TypeScript',
@@ -518,6 +571,8 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Connected lookup, reservation, contact, spreadsheet, and print flows inside the same shell first.',
 				'Separated mock data from the API adapter so UI state and integration state could be checked independently.',
 				'Split print verification across formatter, preview, browser fallback, and native request paths.',
+				'A deeper app, auth, public-API, and UI split reached 500.67 kB (164.69 kB gzip), but was rejected because added auth/API initialization and first-click loading boundaries outweighed the gain.',
+				'The accepted lazy-loading scope was checked across 116 files and 573 tests; the physical PC label path was checked separately across 8 files and 73 tests.',
 			],
 			solution: [
 				'Built the main workflows on a shared shell, table, modal, form, and feedback structure.',
@@ -531,6 +586,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS10',
 			id: 'hybrid-life-info-platform',
 			title: 'Hybrid Life Information Service',
 			platform: 'Hybrid',
@@ -538,7 +594,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.06 ~ 2026.07',
 			role: 'Feature stabilization and operations rollout',
 			workType: 'Stabilization',
-			weight: 'featured',
 			stack: [
 				'Spring MVC',
 				'JSP',
@@ -580,6 +635,9 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Separated external API calls, reference-data lookup, and location fallback by screen loading order.',
 				'Handled reference data through collect, temporary save, required-field validation, and replace steps.',
 				'Checked changed files and hashes before verifying the actual screen flow through smoke checks.',
+				'Prepared 673 air-quality stations and 20,560 legal-district rows as reference caches outside the request path.',
+				'Treated the 111-file rollout on 2026-07-02 and the 42-entry manifest rollout on 2026-07-08 as separate deployments and checks.',
+				'Automated reference refresh and catalog reduction remained follow-up work, while the JVM memory cache remained limited to one Tomcat instance.',
 			],
 			solution: [
 				'Built a core-first loading model with section-specific cache rules.',
@@ -593,6 +651,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS06',
 			id: 'ai-kickoff-documentation-tool',
 			title: 'AI-assisted Project Documentation Tool',
 			platform: 'Tooling',
@@ -600,7 +659,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.04',
 			role: 'Internal tool build',
 			workType: 'Internal tool',
-			weight: 'featured',
 			stack: [
 				'Node.js',
 				'TypeScript',
@@ -642,6 +700,8 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Showed scan results as a preview before asking the user to rely on generated documents.',
 				'Split generated output into workbook sheets instead of leaving it as one long text block.',
 				'Scoped revisions to the selected sheet/cell context instead of regenerating the whole artifact.',
+				'Separated partial-failure manifests from current/history artifacts so successful output and failed runs remained traceable.',
+				'Separated fields AI could organize from decisions reserved for the user and suppressed unsupported placeholders.',
 			],
 			solution: [
 				'Connected run workflow, scanner output, preview, detail artifacts, logs, and export paths.',
@@ -655,6 +715,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS05',
 			id: 'mobile-output-bridge',
 			title: 'Mobile Output Bridge App',
 			platform: 'Mobile',
@@ -662,11 +723,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.04 ~ 2026.06',
 			role: 'Build and output integration',
 			workType: 'Build',
-			weight: 'featured',
-			relatedCaseId: 'delivery-operations-web',
-			relatedLabel: 'Same workflow',
-			relatedDescription:
-				'The same business workflow was connected through mobile WebView and native output paths.',
 			stack: [
 				'Expo',
 				'React Native',
@@ -703,6 +759,8 @@ export const workCases: Localized<ProfessionalCase[]> = {
 				'Defined the boundary that converts web output data into a native output payload.',
 				'Checked Bluetooth permission, device lookup, connection state, and output command stages.',
 				'Separated local development, test install, and production install conditions.',
+				"Traced the SDK's internal device-discovery call on Android 16/API 36 and added cancellation plus BLUETOOTH_SCAN and BLUETOOTH_CONNECT handling.",
+				'Treated command-queue acceptance and completed physical output as separate verification points.',
 			],
 			solution: [
 				'Organized the request/response path between the WebView bridge and Android native module.',
@@ -716,6 +774,64 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS01',
+			id: 'legacy-mobile-compatibility',
+			title: 'Legacy Mobile App Compatibility',
+			platform: 'Android / Hybrid',
+			area: 'Build chain / OS compatibility / WebView',
+			period: '2026.03',
+			role: 'Compatibility stabilization and regression isolation',
+			workType: 'Maintenance',
+			stack: [
+				'Android Java',
+				'Gradle/AGP',
+				'Android WebView',
+				'RxJava',
+				'FileProvider',
+			],
+			headline:
+				'Separated modern Android build-policy work from legacy runtime regression checks.',
+			summary:
+				'Stabilized an older Android hybrid app by treating the build chain, permissions and files, WebView bridge, login, and initial synchronization as separate failure boundaries.',
+			impact: [
+				{
+					value: 'build baseline restored',
+					label: 'Gradle/AGP/JDK/SDK',
+					detail:
+						'build-tool changes separated from target SDK and runtime behavior',
+				},
+				{
+					value: 'compatibility boundary',
+					label: 'OS-specific behavior',
+					detail:
+						'permission, file URI, back API, and service calls isolated in helpers',
+				},
+			],
+			problem:
+				'The legacy Gradle and AGP setup no longer matched current development tools, while applying current SDK policies directly could introduce separate regressions in file access, permissions, services, back APIs, older OS entry, and WebView flows.',
+			thinking: [
+				'Did not treat a successful build and runtime compatibility as the same completion criterion.',
+				'Kept modern API types and OS-specific permission or file behavior behind compatibility helpers instead of repeating checks in screens.',
+				'Separated login, initial synchronization, WebView navigation, and bridge errors into distinct failure channels.',
+			],
+			process: [
+				'Aligned Gradle, AGP, JDK, compile SDK, and module namespaces in stages.',
+				'Checked content URI, FileProvider, Bluetooth permission, scanner, and service-start conditions against OS policy changes.',
+				'Separated bridge null/error responses, asynchronous cleanup, login failures, and initial synchronization failures when narrowing regressions.',
+			],
+			solution: [
+				'Restored a compilable baseline without rewriting all remaining legacy support dependencies.',
+				'Encapsulated direct modern back-API references and file or permission branches inside helpers.',
+				'Normalized WebView bridge responses and asynchronous errors, with fallbacks that kept optional device or external-function failures from terminating the whole app.',
+			],
+			checks: [
+				'Checked debug and release builds, IDE sync, and compile paths.',
+				'Checked unit tests for compatibility helpers and bridge fallbacks.',
+				'Recorded real older-OS checks separately from items verified through static builds.',
+			],
+		},
+		{
+			workstreamId: 'WS02',
 			id: 'field-terminal-android',
 			title: 'Field Terminal Android App',
 			platform: 'Android',
@@ -723,7 +839,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.03 ~ 2026.04',
 			role: 'Maintenance and build recovery',
 			workType: 'Maintenance',
-			weight: 'compact',
 			stack: ['Android Java', 'Gradle/AGP', 'Scanner SDK'],
 			headline:
 				'Separated operational signing from current build recovery so the field app could be verified again.',
@@ -761,6 +876,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS04',
 			id: 'structured-editor-ui',
 			title: 'Structured Chart Editing UI',
 			platform: 'Web',
@@ -768,7 +884,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.03 ~ 2026.04',
 			role: 'Editor tool build',
 			workType: 'Build',
-			weight: 'featured',
 			stack: ['React', 'TypeScript', 'Vite', 'Chart.js', 'MSW', 'Vitest'],
 			headline:
 				'Built an editing workflow where data roles, preview, and settings panels stayed connected.',
@@ -790,6 +905,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			process: [
 				'Aligned chart type, field mapping, preview, and option panels into one editing flow.',
 				'Reduced cases where setting changes unnecessarily remounted the preview.',
+				'Checked portal help, drag overlays, loading/empty/error states, and renderer boundaries separately.',
 			],
 			solution: [
 				'Structured a six-area settings panel and preview flow.',
@@ -801,6 +917,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS08',
 			id: 'hybrid-security-boundary',
 			title: 'Hybrid Security Feature Boundary',
 			platform: 'Hybrid',
@@ -808,7 +925,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.06',
 			role: 'Feature integration and security boundary',
 			workType: 'Feature extension',
-			weight: 'compact',
 			stack: ['Android WebView', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
 				'Kept external credentials out of the client by separating server proxy and WebView QA boundaries.',
@@ -841,6 +957,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			],
 		},
 		{
+			workstreamId: 'WS03',
 			id: 'react-admin-state-migration',
 			title: 'Financial Operations Admin Web',
 			platform: 'Web',
@@ -848,7 +965,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.03',
 			role: 'Admin screen implementation and stabilization',
 			workType: 'Feature build',
-			weight: 'compact',
 			stack: [
 				'React',
 				'TypeScript',
@@ -885,6 +1001,7 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			checks: ['Checked table, filter, modal, and session flows at screen level.'],
 		},
 		{
+			workstreamId: 'WS09',
 			id: 'legacy-panel-baseline',
 			title: 'Legacy Web Panel Split Baseline',
 			platform: 'Legacy Web',
@@ -892,7 +1009,6 @@ export const workCases: Localized<ProfessionalCase[]> = {
 			period: '2026.06',
 			role: 'Split analysis and regression baseline',
 			workType: 'Impact analysis',
-			weight: 'compact',
 			stack: ['JSP', 'jQuery', 'Server-rendered web'],
 			headline:
 				'Mapped coupling, API contracts, and browser baselines before splitting legacy screens.',

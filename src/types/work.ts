@@ -51,6 +51,12 @@ export interface WorkStoryResultCopy {
 	checks: string[];
 }
 
+export interface WorkStoryEditorialCopy {
+	decision: string;
+	outcome: string;
+	takeaway: string;
+}
+
 export interface WorkStoryCopy {
 	title?: string;
 	platform?: string;
@@ -65,6 +71,7 @@ export interface WorkStoryCopy {
 	impact?: WorkImpact[];
 	checks?: string[];
 	resultSections?: WorkStoryResultCopy[];
+	editorial?: WorkStoryEditorialCopy;
 	aboutSummary?: string;
 }
 
@@ -114,5 +121,6 @@ export interface ProfessionalStory {
 	impact: WorkImpact[];
 	checks: string[];
 	resultSections: WorkStoryResultSection[];
+	editorial?: WorkStoryEditorialCopy;
 	aboutSummary?: string;
 }

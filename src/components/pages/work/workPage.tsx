@@ -16,60 +16,76 @@ export const WorkPage = () => {
 	);
 
 	return (
-		<div className="flex w-full flex-col items-center py-8 sm:py-12 lg:py-20">
-			<div className="flex w-full max-w-7xl flex-col">
-				<section className="space-y-5 pb-8 sm:pb-10">
+		<div className="w-full py-10 sm:py-14 lg:py-20">
+			<div className="mx-auto w-full max-w-[1200px]">
+				<header className="max-w-[48rem] pb-10 xl:ml-[17rem] xl:pb-14">
 					<h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
 						{work.title}
 					</h1>
-					<p className="max-w-3xl text-base leading-relaxed text-muted-foreground break-keep md:text-lg">
+					<p className="mt-5 max-w-[44rem] text-base leading-8 text-foreground/75 break-keep md:text-lg md:leading-8">
 						{work.intro}
 					</p>
-				</section>
+				</header>
 
-				<WorkChapterRail
-					stories={data.workStories}
-					labels={{
-						index: work.indexTitle,
-						current: work.currentStory,
-						open: work.openTableOfContents,
-						close: work.closeTableOfContents,
-					}}
-				/>
+				<div className="xl:grid xl:grid-cols-[14rem_minmax(0,48rem)] xl:gap-x-12">
+					<WorkChapterRail
+						stories={data.workStories}
+						labels={{
+							index: work.indexTitle,
+							current: work.currentStory,
+							open: work.openTableOfContents,
+							close: work.closeTableOfContents,
+							featured: work.featuredTitle,
+							compact: work.compactTitle,
+						}}
+					/>
 
-				<div className="min-w-0 pt-10 sm:pt-14">
-					<section aria-labelledby="work-featured-title">
-						<h2
-							id="work-featured-title"
-							className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
-						>
-							{work.featuredTitle}
-						</h2>
-						<div className="mt-2">
-							{featuredStories.map((story) => (
-								<WorkCaseDetail key={story.id} story={story} labels={work.labels} />
-							))}
-						</div>
-					</section>
-
-					<section className="mt-12 sm:mt-16" aria-labelledby="work-compact-title">
-						<div className="flex flex-col gap-3 border-t border-border/40 pt-8 sm:flex-row sm:items-end sm:justify-between">
+					<div className="min-w-0 pt-10 xl:pt-0">
+						<section aria-labelledby="work-featured-title">
 							<h2
-								id="work-compact-title"
-								className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+								id="work-featured-title"
+								className="pb-4 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
 							>
-								{work.compactTitle}
+								{work.featuredTitle}
 							</h2>
-							<p className="max-w-2xl text-sm leading-6 text-muted-foreground break-keep">
-								{work.compactIntro}
-							</p>
-						</div>
-						<div className="mt-5 rounded-lg border border-border/35 px-4 sm:px-5">
-							{compactStories.map((story) => (
-								<CompactWorkStory key={story.id} story={story} labels={work.labels} />
+							{featuredStories.map((story, index) => (
+								<WorkCaseDetail
+									key={story.id}
+									story={story}
+									index={index + 1}
+									labels={work.labels}
+								/>
 							))}
-						</div>
-					</section>
+						</section>
+
+						<section
+							className="mt-14 border-t-2 border-foreground/70 pt-9 sm:mt-20 sm:pt-11"
+							aria-labelledby="work-compact-title"
+						>
+							<header>
+								<h2
+									id="work-compact-title"
+									className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+								>
+									{work.compactTitle}
+								</h2>
+								<p className="mt-3 max-w-[40rem] text-base leading-7 text-foreground/75 break-keep">
+									{work.compactIntro}
+								</p>
+							</header>
+
+							<div className="mt-6">
+								{compactStories.map((story, index) => (
+									<CompactWorkStory
+										key={story.id}
+										story={story}
+										index={featuredStories.length + index + 1}
+										labels={work.labels}
+									/>
+								))}
+							</div>
+						</section>
+					</div>
 				</div>
 			</div>
 		</div>

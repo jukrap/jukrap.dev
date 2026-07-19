@@ -13,7 +13,7 @@ interface CompactWorkStoryProps {
 }
 
 const DetailList = ({ items }: { items: string[] }) => (
-	<ul className="space-y-2.5 text-[0.9375rem] leading-7 text-foreground/75">
+	<ul className="space-y-3 text-[0.9375rem] leading-7 text-foreground/80">
 		{items.map((item) => (
 			<li
 				key={item}
@@ -26,24 +26,32 @@ const DetailList = ({ items }: { items: string[] }) => (
 );
 
 const RemainingImpact = ({ items }: { items: WorkImpact[] }) => (
-	<dl className="divide-y divide-border/45 border-y border-border/45">
+	<dl className="divide-y divide-border/45">
 		{items.map((item) => (
-			<div key={`${item.value}-${item.label}`} className="py-3">
+			<div key={`${item.value}-${item.label}`} className="py-4">
 				<dt className="font-semibold text-foreground tabular-nums">{item.value}</dt>
-				<dd className="mt-1 text-sm leading-6 text-foreground/70 break-keep">
+				<dd className="mt-1 text-sm font-medium leading-6 text-foreground/80 break-keep">
 					{item.label}
-					{item.detail && <span className="mt-1 block">{item.detail}</span>}
 				</dd>
+				{item.detail && (
+					<dd className="mt-1 text-sm leading-6 text-foreground/75 break-keep">
+						{item.detail}
+					</dd>
+				)}
 			</div>
 		))}
 	</dl>
 );
 
 const TechnologyList = ({ items }: { items: string[] }) => (
-	<ul className="flex flex-wrap gap-x-2.5 gap-y-1 text-xs font-medium text-muted-foreground">
+	<ul className="flex flex-wrap gap-x-3 gap-y-1 text-sm leading-6 text-foreground/70">
 		{items.map((item, index) => (
-			<li key={item} className="flex items-center gap-2.5">
-				{index > 0 && <span aria-hidden="true">·</span>}
+			<li key={item} className="flex items-center gap-3">
+				{index > 0 && (
+					<span className="text-muted-foreground" aria-hidden="true">
+						·
+					</span>
+				)}
 				<span>{item}</span>
 			</li>
 		))}
@@ -79,7 +87,7 @@ export const CompactWorkStory = ({
 		<article
 			id={story.id}
 			tabIndex={-1}
-			className="scroll-mt-32 grid gap-4 border-t border-border/60 py-7 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-5 sm:py-10"
+			className="scroll-mt-32 grid gap-4 border-t border-border/60 py-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-5 sm:py-12"
 		>
 			<p className="text-sm font-bold text-accent tabular-nums">
 				{String(index).padStart(2, '0')}
@@ -97,9 +105,15 @@ export const CompactWorkStory = ({
 					<h3 className="mt-2 text-2xl font-bold leading-tight tracking-tight text-foreground break-keep">
 						{story.title}
 					</h3>
+					<div className="mt-3 grid gap-2 sm:mt-4 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-5">
+						<p className="text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground">
+							{labels.stack}
+						</p>
+						<TechnologyList items={story.stack} />
+					</div>
 				</header>
 
-				<div className="mt-5 grid gap-5 md:grid-cols-2 md:gap-8">
+				<div className="mt-6 grid gap-6 md:mt-8 md:grid-cols-2 md:gap-8">
 					{primaryDecision && (
 						<section>
 							<h4 className="text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground">
@@ -117,15 +131,30 @@ export const CompactWorkStory = ({
 								{labels.results}
 							</h4>
 							{primaryImpact && (
-								<p className="mt-2 text-sm leading-6 text-foreground/75 break-keep">
-									<strong className="block text-base font-bold text-foreground tabular-nums">
-										{primaryImpact.value}
-									</strong>
-									{primaryImpact.label}
-								</p>
+								<div className="mt-2">
+									<p className="text-base leading-7 text-foreground break-keep">
+										<span className="font-semibold">{primaryImpact.label}</span>
+										<span className="mx-2 text-muted-foreground" aria-hidden="true">
+											—
+										</span>
+										<span className="font-semibold tabular-nums">
+											{primaryImpact.value}
+										</span>
+										{primaryImpact.detail && (
+											<>
+												<span className="mx-2 text-muted-foreground" aria-hidden="true">
+													·
+												</span>
+												<span className="text-sm text-foreground/75">
+													{primaryImpact.detail}
+												</span>
+											</>
+										)}
+									</p>
+								</div>
 							)}
 							{primaryCheck && (
-								<p className="mt-2 border-l-2 border-accent pl-3 text-sm leading-6 text-foreground/75 break-keep">
+								<p className="relative mt-3 pl-4 text-sm leading-6 text-foreground/75 break-keep before:absolute before:left-0 before:top-[0.55rem] before:h-1.5 before:w-1.5 before:rounded-full before:bg-accent">
 									{primaryCheck}
 								</p>
 							)}
@@ -133,12 +162,8 @@ export const CompactWorkStory = ({
 					)}
 				</div>
 
-				<div className="mt-5">
-					<TechnologyList items={story.stack.slice(0, 6)} />
-				</div>
-
 				{hasAdditionalEvidence && (
-					<details className="group mt-6 border-y border-border/50">
+					<details className="group mt-6 border-y border-border/50 md:mt-8">
 						<summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-sm font-bold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
 							<span>{labels.additionalEvidence}</span>
 							<ChevronDown
@@ -146,19 +171,19 @@ export const CompactWorkStory = ({
 								aria-hidden="true"
 							/>
 						</summary>
-						<div className="grid gap-6 border-t border-border/45 bg-secondary/20 px-4 py-6 sm:grid-cols-2 sm:px-5">
-							<div className="space-y-2 sm:col-span-2">
+						<div className="space-y-8 border-t border-border/45 bg-secondary/20 px-4 py-8 sm:px-5">
+							<div className="space-y-2">
 								<p className="font-semibold leading-7 text-foreground break-keep">
 									{story.headline}
 								</p>
-								<p className="text-[0.9375rem] leading-7 text-foreground/75 break-keep">
+								<p className="text-[0.9375rem] leading-7 text-foreground/80 break-keep">
 									{story.summary}
 								</p>
 							</div>
 
 							<section className="space-y-2">
 								<h4 className="text-sm font-bold text-foreground">{labels.problem}</h4>
-								<p className="text-[0.9375rem] leading-7 text-foreground/75 break-keep">
+								<p className="text-[0.9375rem] leading-7 text-foreground/80 break-keep">
 									{chapter.context}
 								</p>
 							</section>
@@ -172,24 +197,28 @@ export const CompactWorkStory = ({
 								</section>
 							)}
 
-							{chapter.execution.length > 0 && (
-								<section className="space-y-2">
-									<h4 className="text-sm font-bold text-foreground">
-										{labels.solution}
-									</h4>
-									<DetailList items={chapter.execution} />
-								</section>
-							)}
+							<div className="grid gap-8 lg:grid-cols-2">
+								{chapter.execution.length > 0 && (
+									<section className="space-y-2">
+										<h4 className="text-sm font-bold text-foreground">
+											{labels.solution}
+										</h4>
+										<DetailList items={chapter.execution} />
+									</section>
+								)}
 
-							{chapter.additionalEvidence.length > 0 && (
-								<section className="space-y-2">
-									<h4 className="text-sm font-bold text-foreground">{labels.process}</h4>
-									<DetailList items={chapter.additionalEvidence} />
-								</section>
-							)}
+								{chapter.additionalEvidence.length > 0 && (
+									<section className="space-y-2">
+										<h4 className="text-sm font-bold text-foreground">
+											{labels.process}
+										</h4>
+										<DetailList items={chapter.additionalEvidence} />
+									</section>
+								)}
+							</div>
 
 							{remainingImpacts.length > 0 && (
-								<section className="space-y-3">
+								<section className="space-y-2">
 									<h4 className="text-sm font-bold text-foreground">{labels.impact}</h4>
 									<RemainingImpact items={remainingImpacts} />
 								</section>

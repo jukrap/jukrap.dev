@@ -165,7 +165,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				outcome:
 					'근거 수집부터 사람 검수와 선택 범위 수정까지 각 단계를 분리된 검증 경로로 확인했습니다.',
 				takeaway:
-					'AI 자동화는 완성본 생성보다 근거 입력과 사람 검수·부분 수정의 경계를 명시할 때 신뢰할 수 있다는 기준.',
+					'AI 보조는 근거 입력, 사람 검수, 부분 수정의 경계를 명시해 검토 가능한 산출물을 남긴다는 기준.',
 			},
 			impact: [
 				{
@@ -323,7 +323,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				outcome:
 					'Verified each stage from evidence collection through human review and scoped revision as a distinct path.',
 				takeaway:
-					'AI assistance is more trustworthy when evidence input, human review, and scoped revision boundaries are explicit.',
+					'AI assistance should leave reviewable artifacts by keeping evidence input, human review, and scoped revision boundaries explicit.',
 			},
 			impact: [
 				{

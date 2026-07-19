@@ -25,7 +25,7 @@ export async function generateMetadata({
 
 const About: React.FC = () => {
 	return (
-		<div className="flex flex-col items-center px-4 sm:px-6 lg:px-20 py-8 sm:py-12 lg:py-20 w-full h-full gap-12 sm:gap-16 lg:gap-20">
+		<div className="flex h-full w-full flex-col items-center gap-12 px-4 py-8 sm:gap-16 sm:px-6 sm:py-12 lg:gap-20 lg:px-20 lg:py-20">
 			<IntroSection />
 			<SkillsSection />
 			<CareerSection />

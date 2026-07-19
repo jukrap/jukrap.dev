@@ -440,3 +440,260 @@
 .bg-whites-opacity {
 	background-color: hsl(var(--whites-opacity) / var(--tw-bg-opacity));
 }
+
+/* Recruiting documents */
+.document-shell {
+	min-height: 100vh;
+}
+
+.document-toolbar {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	border-bottom: 1px solid hsl(var(--border) / 0.24);
+	background: hsl(var(--background) / 0.92);
+	backdrop-filter: blur(16px);
+}
+
+.document-toolbar-link,
+.document-toolbar-button {
+	display: inline-flex;
+	min-height: 2.75rem;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	border-radius: 9999px;
+	font-size: 0.875rem;
+	font-weight: 650;
+	line-height: 1;
+	transition:
+		background-color 160ms ease,
+		border-color 160ms ease,
+		color 160ms ease,
+		transform 160ms ease;
+}
+
+.document-toolbar-link {
+	padding: 0 0.25rem;
+}
+
+.document-toolbar-button {
+	border: 1px solid hsl(var(--foreground));
+	background: hsl(var(--foreground));
+	color: hsl(var(--background));
+	padding: 0 1rem;
+}
+
+.document-toolbar-link:hover,
+.document-toolbar-button:hover {
+	color: hsl(var(--accent));
+}
+
+.document-toolbar-button:hover {
+	border-color: hsl(var(--accent));
+	background: hsl(var(--foreground));
+}
+
+.document-toolbar-link:focus-visible,
+.document-toolbar-button:focus-visible,
+.document-page a:focus-visible {
+	outline: 2px solid hsl(var(--accent));
+	outline-offset: 3px;
+}
+
+.document-stage {
+	padding: clamp(1rem, 3vw, 2.5rem);
+}
+
+.document-pages {
+	display: grid;
+	gap: clamp(1rem, 3vw, 2rem);
+}
+
+.document-page {
+	position: relative;
+	width: min(100%, 210mm);
+	min-height: 297mm;
+	margin: 0 auto;
+	overflow: hidden;
+	border: 1px solid hsl(var(--border) / 0.22);
+	background: hsl(var(--background));
+	box-shadow: 0 24px 80px hsl(var(--blacks) / 0.12);
+	color: hsl(var(--foreground));
+	font-size: 0.875rem;
+	line-height: 1.62;
+	print-color-adjust: exact;
+	-webkit-print-color-adjust: exact;
+}
+
+.document-portfolio {
+	padding: clamp(1.75rem, 5vw, 4rem);
+}
+
+.resume-page,
+.career-page {
+	padding: clamp(1.5rem, 4vw, 3.5rem);
+	font-size: 0.8125rem;
+	line-height: 1.55;
+}
+
+.document-page a {
+	color: inherit;
+	text-decoration-color: hsl(var(--accent) / 0.8);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.18em;
+}
+
+.document-page-number {
+	font-variant-numeric: tabular-nums;
+	color: hsl(var(--muted-foreground));
+}
+
+.document-tabular {
+	font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 48rem) {
+	.document-stage {
+		padding: 0;
+	}
+
+	.document-page {
+		min-height: auto;
+		border-width: 0 0 1px;
+		box-shadow: none;
+	}
+
+	.document-portfolio,
+	.resume-page,
+	.career-page {
+		padding: 2rem 1.25rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.document-toolbar-link,
+	.document-toolbar-button {
+		transition: none;
+	}
+}
+
+@media print {
+	@page {
+		size: A4 portrait;
+		margin: 0;
+	}
+
+	html,
+	body {
+		width: 210mm;
+		margin: 0 !important;
+		background: #ffffff !important;
+	}
+
+	body {
+		print-color-adjust: exact;
+		-webkit-print-color-adjust: exact;
+	}
+
+	.document-toolbar {
+		display: none !important;
+	}
+
+	.document-shell,
+	.document-stage,
+	.document-pages {
+		display: block;
+		width: 210mm;
+		margin: 0;
+		padding: 0;
+		background: #ffffff !important;
+	}
+
+	.document-page {
+		--blacks: 60 6% 10%;
+		--blacks-opacity: 60 6% 10%;
+		--whites: 0 0% 100%;
+		--whites-opacity: 0 0% 100%;
+		--background: 0 0% 100%;
+		--foreground: 60 6% 10%;
+		--foreground-opacity: 60 6% 10%;
+		--card: 0 0% 100%;
+		--card-foreground: 60 6% 10%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 60 6% 10%;
+		--primary: 60 6% 10%;
+		--primary-foreground: 0 0% 100%;
+		--secondary: 60 7% 92%;
+		--secondary-foreground: 60 6% 10%;
+		--muted: 60 7% 92%;
+		--muted-foreground: 45 2% 35%;
+		--accent: 164 88% 26%;
+		--accent-opacity: 164 88% 26%;
+		--accent-foreground: 0 0% 100%;
+		--border: 45 2% 43%;
+		--input: 60 7% 92%;
+		--ring: 60 6% 10%;
+		width: 210mm;
+		height: 297mm;
+		min-height: 297mm;
+		max-height: 297mm;
+		margin: 0;
+		break-after: page;
+		page-break-after: always;
+		border: 0;
+		background: #ffffff !important;
+		box-shadow: none;
+		color: #1b1b18 !important;
+	}
+
+	.document-page:last-child {
+		break-after: auto;
+		page-break-after: auto;
+	}
+
+	.document-portfolio {
+		padding: 15mm 16mm 14mm;
+		font-size: 10.5pt;
+		line-height: 1.55;
+	}
+
+	.document-page-case .document-page-introduction {
+		margin-top: 1.5rem;
+	}
+
+	.document-page-case .document-page-body {
+		margin-top: 1.25rem;
+	}
+
+	.document-page-case .document-section-grid {
+		row-gap: 1rem;
+	}
+
+	.resume-page,
+	.career-page {
+		padding: 13mm 15mm 12mm;
+		font-size: 9.5pt;
+		line-height: 1.48;
+	}
+
+	.document-page a {
+		color: #1b1b18 !important;
+	}
+
+	.document-page [class*='text-muted'] {
+		color: #595954 !important;
+	}
+
+	.document-page [class*='border-'] {
+		border-color: rgb(27 27 24 / 22%) !important;
+	}
+
+	.document-page [class*='bg-secondary'] {
+		background-color: #f3f3ef !important;
+	}
+
+	.document-page [class*='text-accent'] {
+		color: #087f62 !important;
+	}
+}

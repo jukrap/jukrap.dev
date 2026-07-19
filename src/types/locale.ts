@@ -79,9 +79,11 @@ export interface LocaleDictionary {
 		compactIntro: string;
 		labels: {
 			stack: string;
+			scope: string;
 			context: string;
 			decisions: string;
 			results: string;
+			takeaway: string;
 			additionalEvidence: string;
 			problem: string;
 			thinking: string;

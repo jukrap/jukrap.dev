@@ -84,6 +84,14 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'서로 다른 저장소와 앱으로 구축된 React 운영 웹과 모바일 출력 앱을 하나의 사용자 흐름으로 설명하되, 화면 상태와 장비 SDK의 책임은 섞지 않았습니다.',
 			context:
 				'예약 접수, 다건 처리, Excel 미리보기, 출력은 같은 업무 흐름이지만 PC 브라우저와 모바일 장비는 별도 앱·저장소와 실행 조건을 가졌습니다. 웹의 초기 로딩 비용을 줄이는 일과 Android 권한·Bluetooth·프린터 SDK를 다루는 일을 분리하면서도 요청 데이터와 실패 기준은 이어져야 했습니다.',
+			editorial: {
+				decision:
+					'웹은 조회·예약·Excel·출력 요청의 상태와 초기 로딩을 책임지고, 모바일은 WebView contract 이후의 권한·Bluetooth·프린터 출력을 책임지도록 경계를 나눴습니다.',
+				outcome:
+					'웹 초기 JS entry는 2,405.50→616.59 kB, gzip은 815.10→204.38 kB로 줄였습니다. 모바일은 Android 16/API 36 실기기에서 권한·장비 연결·실물 라벨 출력을 별도 기준으로 확인했습니다.',
+				takeaway:
+					'하나의 사용자 흐름이어도 브라우저 성능과 장비 출력은 같은 완료 기준으로 묶지 않는다는 원칙.',
+			},
 			resultSections: [
 				{
 					chapterId: 'delivery-operations-web',
@@ -119,13 +127,21 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			],
 			aboutSummary:
-				'조회·예약·Excel·라벨 출력을 웹과 Android 장비 경계로 연결한 물류 운영 사례.',
+				'조회·예약·Excel·라벨 출력을 웹 상태와 Android 장비 책임으로 나눈 물류 운영 사례.',
 		},
 		'structured-editor-ui': {
 			headline:
 				'데이터 역할과 설정 상태가 실제 프리뷰와 어긋나지 않는 편집 흐름을 설계했습니다.',
 			summary:
 				'수제 프리뷰의 확장 한계를 Chart.js 전환으로 풀고, field mapping·preview lifecycle·차트별 설정 책임을 분리했습니다.',
+			editorial: {
+				decision:
+					'차트 타입별 유효 옵션만 노출하고, field mapping·preview lifecycle·settings state를 분리해 같은 편집 모델을 바라보도록 했습니다.',
+				outcome:
+					'6개 설정 영역과 mixed chart preview를 연결하고 option 변경, panel 접기, drag/drop, tooltip 흐름과 관련 테스트·lint·build를 회귀 기준으로 확인했습니다.',
+				takeaway:
+					'편집 도구의 신뢰도는 옵션 수보다 입력 상태와 실제 렌더 결과의 일치에서 나온다는 기준.',
+			},
 			impact: [
 				{
 					value: '상태 동기화',
@@ -140,9 +156,17 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			],
 			aboutSummary:
-				'데이터 역할·프리뷰·차트별 설정을 연결한 React 시각화 편집 도구.',
+				'차트별 설정과 field mapping·preview 상태를 하나의 흐름으로 맞춘 React 시각화 편집 도구.',
 		},
 		'ai-kickoff-documentation-tool': {
+			editorial: {
+				decision:
+					'규칙 기반 scanner 결과를 preview한 뒤 AI 초안에 사용하고, workbook을 검수 원장으로 두며 수정 범위는 선택한 sheet와 cell로 제한했습니다.',
+				outcome:
+					'scan→preview→workbook→xlsx export와 선택 범위 재작성, 성공·실패 artifact 추적 흐름을 관련 테스트·lint·build로 확인했습니다.',
+				takeaway:
+					'AI 자동화는 완성본 생성보다 근거 입력과 사람 검수·부분 수정의 경계를 명시할 때 신뢰할 수 있다는 기준.',
+			},
 			impact: [
 				{
 					value: '근거 우선',
@@ -161,9 +185,17 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			],
 			aboutSummary:
-				'저장소 근거 수집, AI 초안, workbook 검수를 분리한 프로젝트 문서화 도구.',
+				'저장소 근거·AI 초안·workbook 검수·부분 수정을 분리한 프로젝트 문서화 도구.',
 		},
 		'hybrid-life-info-platform': {
+			editorial: {
+				decision:
+					'핵심·보조 loading, fresh·stale cache, 기준 데이터 cache를 분리하고 운영 반영은 manifest와 SHA-256 hash 단위로 좁혔습니다.',
+				outcome:
+					'2026-07-08 운영 smoke에서 core는 약 2.85→0.11초, 대기질은 약 2.02→0.07초를 확인했고 최종 회귀는 131 tests / skipped 1이었습니다. 7월 2일과 8일의 배포 수치는 서로 다른 기준으로 남겼습니다.',
+				takeaway:
+					'레거시 운영 개선은 바꾼 범위뿐 아니라 보존한 계약과 fallback·배포 증거까지 함께 남겨야 한다는 기준.',
+			},
 			impact: [
 				{
 					value: '약 2.85초 → 0.11초',
@@ -187,7 +219,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'AirKorea 측정소 673행과 법정동 20,560행을 수집해 필수값 누락 없이 기준 데이터 cache로 검증했습니다.',
 			],
 			aboutSummary:
-				'공공 API·WebView·운영 배포 경계를 안정화한 하이브리드 생활정보 서비스.',
+				'공공 API·cache·WebView·파일 단위 운영 배포 경계를 안정화한 하이브리드 생활정보 서비스.',
 		},
 		'legacy-mobile-compatibility': {},
 		'react-admin-state-migration': {},
@@ -209,6 +241,14 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'Presented a React operations web app and a mobile output app from separate repositories as one user workflow while keeping screen-state and device-SDK responsibilities distinct.',
 			context:
 				'Reservation intake, batch work, Excel preview, and output belonged to one workflow, but desktop browsers and mobile devices lived in separate apps and repositories with different runtime constraints. Web loading cost and Android permission, Bluetooth, and printer-SDK behavior needed separate boundaries while sharing request data and failure criteria.',
+			editorial: {
+				decision:
+					'The web app owned lookup, reservation, Excel, output-request state, and initial loading, while mobile owned permissions, Bluetooth, and printer output after the WebView contract.',
+				outcome:
+					'The web initial JS entry moved from 2,405.50 to 616.59 kB and gzip from 815.10 to 204.38 kB. Mobile permissions, device connection, and physical label output were checked separately on Android 16 / API 36 hardware.',
+				takeaway:
+					'Even one user journey needs separate completion criteria for browser performance and physical-device output.',
+			},
 			resultSections: [
 				{
 					chapterId: 'delivery-operations-web',
@@ -245,13 +285,21 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			],
 			aboutSummary:
-				'A logistics operations case connecting lookup, reservation, Excel, and label output across web and Android device boundaries.',
+				'A logistics operations case separating web state from Android-device responsibility across lookup, reservation, Excel, and label output.',
 		},
 		'structured-editor-ui': {
 			headline:
 				'Designed an editing flow that kept data roles and settings aligned with the rendered preview.',
 			summary:
 				'Replaced a limited hand-built preview with Chart.js and separated field mapping, preview lifecycle, and chart-specific settings responsibilities.',
+			editorial: {
+				decision:
+					'Showed only valid options for each chart type and separated field mapping, preview lifecycle, and settings state around one editing model.',
+				outcome:
+					'Connected six settings areas to the mixed-chart preview and used option changes, panel collapse, drag and drop, tooltips, related tests, lint, and build as the regression baseline.',
+				takeaway:
+					'Editor trust comes from keeping input state aligned with the rendered result, not from offering more options.',
+			},
 			impact: [
 				{
 					value: 'state alignment',
@@ -266,9 +314,17 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			],
 			aboutSummary:
-				'A React visualization editor connecting data roles, previews, and chart-specific settings.',
+				'A React visualization editor aligning chart-specific settings, field mapping, and preview state in one flow.',
 		},
 		'ai-kickoff-documentation-tool': {
+			editorial: {
+				decision:
+					'Previewed deterministic scanner evidence before AI drafting, kept the workbook as the review record, and limited revisions to selected sheets and cells.',
+				outcome:
+					'Checked scan→preview→workbook→xlsx export, scoped revision, and successful-versus-failed artifact tracking through the related tests, lint, and build.',
+				takeaway:
+					'AI assistance is more trustworthy when evidence input, human review, and scoped revision boundaries are explicit.',
+			},
 			impact: [
 				{
 					value: 'evidence first',
@@ -290,9 +346,17 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			],
 			aboutSummary:
-				'A project documentation tool separating repository evidence collection, AI drafts, and workbook review.',
+				'A project documentation tool separating repository evidence, AI drafts, workbook review, and scoped revision.',
 		},
 		'hybrid-life-info-platform': {
+			editorial: {
+				decision:
+					'Separated core and secondary loading, fresh and stale caches, and reference-data caches, then limited production delivery to manifest and SHA-256 hash scopes.',
+				outcome:
+					'On the 2026-07-08 production smoke, core moved from about 2.85s to 0.11s and air quality from about 2.02s to 0.07s; the final regression was 131 tests with one skipped. The July 2 and July 8 deployment counts remain separate baselines.',
+				takeaway:
+					'Legacy production improvements should record preserved contracts, fallbacks, and deployment evidence alongside the changed scope.',
+			},
 			impact: [
 				{
 					value: 'about 2.85s → 0.11s',
@@ -316,7 +380,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'Validated 673 AirKorea station rows and 20,560 legal-district rows without missing required values before caching them as reference data.',
 			],
 			aboutSummary:
-				'A hybrid life-information service stabilizing public API, WebView, and production deployment boundaries.',
+				'A hybrid life-information service stabilizing public API, cache, WebView, and file-level production delivery boundaries.',
 		},
 		'legacy-mobile-compatibility': {},
 		'react-admin-state-migration': {},
@@ -422,6 +486,11 @@ function validateWorkData() {
 
 			if (definition.includeInAbout && !copy.aboutSummary) {
 				throw new Error(`${locale} story ${definition.id} needs an About summary.`);
+			}
+			if (definition.tier === 'featured' && !copy.editorial) {
+				throw new Error(
+					`${locale} featured story ${definition.id} needs editorial copy.`,
+				);
 			}
 		}
 	}
@@ -560,6 +629,7 @@ function resolveStory(
 		impact,
 		checks,
 		resultSections,
+		editorial: copy.editorial,
 		aboutSummary: copy.aboutSummary,
 	};
 }

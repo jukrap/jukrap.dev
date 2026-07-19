@@ -2,16 +2,12 @@
 
 import { useEffect, useState } from 'react';
 
-export const WORK_READING_OFFSET = 132;
+export const WORK_READING_OFFSET = 128;
 
 interface WorkStoryScrollState {
 	activeId: string;
 	activeIndex: number;
-	progress: number;
 }
-
-const clamp = (value: number, minimum: number, maximum: number) =>
-	Math.min(Math.max(value, minimum), maximum);
 
 export const useWorkStoryScroll = (
 	storyIds: string[],
@@ -19,7 +15,6 @@ export const useWorkStoryScroll = (
 	const [location, setLocation] = useState<WorkStoryScrollState>(() => ({
 		activeId: storyIds[0] ?? '',
 		activeIndex: 0,
-		progress: 0,
 	}));
 
 	useEffect(() => {
@@ -39,47 +34,22 @@ export const useWorkStoryScroll = (
 			const atDocumentEnd =
 				window.scrollY + window.innerHeight >=
 				document.documentElement.scrollHeight - 2;
-			let activeIndex = 0;
+			let activeIndex = atDocumentEnd ? sections.length - 1 : 0;
 
-			if (atDocumentEnd) {
-				activeIndex = sections.length - 1;
-			} else {
+			if (!atDocumentEnd) {
 				for (let index = 0; index < sections.length; index += 1) {
 					if (sections[index].offsetTop <= marker) activeIndex = index;
 					else break;
 				}
 			}
 
-			let progress = 0;
-			if (atDocumentEnd || activeIndex === sections.length - 1) {
-				progress = 100;
-			} else if (sections.length > 1) {
-				const currentTop = sections[activeIndex].offsetTop;
-				const nextTop = sections[activeIndex + 1].offsetTop;
-				const sectionProgress = clamp(
-					(marker - currentTop) / Math.max(nextTop - currentTop, 1),
-					0,
-					1,
-				);
-				progress = ((activeIndex + sectionProgress) / (sections.length - 1)) * 100;
-			}
-
 			const activeId = sections[activeIndex].id;
 			setLocation((current) => {
-				const roundedProgress = Math.round(progress * 10) / 10;
-				if (
-					current.activeId === activeId &&
-					current.activeIndex === activeIndex &&
-					current.progress === roundedProgress
-				) {
+				if (current.activeId === activeId && current.activeIndex === activeIndex) {
 					return current;
 				}
 
-				return {
-					activeId,
-					activeIndex,
-					progress: roundedProgress,
-				};
+				return { activeId, activeIndex };
 			});
 		};
 

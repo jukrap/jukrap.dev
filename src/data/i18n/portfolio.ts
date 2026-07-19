@@ -450,7 +450,6 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Worked on image handling with mobile-optimized UI in mind.',
 					'Improved performance through image resizing and caching.',
-					'Reduced server traffic by roughly 30-50% through these optimizations.',
 				],
 			},
 			{
@@ -542,7 +541,6 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Improved FPS',
 				details: [
 					'Achieved 5-10 times higher FPS by using Mediapipe instead of OpenCV.',
-					'Improved accuracy and responsiveness of real-time posture measurement.',
 				],
 			},
 		],

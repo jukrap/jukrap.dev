@@ -589,7 +589,6 @@ export const projectsDetailData: Project[] = [
 				details: [
 					'모바일 환경에 최적화된 UI를 고려하여 이미지 관련 작업을 수행하였습니다.',
 					'이미지 크기 조정 및 캐싱 등의 최적화를 통해 성능을 개선하였습니다.',
-					'이러한 최적화로 서버 트래픽이 기존 대비 30~50% 가량 감소하는 효과를 얻었습니다.',
 				],
 			},
 			{
@@ -741,10 +740,7 @@ export const projectsDetailData: Project[] = [
 		performanceImprovements: [
 			{
 				title: 'FPS 개선',
-				details: [
-					'Mediapipe 사용으로 OpenCV 대비 5~10배 높은 FPS를 달성했습니다.',
-					'이를 통해 실시간 자세 측정의 정확도와 반응성을 크게 향상시켰습니다.',
-				],
+				details: ['Mediapipe 사용으로 OpenCV 대비 5~10배 높은 FPS를 달성했습니다.'],
 			},
 		],
 		specialImplementations: [

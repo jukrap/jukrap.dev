@@ -6,7 +6,7 @@
 		"node": "24.x"
 	},
 	"scripts": {
-		"dev": "next dev --webpack",
+		"dev": "next dev --webpack --hostname 127.0.0.1",
 		"generate-metadata": "ts-node scripts/generate-image-metadata.ts",
 		"build": "npm run generate-metadata && next build --webpack",
 		"start": "next start"

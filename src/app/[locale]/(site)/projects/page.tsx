@@ -19,7 +19,7 @@ export async function generateMetadata({
 
 export default function Projects() {
 	return (
-		<div className="flex flex-col items-center px-4 sm:px-6 lg:px-20 py-8 sm:py-12 lg:py-20 w-full h-full gap-8 sm:gap-12 lg:gap-16">
+		<div className="flex h-full w-full flex-col items-center gap-8 px-4 py-8 sm:gap-12 sm:px-6 sm:py-12 lg:gap-16 lg:px-20 lg:py-20">
 			<HeaderSection />
 			<ProjectListSection />
 		</div>

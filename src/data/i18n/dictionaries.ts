@@ -42,17 +42,13 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		home: {
 			welcome: 'Jukrap의 개인 사이트에 오신 것을 환영합니다.',
-			documentsTitle: '필요한 문서를 바로 받을 수 있습니다.',
+			documentsTitle: '포트폴리오에서 더 자세히 확인할 수 있습니다.',
 			documentsDescription:
-				'이력서는 경력과 기술 요약을, 포트폴리오는 프로젝트와 업무 사례를 조금 더 자세히 담았습니다.',
-			resumeTitle: '이력서',
-			resumeDescription:
-				'경력, 기술 스택, 핵심 이력을 빠르게 확인할 수 있는 문서입니다.',
-			resumeDownload: 'resume.PDF',
-			portfolioTitle: '포트폴리오',
+				'대표 업무와 사이드 프로젝트를 문제, 판단, 확인한 결과의 흐름으로 정리했습니다.',
+			portfolioTitle: '웹 포트폴리오',
 			portfolioDescription:
-				'프로젝트와 작업 내용을 사례 중심으로 정리한 문서입니다.',
-			portfolioDownload: 'portfolio.PDF',
+				'웹과 모바일에서 어떤 경계를 나누고 무엇으로 확인했는지 12쪽의 사례집으로 살펴볼 수 있습니다.',
+			portfolioLinkLabel: '웹 포트폴리오 보기',
 		},
 		about: {
 			title: 'About Me',
@@ -182,17 +178,13 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		home: {
 			welcome: "Welcome to Jukrap's personal website.",
-			documentsTitle: 'Download the document you need.',
+			documentsTitle: 'Read the full casebook in the portfolio.',
 			documentsDescription:
-				'The resume gives a quick career and skill summary. The portfolio adds project and professional work details.',
-			resumeTitle: 'Resume',
-			resumeDescription:
-				'A concise document for checking career history, skills, and key experience.',
-			resumeDownload: 'resume.PDF',
-			portfolioTitle: 'Portfolio',
+				'The public portfolio is currently available in Korean and follows each case from problem to decision and verification.',
+			portfolioTitle: 'Korean Portfolio',
 			portfolioDescription:
-				'A case-oriented document covering projects and selected work in more detail.',
-			portfolioDownload: 'portfolio.PDF',
+				'A 12-page web portfolio covering selected professional work and side projects across web and mobile.',
+			portfolioLinkLabel: 'View Korean portfolio',
 		},
 		about: {
 			title: 'About Me',

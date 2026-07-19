@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
-import LayoutWrapper from '@/components/layouts/layoutWrapper';
+import { LocaleBoundary } from '@/components/layouts/localeBoundary';
 import { isLocale, locales } from '@/lib/locale';
-import { Locale } from '@/types/locale';
 
 interface LocaleLayoutProps {
 	children: React.ReactNode;
@@ -26,7 +25,5 @@ export default async function LocaleLayout({
 		notFound();
 	}
 
-	const locale: Locale = localeParam;
-
-	return <LayoutWrapper locale={locale}>{children}</LayoutWrapper>;
+	return <LocaleBoundary locale={localeParam}>{children}</LocaleBoundary>;
 }

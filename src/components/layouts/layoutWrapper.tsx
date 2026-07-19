@@ -1,10 +1,9 @@
 'use client';
 
-import { LocaleProvider, useLocale } from '@/contexts/localeContext';
+import { useLocale } from '@/contexts/localeContext';
 import Footer from '@/components/layouts/footer';
 import { NavigationBar } from './navigationBar';
 import AlertTopBanner from '@/components/common/alertTopBanner';
-import { Locale } from '@/types/locale';
 
 const LayoutContent: React.FC<{ children: React.ReactNode }> = ({
 	children,
@@ -26,13 +25,8 @@ const LayoutContent: React.FC<{ children: React.ReactNode }> = ({
 	);
 };
 
-const LayoutWrapper: React.FC<{
-	children: React.ReactNode;
-	locale: Locale;
-}> = ({ children, locale }) => (
-	<LocaleProvider locale={locale}>
-		<LayoutContent>{children}</LayoutContent>
-	</LocaleProvider>
-);
+const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({
+	children,
+}) => <LayoutContent>{children}</LayoutContent>;
 
 export default LayoutWrapper;

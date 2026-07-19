@@ -772,7 +772,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 const personalInfoEn = {
 	...personalInfo,
 	introduction:
-		"I'm Ju-cheol Park, a frontend developer who checks the flow beyond the screen.",
+		"I'm Ju-cheol Park, a frontend engineer who follows user flows across web and mobile apps beyond the screen.",
 };
 
 const coreValuesEn = [

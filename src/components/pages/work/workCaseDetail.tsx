@@ -3,11 +3,9 @@
 import type { ReactNode } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { LocaleDictionary } from '@/types/locale';
-import type {
-	ProfessionalStory,
-	WorkImpact,
-	WorkStoryChapter,
-} from '@/types/work';
+import type { ProfessionalStory, WorkStoryChapter } from '@/types/work';
+import { WorkEvidenceList } from './workEvidenceList';
+import { WorkTechnologyList } from './workTechnologyList';
 
 type WorkLabels = LocaleDictionary['work']['labels'];
 
@@ -23,7 +21,7 @@ interface EditorialSectionProps {
 }
 
 const EditorialSection = ({ title, children }: EditorialSectionProps) => (
-	<section className="grid gap-3 py-5 sm:py-6 md:grid-cols-[7.5rem_minmax(0,1fr)] md:gap-8 md:py-8">
+	<section className="grid gap-3 py-4 sm:py-6 md:grid-cols-[7.5rem_minmax(0,1fr)] md:gap-8 md:py-8">
 		<h4 className="text-sm font-bold text-foreground break-keep">{title}</h4>
 		<div className="min-w-0">{children}</div>
 	</section>
@@ -42,91 +40,27 @@ const EvidenceList = ({ items }: { items: string[] }) => (
 	</ul>
 );
 
-const TechnologyList = ({ items }: { items: string[] }) => (
-	<ul className="flex flex-wrap gap-x-3 gap-y-1 text-sm leading-6 text-foreground/70">
-		{items.map((item, index) => (
-			<li key={item} className="flex items-center gap-3">
-				{index > 0 && (
-					<span className="text-muted-foreground" aria-hidden="true">
-						·
-					</span>
-				)}
-				<span>{item}</span>
-			</li>
-		))}
-	</ul>
-);
-
 const TechnologyEnvironment = ({ story }: { story: ProfessionalStory }) => {
 	if (story.chapters.length === 1) {
-		return <TechnologyList items={story.stack} />;
+		return <WorkTechnologyList items={story.stack} />;
 	}
 
 	return (
-		<div className="space-y-2.5">
+		<div className="space-y-3">
 			{story.chapters.map((chapter) => (
 				<div
 					key={chapter.id}
-					className="grid gap-1.5 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-4"
+					className="grid gap-1.5 sm:grid-cols-[4.5rem_minmax(0,1fr)] sm:gap-4"
 				>
-					<p className="text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground">
+					<p className="text-sm font-semibold leading-6 text-foreground/80">
 						{chapter.platform}
 					</p>
-					<TechnologyList items={chapter.stack} />
+					<WorkTechnologyList items={chapter.stack} />
 				</div>
 			))}
 		</div>
 	);
 };
-
-const DetailImpactList = ({ items }: { items: WorkImpact[] }) => (
-	<dl className="divide-y divide-border/45">
-		{items.map((item) => (
-			<div key={`${item.value}-${item.label}`} className="py-4">
-				<dt className="font-semibold text-foreground tabular-nums break-words">
-					{item.value}
-				</dt>
-				<dd className="mt-1 text-sm font-medium text-foreground/80 break-keep">
-					{item.label}
-				</dd>
-				{item.detail && (
-					<dd className="mt-1 text-sm leading-6 text-foreground/75 break-keep">
-						{item.detail}
-					</dd>
-				)}
-			</div>
-		))}
-	</dl>
-);
-
-const ResultEvidenceList = ({ items }: { items: WorkImpact[] }) => (
-	<ul className="space-y-4">
-		{items.map((item) => (
-			<li
-				key={`${item.value}-${item.label}`}
-				className="relative pl-4 before:absolute before:left-0 before:top-[0.68rem] before:h-1.5 before:w-1.5 before:rounded-full before:bg-accent"
-			>
-				<p className="text-base leading-7 text-foreground break-keep">
-					<span className="font-semibold">{item.label}</span>
-					<span className="mx-2 text-muted-foreground" aria-hidden="true">
-						—
-					</span>
-					<span className="font-semibold tabular-nums">{item.value}</span>
-					{item.detail && (
-						<>
-							<span className="mx-2 text-muted-foreground" aria-hidden="true">
-								·
-							</span>
-							<span className="text-[0.9375rem] text-foreground/75">
-								{item.detail}
-							</span>
-						</>
-					)}
-				</p>
-			</li>
-		))}
-	</ul>
-);
 
 const ChapterBoundaries = ({ chapters }: { chapters: WorkStoryChapter[] }) => (
 	<div className="mt-6 space-y-5">
@@ -155,18 +89,27 @@ const ChapterBoundaries = ({ chapters }: { chapters: WorkStoryChapter[] }) => (
 );
 
 const StoryResults = ({ story }: { story: ProfessionalStory }) => (
-	<div className="mt-5 space-y-6 sm:mt-6">
+	<div className="mt-5 space-y-8 sm:mt-6">
 		{story.resultSections.map((section) => (
 			<section key={section.id}>
 				{story.resultSections.length > 1 && section.title && (
-					<h5 className="mb-3 text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground break-keep">
+					<h5 className="mb-2 text-sm font-semibold leading-6 text-foreground/80 break-keep">
 						{section.title}
 					</h5>
 				)}
-				<ResultEvidenceList items={section.impact} />
+				<WorkEvidenceList items={section.impact} />
 			</section>
 		))}
 	</div>
+);
+
+const DetailRow = ({ title, children }: EditorialSectionProps) => (
+	<section className="grid gap-3 border-t border-border/45 py-6 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6">
+		<h6 className="text-sm font-bold leading-6 text-foreground break-keep">
+			{title}
+		</h6>
+		<div className="min-w-0">{children}</div>
+	</section>
 );
 
 const ChapterEvidence = ({
@@ -178,53 +121,61 @@ const ChapterEvidence = ({
 	labels: WorkLabels;
 	showTitle: boolean;
 }) => (
-	<section className="space-y-8 border-t border-border/45 pt-8 first:border-t-0 first:pt-0">
+	<section className="border-t-2 border-foreground/20 pt-10 first:border-t-0 first:pt-0">
 		{showTitle && (
-			<header>
-				<p className="text-xs font-semibold text-muted-foreground">
-					{chapter.platform} · {chapter.period}
+			<header className="grid gap-2 pb-8 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6">
+				<p className="text-sm font-bold leading-6 text-accent">
+					{chapter.platform}
 				</p>
-				<h5 className="mt-1 text-lg font-bold text-foreground break-keep">
-					{chapter.title}
-				</h5>
+				<div className="min-w-0">
+					<h5 className="text-xl font-bold leading-7 text-foreground break-keep">
+						{chapter.title}
+					</h5>
+					<div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-sm leading-6 text-muted-foreground">
+						<span>{chapter.period}</span>
+						<span>{chapter.area}</span>
+					</div>
+				</div>
 			</header>
 		)}
 
-		<section className="space-y-2">
-			<h6 className="text-sm font-bold text-foreground">{labels.problem}</h6>
-			<p className="text-[0.9375rem] leading-7 text-foreground/80 break-keep">
-				{chapter.context}
-			</p>
-		</section>
+		<div>
+			<DetailRow title={labels.problem}>
+				<p className="text-[0.9375rem] leading-7 text-foreground/80 break-keep">
+					{chapter.context}
+				</p>
+			</DetailRow>
 
-		<section className="space-y-2">
-			<h6 className="text-sm font-bold text-foreground">{labels.thinking}</h6>
-			<EvidenceList items={chapter.decisions} />
-		</section>
+			<DetailRow title={labels.thinking}>
+				<EvidenceList items={chapter.decisions} />
+			</DetailRow>
 
-		<div className="grid gap-8 lg:grid-cols-2">
-			<section className="space-y-2">
-				<h6 className="text-sm font-bold text-foreground">{labels.solution}</h6>
-				<EvidenceList items={chapter.execution} />
-			</section>
-			<section className="space-y-2">
-				<h6 className="text-sm font-bold text-foreground">{labels.process}</h6>
-				<EvidenceList items={chapter.additionalEvidence} />
-			</section>
+			<div className="grid gap-8 border-t border-border/45 py-6 lg:grid-cols-2 lg:gap-10">
+				<section className="space-y-3">
+					<h6 className="text-sm font-bold leading-6 text-foreground">
+						{labels.solution}
+					</h6>
+					<EvidenceList items={chapter.execution} />
+				</section>
+				<section className="space-y-3">
+					<h6 className="text-sm font-bold leading-6 text-foreground">
+						{labels.process}
+					</h6>
+					<EvidenceList items={chapter.additionalEvidence} />
+				</section>
+			</div>
+
+			{chapter.impact.length > 0 && (
+				<DetailRow title={labels.impact}>
+					<WorkEvidenceList items={chapter.impact} />
+				</DetailRow>
+			)}
+			{chapter.checks.length > 0 && (
+				<DetailRow title={labels.checks}>
+					<EvidenceList items={chapter.checks} />
+				</DetailRow>
+			)}
 		</div>
-
-		{chapter.impact.length > 0 && (
-			<section className="space-y-2">
-				<h6 className="text-sm font-bold text-foreground">{labels.impact}</h6>
-				<DetailImpactList items={chapter.impact} />
-			</section>
-		)}
-		{chapter.checks.length > 0 && (
-			<section className="space-y-2">
-				<h6 className="text-sm font-bold text-foreground">{labels.checks}</h6>
-				<EvidenceList items={chapter.checks} />
-			</section>
-		)}
 	</section>
 );
 
@@ -247,7 +198,7 @@ const AdditionalEvidence = ({
 			<p className="text-base leading-7 text-foreground/80 break-keep">
 				{story.summary}
 			</p>
-			<div className="mt-8 space-y-10">
+			<div className="mt-8 space-y-12">
 				{story.chapters.map((chapter) => (
 					<ChapterEvidence
 						key={chapter.id}
@@ -273,17 +224,15 @@ export const WorkCaseDetail = ({
 		<article
 			id={story.id}
 			tabIndex={-1}
-			className="scroll-mt-32 border-t-2 border-foreground/70 py-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:py-14"
+			className="scroll-mt-32 border-t-2 border-foreground/70 py-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:py-14"
 		>
 			<header>
-				<div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold text-muted-foreground">
+				<div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-semibold text-muted-foreground">
 					<span className="font-bold text-accent tabular-nums">
 						{String(index).padStart(2, '0')}
 					</span>
 					<span>{story.workType}</span>
-					<span aria-hidden="true">·</span>
 					<span>{story.platform}</span>
-					<span aria-hidden="true">·</span>
 					<span>{story.period}</span>
 				</div>
 				<h3 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-foreground break-keep sm:text-4xl">
@@ -298,12 +247,13 @@ export const WorkCaseDetail = ({
 						<dt className="text-xs font-bold text-muted-foreground">
 							{labels.scope}
 						</dt>
-						<dd className="text-sm font-medium leading-6 text-foreground/80 break-keep">
-							{story.role} · {story.area}
+						<dd className="text-sm leading-6 break-keep">
+							<p className="font-medium text-foreground/85">{story.role}</p>
+							<p className="mt-1 text-foreground/70">{story.area}</p>
 						</dd>
 					</div>
 					<div className="grid gap-2 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-8">
-						<dt className="text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground">
+						<dt className="text-xs font-bold text-muted-foreground">
 							{labels.stack}
 						</dt>
 						<dd>

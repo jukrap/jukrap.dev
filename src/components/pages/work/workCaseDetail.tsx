@@ -88,20 +88,37 @@ const ChapterBoundaries = ({ chapters }: { chapters: WorkStoryChapter[] }) => (
 	</div>
 );
 
-const StoryResults = ({ story }: { story: ProfessionalStory }) => (
-	<div className="mt-5 space-y-8 sm:mt-6">
-		{story.resultSections.map((section) => (
-			<section key={section.id}>
-				{story.resultSections.length > 1 && section.title && (
-					<h5 className="mb-2 text-sm font-semibold leading-6 text-foreground/80 break-keep">
-						{section.title}
-					</h5>
-				)}
-				<WorkEvidenceList items={section.impact} />
-			</section>
-		))}
-	</div>
-);
+const StoryResults = ({ story }: { story: ProfessionalStory }) => {
+	const hasMultipleSections = story.resultSections.length > 1;
+
+	return (
+		<div
+			className={`mt-5 sm:mt-6 ${
+				hasMultipleSections ? 'divide-y divide-border/45' : ''
+			}`}
+		>
+			{story.resultSections.map((section) => (
+				<section
+					key={section.id}
+					className={
+						hasMultipleSections
+							? 'grid gap-0 lg:grid-cols-[8.5rem_minmax(0,1fr)] lg:gap-6'
+							: undefined
+					}
+				>
+					{hasMultipleSections && section.title && (
+						<h5 className="pb-1 pt-5 text-sm font-bold leading-6 text-foreground break-keep lg:py-4">
+							{section.title}
+						</h5>
+					)}
+					<div className="min-w-0">
+						<WorkEvidenceList items={section.impact} />
+					</div>
+				</section>
+			))}
+		</div>
+	);
+};
 
 const DetailRow = ({ title, children }: EditorialSectionProps) => (
 	<section className="grid gap-3 border-t border-border/45 py-6 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6">

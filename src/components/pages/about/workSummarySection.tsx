@@ -5,11 +5,12 @@ import { useLocale } from '@/contexts/localeContext';
 import { getLocalizedPath } from '@/lib/locale';
 
 const ABOUT_WORK_CASE_IDS = [
-	'operations-web-performance',
-	'mobile-print-bridge',
-	'finance-admin-web',
-	'chart-editor',
-	'kickoff-documentation-tool',
+	'delivery-operations-web',
+	'mobile-output-bridge',
+	'ai-kickoff-documentation-tool',
+	'structured-editor-ui',
+	'hybrid-life-info-platform',
+	'hybrid-security-boundary',
 ];
 
 const WorkSummarySection = () => {
@@ -50,7 +51,7 @@ const WorkSummarySection = () => {
 							<div className="grid grid-cols-[auto,1fr] items-start gap-3">
 								<span className="w-1.5 h-1.5 bg-foreground rounded-full mt-2" />
 								<span className="text-sm md:text-base leading-relaxed text-left text-foreground break-keep">
-									{workCase.area} · {workCase.role}
+									{workCase.workType} · {workCase.area}
 								</span>
 							</div>
 							<p className="font-light text-xs md:text-sm leading-relaxed tracking-tight text-left text-muted-foreground py-1">

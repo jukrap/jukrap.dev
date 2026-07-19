@@ -43,7 +43,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			welcome: 'Jukrap의 개인 사이트에 오신 것을 환영합니다.',
 			documentsTitle: '필요한 문서를 바로 받을 수 있습니다.',
 			documentsDescription:
-				'이력서는 경력과 기술 요약을, 포트폴리오는 프로젝트와 작업 내용을 조금 더 자세히 담았습니다.',
+				'이력서는 경력과 기술 요약을, 포트폴리오는 프로젝트와 업무 사례를 조금 더 자세히 담았습니다.',
 			resumeTitle: '이력서',
 			resumeDescription:
 				'경력, 기술 스택, 핵심 이력을 빠르게 확인할 수 있는 문서입니다.',
@@ -78,16 +78,20 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'웹, 모바일 앱, Android, 개발 도구 중심의 업무 경험을 정리했습니다. 각 항목에서는 맡은 범위와 기술 선택, 확인한 결과를 보실 수 있습니다.',
-			indexTitle: 'Work Index',
-			featuredTitle: 'Case Notes',
-			compactTitle: 'Additional Work',
+				'웹, 모바일 앱, Android, 개발 도구 중심의 업무 경험을 정리했습니다. 각 항목에서는 문제 상황, 판단 이유, 해결 방식, 확인한 결과를 보실 수 있습니다.',
+			indexTitle: '업무 사례',
+			featuredTitle: '핵심 사례',
+			compactTitle: '함께 정리한 업무',
+			compactIntro:
+				'신규 개발 중심 사례와 별개로, 유지보수·기능 확장·영향 분석처럼 실제 업무에서 맡은 성격이 다른 작업을 분리했습니다.',
 			labels: {
 				stack: '사용 기술',
-				scope: '범위',
-				contribution: '맡은 일',
-				outcome: '결과',
-				verification: '검증',
+				problem: '문제',
+				thinking: '판단',
+				process: '과정',
+				solution: '해결',
+				impact: '성과',
+				checks: '확인',
 			},
 		},
 		projects: {
@@ -170,7 +174,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			welcome: "Welcome to Jukrap's personal website.",
 			documentsTitle: 'Download the document you need.',
 			documentsDescription:
-				'The resume gives a quick career and skill summary. The portfolio adds project and work details.',
+				'The resume gives a quick career and skill summary. The portfolio adds project and professional work details.',
 			resumeTitle: 'Resume',
 			resumeDescription:
 				'A concise document for checking career history, skills, and key experience.',
@@ -205,16 +209,20 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'I organized work experience across web, mobile apps, Android, and developer tooling. Each item shows scope, technical decisions, and verified results.',
+				'I organized work experience across web, mobile apps, Android, and developer tooling. Each item focuses on the problem, the decision behind the work, the solution, and the checks that followed.',
 			indexTitle: 'Work Index',
 			featuredTitle: 'Case Notes',
 			compactTitle: 'Additional Work',
+			compactIntro:
+				'These are separated from build-heavy cases to show maintenance, feature extension, integration, and analysis work without mixing their scope.',
 			labels: {
 				stack: 'Stack',
-				scope: 'Scope',
-				contribution: 'Contribution',
-				outcome: 'Outcome',
-				verification: 'Verification',
+				problem: 'Problem',
+				thinking: 'Decision',
+				process: 'Process',
+				solution: 'Solution',
+				impact: 'Impact',
+				checks: 'Checks',
 			},
 		},
 		projects: {

@@ -73,12 +73,15 @@ export interface LocaleDictionary {
 		indexTitle: string;
 		featuredTitle: string;
 		compactTitle: string;
+		compactIntro: string;
 		labels: {
 			stack: string;
-			scope: string;
-			contribution: string;
-			outcome: string;
-			verification: string;
+			problem: string;
+			thinking: string;
+			process: string;
+			solution: string;
+			impact: string;
+			checks: string;
 		};
 	};
 	projects: {

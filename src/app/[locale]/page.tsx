@@ -20,10 +20,10 @@ export async function generateMetadata({
 
 export default function LocalizedHomePage() {
 	return (
-		<main className="flex flex-col items-center px-4 sm:px-6 lg:px-8 py-8 md:py-16 lg:pt-36 lg:pb-24 gap-8 md:gap-16 lg:gap-24">
+		<div className="flex flex-col items-center gap-8 px-4 py-8 sm:px-6 md:gap-16 md:py-16 lg:gap-24 lg:px-8 lg:pb-24 lg:pt-36">
 			<WelcomeSection />
 			<LinksSection />
 			<PortfolioSection />
-		</main>
+		</div>
 	);
 }

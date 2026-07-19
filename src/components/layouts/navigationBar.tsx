@@ -92,7 +92,7 @@ export function NavigationBar() {
 							aria-label={titleText}
 						>
 							<span
-								className="brand-link font-bold text-xl text-primary"
+								className="brand-link text-xl font-bold text-primary"
 								aria-hidden="true"
 							>
 								{titleText.split('').map((letter, index) => (

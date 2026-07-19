@@ -88,7 +88,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'웹은 조회·예약·Excel·출력 요청의 상태와 초기 로딩을 책임지고, 모바일은 WebView contract 이후의 권한·Bluetooth·프린터 출력을 책임지도록 경계를 나눴습니다.',
 				outcome:
-					'웹 초기 JS entry는 2,405.50→616.59 kB, gzip은 815.10→204.38 kB로 줄였습니다. 모바일은 Android 16/API 36 실기기에서 권한·장비 연결·실물 라벨 출력을 별도 기준으로 확인했습니다.',
+					'웹 초기 진입 비용과 모바일 출력 완료를 서로 다른 실행 환경과 검증 기준으로 확인했습니다.',
 				takeaway:
 					'하나의 사용자 흐름이어도 브라우저 성능과 장비 출력은 같은 완료 기준으로 묶지 않는다는 원칙.',
 			},
@@ -138,7 +138,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'차트 타입별 유효 옵션만 노출하고, field mapping·preview lifecycle·settings state를 분리해 같은 편집 모델을 바라보도록 했습니다.',
 				outcome:
-					'6개 설정 영역과 mixed chart preview를 연결하고 option 변경, panel 접기, drag/drop, tooltip 흐름과 관련 테스트·lint·build를 회귀 기준으로 확인했습니다.',
+					'설정 상태와 실제 프리뷰를 하나의 회귀 범위로 연결해 편집 흐름이 어긋나지 않는지 확인했습니다.',
 				takeaway:
 					'편집 도구의 신뢰도는 옵션 수보다 입력 상태와 실제 렌더 결과의 일치에서 나온다는 기준.',
 			},
@@ -163,7 +163,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'규칙 기반 scanner 결과를 preview한 뒤 AI 초안에 사용하고, workbook을 검수 원장으로 두며 수정 범위는 선택한 sheet와 cell로 제한했습니다.',
 				outcome:
-					'scan→preview→workbook→xlsx export와 선택 범위 재작성, 성공·실패 artifact 추적 흐름을 관련 테스트·lint·build로 확인했습니다.',
+					'근거 수집부터 사람 검수와 선택 범위 수정까지 각 단계를 분리된 검증 경로로 확인했습니다.',
 				takeaway:
 					'AI 자동화는 완성본 생성보다 근거 입력과 사람 검수·부분 수정의 경계를 명시할 때 신뢰할 수 있다는 기준.',
 			},
@@ -192,7 +192,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'핵심·보조 loading, fresh·stale cache, 기준 데이터 cache를 분리하고 운영 반영은 manifest와 SHA-256 hash 단위로 좁혔습니다.',
 				outcome:
-					'2026-07-08 운영 smoke에서 core는 약 2.85→0.11초, 대기질은 약 2.02→0.07초를 확인했고 최종 회귀는 131 tests / skipped 1이었습니다. 7월 2일과 8일의 배포 수치는 서로 다른 기준으로 남겼습니다.',
+					'캐시 성능, 회귀 테스트, 날짜별 운영 배포를 서로 다른 기준으로 확인하고 기록했습니다.',
 				takeaway:
 					'레거시 운영 개선은 바꾼 범위뿐 아니라 보존한 계약과 fallback·배포 증거까지 함께 남겨야 한다는 기준.',
 			},
@@ -245,7 +245,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'The web app owned lookup, reservation, Excel, output-request state, and initial loading, while mobile owned permissions, Bluetooth, and printer output after the WebView contract.',
 				outcome:
-					'The web initial JS entry moved from 2,405.50 to 616.59 kB and gzip from 815.10 to 204.38 kB. Mobile permissions, device connection, and physical label output were checked separately on Android 16 / API 36 hardware.',
+					'Verified web entry cost and mobile output completion against separate runtime and validation criteria.',
 				takeaway:
 					'Even one user journey needs separate completion criteria for browser performance and physical-device output.',
 			},
@@ -296,7 +296,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'Showed only valid options for each chart type and separated field mapping, preview lifecycle, and settings state around one editing model.',
 				outcome:
-					'Connected six settings areas to the mixed-chart preview and used option changes, panel collapse, drag and drop, tooltips, related tests, lint, and build as the regression baseline.',
+					'Connected settings state and the rendered preview under one regression scope to check that the editing flow stayed aligned.',
 				takeaway:
 					'Editor trust comes from keeping input state aligned with the rendered result, not from offering more options.',
 			},
@@ -321,7 +321,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'Previewed deterministic scanner evidence before AI drafting, kept the workbook as the review record, and limited revisions to selected sheets and cells.',
 				outcome:
-					'Checked scan→preview→workbook→xlsx export, scoped revision, and successful-versus-failed artifact tracking through the related tests, lint, and build.',
+					'Verified each stage from evidence collection through human review and scoped revision as a distinct path.',
 				takeaway:
 					'AI assistance is more trustworthy when evidence input, human review, and scoped revision boundaries are explicit.',
 			},
@@ -353,7 +353,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'Separated core and secondary loading, fresh and stale caches, and reference-data caches, then limited production delivery to manifest and SHA-256 hash scopes.',
 				outcome:
-					'On the 2026-07-08 production smoke, core moved from about 2.85s to 0.11s and air quality from about 2.02s to 0.07s; the final regression was 131 tests with one skipped. The July 2 and July 8 deployment counts remain separate baselines.',
+					'Verified cache behavior, regression coverage, and dated production deliveries against separate baselines.',
 				takeaway:
 					'Legacy production improvements should record preserved contracts, fallbacks, and deployment evidence alongside the changed scope.',
 			},

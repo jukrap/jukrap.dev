@@ -55,7 +55,7 @@ export const WorkChapterRail = ({ stories, labels }: WorkChapterRailProps) => {
 	const { activeId, activeIndex } = useWorkStoryScroll(storyIds);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const menuId = `work-chapters-${useId().replaceAll(':', '')}`;
-	const railRef = useRef<HTMLDivElement>(null);
+	const railRef = useRef<HTMLElement>(null);
 	const menuButtonRef = useRef<HTMLButtonElement>(null);
 	const activeStory = stories[activeIndex] ?? stories[0];
 	const groups = [
@@ -118,8 +118,9 @@ export const WorkChapterRail = ({ stories, labels }: WorkChapterRailProps) => {
 	if (!activeStory) return null;
 
 	return (
-		<div ref={railRef} className="min-w-0 xl:self-start">
+		<>
 			<nav
+				ref={railRef}
 				aria-label={labels.index}
 				className="sticky top-16 z-30 -mx-4 border-y border-border/45 bg-background sm:-mx-6 xl:hidden"
 			>
@@ -220,67 +221,69 @@ export const WorkChapterRail = ({ stories, labels }: WorkChapterRailProps) => {
 				</div>
 			</nav>
 
-			<nav
-				aria-label={labels.index}
-				className="sticky top-24 hidden max-h-[calc(100dvh-7rem)] overflow-y-auto pr-3 xl:block"
-			>
-				<p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">
-					{labels.index}
-				</p>
-				<div className="mt-6 space-y-7">
-					{groups.map((group) => (
-						<section key={group.label} aria-label={group.label}>
-							<p className="mb-2 px-3 text-xs font-semibold text-muted-foreground">
-								{group.label}
-							</p>
-							<ol>
-								{group.stories.map((story) => {
-									const index = stories.findIndex(({ id }) => id === story.id);
-									const isActive = story.id === activeId;
+			<div className="hidden min-w-0 xl:block xl:h-full">
+				<nav
+					aria-label={labels.index}
+					className="sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto pr-3"
+				>
+					<p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">
+						{labels.index}
+					</p>
+					<div className="mt-6 space-y-7">
+						{groups.map((group) => (
+							<section key={group.label} aria-label={group.label}>
+								<p className="mb-2 px-3 text-xs font-semibold text-muted-foreground">
+									{group.label}
+								</p>
+								<ol>
+									{group.stories.map((story) => {
+										const index = stories.findIndex(({ id }) => id === story.id);
+										const isActive = story.id === activeId;
 
-									return (
-										<li key={story.id}>
-											<a
-												href={`#${story.id}`}
-												onClick={(event) => navigateTo(event, story.id)}
-												aria-current={isActive ? 'location' : undefined}
-												className="group relative flex min-h-11 items-start gap-3 border-l-2 border-transparent px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-[current=location]:border-accent aria-[current=location]:bg-secondary/30"
-											>
-												<span className="w-5 shrink-0 pt-0.5 text-xs font-bold text-muted-foreground tabular-nums group-aria-[current=location]:text-accent">
-													{String(index + 1).padStart(2, '0')}
-												</span>
-												<span className="min-w-0 flex-1">
-													<span className="block text-sm font-medium leading-5 text-foreground break-keep group-aria-[current=location]:font-bold">
-														{story.title}
+										return (
+											<li key={story.id}>
+												<a
+													href={`#${story.id}`}
+													onClick={(event) => navigateTo(event, story.id)}
+													aria-current={isActive ? 'location' : undefined}
+													className="group relative flex min-h-11 items-start gap-3 border-l-2 border-transparent px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-[current=location]:border-accent aria-[current=location]:bg-secondary/30"
+												>
+													<span className="w-5 shrink-0 pt-0.5 text-xs font-bold text-muted-foreground tabular-nums group-aria-[current=location]:text-accent">
+														{String(index + 1).padStart(2, '0')}
 													</span>
-													<span className="mt-0.5 block text-xs text-muted-foreground">
-														{story.period}
+													<span className="min-w-0 flex-1">
+														<span className="block text-sm font-medium leading-5 text-foreground break-keep group-aria-[current=location]:font-bold">
+															{story.title}
+														</span>
+														<span className="mt-0.5 block text-xs text-muted-foreground">
+															{story.period}
+														</span>
 													</span>
-												</span>
-											</a>
-											{story.chapters.length > 1 && (
-												<ul className="mb-2 ml-11 border-l border-border/45 pl-2">
-													{story.chapters.map((chapter) => (
-														<li key={chapter.id}>
-															<a
-																href={`#${chapter.id}`}
-																onClick={(event) => navigateTo(event, chapter.id)}
-																className="flex min-h-11 items-center px-3 text-xs font-medium leading-5 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-															>
-																{chapter.title}
-															</a>
-														</li>
-													))}
-												</ul>
-											)}
-										</li>
-									);
-								})}
-							</ol>
-						</section>
-					))}
-				</div>
-			</nav>
-		</div>
+												</a>
+												{story.chapters.length > 1 && (
+													<ul className="mb-2 ml-11 border-l border-border/45 pl-2">
+														{story.chapters.map((chapter) => (
+															<li key={chapter.id}>
+																<a
+																	href={`#${chapter.id}`}
+																	onClick={(event) => navigateTo(event, chapter.id)}
+																	className="flex min-h-11 items-center px-3 text-xs font-medium leading-5 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+																>
+																	{chapter.title}
+																</a>
+															</li>
+														))}
+													</ul>
+												)}
+											</li>
+										);
+									})}
+								</ol>
+							</section>
+						))}
+					</div>
+				</nav>
+			</div>
+		</>
 	);
 };

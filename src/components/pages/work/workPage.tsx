@@ -16,9 +16,9 @@ export const WorkPage = () => {
 	);
 
 	return (
-		<div className="w-full py-10 sm:py-14 lg:py-20">
+		<div className="w-full py-10 sm:py-14 lg:py-[4.5rem]">
 			<div className="mx-auto w-full max-w-[1200px]">
-				<header className="max-w-[48rem] pb-10 xl:ml-[17rem] xl:pb-14">
+				<header className="max-w-[48rem] pb-10 sm:pb-12 xl:ml-[17rem] xl:pb-[4.5rem]">
 					<h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
 						{work.title}
 					</h1>
@@ -40,11 +40,11 @@ export const WorkPage = () => {
 						}}
 					/>
 
-					<div className="min-w-0 pt-10 xl:pt-0">
+					<div className="min-w-0 pt-10 sm:pt-12 xl:pt-0 xl:pb-20">
 						<section aria-labelledby="work-featured-title">
 							<h2
 								id="work-featured-title"
-								className="pb-4 text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+								className="pb-4 text-2xl font-bold tracking-tight text-foreground sm:pb-6 sm:text-3xl"
 							>
 								{work.featuredTitle}
 							</h2>
@@ -59,7 +59,7 @@ export const WorkPage = () => {
 						</section>
 
 						<section
-							className="mt-14 border-t-2 border-foreground/70 pt-9 sm:mt-20 sm:pt-11"
+							className="mt-14 border-t-2 border-foreground/70 pt-10 sm:mt-20 sm:pt-12"
 							aria-labelledby="work-compact-title"
 						>
 							<header>
@@ -74,7 +74,7 @@ export const WorkPage = () => {
 								</p>
 							</header>
 
-							<div className="mt-6">
+							<div className="mt-6 sm:mt-8">
 								{compactStories.map((story, index) => (
 									<CompactWorkStory
 										key={story.id}

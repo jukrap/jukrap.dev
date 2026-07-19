@@ -40,7 +40,7 @@ export const WorkPage = () => {
 						}}
 					/>
 
-					<div className="min-w-0 pt-10 sm:pt-12 xl:pt-0 xl:pb-20">
+					<div className="min-w-0 pt-10 sm:pt-12 xl:pt-0 xl:pb-56">
 						<section aria-labelledby="work-featured-title">
 							<h2
 								id="work-featured-title"

@@ -8,7 +8,7 @@ const birthDate = decodeBirthDate(obfuscatedBirthDate);
 const age = calculateAge(birthDate);
 
 export const greetings = [
-	`👋 Hi there, I'm 【Frontend Engineer】. `,
+	`👋 Hi there, I'm a 【Web & Mobile Frontend Engineer】. `,
 	`🤖 Hi there, I'm 【Android Developer】. `,
 	`👋 Hi there, I'm 【Jukrap】. `,
 	`👋 Hi there, I'm 【Ju-cheol Park】. `,

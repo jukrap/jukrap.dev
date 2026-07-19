@@ -7,16 +7,17 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			home: siteMetadata,
 			about: {
 				title: 'About | Ju-cheol Park',
-				description: 'About page of Ju-cheol Park, Frontend Engineer',
+				description: 'About page of Ju-cheol Park, Web & Mobile Frontend Engineer',
 			},
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'업무 웹, 모바일 앱, Android, 개발 도구 경험을 정리한 Ju-cheol Park의 Work 페이지',
+					'웹과 모바일 앱, Android 연동, 개발 도구 경험을 정리한 웹/모바일 프론트엔드 엔지니어 박주철의 Work 페이지',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
-				description: 'Projects page of Ju-cheol Park, Frontend Engineer',
+				description:
+					'Projects page of Ju-cheol Park, Web & Mobile Frontend Engineer',
 			},
 		},
 		navigation: {
@@ -63,7 +64,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			careerSummary: {
 				company: '트리포스㈜',
 				period: '2026.02 ~ Present',
-				role: '프론트엔드 엔지니어',
+				role: '웹/모바일 프론트엔드 엔지니어',
 				details: [
 					'React 기반 업무 화면, 모바일 WebView, Android 연동처럼 사용자 흐름과 시스템 경계가 맞물리는 영역을 설계하고 구현합니다.',
 					'신규 구축과 레거시 개선을 함께 다루며 상태, 라우팅, 출력, 검증 기준을 코드와 문서로 남겨둡니다.',
@@ -78,7 +79,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'웹 화면부터 Android 장비와 운영 배포까지, 복잡한 흐름을 어떤 기준으로 나누고 검증했는지 대표 업무와 보조 경험으로 정리했습니다.',
+				'웹과 모바일 앱의 사용자 흐름부터 Android 장비와 운영 배포까지, 복잡한 경계를 어떤 기준으로 나누고 검증했는지 대표 업무와 보조 경험으로 정리했습니다.',
 			indexTitle: '업무 사례',
 			currentStory: '현재 업무',
 			openTableOfContents: '목차 열기',
@@ -88,13 +89,13 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			compactIntro:
 				'기능 확장과 유지보수에서 변경 범위와 회귀 기준을 정리한 경험입니다.',
 			labels: {
-				stack: '기술',
+				stack: '기술 환경',
 				scope: '맡은 범위',
 				context: '문제',
 				decisions: '핵심 판단',
 				results: '확인한 결과',
 				takeaway: '남긴 기준',
-				additionalEvidence: '세부 구현·검증 기록',
+				additionalEvidence: '세부 구현 및 검증 기록',
 				problem: '문제',
 				thinking: '판단',
 				process: '실행',
@@ -139,24 +140,24 @@ export const dictionaries: Localized<LocaleDictionary> = {
 	en: {
 		metadata: {
 			home: {
-				title: 'Ju-cheol Park | Frontend engineer',
-				description: "Frontend engineer. This is Jukrap's website.",
+				title: 'Ju-cheol Park | Web & Mobile Frontend Engineer',
+				description: "Web and mobile frontend engineer. This is Jukrap's website.",
 				icons: {
 					icon: '/favicon.ico',
 				},
 			},
 			about: {
 				title: 'About | Ju-cheol Park',
-				description: 'About Ju-cheol Park, Frontend Engineer',
+				description: 'About Ju-cheol Park, Web & Mobile Frontend Engineer',
 			},
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'Work by Ju-cheol Park, covering logistics web, mobile apps, Android, and developer tooling.',
+					'Work by Ju-cheol Park, a Web & Mobile Frontend Engineer, covering logistics web, mobile apps, Android, and developer tooling.',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
-				description: 'Projects by Ju-cheol Park, Frontend Engineer',
+				description: 'Projects by Ju-cheol Park, Web & Mobile Frontend Engineer',
 			},
 		},
 		navigation: {
@@ -203,7 +204,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			careerSummary: {
 				company: 'Triphos',
 				period: '2026.02 ~ Present',
-				role: 'Frontend Engineer',
+				role: 'Web & Mobile Frontend Engineer',
 				details: [
 					'Designing and implementing user-facing flows across React business screens, mobile WebView, and Android integration.',
 					'Handling both end-to-end builds and legacy improvements with clear state, routing, output, and verification baselines.',
@@ -218,7 +219,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'Selected work showing how I separated and verified complex flows across web screens, Android devices, and production delivery.',
+				'Selected work showing how I separated and verified complex flows across web and mobile apps, Android devices, and production delivery.',
 			indexTitle: 'Work Index',
 			currentStory: 'Current story',
 			openTableOfContents: 'Open table of contents',
@@ -228,7 +229,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			compactIntro:
 				'Additional feature and maintenance work focused on change boundaries and regression baselines.',
 			labels: {
-				stack: 'Technology',
+				stack: 'Technology stack',
 				scope: 'Scope',
 				context: 'Problem',
 				decisions: 'Key decision',

@@ -6,30 +6,20 @@ import {
 	PortfolioSectionBlock,
 } from './portfolioBlocks';
 
-const pageLayoutByKind: Record<PortfolioPageDefinition['kind'], string> = {
-	cover: 'justify-between',
-	overview: '',
-	case: '',
-	'compact-work': '',
-	project: '',
-	'project-collection': '',
-	closing: '',
-};
-
 function DocumentPageHeader({ page }: { page: PortfolioPageDefinition }) {
 	if (page.kind === 'cover') return null;
 
 	return (
-		<header className="document-page-header flex items-center justify-between border-b border-border/35 pb-3 text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
-			<span>Ju-cheol Park</span>
-			<span>Web &amp; Mobile Frontend Engineer</span>
+		<header className="document-page-header">
+			<span>박주철 포트폴리오</span>
+			<span>{page.eyebrow}</span>
 		</header>
 	);
 }
 
 function DocumentPageFooter({ pageNumber }: { pageNumber: number }) {
 	return (
-		<footer className="document-page-footer mt-auto flex items-end justify-between border-t border-border/35 pt-3 text-[10px] text-muted-foreground">
+		<footer className="document-page-footer">
 			<span>jukrap.vercel.app</span>
 			<span className="tabular-nums">{String(pageNumber).padStart(2, '0')}</span>
 		</footer>
@@ -38,28 +28,18 @@ function DocumentPageFooter({ pageNumber }: { pageNumber: number }) {
 
 function PageIntroduction({ page }: { page: PortfolioPageDefinition }) {
 	return (
-		<div className="document-page-introduction mt-7">
-			<p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-accent">
-				{page.eyebrow}
-			</p>
-			<h2 className="mt-2.5 max-w-[20ch] text-[28px] font-bold leading-[1.18] tracking-[-0.035em] text-foreground sm:text-[32px]">
-				{page.title}
-			</h2>
+		<div className="document-page-introduction">
+			<p className="document-page-eyebrow">{page.eyebrow}</p>
+			<h2>{page.title}</h2>
 			{page.summary ? (
-				<p className="mt-4 max-w-[67ch] text-[14px] font-medium leading-[1.68] text-foreground/85">
-					{page.summary}
-				</p>
+				<p className="document-page-summary">{page.summary}</p>
 			) : null}
 			{page.metadata?.length ? (
-				<dl className="mt-5 grid gap-x-8 gap-y-2.5 border-y border-border/30 py-3.5 sm:grid-cols-3">
+				<dl className="document-page-metadata">
 					{page.metadata.map((item) => (
-						<div key={`${item.label}-${item.value}`} className="min-w-0">
-							<dt className="text-[10px] font-semibold text-muted-foreground">
-								{item.label}
-							</dt>
-							<dd className="mt-0.5 text-[12px] font-semibold leading-5 text-foreground">
-								{item.value}
-							</dd>
+						<div key={item.label + '-' + item.value}>
+							<dt>{item.label}</dt>
+							<dd>{item.value}</dd>
 						</div>
 					))}
 				</dl>
@@ -71,40 +51,27 @@ function PageIntroduction({ page }: { page: PortfolioPageDefinition }) {
 function CoverPage({ page }: { page: PortfolioPageDefinition }) {
 	return (
 		<>
-			<div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-				<span>Portfolio</span>
-				<span className="text-accent">2026</span>
+			<header className="document-cover-header">
+				<span>포트폴리오</span>
+				<span>2026</span>
+			</header>
+
+			<div className="document-cover-title">
+				<p>{page.eyebrow}</p>
+				<h1>{page.title}</h1>
+				{page.summary ? <div>{page.summary}</div> : null}
 			</div>
 
-			<div className="my-auto max-w-[34rem] py-16">
-				<div className="mb-8 h-1 w-12 bg-accent" aria-hidden="true" />
-				<p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-					{page.eyebrow}
-				</p>
-				<h1 className="mt-4 text-[52px] font-bold leading-[1.04] tracking-[-0.055em] text-foreground sm:text-[62px]">
-					{page.title}
-				</h1>
-				{page.summary ? (
-					<p className="mt-8 max-w-[46ch] text-[15px] font-medium leading-[1.75] text-foreground/85">
-						{page.summary}
-					</p>
-				) : null}
-			</div>
-
-			<div className="grid gap-8 border-t border-border/45 pt-6 sm:grid-cols-[1.3fr_1fr] print:grid-cols-1 print:gap-5">
-				<div className="grid gap-x-6 gap-y-3 sm:grid-cols-2 print:grid-cols-1">
+			<div className="document-cover-details">
+				<dl>
 					{page.metadata?.map((item) => (
-						<div key={`${item.label}-${item.value}`}>
-							<p className="text-[10px] font-semibold text-muted-foreground">
-								{item.label}
-							</p>
-							<p className="mt-0.5 text-[12px] font-semibold leading-5 text-foreground">
-								{item.value}
-							</p>
+						<div key={item.label + '-' + item.value}>
+							<dt>{item.label}</dt>
+							<dd>{item.value}</dd>
 						</div>
 					))}
-				</div>
-				<div className="space-y-4">
+				</dl>
+				<div>
 					{page.sections.map((section) => (
 						<PortfolioSectionBlock
 							key={section.id}
@@ -121,11 +88,6 @@ function CoverPage({ page }: { page: PortfolioPageDefinition }) {
 
 function StandardPage({ page }: { page: PortfolioPageDefinition }) {
 	const images = page.images ?? [];
-	const hasImages = images.length > 0;
-	const useTwoColumns =
-		page.kind === 'overview' ||
-		page.kind === 'project-collection' ||
-		page.kind === 'closing';
 	const isCompactWork = page.kind === 'compact-work';
 
 	return (
@@ -133,12 +95,12 @@ function StandardPage({ page }: { page: PortfolioPageDefinition }) {
 			<DocumentPageHeader page={page} />
 			<PageIntroduction page={page} />
 
-			<div className="document-page-body mt-6 flex-1">
-				{hasImages ? (
+			<div className="document-page-body">
+				{images.length > 0 ? (
 					<div
 						className={joinClasses(
-							'document-media-grid mb-6 grid gap-3.5',
-							images.length > 1 && 'sm:grid-cols-2',
+							'document-media-grid',
+							images.length > 1 && 'document-media-grid-multiple',
 						)}
 					>
 						{images.map((image) => (
@@ -147,35 +109,15 @@ function StandardPage({ page }: { page: PortfolioPageDefinition }) {
 					</div>
 				) : null}
 
-				<div
-					className={joinClasses(
-						'document-section-grid grid content-start gap-x-8 gap-y-5',
-						useTwoColumns && 'sm:grid-cols-2 print:grid-cols-1',
-						!hasImages && !useTwoColumns && 'border-t border-border/30 pt-5',
-					)}
-				>
-					{page.sections.map((section, index) => {
-						const spansColumns =
-							useTwoColumns &&
-							(page.sections.length === 1 ||
-								(page.sections.length % 2 === 1 && index === page.sections.length - 1));
-
-						return (
-							<div
-								key={section.id}
-								className={joinClasses(
-									isCompactWork && 'border-b border-border/30 pb-4',
-									spansColumns && 'sm:col-span-2 print:col-span-1',
-								)}
-							>
-								<PortfolioSectionBlock
-									section={section}
-									pageId={page.id}
-									compact={isCompactWork}
-								/>
-							</div>
-						);
-					})}
+				<div className="document-section-grid">
+					{page.sections.map((section) => (
+						<PortfolioSectionBlock
+							key={section.id}
+							section={section}
+							pageId={page.id}
+							compact={isCompactWork}
+						/>
+					))}
 				</div>
 			</div>
 
@@ -188,11 +130,10 @@ export function PortfolioPage({ page }: { page: PortfolioPageDefinition }) {
 	return (
 		<section
 			id={page.id}
-			aria-label={`${page.pageNumber}쪽 ${page.title}`}
+			aria-label={page.pageNumber + '쪽 ' + page.title}
 			className={joinClasses(
-				'print-page document-page document-portfolio relative mx-auto flex min-h-[68rem] w-full max-w-[210mm] flex-col overflow-hidden bg-background px-6 py-7 text-foreground shadow-[0_18px_60px_rgba(0,0,0,0.10)] sm:min-h-[297mm] sm:px-12 sm:py-10 print:h-[297mm] print:min-h-[297mm] print:w-[210mm] print:max-w-none print:shadow-none',
-				`document-page-${page.kind}`,
-				pageLayoutByKind[page.kind],
+				'print-page document-page document-portfolio',
+				'document-page-' + page.kind,
 			)}
 		>
 			{page.kind === 'cover' ? (

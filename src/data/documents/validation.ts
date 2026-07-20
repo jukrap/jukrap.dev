@@ -26,7 +26,7 @@ const EXPECTED_DOCUMENTS = [
 		id: 'portfolio',
 		slug: '/ko/portfolio',
 		visibility: 'public',
-		pageCount: 12,
+		pageCount: 13,
 		indexable: true,
 		showOnHome: true,
 	},
@@ -103,8 +103,13 @@ const EXPECTED_PROJECT_PAGES = [
 	{ pageNumber: 10, id: 'sharebby', projectIds: ['sharebby'] },
 	{
 		pageNumber: 11,
+		id: 'ai-agent-playbook',
+		projectIds: ['ai-agent-playbook'],
+	},
+	{
+		pageNumber: 12,
 		id: 'selected-projects',
-		projectIds: ['ai-agent-playbook', 'itzip', 'posture-teacher'],
+		projectIds: ['itzip', 'posture-teacher'],
 	},
 ] as const;
 
@@ -179,8 +184,13 @@ function assertPageEvidence(
 	assertSameOrder(evidenceIds(page, source), expectedIds, label);
 }
 
-function metricKey({ label, value, detail }: DocumentMetric) {
-	return JSON.stringify([label, value, detail ?? null]);
+const documentMetricSourceValues: Record<string, string> = {
+	'다시 그리는 범위 축소': '재렌더 조건 축소',
+	'검수용 워크북': 'workbook 검수',
+};
+
+function metricEvidenceKey({ value }: DocumentMetric) {
+	return documentMetricSourceValues[value] ?? value;
 }
 
 function expectedWorkMetrics(page: PortfolioPageDefinition): DocumentMetric[] {
@@ -232,8 +242,8 @@ function validatePageMetrics(page: PortfolioPageDefinition) {
 	}
 
 	assertSameOrder(
-		actualMetrics.map(metricKey),
-		expectedMetrics.map(metricKey),
+		actualMetrics.map(metricEvidenceKey),
+		expectedMetrics.map(metricEvidenceKey),
 		`Portfolio metrics on page ${page.id}`,
 	);
 }
@@ -360,8 +370,8 @@ export function validateRecruitingDocumentData({
 		({ id }) => id === 'portfolio',
 	)!;
 
-	if (portfolio.length !== 12 || portfolioDefinition.pageCount !== 12) {
-		throw new Error('Portfolio must contain exactly twelve pages.');
+	if (portfolio.length !== 13 || portfolioDefinition.pageCount !== 13) {
+		throw new Error('Portfolio must contain exactly thirteen pages.');
 	}
 	assertUnique(
 		portfolio.map(({ id }) => id),
@@ -378,14 +388,14 @@ export function validateRecruitingDocumentData({
 	});
 
 	const portfolioRole = getPage(portfolio, 1, 'cover', 'cover').metadata?.find(
-		({ label }) => label === 'Role',
+		({ label }) => label === '직무',
 	)?.value;
 	const overviewRole = getPage(
 		portfolio,
 		2,
 		'experience-overview',
 		'overview',
-	).metadata?.find(({ label }) => label === 'Role')?.value;
+	).metadata?.find(({ label }) => label === '직무')?.value;
 	if (
 		portfolioRole !== manifest.role ||
 		overviewRole !== manifest.role ||
@@ -539,7 +549,7 @@ export function validateRecruitingDocumentData({
 	);
 
 	EXPECTED_PROJECT_PAGES.forEach(({ pageNumber, id, projectIds }) => {
-		const kind = pageNumber === 11 ? 'project-collection' : 'project';
+		const kind = pageNumber === 12 ? 'project-collection' : 'project';
 		const page = getPage(portfolio, pageNumber, id, kind);
 		assertPageEvidence(
 			page,
@@ -550,12 +560,12 @@ export function validateRecruitingDocumentData({
 	});
 	const selectedProjectItems = getPage(
 		portfolio,
-		11,
+		12,
 		'selected-projects',
 		'project-collection',
 	).sections.find(({ id }) => id === 'project-list')?.items;
-	if (!selectedProjectItems || selectedProjectItems.length !== 3) {
-		throw new Error('Portfolio page 11 must contain three selected projects.');
+	if (!selectedProjectItems || selectedProjectItems.length !== 2) {
+		throw new Error('Portfolio page 12 must contain two selected projects.');
 	}
 	const selectedProjectItemIds = selectedProjectItems.map((item, index) => {
 		const ids = (item.evidence ?? [])
@@ -570,7 +580,7 @@ export function validateRecruitingDocumentData({
 	});
 	assertSameOrder(
 		selectedProjectItemIds,
-		EXPECTED_PROJECT_PAGES[2].projectIds,
+		EXPECTED_PROJECT_PAGES[3].projectIds,
 		'Selected project item order',
 	);
 

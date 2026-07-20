@@ -7,7 +7,7 @@ export const links: Link[] = [
 		url: 'mailto:jukrap628@gmail.com',
 	},
 	{
-		text: 'Github',
+		text: 'GitHub',
 		type: 'github',
 		url: 'https://github.com/jukrap',
 		isExternal: true,

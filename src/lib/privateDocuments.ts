@@ -1,3 +1,5 @@
+import 'server-only';
+
 import type { PrivateDocumentContact } from '@/types/documents';
 
 const isProductionRuntime =
@@ -45,7 +47,10 @@ export function getPrivateDocumentContact(): PrivateDocumentContact | null {
 		birthYear,
 		photoSrc: '/images/profileFront.png',
 		links: [
-			{ label: 'jukrap.vercel.app', href: 'https://jukrap.vercel.app' },
+			{
+				label: 'jukrap.vercel.app/ko/portfolio',
+				href: 'https://jukrap.vercel.app/ko/portfolio',
+			},
 			{ label: 'github.com/jukrap', href: 'https://github.com/jukrap' },
 		],
 	};

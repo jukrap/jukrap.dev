@@ -1,5 +1,5 @@
-import { skills } from '@/data/about/skills';
 import type { CareerBriefCopy, ResumeDocumentCopy } from '@/types/documents';
+import { recruitingDocumentSkillGroups } from './documentSkills';
 import {
 	formatKoreanPeriod,
 	getProject,
@@ -41,10 +41,7 @@ const captainDonghae = getProject('captain-donghae');
 const shareBBy = getProject('sharebby');
 const aiAgentPlaybook = getProject('ai-agent-playbook');
 
-const skillGroups = skills.map(({ category, items }) => ({
-	label: category,
-	items: items.split(',').map((item) => item.trim()),
-}));
+const skillGroups = recruitingDocumentSkillGroups;
 
 const contributionByStory: Record<string, string> = {
 	'delivery-output-flow':
@@ -104,7 +101,7 @@ export const resumeDocument = {
 			],
 		},
 		{
-			title: '사람 검수를 남기는 AI 보조',
+			title: '사람 검수를 전제로 한 AI 보조',
 			detail:
 				'규칙 기반 근거 수집, AI 초안, workbook 검수, 부분 수정을 분리해 자동화의 입력과 한계를 드러냅니다.',
 			evidence: [
@@ -157,8 +154,7 @@ export const resumeDocument = {
 			summary:
 				'동해선 이용객에게 실시간 교통과 주변 정보를 제공하는 지도 기반 웹 서비스입니다.',
 			highlights: [
-				'72시간 동안 Google Maps와 외부 API, 주요 화면, 드래그형 바텀 시트를 구현했습니다.',
-				'DIVE 2024 부산테크노파크원장상(발제사 3위)을 수상했습니다.',
+				'백엔드 2명과 Swagger 문서를 기준으로 API를 연결하고, 72시간 안에 Google Maps와 주요 화면, 드래그형 바텀 시트를 구현했습니다.',
 			],
 			technologies: captainDonghae.techStack,
 			evidence: [projectEvidence(captainDonghae.id)],
@@ -169,7 +165,7 @@ export const resumeDocument = {
 			period: formatKoreanPeriod(shareBBy.duration),
 			role: 'React Native 및 Firebase 개발',
 			summary:
-				'취미 활동을 공유하고 참여하는 크로스플랫폼 앱으로 App Store에 배포했습니다.',
+				'취미 활동을 공유하고 참여하는 크로스플랫폼 앱으로 2024년 App Store에 배포했습니다.',
 			highlights: [
 				'Android 대응과 게시글 및 댓글 CRUD, 위치 기반 필터, 목록 갱신과 페이지네이션을 구현했습니다.',
 				'Firebase 데이터 구조를 정리하고 이미지 캐시 문제의 대체 라이브러리를 검토해 적용했습니다.',
@@ -217,7 +213,7 @@ export const resumeDocument = {
 		{
 			title: 'DIVE 2024 글로벌 데이터 해커톤',
 			period: '2024.10',
-			detail: '부산테크노파크원장상(발제사 3위)',
+			detail: '부산테크노파크원장상(3등)',
 			evidence: [{ source: 'award', id: 'DIVE 2024 해커톤' }],
 		},
 		{

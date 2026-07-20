@@ -31,7 +31,7 @@ export const projectsDetailData: Project[] = [
 		],
 		overview:
 			'AI 에이전트가 저장소를 다룰 때 필요한 작업 규칙, 스킬, 템플릿, 점검 명령을 재사용하기 위해 만든 개인용 개발 도구.',
-		techStack: ['JavaScript', 'Node.js', 'Github Actions'],
+		techStack: ['JavaScript', 'Node.js', 'GitHub Actions'],
 		role: ['Tooling', 'Documentation'],
 		teamSize: 1,
 		tasks: [
@@ -144,7 +144,7 @@ export const projectsDetailData: Project[] = [
 			'Google Maps',
 			'Storybook',
 			'AWS',
-			'Github Actions',
+			'GitHub Actions',
 			'Docker',
 		],
 		role: ['Frontend'],
@@ -205,7 +205,7 @@ export const projectsDetailData: Project[] = [
 			{
 				title: 'DIVE 2024 글로벌 데이터 해커톤 수상',
 				details: [
-					'부산광역시 주최, 부산테크노파크 주관의 DIVE 2024 글로벌 데이터 해커톤에서 부산테크노파크원장상(발제사 3위)을 수상하였습니다.',
+					'부산광역시 주최, 부산테크노파크 주관의 DIVE 2024 글로벌 데이터 해커톤에서 부산테크노파크원장상(3등)을 수상하였습니다.',
 					'코레일(한국철도공사)의 데이터를 활용하여 동해선 이용객을 위한 가이드 서비스 "동해선장"을 개발하였습니다.',
 					'3인 팀의 유일한 프론트엔드 개발자로 참여하여, 72시간이라는 제한된 시간 내에 Swagger 문서 기반의 백엔드 API 연동 및 프론트엔드 개발을 수행하였습니다.',
 					'구글 맵스 플랫폼 연동, 인터랙티브 UI 구현, 실시간 데이터 통합 등 프론트엔드 개발 전반을 담당하였습니다.',
@@ -528,7 +528,7 @@ export const projectsDetailData: Project[] = [
 		links: [
 			{
 				type: 'github',
-				url: 'https://github.com/jukrap/rn-ShareBBy',
+				url: 'https://github.com/jukrap/archived-rn-ShareBBy',
 				visible: true,
 			},
 			{
@@ -617,7 +617,7 @@ export const projectsDetailData: Project[] = [
 				title: '협업 도구 활용',
 				details: [
 					'스크럼 방법론을 통해 주기적인 소통과 개발 작업의 조율, 일정 관리를 진행하였습니다.',
-					'Notion, Slack, Github, Figma 등의 협업 툴을 적극적으로 활용하여 팀 작업의 효율성을 높였습니다.',
+					'Notion, Slack, GitHub, Figma 등의 협업 툴을 적극적으로 활용하여 팀 작업의 효율성을 높였습니다.',
 				],
 			},
 		],
@@ -668,7 +668,7 @@ export const projectsDetailData: Project[] = [
 		links: [
 			{
 				type: 'github',
-				url: 'https://github.com/jukrap/Posture-Teacher',
+				url: 'https://github.com/jukrap/archived-Posture-Teacher',
 				visible: true,
 			},
 			{
@@ -685,7 +685,7 @@ export const projectsDetailData: Project[] = [
 		],
 		overview:
 			'사람의 앉은 자세 혹은 플랭크 자세를 감지한 다음, 신체 각 지점의 각도와 길이에 따라 올바른 자세 여부를 판별하고 데이터를 제공해주는 앱.',
-		techStack: ['Java', 'Android', 'Jetpack', 'Mediapipe', 'SQLite'],
+		techStack: ['Java', 'Android', 'Jetpack', 'MediaPipe', 'SQLite'],
 		role: ['Team Leader', 'Android'],
 		teamSize: 2,
 		tasks: [
@@ -697,10 +697,10 @@ export const projectsDetailData: Project[] = [
 				],
 			},
 			{
-				title: 'Mediapipe 통합 및 최적화',
+				title: 'MediaPipe 통합 및 최적화',
 				details: [
-					'Mediapipe AAR를 리눅스 환경에서 빌드하고 프로젝트에 통합했습니다.',
-					'Mediapipe를 사용하여 몸과 얼굴의 동작을 측정하는 솔루션을 개발했습니다.',
+					'MediaPipe AAR를 리눅스 환경에서 빌드하고 프로젝트에 통합했습니다.',
+					'MediaPipe를 사용하여 몸과 얼굴의 동작을 측정하는 솔루션을 개발했습니다.',
 					'OpenCV 대비 5~10배 높은 FPS를 확보하여 성능을 크게 개선했습니다.',
 				],
 			},
@@ -725,7 +725,7 @@ export const projectsDetailData: Project[] = [
 			{
 				title: '멀티 스레드 최적화',
 				details: [
-					'Mediapipe의 부하를 감소시키기 위해 Runnable 인터페이스와 스레드 클래스를 활용한 멀티 스레드 최적화를 수행했습니다.',
+					'MediaPipe의 부하를 감소시키기 위해 Runnable 인터페이스와 스레드 클래스를 활용한 멀티 스레드 최적화를 수행했습니다.',
 					'이를 통해 구형 휴대폰에서의 앱 사용성을 개선하고 UI 반응성 문제를 해결했습니다.',
 				],
 			},
@@ -733,14 +733,14 @@ export const projectsDetailData: Project[] = [
 				title: '빌드 환경 문제 해결',
 				details: [
 					'구형 CPU&GPU 관련 문제로 인해 Docker와 MSYS2 사용이 중단되었습니다.',
-					'최종적으로 Ubuntu 환경에서 Mediapipe 빌드 작업을 성공적으로 수행했습니다.',
+					'최종적으로 Ubuntu 환경에서 MediaPipe 빌드 작업을 성공적으로 수행했습니다.',
 				],
 			},
 		],
 		performanceImprovements: [
 			{
 				title: 'FPS 개선',
-				details: ['Mediapipe 사용으로 OpenCV 대비 5~10배 높은 FPS를 달성했습니다.'],
+				details: ['MediaPipe 사용으로 OpenCV 대비 5~10배 높은 FPS를 달성했습니다.'],
 			},
 		],
 		specialImplementations: [
@@ -1015,23 +1015,23 @@ export const projectsDetailData: Project[] = [
 		],
 		overview:
 			'사람의 안면 움직임을 감지하여 집중력 유지 여부를 판별하고, 여기에 따라 집중력 향상을 위한 안내 및 통계를 제공하는 안드로이드 기반의 타이머 앱.',
-		techStack: ['Java', 'Android', 'Jetpack', 'Mediapipe', 'SQLite'],
+		techStack: ['Java', 'Android', 'Jetpack', 'MediaPipe', 'SQLite'],
 		role: ['Team Leader', 'Android'],
 		teamSize: 3,
 		tasks: [
 			{
 				title: '집중력 감지 기능 구현',
 				details: [
-					'Mediapipe를 활용하여 사용자의 눈동자와 얼굴 움직임을 감지하는 시스템을 개발하였습니다.',
+					'MediaPipe를 활용하여 사용자의 눈동자와 얼굴 움직임을 감지하는 시스템을 개발하였습니다.',
 					'감지된 데이터를 분석하여 사용자의 집중 여부를 판별하는 알고리즘을 구현하였습니다.',
 					'집중력 감지 강도를 조절할 수 있는 설정 기능을 추가하여 사용자 맞춤형 경험을 제공하였습니다.',
 					'집중력 상태에 따라 적절한 경고 및 안내 메시지를 제공하는 시스템을 구현하였습니다.',
 				],
 			},
 			{
-				title: 'Mediapipe 통합 및 최적화',
+				title: 'MediaPipe 통합 및 최적화',
 				details: [
-					'Linux 환경에서 Mediapipe AAR를 직접 빌드하여 프로젝트에 통합하였습니다.',
+					'Linux 환경에서 MediaPipe AAR를 직접 빌드하여 프로젝트에 통합하였습니다.',
 					'이를 통해 앱 성능을 크게 향상시켜 실시간 안면 인식의 효율성을 높였습니다.',
 				],
 			},
@@ -1046,11 +1046,11 @@ export const projectsDetailData: Project[] = [
 		],
 		troubleshooting: [
 			{
-				title: 'OpenCV에서 Mediapipe로의 전환',
+				title: 'OpenCV에서 MediaPipe로의 전환',
 				details: [
 					'초기에 사용한 OpenCV와 NDK 조합이 심각한 성능 저하를 야기하는 문제에 직면하였습니다.',
-					'이를 해결하기 위해 Mediapipe로 전환을 결정하였고, 이를 통해 초당 프레임 수를 크게 개선하였습니다.',
-					'Mediapipe 사용으로 더 정확한 랜드마크 값을 얻을 수 있게 되어 전반적인 시스템 성능이 향상되었습니다.',
+					'이를 해결하기 위해 MediaPipe로 전환을 결정하였고, 이를 통해 초당 프레임 수를 크게 개선하였습니다.',
+					'MediaPipe 사용으로 더 정확한 랜드마크 값을 얻을 수 있게 되어 전반적인 시스템 성능이 향상되었습니다.',
 					'초당 프레임 수를 10fps 이하에서 30fps 이상으로 향상시켰습니다.',
 				],
 			},
@@ -1059,7 +1059,7 @@ export const projectsDetailData: Project[] = [
 			{
 				title: '멀티 스레딩 최적화',
 				details: [
-					'Mediapipe 사용 시 발생하는 UI 스레드 블로킹 문제를 식별하였습니다.',
+					'MediaPipe 사용 시 발생하는 UI 스레드 블로킹 문제를 식별하였습니다.',
 					'Runnable 인터페이스와 스레드 클래스를 활용한 멀티 스레딩 구현으로 문제를 해결하였습니다.',
 					'이를 통해 UI 반응성을 유지하면서도 실시간 얼굴 인식 처리가 가능해졌습니다.',
 				],
@@ -1176,7 +1176,7 @@ export const projectsDetailData: Project[] = [
 			{
 				title: '정적 웹 호스팅 문제 해결',
 				details: [
-					'초기에 Github Pages를 통한 정적 웹 호스팅을 시도하였으나, React SPA의 동적 특성으로 인해 문제가 발생하였습니다.',
+					'초기에 GitHub Pages를 통한 정적 웹 호스팅을 시도하였으나, React SPA의 동적 특성으로 인해 문제가 발생하였습니다.',
 					'이 과정에서 정적 웹과 동적 웹의 차이점을 명확히 이해하게 되었습니다.',
 					'최종적으로 동적 웹 호스팅 서비스를 활용하여 문제를 해결하였습니다.',
 				],

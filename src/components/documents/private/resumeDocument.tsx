@@ -105,6 +105,17 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 						</p>
 					</DocumentSection>
 
+					<DocumentSection title="경력">
+						<div>
+							{copy.careers.map((career) => (
+								<ResumeCareerItem
+									key={`${career.company}-${career.period}`}
+									career={career}
+								/>
+							))}
+						</div>
+					</DocumentSection>
+
 					<DocumentSection title="핵심 역량">
 						<dl className="space-y-2.5">
 							{copy.competencies.map((competency) => (
@@ -122,17 +133,6 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 							))}
 						</dl>
 					</DocumentSection>
-
-					<DocumentSection title="경력">
-						<div>
-							{copy.careers.map((career) => (
-								<ResumeCareerItem
-									key={`${career.company}-${career.period}`}
-									career={career}
-								/>
-							))}
-						</div>
-					</DocumentSection>
 				</div>
 			</PrivateDocumentPage>
 
@@ -141,6 +141,7 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 				pageNumber={2}
 				totalPages={resumeDocumentDefinition.pageCount}
 				footerLabel={contact.name}
+				className="print:py-8"
 			>
 				<PageContinuationHeader
 					documentTitle={copy.title}
@@ -149,7 +150,7 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 					compact
 				/>
 
-				<div className="space-y-5 print:space-y-2.5">
+				<div className="space-y-5 print:space-y-1">
 					<DocumentSection title="선별 프로젝트" compact>
 						<div>
 							{copy.projects.map((project) => (

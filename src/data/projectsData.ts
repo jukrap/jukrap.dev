@@ -42,7 +42,7 @@ export const projectsData: SimpleProject[] = [
 			'구글 맵스 기반 지도 서비스 개발',
 			'실시간 역 혼잡도, 날씨, 맛집 정보, 추천 코스 등 제공',
 			'드래그 가능한 모달 UI/UX 구현',
-			'DIVE 2024 해커톤 발제사 3위 수상',
+			'DIVE 2024 부산테크노파크원장상(3등) 수상',
 		],
 		techStack:
 			'TypeScript・React・Next.js・Tailwind CSS・Google Maps Platform・Storybook',
@@ -134,7 +134,7 @@ export const projectsData: SimpleProject[] = [
 			{ type: 'googleStore', url: '/', visible: false },
 			{
 				type: 'github',
-				url: 'https://github.com/jukrap/rn-ShareBBy',
+				url: 'https://github.com/jukrap/archived-rn-ShareBBy',
 				visible: true,
 			},
 			{ type: 'url', url: '/', visible: false },
@@ -150,7 +150,7 @@ export const projectsData: SimpleProject[] = [
 		description: [
 			'팀장, 안드로이드 개발',
 			'자세 감지 기반의 착석 및 운동 자세 판별 페이지 담당',
-			'자세 감지 기능 제작, Mediapipe 추출',
+			'자세 감지 기능 제작, MediaPipe 추출',
 			'멀티 스레드 및 최적화',
 		],
 		techStack: 'JavaㆍAndroid JetpackㆍMediaPipeㆍSQLite',
@@ -163,7 +163,7 @@ export const projectsData: SimpleProject[] = [
 			},
 			{
 				type: 'github',
-				url: 'https://github.com/jukrap/Posture-Teacher',
+				url: 'https://github.com/jukrap/archived-Posture-Teacher',
 				visible: true,
 			},
 			{ type: 'url', url: '/', visible: false },
@@ -227,9 +227,9 @@ export const projectsData: SimpleProject[] = [
 		description: [
 			'팀장, 안드로이드 개발',
 			'안면 감지 기반의 집중력 판별 페이지 담당',
-			'안면 감지 기능 제작, Mediapipe 추출',
+			'안면 감지 기능 제작, MediaPipe 추출',
 		],
-		techStack: 'JavaㆍJetpackㆍMediapipeㆍSQLite',
+		techStack: 'JavaㆍJetpackㆍMediaPipeㆍSQLite',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '', visible: false },

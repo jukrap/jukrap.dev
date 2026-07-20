@@ -88,6 +88,7 @@ function DocumentLinkItem({
 		>
 			<span className="text-[13px] font-semibold leading-5 text-foreground underline decoration-border underline-offset-4 group-hover:decoration-accent">
 				{link.label}
+				{isExternal ? <span className="sr-only"> (새 탭에서 열림)</span> : null}
 			</span>
 			{compact ? null : (
 				<span className="break-all text-[10px] leading-4 text-muted-foreground">
@@ -215,13 +216,7 @@ export function PortfolioSectionBlock({
 	);
 }
 
-export function PortfolioFigure({
-	image,
-	priority,
-}: {
-	image: PortfolioPageImage;
-	priority: boolean;
-}) {
+export function PortfolioFigure({ image }: { image: PortfolioPageImage }) {
 	const isPhone = image.layout === 'phone';
 	const isSplit = image.layout === 'split';
 	const isPortrait = isPhone || isSplit;
@@ -245,7 +240,7 @@ export function PortfolioFigure({
 					src={image.src}
 					alt={image.alt}
 					fill
-					priority={priority}
+					loading="eager"
 					sizes="(max-width: 640px) 92vw, 720px"
 					className="object-contain"
 				/>

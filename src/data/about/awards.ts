@@ -7,7 +7,7 @@ export const awards: Award[] = [
 		award: '부산테크노파크원장상 수상',
 		details: [
 			{ text: '출품 작품 : 동해선장', projectId: 'captain-donghae' },
-			{ text: '발제사 3위', link: '/images/captain-donghae/award.png' },
+			{ text: '3등', link: '/images/captain-donghae/award.png' },
 		],
 	},
 	{

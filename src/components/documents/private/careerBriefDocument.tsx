@@ -40,7 +40,7 @@ const CareerBriefWork = ({ work }: { work: CareerBriefFeaturedWork }) => (
 		<dl className="space-y-1 text-[0.8125rem] leading-5 print:space-y-0 print:leading-[1.1rem]">
 			{[
 				['목표', work.goal],
-				['개인 기여', work.contribution],
+				['직접 맡은 구현', work.contribution],
 				['핵심 판단', work.decision],
 				['결과', work.result],
 			].map(([label, value]) => (
@@ -85,8 +85,8 @@ const SupportingWorkItem = ({ work }: { work: CareerBriefSupportingWork }) => (
 
 export const CareerBriefDocument = ({ contact }: CareerBriefDocumentProps) => {
 	const copy = careerBriefDocument;
-	const firstPageWork = copy.featuredWork.slice(0, 2);
-	const secondPageWork = copy.featuredWork.slice(2, 4);
+	const firstPageWork = copy.featuredWork.slice(0, 3);
+	const secondPageWork = copy.featuredWork.slice(3, 4);
 
 	return (
 		<div className="private-document career-brief-document space-y-6 print:space-y-0">
@@ -129,7 +129,7 @@ export const CareerBriefDocument = ({ contact }: CareerBriefDocumentProps) => {
 						</p>
 					</DocumentSection>
 
-					<DocumentSection title="책임 경계" compact>
+					<DocumentSection title="담당 범위" compact>
 						<ul className="grid grid-cols-2 gap-x-5 gap-y-1 text-[0.8125rem] leading-5 print:block print:list-disc print:space-y-0.5 print:pl-4">
 							{copy.company.responsibilities.map((item) => (
 								<li
@@ -143,7 +143,7 @@ export const CareerBriefDocument = ({ contact }: CareerBriefDocumentProps) => {
 						</ul>
 					</DocumentSection>
 
-					<DocumentSection title="대표 업무 01–02" compact>
+					<DocumentSection title="대표 업무 01–03" compact>
 						<div>
 							{firstPageWork.map((work) => (
 								<CareerBriefWork key={work.id} work={work} />
@@ -167,7 +167,7 @@ export const CareerBriefDocument = ({ contact }: CareerBriefDocumentProps) => {
 				/>
 
 				<div className="space-y-4 print:space-y-3">
-					<DocumentSection title="대표 업무 03–04" compact>
+					<DocumentSection title="대표 업무 04" compact>
 						<div>
 							{secondPageWork.map((work) => (
 								<CareerBriefWork key={work.id} work={work} />

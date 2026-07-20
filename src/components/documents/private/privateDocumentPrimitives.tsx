@@ -198,7 +198,7 @@ export const PageContinuationHeader = ({
 			<p className="text-[0.6875rem] font-bold tracking-[0.1em] text-[#087f62]">
 				{documentTitle}
 			</p>
-			<h2 className="mt-1 text-[1.2rem] font-bold tracking-[-0.02em]">{name}</h2>
+			<p className="mt-1 text-[1.2rem] font-bold tracking-[-0.02em]">{name}</p>
 		</div>
 		<p className="text-[0.75rem] font-medium text-[#1b1b18]/68">{role}</p>
 	</header>

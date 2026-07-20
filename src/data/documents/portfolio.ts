@@ -1,12 +1,12 @@
 import { links as aboutLinks } from '@/data/about/links';
 import { personalInfo } from '@/data/about/personalInfo';
-import { skills } from '@/data/about/skills';
 import { dictionaries } from '@/data/i18n/dictionaries';
 import type {
 	DocumentContentItem,
 	PortfolioPageDefinition,
 } from '@/types/documents';
 import type { ProfessionalStory } from '@/types/work';
+import { recruitingDocumentSkillGroups } from './documentSkills';
 import {
 	formatKoreanPeriod,
 	getProject,
@@ -63,6 +63,7 @@ function featuredWorkPage(
 	story: ProfessionalStory,
 	implementation: readonly DocumentContentItem[],
 	resultBody: readonly string[],
+	decisionBody?: readonly string[],
 ): PortfolioPageDefinition {
 	return {
 		id: story.id,
@@ -85,7 +86,8 @@ function featuredWorkPage(
 			{
 				id: 'decision',
 				title: '핵심 판단과 실행',
-				body: story.editorial ? [story.editorial.decision] : undefined,
+				body:
+					decisionBody ?? (story.editorial ? [story.editorial.decision] : undefined),
 				items: implementation,
 				technologies: story.stack,
 			},
@@ -149,27 +151,27 @@ export const portfolioDocument = [
 		sections: [
 			{
 				id: 'principles',
-				title: '업무를 정리하는 네 가지 기준',
+				title: '대표 업무를 가르는 네 가지 근거',
 				items: [
 					{
-						title: '사용자 흐름부터 나눕니다',
+						title: '물류 Web의 초기 로딩',
 						description:
-							'화면 단위보다 조회, 입력, 저장, 출력처럼 사용자가 완료하려는 흐름을 먼저 확인합니다.',
+							'페이지 라우트와 스프레드시트 라이브러리 분리 전후의 초기 entry와 gzip을 같은 기준으로 비교했습니다.',
 					},
 					{
-						title: '브라우저와 장비 책임을 섞지 않습니다',
+						title: '물류 Mobile의 실물 출력',
 						description:
-							'웹 상태, WebView contract, Android 권한과 장비 SDK를 각각 확인할 수 있는 경계로 둡니다.',
+							'WebView 요청, Android 권한, Bluetooth 연결, 실물 라벨 출력을 단계별로 확인했습니다.',
 					},
 					{
-						title: '측정한 범위만 결과로 씁니다',
+						title: '편집 도구와 AI 도구의 검수 지점',
 						description:
-							'번들 크기, 테스트, 실기기 출력, 배포 hash처럼 당시 남긴 조건을 함께 적습니다.',
+							'상태 동기화와 근거 수집, AI 초안, 사람 검수, 부분 수정의 순서를 남겼습니다.',
 					},
 					{
-						title: 'AI 결과에도 사람의 검수 지점을 둡니다',
+						title: '레거시 운영의 변경 증거',
 						description:
-							'근거 수집, AI 초안, workbook 검수, 선택 범위 수정을 분리해 자동화의 한계를 드러냅니다.',
+							'회귀 테스트, 운영 smoke, manifest와 hash로 변경 범위와 반영 결과를 나눠 기록했습니다.',
 					},
 				],
 			},
@@ -230,12 +232,12 @@ export const portfolioDocument = [
 					{
 						title: '업무 흐름과 출력 경계를 먼저 연결',
 						description:
-							'공통 shell, table, modal, form 위에 조회, 예약, 다건 처리, 주소록, Excel 미리보기, 출력 payload 변환을 연결했습니다.',
+							'공통 화면 틀과 표, 모달, 폼 위에 조회, 예약, 다건 처리, 주소록, Excel 미리보기, 출력 요청 데이터 변환을 연결했습니다.',
 					},
 					{
 						title: '측정 뒤 지연 로딩 범위를 결정',
 						description:
-							'route와 spreadsheet library를 초기 진입에서 분리했습니다. 더 깊은 분리안은 인증 및 API 초기화와 첫 클릭 부담이 커 채택하지 않았습니다.',
+							'페이지 라우트와 스프레드시트 라이브러리를 초기 진입에서 분리했습니다. 더 깊은 분리안은 인증 및 API 초기화와 첫 클릭 부담이 커 채택하지 않았습니다.',
 					},
 				],
 				technologies: logisticsWeb.stack,
@@ -318,6 +320,9 @@ export const portfolioDocument = [
 			},
 		],
 		[chartEditor.editorial!.outcome, chartEditor.editorial!.takeaway],
+		[
+			'차트 타입별 유효 옵션만 보여주고, 필드 역할과 프리뷰 렌더링, 설정 상태를 나눠 같은 편집 모델을 보도록 했습니다.',
+		],
 	),
 	featuredWorkPage(
 		6,
@@ -325,12 +330,12 @@ export const portfolioDocument = [
 		aiDocumentation,
 		[
 			{
-				title: 'Scanner → Preview',
+				title: '근거 수집 → 미리보기',
 				description:
 					'규칙 기반 저장소 근거를 수집하고 AI에 보내기 전에 결과를 먼저 확인합니다.',
 			},
 			{
-				title: 'AI 초안 → Workbook 검수',
+				title: 'AI 초안 → 표 검수',
 				description:
 					'확인한 근거로 요구사항, 기능, 화면 후보를 만들고 선택한 sheet와 cell만 수정합니다.',
 			},
@@ -339,6 +344,9 @@ export const portfolioDocument = [
 			aiDocumentation.editorial!.outcome,
 			'지원하지 않는 항목은 임의로 채우지 않고 사람이 결정할 항목으로 남겼습니다.',
 			aiDocumentation.editorial!.takeaway,
+		],
+		[
+			'규칙 기반 저장소 근거를 미리보기로 확인한 뒤 AI 초안에 사용하고, 표 검수와 선택한 sheet 및 cell 수정으로 범위를 제한했습니다.',
 		],
 	),
 	featuredWorkPage(
@@ -361,6 +369,9 @@ export const portfolioDocument = [
 			'2026-07-02 runtime 배포에서는 111개 파일의 target hash 111/111 일치를 확인했습니다.',
 			'2026-07-08 manifest 배포에서는 42개 중 39개를 업로드하고, 동일 hash 3개는 별도로 건너뛰었습니다.',
 			'AirKorea 673행과 법정동 20,560행의 필수값을 확인하고, 변경 범위와 계약, fallback, 배포 증거를 함께 남겼습니다.',
+		],
+		[
+			'즉시 필요한 정보와 보조 정보의 로딩을 나누고, 최신 캐시와 만료 캐시, 기준 데이터를 분리했습니다. 운영 반영은 manifest와 SHA-256 hash로 변경 범위를 좁혔습니다.',
 		],
 	),
 	{
@@ -454,7 +465,7 @@ export const portfolioDocument = [
 		metadata: [
 			{ label: 'Period', value: formatKoreanPeriod(shareBBy.duration) },
 			{ label: 'Team', value: '5명' },
-			{ label: 'Release', value: 'App Store 배포' },
+			{ label: 'Release', value: '2024년 App Store 배포 이력' },
 		],
 		sections: [
 			{
@@ -500,7 +511,7 @@ export const portfolioDocument = [
 		pageNumber: 11,
 		kind: 'project-collection',
 		eyebrow: 'Selected Projects',
-		title: '도구, 팀 웹, Android 앱에서 넓힌 경험',
+		title: '개발 도구, 팀 웹, Android 앱',
 		summary:
 			'프로젝트마다 기술 수보다 직접 맡은 경계와 확인 가능한 결과를 중심으로 남겼습니다.',
 		sections: [
@@ -562,9 +573,9 @@ export const portfolioDocument = [
 			{
 				id: 'skills',
 				title: '기술 적용 범위',
-				items: skills.map(({ category, items }) => ({
-					title: category,
-					description: items,
+				items: recruitingDocumentSkillGroups.map(({ label, items }) => ({
+					title: label,
+					description: items.join(', '),
 				})),
 			},
 			{
@@ -601,7 +612,7 @@ export const portfolioDocument = [
 				id: 'contact',
 				title: '더 자세한 근거',
 				body: [
-					'개인 사이트의 Work에는 9개 업무 이야기와 10개 원자료 흐름을, Projects에는 프로젝트별 구현 기록을 정리했습니다.',
+					'개인 사이트의 Work에는 대표 업무와 세부 구현 및 검증 기록을, Projects에는 프로젝트별 구현 기록을 정리했습니다.',
 				],
 				links: publicLinks,
 			},

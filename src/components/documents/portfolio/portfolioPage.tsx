@@ -142,11 +142,7 @@ function StandardPage({ page }: { page: PortfolioPageDefinition }) {
 						)}
 					>
 						{images.map((image) => (
-							<PortfolioFigure
-								key={image.src}
-								image={image}
-								priority={page.pageNumber <= 4}
-							/>
+							<PortfolioFigure key={image.src} image={image} />
 						))}
 					</div>
 				) : null}

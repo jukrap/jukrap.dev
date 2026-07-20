@@ -7,7 +7,7 @@ export const links: Link[] = [
 		type: 'url',
 	},
 	{
-		text: 'Github',
+		text: 'GitHub',
 		url: 'https://github.com/jukrap',
 		isExternal: true,
 		type: 'url',

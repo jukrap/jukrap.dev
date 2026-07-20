@@ -14,6 +14,6 @@ export const coreValues: CoreValue[] = [
 	{
 		title: '낯선 문제도 실제 조건에서 확인하며 좁혀갑니다.',
 		content:
-			'모바일 WebView와 Android 네이티브 모듈을 연결해 Bluetooth 프린터 출력을 구현할 때는 브라우저 안의 문제만 봐서는 해결되지 않았습니다. Android 권한, WebView bridge, 장비 SDK, 라벨 데이터 형식을 실제 기기에서 하나씩 확인하며 원인을 줄였습니다. 자세선생 프로젝트에서도 OpenCV 기반 구현의 성능 문제를 Mediapipe로 전환하며 개선한 경험이 있습니다.',
+			'모바일 WebView와 Android 네이티브 모듈을 연결해 Bluetooth 프린터 출력을 구현할 때는 브라우저 안의 문제만 봐서는 해결되지 않았습니다. Android 권한, WebView bridge, 장비 SDK, 라벨 데이터 형식을 실제 기기에서 하나씩 확인하며 원인을 줄였습니다. 자세선생 프로젝트에서도 OpenCV 기반 구현의 성능 문제를 MediaPipe로 전환하며 개선한 경험이 있습니다.',
 	},
 ] as const;

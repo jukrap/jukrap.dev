@@ -38,7 +38,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'Google Maps-based map service development',
 			'Real-time station congestion, weather, restaurants, and route recommendations',
 			'Draggable modal UI/UX implementation',
-			'Won 3rd place in the DIVE 2024 hackathon sponsor track',
+			'Won the Busan Technopark President Award (3rd place) at DIVE 2024',
 		],
 	},
 	itzip: {
@@ -91,7 +91,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 		description: [
 			'Team lead and Android developer',
 			'Owned sitting and exercise posture detection pages',
-			'Built posture detection and Mediapipe extraction features',
+			'Built posture detection and MediaPipe extraction features',
 			'Multi-threading and optimization',
 		],
 	},
@@ -121,7 +121,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 		description: [
 			'Team lead and Android developer',
 			'Owned face-detection-based focus determination pages',
-			'Built face detection and Mediapipe extraction features',
+			'Built face detection and MediaPipe extraction features',
 		],
 	},
 	'esd-hotdeal': {
@@ -199,7 +199,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Awarded at the DIVE 2024 Global Data Hackathon',
 				details: [
-					'Won the Busan Technopark President Award, third place in the sponsor track, at the DIVE 2024 Global Data Hackathon hosted by Busan Metropolitan City and organized by Busan Technopark.',
+					'Won the Busan Technopark President Award (3rd place) at the DIVE 2024 Global Data Hackathon hosted by Busan Metropolitan City and organized by Busan Technopark.',
 					'Built Captain Donghae, a guide service for Donghae Line passengers using Korea Railroad Corporation data.',
 					'Participated as the only frontend developer in a three-person team and implemented frontend development plus backend API integration based on Swagger documentation within 72 hours.',
 					'Owned frontend development across Google Maps Platform integration, interactive UI, and real-time data integration.',
@@ -497,10 +497,10 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				],
 			},
 			{
-				title: 'Integrated and optimized Mediapipe',
+				title: 'Integrated and optimized MediaPipe',
 				details: [
-					'Built Mediapipe AAR in a Linux environment and integrated it into the project.',
-					'Developed a solution that measured body and face movement using Mediapipe.',
+					'Built MediaPipe AAR in a Linux environment and integrated it into the project.',
+					'Developed a solution that measured body and face movement using MediaPipe.',
 					'Achieved 5-10 times higher FPS than OpenCV and greatly improved performance.',
 				],
 			},
@@ -524,7 +524,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Multi-threading optimization',
 				details: [
-					'Reduced Mediapipe load with multi-threading based on Runnable interfaces and thread classes.',
+					'Reduced MediaPipe load with multi-threading based on Runnable interfaces and thread classes.',
 					'Improved usability on older phones and resolved UI responsiveness problems.',
 				],
 			},
@@ -534,13 +534,13 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Resolved build environment issues',
 				details: [
 					'Docker and MSYS2 use was interrupted by older CPU and GPU related issues.',
-					'Successfully completed Mediapipe build work in an Ubuntu environment.',
+					'Successfully completed MediaPipe build work in an Ubuntu environment.',
 				],
 			},
 			{
 				title: 'Improved FPS',
 				details: [
-					'Achieved 5-10 times higher FPS by using Mediapipe instead of OpenCV.',
+					'Achieved 5-10 times higher FPS by using MediaPipe instead of OpenCV.',
 				],
 			},
 		],
@@ -655,16 +655,16 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Implemented focus detection',
 				details: [
-					'Developed a system that detects eye and face movement using Mediapipe.',
+					'Developed a system that detects eye and face movement using MediaPipe.',
 					'Implemented an algorithm that analyzes detected data and determines focus state.',
 					'Added settings to adjust detection sensitivity for a personalized experience.',
 					'Implemented a system that provides appropriate warnings and guidance based on focus state.',
 				],
 			},
 			{
-				title: 'Integrated and optimized Mediapipe',
+				title: 'Integrated and optimized MediaPipe',
 				details: [
-					'Built Mediapipe AAR directly in a Linux environment and integrated it into the project.',
+					'Built MediaPipe AAR directly in a Linux environment and integrated it into the project.',
 					'Improved app performance and increased real-time face recognition efficiency.',
 				],
 			},
@@ -679,18 +679,18 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		],
 		performanceImprovements: [
 			{
-				title: 'Switched from OpenCV to Mediapipe',
+				title: 'Switched from OpenCV to MediaPipe',
 				details: [
 					'The initial OpenCV and NDK combination caused severe performance degradation.',
-					'Switched to Mediapipe, which significantly improved frames per second.',
-					'Obtained more accurate landmark values with Mediapipe and improved overall system performance.',
+					'Switched to MediaPipe, which significantly improved frames per second.',
+					'Obtained more accurate landmark values with MediaPipe and improved overall system performance.',
 					'Improved FPS from under 10 FPS to over 30 FPS.',
 				],
 			},
 			{
 				title: 'Multi-threading optimization',
 				details: [
-					'Identified UI thread blocking caused by Mediapipe.',
+					'Identified UI thread blocking caused by MediaPipe.',
 					'Resolved the problem with multi-threading based on Runnable interfaces and thread classes.',
 					'Maintained UI responsiveness while enabling real-time face recognition processing.',
 				],
@@ -787,7 +787,7 @@ const coreValuesEn = [
 	{
 		title: 'I narrow unfamiliar problems down under real conditions.',
 		content:
-			'When connecting a mobile WebView to Android native modules for Bluetooth printer output, browser-side debugging alone was not enough. I narrowed down causes by checking Android permissions, the WebView bridge, device SDK behavior, and label data formats on real devices. In the Posture Teacher project, I also improved a performance issue by moving from an OpenCV-based implementation to Mediapipe.',
+			'When connecting a mobile WebView to Android native modules for Bluetooth printer output, browser-side debugging alone was not enough. I narrowed down causes by checking Android permissions, the WebView bridge, device SDK behavior, and label data formats on real devices. In the Posture Teacher project, I also improved a performance issue by moving from an OpenCV-based implementation to MediaPipe.',
 	},
 ];
 
@@ -843,7 +843,7 @@ const awardsEn = [
 				projectId: 'captain-donghae',
 			},
 			{
-				text: '3rd place in the sponsor track',
+				text: '3rd place',
 				link: '/images/captain-donghae/award.png',
 			},
 		],

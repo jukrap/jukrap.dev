@@ -3,6 +3,7 @@ import { personalInfo } from '@/data/about/personalInfo';
 import { dictionaries } from '@/data/i18n/dictionaries';
 import type {
 	DocumentContentItem,
+	DocumentMetric,
 	PortfolioPageDefinition,
 } from '@/types/documents';
 import type { ProfessionalStory } from '@/types/work';
@@ -50,52 +51,124 @@ const itzip = getProject('itzip');
 const postureTeacher = getProject('posture-teacher');
 
 const publicLinks = [
-	{ label: 'Email', href: `mailto:${personalInfo.email}` },
+	{ label: '이메일', href: 'mailto:' + personalInfo.email },
 	...aboutLinks
 		.filter(({ type }) => type !== 'email')
 		.map(({ text, url }) => ({ label: text, href: url })),
-	{ label: 'Website', href: 'https://jukrap.vercel.app' },
+	{ label: '개인 사이트', href: 'https://jukrap.vercel.app' },
 ];
+
+const portfolioMetricCopy: Record<string, Partial<DocumentMetric>> = {
+	'2,405.50 → 616.59 kB': {
+		label: '초기 JavaScript',
+		detail: '약 74% 감소. 페이지와 스프레드시트 코드 지연 로딩 결과',
+	},
+	'815.10 → 204.38 kB': {
+		label: 'gzip 압축 기준',
+		detail: '약 75% 감소. 같은 초기 진입 파일 비교',
+	},
+	'상태 동기화': {
+		label: '데이터·미리보기·설정',
+	},
+	'재렌더 조건 축소': {
+		label: '혼합 차트 미리보기',
+		value: '다시 그리는 범위 축소',
+		detail: '불필요한 화면 재생성과 스크롤 흔들림을 줄인 범위로 한정',
+	},
+	'근거 우선': {
+		label: '자료 수집 → 미리보기',
+	},
+	'workbook 검수': {
+		value: '검수용 워크북',
+	},
+	'약 2.85초 → 0.11초': {
+		label: '기본 정보 운영 점검',
+		detail: '2026-07-08 당시 첫 요청과 캐시 응답 비교',
+	},
+	'약 2.02초 → 0.07초': {
+		label: '대기질 운영 점검',
+		detail: '2026-07-08 당시 첫 요청과 캐시 응답 비교',
+	},
+};
+
+const portfolioStoryCopy: Partial<
+	Record<string, { summary?: string; problem?: string; area?: string }>
+> = {
+	'structured-editor-ui': {
+		summary:
+			'데이터 역할과 설정 화면이 실제 미리보기와 어긋나지 않는 편집 흐름을 설계했습니다.',
+		problem:
+			'모든 차트에 같은 옵션을 강제하면 설정 화면이 복잡해집니다. 미리보기와 편집 상태가 따로 움직이면 사용자가 현재 결과를 믿기도 어렵습니다.',
+	},
+	'ai-kickoff-documentation-tool': {
+		area: 'AI API / 문서 도구',
+	},
+	'hybrid-life-info-platform': {
+		summary:
+			'레거시 웹과 Android WebView 위에서 외부 API, 캐시, 위치 흐름과 운영 반영 절차를 손봤습니다.',
+	},
+};
+
+const compactWorkCopy: Partial<
+	Record<string, { description?: string; value?: string }>
+> = {
+	'hybrid-security-boundary': {
+		value: '인증 정보는 서버에서 관리',
+	},
+	'legacy-panel-baseline': {
+		description:
+			'레거시 화면을 바로 나누기 전에 공유 코드, API 규약과 브라우저 지원 범위를 먼저 확인했습니다.',
+		value: '변경 전 영향 지점 지도화',
+	},
+};
+
+function toPortfolioMetric(
+	impact: Parameters<typeof toMetric>[0],
+): DocumentMetric {
+	const metric = toMetric(impact);
+	return { ...metric, ...portfolioMetricCopy[metric.value] };
+}
 
 function featuredWorkPage(
 	pageNumber: number,
 	eyebrow: string,
 	story: ProfessionalStory,
-	implementation: readonly DocumentContentItem[],
+	actions: readonly DocumentContentItem[],
 	resultBody: readonly string[],
 	decisionBody?: readonly string[],
 ): PortfolioPageDefinition {
+	const copy = portfolioStoryCopy[story.id];
 	return {
 		id: story.id,
 		pageNumber,
 		kind: 'case',
 		eyebrow,
 		title: story.title,
-		summary: story.headline,
+		summary: copy?.summary ?? story.headline,
 		metadata: [
-			{ label: 'Period', value: story.period },
-			{ label: 'Scope', value: story.area },
-			{ label: 'Role', value: story.role },
+			{ label: '기간', value: story.period },
+			{ label: '담당', value: copy?.area ?? story.area },
+			{ label: '직무', value: story.role },
 		],
 		sections: [
 			{
 				id: 'problem',
 				title: '문제',
-				body: [story.context],
+				body: [copy?.problem ?? story.context],
 			},
 			{
 				id: 'decision',
-				title: '핵심 판단과 실행',
+				title: '내가 한 일',
 				body:
 					decisionBody ?? (story.editorial ? [story.editorial.decision] : undefined),
-				items: implementation,
+				items: actions,
 				technologies: story.stack,
 			},
 			{
 				id: 'result',
-				title: '결과와 남긴 기준',
+				title: '결과',
 				body: resultBody,
-				metrics: story.impact.map(toMetric),
+				metrics: story.impact.map(toPortfolioMetric),
 			},
 		],
 		evidence: [workStoryEvidence(story.id)],
@@ -107,20 +180,19 @@ export const portfolioDocument = [
 		id: 'cover',
 		pageNumber: 1,
 		kind: 'cover',
-		eyebrow: 'Portfolio 2026',
+		eyebrow: '웹/모바일 프론트엔드 엔지니어',
 		title: '박주철',
 		summary:
-			'React 웹 화면과 React Native 및 Android 연동을 함께 다룹니다. 사용자의 작업이 브라우저를 넘어 장비와 운영까지 이어질 때 책임을 나누고 각 환경에서 결과를 확인합니다.',
+			'업무 웹과 모바일 앱을 만들고 Android 장비 연동까지 다룹니다. 화면에서 시작한 사용자의 일이 실제 출력과 운영 배포까지 이어지도록 구현하고, 제가 확인한 범위를 수치와 실행 환경으로 남깁니다.',
 		metadata: [
-			{ label: 'Role', value: '웹/모바일 프론트엔드 엔지니어' },
-			{ label: 'Focus', value: '사용자 흐름, 시스템 경계, 검증 가능한 결과' },
+			{ label: '직무', value: '웹/모바일 프론트엔드 엔지니어' },
+			{ label: '주요 경험', value: '업무 웹, 하이브리드 앱, Android 연동' },
 		],
 		sections: [
 			{
 				id: 'positioning',
 				body: [
-					'React 기반 업무 화면과 모바일 WebView, Android 연동처럼 하나의 사용자 흐름이 여러 실행 환경을 지날 때 책임과 실패 경계를 먼저 나눕니다.',
-					'기능이 동작한다는 설명에서 멈추지 않고, 번들, 테스트, 실기기, 운영 배포처럼 사례에 맞는 기준으로 확인한 범위를 남깁니다.',
+					'신규 화면을 만드는 일과 오래된 시스템을 고치는 일을 함께 경험했습니다. 기능을 한 번에 바꾸기보다 웹, WebView, Android가 맡을 일을 나누고 각 환경에서 직접 실행해 봅니다.',
 				],
 				links: publicLinks,
 			},
@@ -134,66 +206,55 @@ export const portfolioDocument = [
 		id: 'experience-overview',
 		pageNumber: 2,
 		kind: 'overview',
-		eyebrow: 'Experience Overview',
-		title: '웹 화면에서 장비와 운영까지',
+		eyebrow: '경력',
+		title: '트리포스에서 맡은 일',
 		summary:
-			'신규 웹 구축부터 모바일 출력, Android 호환성, 레거시 운영 개선까지 맡은 범위를 네 가지 기준으로 요약했습니다.',
+			'신규 업무 웹을 구축하고 모바일 출력 앱을 연결했습니다. 차트 편집 도구와 AI 문서화 도구를 만들었고, 레거시 웹과 Android 앱의 오류를 고쳐 운영에 반영했습니다.',
 		metadata: [
 			{
-				label: 'Career',
-				value: `${dictionaries.ko.about.careerSummary.company}  ${formatKoreanPeriod(dictionaries.ko.about.careerSummary.period)}`,
+				label: '회사와 기간',
+				value:
+					dictionaries.ko.about.careerSummary.company +
+					'  ' +
+					formatKoreanPeriod(dictionaries.ko.about.careerSummary.period),
 			},
 			{
-				label: 'Role',
+				label: '직무',
 				value: dictionaries.ko.about.careerSummary.role,
 			},
 		],
 		sections: [
 			{
-				id: 'principles',
-				title: '대표 업무를 가르는 네 가지 근거',
+				id: 'main-work',
+				title: '주요 경험',
 				items: [
 					{
-						title: '물류 Web의 초기 로딩',
+						title: '물류 운영 웹과 모바일 출력',
 						description:
-							'페이지 라우트와 스프레드시트 라이브러리 분리 전후의 초기 entry와 gzip을 같은 기준으로 비교했습니다.',
+							'조회, 예약, Excel, 출력 요청을 웹에 구현하고 WebView 요청 뒤의 권한, Bluetooth, 라벨 출력은 Android 앱에서 처리했습니다.',
 					},
 					{
-						title: '물류 Mobile의 실물 출력',
+						title: '차트 편집 도구',
 						description:
-							'WebView 요청, Android 권한, Bluetooth 연결, 실물 라벨 출력을 단계별로 확인했습니다.',
+							'차트마다 쓸 수 있는 옵션을 나누고 데이터 필드, 미리보기, 설정 화면이 같은 편집 상태를 보도록 만들었습니다.',
 					},
 					{
-						title: '편집 도구와 AI 도구의 검수 지점',
+						title: 'AI 문서화 도구',
 						description:
-							'상태 동기화와 근거 수집, AI 초안, 사람 검수, 부분 수정의 순서를 남겼습니다.',
+							'저장소를 먼저 읽고 초안을 만든 뒤 검수용 워크북에서 필요한 부분만 다시 고치는 흐름을 구현했습니다.',
 					},
 					{
-						title: '레거시 운영의 변경 증거',
+						title: '생활정보 서비스 운영',
 						description:
-							'회귀 테스트, 운영 smoke, manifest와 hash로 변경 범위와 반영 결과를 나눠 기록했습니다.',
+							'필수 정보의 로딩과 캐시를 손보고, 바뀐 파일만 배포한 뒤 해시와 주요 화면으로 반영 결과를 점검했습니다.',
 					},
 				],
 			},
 			{
-				id: 'contents',
-				title: '사례 구성',
-				items: [
-					{
-						title: '대표 업무 4개',
-						description:
-							'물류 Web과 Mobile, 차트 편집기, AI 문서화, 생활정보 하이브리드 서비스',
-					},
-					{
-						title: '함께 정리한 업무 5개',
-						description:
-							'Android 호환성, 금융 운영 웹, 보안 경계, 현장 단말, 레거시 패널 기준선',
-					},
-					{
-						title: '선별 프로젝트 5개',
-						description:
-							'C. Donghae, ShareBBy, AI Agent Playbook, Itzip, Posture Teacher',
-					},
+				id: 'additional-work',
+				title: '추가 업무',
+				body: [
+					'Android 호환성, 금융 업무 웹, 하이브리드 보안, 현장 단말, 레거시 웹 패널 작업은 8쪽에 짧게 정리했습니다.',
 				],
 			},
 		],
@@ -208,45 +269,47 @@ export const portfolioDocument = [
 		id: 'logistics-web',
 		pageNumber: 3,
 		kind: 'case',
-		eyebrow: 'Work 01 / Web',
+		eyebrow: '주요 업무 01  웹',
 		title: '물류 운영 웹',
-		summary: logisticsWeb.headline,
+		summary:
+			'조회부터 예약, Excel, 출력 요청까지 이어지는 운영 화면을 만들고 첫 화면에 함께 실리던 무거운 코드를 덜어냈습니다.',
 		metadata: [
-			{ label: 'Period', value: logisticsWeb.period },
-			{ label: 'Scope', value: logisticsWeb.area },
-			{ label: 'Role', value: logisticsWeb.role },
+			{ label: '기간', value: logisticsWeb.period },
+			{ label: '담당', value: logisticsWeb.area },
+			{ label: '직무', value: logisticsWeb.role },
 		],
 		sections: [
 			{
 				id: 'problem',
 				title: '문제',
 				body: [
-					'조회부터 예약, Excel, 출력 요청까지 한 흐름으로 이어졌지만, 초기 화면에 spreadsheet 처리가 함께 묶여 첫 진입 비용이 컸습니다.',
-					'PC 출력, 모바일 브라우저 fallback, WebView/native 출력은 서로 다른 실패 조건을 가지므로 같은 완료 기준으로 다룰 수 없었습니다.',
+					'예약과 다건 처리, 주소록, Excel 미리보기, 출력 요청이 한 화면 흐름으로 이어졌습니다. 여기에 스프레드시트 코드까지 첫 진입에 포함돼 업무를 시작하기 전부터 내려받아야 할 JavaScript가 컸습니다.',
 				],
 			},
 			{
 				id: 'decision',
-				title: '판단과 실행',
+				title: '내가 한 일',
 				items: [
 					{
-						title: '업무 흐름과 출력 경계를 먼저 연결',
+						title: '운영 흐름 구현',
 						description:
-							'공통 화면 틀과 표, 모달, 폼 위에 조회, 예약, 다건 처리, 주소록, Excel 미리보기, 출력 요청 데이터 변환을 연결했습니다.',
+							'공통 화면 틀과 표, 모달, 폼 위에 조회, 예약, 다건 처리, 주소 선택, Excel 미리보기와 출력 요청 변환을 연결했습니다.',
 					},
 					{
-						title: '측정 뒤 지연 로딩 범위를 결정',
+						title: '측정 뒤 지연 로딩 적용',
 						description:
-							'페이지 라우트와 스프레드시트 라이브러리를 초기 진입에서 분리했습니다. 더 깊은 분리안은 인증 및 API 초기화와 첫 클릭 부담이 커 채택하지 않았습니다.',
+							'번들 분석 결과를 보고 페이지 라우트와 스프레드시트 라이브러리를 첫 진입에서 뺐습니다. 인증과 API 초기화까지 더 나누는 안은 첫 클릭 부담이 커 적용하지 않았습니다.',
 					},
 				],
 				technologies: logisticsWeb.stack,
 			},
 			{
 				id: 'evidence',
-				title: '확인한 결과',
-				metrics: logisticsWebResult.impact.map(toMetric),
-				body: logisticsWebResult.checks,
+				title: '결과',
+				body: [
+					'초기 진입에 필요하지 않은 화면과 Excel 코드를 옮긴 뒤 같은 빌드 산출물에서 초기 JavaScript와 gzip 크기를 다시 비교했습니다.',
+				],
+				metrics: logisticsWebResult.impact.map(toPortfolioMetric),
 			},
 		],
 		evidence: [
@@ -258,44 +321,47 @@ export const portfolioDocument = [
 		id: 'logistics-mobile',
 		pageNumber: 4,
 		kind: 'case',
-		eyebrow: 'Work 01 / Mobile',
+		eyebrow: '주요 업무 01  모바일',
 		title: '모바일 출력 브릿지 앱',
-		summary: logisticsMobile.headline,
+		summary:
+			'웹의 출력 요청을 Android 앱으로 받아 권한, Bluetooth 연결, 프린터 명령을 거쳐 실제 라벨이 나오는 데까지 구현했습니다.',
 		metadata: [
-			{ label: 'Period', value: logisticsMobile.period },
-			{ label: 'Scope', value: logisticsMobile.area },
-			{ label: 'Role', value: logisticsMobile.role },
+			{ label: '기간', value: logisticsMobile.period },
+			{ label: '담당', value: 'WebView / Android 네이티브 모듈' },
+			{ label: '직무', value: logisticsMobile.role },
 		],
 		sections: [
 			{
 				id: 'problem',
 				title: '문제',
 				body: [
-					'웹 버튼이 출력 요청을 보냈다는 사실과 실제 장비가 라벨을 출력했다는 사실은 다릅니다. WebView, 권한, Bluetooth, native module, 프린터 SDK를 단계별로 확인해야 했습니다.',
+					'웹에서 출력 버튼이 동작해도 장비가 라벨을 출력했다는 뜻은 아닙니다. 웹과 앱의 메시지, Android 권한, Bluetooth 연결, 프린터 SDK 가운데 어디서 멈췄는지 알 수 있어야 했습니다.',
 				],
 			},
 			{
 				id: 'decision',
-				title: '판단과 실행',
+				title: '내가 한 일',
 				items: [
 					{
-						title: '화면과 장비 책임을 분리',
+						title: '웹과 앱의 역할 구분',
 						description:
-							'업무 화면은 WebView에 두고, 출력 payload 변환, 장비 상태, 출력 명령은 Android native module 경계로 옮겼습니다.',
+							'업무 화면은 WebView에 두고 출력 데이터 변환, 장비 상태, 프린터 명령은 Android 네이티브 모듈이 맡도록 구현했습니다.',
 					},
 					{
-						title: '요청 수락과 물리 출력을 따로 확인',
+						title: '실기기 출력 점검',
 						description:
-							'Android 16/API 36에서 장비 탐색 호출을 추적하고 취소 처리와 Bluetooth 권한을 보완했습니다.',
+							'Android 16/API 36에서 장비 탐색 호출을 추적하고 취소 처리와 Bluetooth 권한을 보완한 뒤 실물 라벨을 출력했습니다.',
 					},
 				],
 				technologies: logisticsMobile.stack,
 			},
 			{
 				id: 'evidence',
-				title: '확인한 결과',
-				metrics: logisticsMobileResult.impact.map(toMetric),
-				body: logisticsMobileResult.checks,
+				title: '결과',
+				body: [
+					'요청 수신과 장비 출력을 따로 점검해 웹 요청 성공이 물리 출력 성공으로 잘못 기록되지 않게 했습니다.',
+				],
+				metrics: logisticsMobileResult.impact.map(toPortfolioMetric),
 			},
 		],
 		evidence: [
@@ -305,96 +371,100 @@ export const portfolioDocument = [
 	},
 	featuredWorkPage(
 		5,
-		'Work 02 / Web Tool',
+		'주요 업무 02  웹 도구',
 		chartEditor,
 		[
 			{
-				title: '차트별 유효 옵션',
+				title: '차트에 맞는 설정만 노출',
 				description:
-					'현재 차트 타입에 필요한 설정 그룹만 보여주고 여섯 영역의 설정 패널과 preview 흐름을 구성했습니다.',
+					'현재 차트에서 쓸 수 있는 옵션만 보여주고 여섯 영역의 설정 패널과 미리보기를 연결했습니다.',
 			},
 			{
-				title: '서로 다른 상태 경계',
+				title: '편집 상태를 역할별로 구성',
 				description:
-					'field mapping, preview rendering, settings state를 분리해 같은 편집 모델을 보도록 맞췄습니다.',
+					'데이터 필드, 미리보기 렌더링, 설정 상태가 서로 덮어쓰지 않도록 나누고 하나의 편집 모델을 바라보게 했습니다.',
 			},
 		],
-		[chartEditor.editorial!.outcome, chartEditor.editorial!.takeaway],
 		[
-			'차트 타입별 유효 옵션만 보여주고, 필드 역할과 프리뷰 렌더링, 설정 상태를 나눠 같은 편집 모델을 보도록 했습니다.',
+			'옵션 변경, 패널 접기, 드래그 앤 드롭, 툴팁까지 같은 편집 흐름에서 점검했습니다. 작업 속도 향상처럼 측정하지 않은 성과는 적지 않았습니다.',
+		],
+		[
+			'모든 차트에 같은 옵션을 붙이는 대신 차트 종류에 따라 필요한 설정을 고르고, 데이터가 바뀔 때 미리보기와 설정 화면이 함께 갱신되게 만들었습니다.',
 		],
 	),
 	featuredWorkPage(
 		6,
-		'Work 03 / Internal Tool',
+		'주요 업무 03  사내 도구',
 		aiDocumentation,
 		[
 			{
-				title: '근거 수집 → 미리보기',
+				title: '저장소를 읽고 먼저 미리보기',
 				description:
-					'규칙 기반 저장소 근거를 수집하고 AI에 보내기 전에 결과를 먼저 확인합니다.',
+					'규칙으로 모은 파일과 구조 정보를 AI에 보내기 전에 사용자가 확인하도록 했습니다.',
 			},
 			{
-				title: 'AI 초안 → 표 검수',
+				title: '검수용 워크북에서 부분 수정',
 				description:
-					'확인한 근거로 요구사항, 기능, 화면 후보를 만들고 선택한 sheet와 cell만 수정합니다.',
+					'확인한 자료로 요구사항, 기능, 화면 초안을 만들고 선택한 시트와 셀만 다시 작성하도록 구현했습니다.',
 			},
 		],
 		[
-			aiDocumentation.editorial!.outcome,
-			'지원하지 않는 항목은 임의로 채우지 않고 사람이 결정할 항목으로 남겼습니다.',
-			aiDocumentation.editorial!.takeaway,
+			'자료 수집부터 초안, 워크북 검수, 부분 수정까지 각 단계를 따로 실행해 볼 수 있게 했습니다. 지원하지 않는 항목은 임의로 채우지 않고 사람이 결정할 내용으로 남겼습니다.',
 		],
 		[
-			'규칙 기반 저장소 근거를 미리보기로 확인한 뒤 AI 초안에 사용하고, 표 검수와 선택한 sheet 및 cell 수정으로 범위를 제한했습니다.',
+			'AI가 처음부터 문서를 완성한다고 가정하지 않았습니다. 입력 자료와 생성 결과를 사람이 볼 수 있게 두고 수정 범위를 작게 제한했습니다.',
 		],
 	),
 	featuredWorkPage(
 		7,
-		'Work 04 / Hybrid Operations',
+		'주요 업무 04  하이브리드 서비스',
 		lifeInformation,
 		[
 			{
-				title: '읽기 경로',
+				title: '필수 정보부터 표시',
 				description:
-					'즉시 필요한 core와 보조 정보를 나누고 fresh cache, stale cache, 기준 데이터 cache를 분리했습니다.',
+					'첫 화면에 필요한 정보와 뒤에 불러올 정보를 나누고 최신 캐시, 만료 캐시, 기준 데이터를 각각 다뤘습니다.',
 			},
 			{
-				title: '운영 반영',
+				title: '바뀐 파일만 운영 반영',
 				description:
-					'넓은 교체 대신 manifest와 SHA-256 hash로 변경 범위를 좁히고 핵심 화면 smoke를 함께 확인했습니다.',
+					'전체 파일을 덮어쓰지 않고 배포 목록과 SHA-256 해시로 대상을 좁힌 뒤 주요 화면을 다시 실행했습니다.',
 			},
 		],
 		[
-			'2026-07-02 runtime 배포에서는 111개 파일의 target hash 111/111 일치를 확인했습니다.',
-			'2026-07-08 manifest 배포에서는 42개 중 39개를 업로드하고, 동일 hash 3개는 별도로 건너뛰었습니다.',
-			'AirKorea 673행과 법정동 20,560행의 필수값을 확인하고, 변경 범위와 계약, fallback, 배포 증거를 함께 남겼습니다.',
+			'서로 다른 날 진행한 두 배포를 합산하지 않았습니다. 각 작업의 파일 수와 해시 결과를 따로 기록했고, 운영 스모크 테스트와 최종 테스트도 별도로 남겼습니다.',
 		],
 		[
-			'즉시 필요한 정보와 보조 정보의 로딩을 나누고, 최신 캐시와 만료 캐시, 기준 데이터를 분리했습니다. 운영 반영은 manifest와 SHA-256 hash로 변경 범위를 좁혔습니다.',
+			'외부 API가 느리거나 실패해도 첫 화면 전체가 멈추지 않도록 로딩 순서를 바꾸고, 캐시가 최신인지 만료됐는지에 따라 사용할 값을 골랐습니다.',
 		],
 	),
 	{
 		id: 'supporting-work',
 		pageNumber: 8,
 		kind: 'compact-work',
-		eyebrow: 'Supporting Work',
-		title: '함께 정리한 업무',
+		eyebrow: '추가 업무',
+		title: '유지보수에서 맡은 일',
 		summary:
-			'기능 확장과 유지보수에서도 변경 범위, 실패 경계, 회귀 기준을 먼저 확인했습니다.',
+			'짧은 작업도 빌드가 되는지, 실제 실행이 되는지, 운영에서 되돌릴 수 있는지를 구분해 처리했습니다.',
 		sections: [
 			{
 				id: 'work-list',
-				items: compactStories.map((story, index) => ({
-					title: `${String(index + 1).padStart(2, '0')}  ${story.title}`,
-					description: story.headline,
-					meta: `${story.period}  ${story.platform}`,
-					value: story.impact[0]
-						? `${story.impact[0].label}: ${story.impact[0].value}`
-						: undefined,
-					technologies: story.stack,
-					evidence: [workStoryEvidence(story.id)],
-				})),
+				items: compactStories.map((story, index) => {
+					const copy = compactWorkCopy[story.id];
+					return {
+						label: String(index + 1).padStart(2, '0'),
+						title: story.title,
+						description: copy?.description ?? story.headline,
+						meta: story.period + '  ' + story.platform,
+						value:
+							copy?.value ??
+							(story.impact[0]
+								? story.impact[0].label + ': ' + story.impact[0].value
+								: undefined),
+						technologies: story.stack,
+						evidence: [workStoryEvidence(story.id)],
+					};
+				}),
 			},
 		],
 		evidence: compactStories.map(({ id }) => workStoryEvidence(id)),
@@ -403,34 +473,34 @@ export const portfolioDocument = [
 		id: 'captain-donghae',
 		pageNumber: 9,
 		kind: 'project',
-		eyebrow: 'Project 01 / Web',
+		eyebrow: '프로젝트 01  웹',
 		title: 'C. Donghae',
 		summary:
-			'72시간 동안 동해선 이용객에게 실시간 교통과 주변 정보를 연결한 지도 기반 웹 서비스를 구현했습니다.',
+			'72시간 동안 동해선 이용객이 열차와 주변 정보를 한 지도에서 볼 수 있는 웹 서비스를 만들었습니다.',
 		metadata: [
-			{ label: 'Period', value: formatKoreanPeriod(captainDonghae.duration) },
-			{ label: 'Team', value: '3명, 유일한 프론트엔드 개발자' },
-			{ label: 'Result', value: 'DIVE 2024 부산테크노파크원장상' },
+			{ label: '기간', value: formatKoreanPeriod(captainDonghae.duration) },
+			{ label: '팀', value: '3명, 유일한 프론트엔드 개발자' },
+			{ label: '결과', value: 'DIVE 2024 부산테크노파크원장상' },
 		],
 		sections: [
 			{
 				id: 'contribution',
-				title: '맡은 범위',
+				title: '내가 한 일',
 				items: [
 					{
-						title: '지도와 외부 데이터 통합',
+						title: '지도와 외부 데이터 연결',
 						description:
-							'Google Maps의 지도, 장소 검색, 대중교통 경로, 주소 변환과 날씨, 역 정보, 주변 장소 데이터를 연결했습니다.',
+							'Google Maps의 지도, 장소 검색, 대중교통 경로, 주소 변환과 날씨, 역 정보, 주변 장소 데이터를 한 화면에 연결했습니다.',
 					},
 					{
-						title: '제한 시간 안의 선택',
+						title: '모바일 지도 화면 구현',
 						description:
-							'웹 지원 기능과 요구사항을 비교해 지도 API를 정하고, Swagger 문서를 기준으로 백엔드 API와 주요 화면을 연결했습니다.',
+							'지도 정보를 가리지 않도록 드래그 거리와 속도에 따라 높이가 바뀌는 바텀 시트를 구현했습니다.',
 					},
 					{
-						title: '모바일 지도 탐색 UI',
+						title: '제한 시간 안의 협업',
 						description:
-							'지도 정보를 가리지 않도록 드래그 거리와 속도에 따라 단계가 바뀌는 바텀 시트 모달을 구현했습니다.',
+							'웹 지원 기능을 비교해 지도 API를 정하고 Swagger 문서를 보며 백엔드 API와 주요 화면을 연결했습니다.',
 					},
 				],
 				technologies: captainDonghae.techStack,
@@ -458,34 +528,34 @@ export const portfolioDocument = [
 		id: 'sharebby',
 		pageNumber: 10,
 		kind: 'project',
-		eyebrow: 'Project 02 / Mobile',
+		eyebrow: '프로젝트 02  모바일',
 		title: 'ShareBBy',
 		summary:
-			'취미 활동을 공유하고 참여하는 React Native 앱에서 Android 대응과 커뮤니티 데이터 흐름을 맡았습니다.',
+			'취미 활동을 올리고 함께할 사람을 찾는 React Native 앱에서 Android 대응과 커뮤니티 기능을 맡았습니다.',
 		metadata: [
-			{ label: 'Period', value: formatKoreanPeriod(shareBBy.duration) },
-			{ label: 'Team', value: '5명' },
-			{ label: 'Release', value: '2024년 App Store 배포 이력' },
+			{ label: '기간', value: formatKoreanPeriod(shareBBy.duration) },
+			{ label: '팀', value: '5명' },
+			{ label: '배포', value: '2024년 App Store 배포 이력' },
 		],
 		sections: [
 			{
 				id: 'contribution',
-				title: '맡은 범위',
+				title: '내가 한 일',
 				items: [
 					{
-						title: '커뮤니티 흐름',
+						title: '게시글과 댓글 흐름',
 						description:
-							'게시글 및 댓글 CRUD, 위치 기반 필터, 정렬, Pull to Refresh, Infinite Scroll을 구현했습니다.',
+							'게시글과 댓글 작성·수정·삭제, 위치 필터, 정렬, 당겨서 새로고침, 무한 스크롤을 구현했습니다.',
 					},
 					{
-						title: '데이터 구조와 실시간 기능',
+						title: 'Firebase 데이터 연결',
 						description:
-							'Firebase 데이터 관계를 ERD로 정리하고 댓글, 좋아요, 다중 이미지 흐름을 연결했습니다.',
+							'데이터 관계를 ERD로 정리하고 댓글, 좋아요, 여러 이미지가 연결되는 흐름을 만들었습니다.',
 					},
 					{
-						title: '이미지 캐시 경계',
+						title: '이미지 캐시 교체',
 						description:
-							'기본 이미지 컴포넌트의 캐시 문제를 확인하고, 업데이트가 중단된 fast-image 대신 faster-image를 선택했습니다.',
+							'기본 이미지 컴포넌트의 캐시 문제를 재현하고 업데이트가 중단된 라이브러리 대신 유지되는 대안을 적용했습니다.',
 					},
 				],
 				technologies: shareBBy.techStack,
@@ -507,40 +577,87 @@ export const portfolioDocument = [
 		evidence: [projectEvidence(shareBBy.id)],
 	},
 	{
-		id: 'selected-projects',
+		id: 'ai-agent-playbook',
 		pageNumber: 11,
-		kind: 'project-collection',
-		eyebrow: 'Selected Projects',
-		title: '개발 도구, 팀 웹, Android 앱',
+		kind: 'project',
+		eyebrow: '프로젝트 03  개발 도구',
+		title: 'AI Agent Playbook',
 		summary:
-			'프로젝트마다 기술 수보다 직접 맡은 경계와 확인 가능한 결과를 중심으로 남겼습니다.',
+			'에이전트가 프로젝트 규칙과 이전 작업을 매번 처음부터 찾지 않도록 CLI, 문서 틀, 점검 명령을 묶은 공개 도구입니다.',
+		metadata: [
+			{ label: '기간', value: formatKoreanPeriod(aiAgentPlaybook.duration) },
+			{ label: '개발', value: '1인 개발' },
+			{ label: '배포', value: 'npm 패키지와 GitHub 저장소' },
+		],
+		sections: [
+			{
+				id: 'contribution',
+				title: '만든 이유와 범위',
+				items: [
+					{
+						title: '규칙과 프로젝트 메모리 분리',
+						description:
+							'반복해서 쓰는 작업 규칙은 스킬과 템플릿으로, 프로젝트에만 필요한 내용은 저장소 안의 메모리로 나눴습니다.',
+					},
+					{
+						title: '실행 전 결과를 볼 수 있게 구성',
+						description:
+							'CLI 명령과 읽기 전용 MCP 도구를 만들고 파일을 바꾸는 명령에는 실행 전 결과를 보여주는 dry-run을 두었습니다.',
+					},
+					{
+						title: '공개 배포',
+						description:
+							'npm에서 설치할 수 있는 패키지와 GitHub 저장소로 배포해 다른 프로젝트에서도 같은 흐름을 쓸 수 있게 했습니다.',
+					},
+				],
+				technologies: aiAgentPlaybook.techStack,
+				links: visibleProjectLinks(aiAgentPlaybook.id),
+			},
+		],
+		images: [
+			{
+				src: '/images/ai-agent-playbook/npm-overview.png',
+				alt: 'npm에 공개된 AI Agent Playbook 패키지 페이지',
+				caption: 'npm 패키지 페이지',
+				layout: 'wide',
+			},
+			{
+				src: '/images/ai-agent-playbook/quick-start.png',
+				alt: 'AI Agent Playbook 설치와 시작 명령 안내',
+				caption: '설치와 초기 설정',
+				layout: 'wide',
+			},
+		],
+		evidence: [projectEvidence(aiAgentPlaybook.id)],
+	},
+	{
+		id: 'selected-projects',
+		pageNumber: 12,
+		kind: 'project-collection',
+		eyebrow: '프로젝트 04–05',
+		title: 'Itzip과 Posture Teacher',
+		summary:
+			'팀 웹 서비스에서는 편집과 품질 도구를, Android 프로젝트에서는 카메라 프레임과 자세 분석을 맡았습니다.',
 		sections: [
 			{
 				id: 'project-list',
 				items: [
 					{
-						title: aiAgentPlaybook.title,
-						meta: formatKoreanPeriod(aiAgentPlaybook.duration),
-						description:
-							'반복되는 작업 규칙과 프로젝트 메모리를 CLI, 스킬, 템플릿으로 나누고, 읽기 전용 MCP 도구와 dry-run 경계를 구성했습니다. npm 패키지와 GitHub 저장소로 공개했습니다.',
-						technologies: aiAgentPlaybook.techStack,
-						links: visibleProjectLinks(aiAgentPlaybook.id),
-						evidence: [projectEvidence(aiAgentPlaybook.id)],
-					},
-					{
+						label: '웹',
 						title: itzip.subtitle,
 						meta: formatKoreanPeriod(itzip.duration),
 						description:
-							'15명 팀의 프론트엔드 팀장으로 블로그와 Markdown 편집 흐름을 구현하고, Jest, Storybook, Sentry를 활용한 확인 범위를 정리했습니다.',
+							'15명 팀에서 프론트엔드 팀장을 맡아 블로그와 Markdown 편집 화면을 구현했습니다. Jest, Storybook, Sentry를 도입해 주요 화면과 오류를 살펴볼 수 있게 했습니다.',
 						technologies: itzip.techStack,
 						links: visibleProjectLinks(itzip.id),
 						evidence: [projectEvidence(itzip.id)],
 					},
 					{
+						label: 'Android',
 						title: postureTeacher.subtitle,
 						meta: formatKoreanPeriod(postureTeacher.duration),
 						description:
-							'MediaPipe AAR를 Ubuntu에서 빌드해 Android 앱에 통합했습니다. 프로젝트 당시 OpenCV 기반 구현과 비교한 프레임 처리에서 5~10배 높은 FPS 범위를 확인했습니다.',
+							'MediaPipe AAR를 Ubuntu에서 빌드해 Android 앱에 넣었습니다. 프로젝트 당시 OpenCV 구현과 비교한 프레임 처리에서 5~10배 높은 FPS 범위를 확인했습니다.',
 						technologies: postureTeacher.techStack,
 						links: visibleProjectLinks(postureTeacher.id),
 						evidence: [projectEvidence(postureTeacher.id)],
@@ -550,29 +667,32 @@ export const portfolioDocument = [
 		],
 		images: [
 			{
-				src: '/images/ai-agent-playbook/logo-wide.png',
-				alt: 'AI Agent Playbook 로고와 이름',
+				src: '/images/itzip/image6.png',
+				alt: 'Itzip Markdown 편집 화면',
+				caption: 'Itzip 편집 화면',
 				layout: 'wide',
 			},
+			{
+				src: '/images/posture-teacher/image5.png',
+				alt: 'Posture Teacher 자세 분석 결과 화면',
+				caption: 'Posture Teacher 분석 결과',
+				layout: 'phone',
+			},
 		],
-		evidence: [
-			projectEvidence(aiAgentPlaybook.id),
-			projectEvidence(itzip.id),
-			projectEvidence(postureTeacher.id),
-		],
+		evidence: [projectEvidence(itzip.id), projectEvidence(postureTeacher.id)],
 	},
 	{
 		id: 'closing',
-		pageNumber: 12,
+		pageNumber: 13,
 		kind: 'closing',
-		eyebrow: 'Profile & Contact',
-		title: '웹과 모바일에서 맡을 수 있는 범위',
+		eyebrow: '프로필',
+		title: '기술과 연락처',
 		summary:
-			'React 웹 화면과 React Native 및 Android 연동을 함께 다뤄 왔습니다. 처음 보는 시스템에서도 바꿀 곳과 지킬 계약을 나누고 코드, 실기기, 운영 환경에서 결과를 확인해 왔습니다.',
+			'웹 화면과 모바일 앱을 함께 만들었고, Android 장비와 레거시 시스템도 필요한 만큼 직접 다뤘습니다. 기술 이름보다 어느 작업에서 어떻게 썼는지를 포트폴리오와 개인 사이트에 남겼습니다.',
 		sections: [
 			{
 				id: 'skills',
-				title: '기술 적용 범위',
+				title: '기술',
 				items: recruitingDocumentSkillGroups.map(({ label, items }) => ({
 					title: label,
 					description: items.join(', '),
@@ -610,9 +730,9 @@ export const portfolioDocument = [
 			},
 			{
 				id: 'contact',
-				title: '더 자세한 근거',
+				title: '연락처',
 				body: [
-					'개인 사이트의 Work에는 대표 업무와 세부 구현 및 검증 기록을, Projects에는 프로젝트별 구현 기록을 정리했습니다.',
+					'업무의 세부 구현과 점검 기록은 개인 사이트 Work에서, 프로젝트별 화면과 구현 내용은 Projects에서 볼 수 있습니다.',
 				],
 				links: publicLinks,
 			},

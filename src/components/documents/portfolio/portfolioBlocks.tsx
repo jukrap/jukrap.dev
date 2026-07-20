@@ -14,9 +14,16 @@ export function joinClasses(
 	return classes.filter(Boolean).join(' ');
 }
 
+const documentTechnologyNames: Record<string, string> = {
+	'Android native module': 'Android 네이티브 모듈',
+	'Workbook UI': '검수용 워크북 UI',
+	'Public API adapter': '공공 API 연동',
+	'Server-rendered web': '서버 렌더링 웹',
+};
+
 export function TechnologyList({
 	technologies,
-	label = '사용 기술',
+	label = '기술',
 }: {
 	technologies: readonly string[];
 	label?: string;
@@ -25,16 +32,11 @@ export function TechnologyList({
 
 	return (
 		<div className="document-technology-list">
-			<p className="mb-1.5 text-[10px] font-semibold text-muted-foreground">
-				{label}
-			</p>
-			<ul
-				aria-label={label}
-				className="flex flex-wrap gap-x-1.5 gap-y-0.5 text-[13.5px] font-medium leading-5 text-foreground/75"
-			>
+			<p className="document-technology-label">{label}</p>
+			<ul aria-label={label} className="document-technology-items">
 				{technologies.map((technology, index) => (
-					<li key={technology} className="whitespace-nowrap">
-						{technology}
+					<li key={technology}>
+						<span>{documentTechnologyNames[technology] ?? technology}</span>
 						{index < technologies.length - 1 ? ',' : ''}
 					</li>
 				))}
@@ -45,23 +47,17 @@ export function TechnologyList({
 
 function MetricList({ metrics }: { metrics: readonly DocumentMetric[] }) {
 	return (
-		<dl className="document-evidence-list divide-y divide-border/25 border-y border-border/30">
+		<dl className="document-evidence-list">
 			{metrics.map((metric) => (
 				<div
-					key={`${metric.label}-${metric.value}`}
-					className="document-no-break grid gap-1 py-2.5 sm:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] sm:gap-x-6"
+					key={metric.label + '-' + metric.value}
+					className="document-evidence-item document-no-break"
 				>
-					<dt className="text-[13px] font-semibold leading-5 text-foreground/75">
-						{metric.label}
-					</dt>
+					<dt>{metric.label}</dt>
 					<dd>
-						<p className="text-[16px] font-semibold leading-5 tabular-nums text-foreground">
-							{metric.value}
-						</p>
+						<p className="document-evidence-value">{metric.value}</p>
 						{metric.detail ? (
-							<p className="mt-0.5 text-[13px] leading-[1.55] text-foreground/70">
-								{metric.detail}
-							</p>
+							<p className="document-evidence-detail">{metric.detail}</p>
 						) : null}
 					</dd>
 				</div>
@@ -84,16 +80,14 @@ function DocumentLinkItem({
 			href={link.href}
 			target={isExternal ? '_blank' : undefined}
 			rel={isExternal ? 'noreferrer' : undefined}
-			className="group inline-flex max-w-full flex-col rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+			className="document-link group"
 		>
-			<span className="text-[13px] font-semibold leading-5 text-foreground underline decoration-border underline-offset-4 group-hover:decoration-accent">
+			<span>
 				{link.label}
 				{isExternal ? <span className="sr-only"> (새 탭에서 열림)</span> : null}
 			</span>
 			{compact ? null : (
-				<span className="break-all text-[10px] leading-4 text-muted-foreground">
-					{link.href.replace(/^(?:https?:\/\/|mailto:)/, '')}
-				</span>
+				<small>{link.href.replace(/^(?:https?:\/\/|mailto:)/, '')}</small>
 			)}
 		</a>
 	);
@@ -101,15 +95,14 @@ function DocumentLinkItem({
 
 function ItemTechnologyList({ item }: { item: DocumentContentItem }) {
 	if (!item.technologies?.length) return null;
-
 	return <TechnologyList technologies={item.technologies} />;
 }
 
 function ItemLinks({ links }: { links: readonly DocumentLink[] }) {
 	return (
-		<ul className="mt-2 grid gap-x-4 gap-y-1 sm:grid-cols-2">
+		<ul className="document-link-list">
 			{links.map((link) => (
-				<li key={`${link.label}-${link.href}`}>
+				<li key={link.label + '-' + link.href}>
 					<DocumentLinkItem link={link} />
 				</li>
 			))}
@@ -119,41 +112,27 @@ function ItemLinks({ links }: { links: readonly DocumentLink[] }) {
 
 function ContentItems({ items }: { items: readonly DocumentContentItem[] }) {
 	return (
-		<ul className="document-item-list divide-y divide-border/25 border-y border-border/30">
+		<ul className="document-item-list">
 			{items.map((item, index) => (
 				<li
-					key={`${item.title}-${index}`}
-					className="document-no-break grid gap-1.5 py-2.5 sm:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] sm:gap-x-6"
+					key={item.title + '-' + index}
+					className="document-item document-no-break"
 				>
-					<div>
+					<header className="document-item-header">
 						{item.label ? (
-							<p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-accent">
-								{item.label}
-							</p>
+							<span className="document-item-label">{item.label}</span>
 						) : null}
-						<p className="mt-0.5 text-[14px] font-semibold leading-5 text-foreground">
-							{item.title}
-						</p>
-						{item.meta ? (
-							<p className="mt-0.5 text-[11.5px] leading-4 text-muted-foreground">
-								{item.meta}
-							</p>
-						) : null}
-					</div>
-					<div>
-						{item.value ? (
-							<p className="text-[15px] font-semibold leading-5 tabular-nums text-foreground">
-								{item.value}
-							</p>
-						) : null}
-						{item.description ? (
-							<p className="text-[13.5px] leading-[1.62] text-foreground/75">
-								{item.description}
-							</p>
-						) : null}
-						<ItemTechnologyList item={item} />
-						{item.links?.length ? <ItemLinks links={item.links} /> : null}
-					</div>
+						<div>
+							<h4>{item.title}</h4>
+							{item.meta ? <p className="document-item-meta">{item.meta}</p> : null}
+						</div>
+					</header>
+					{item.value ? <p className="document-item-value">{item.value}</p> : null}
+					{item.description ? (
+						<p className="document-item-description">{item.description}</p>
+					) : null}
+					<ItemTechnologyList item={item} />
+					{item.links?.length ? <ItemLinks links={item.links} /> : null}
 				</li>
 			))}
 		</ul>
@@ -169,49 +148,38 @@ export function PortfolioSectionBlock({
 	pageId: string;
 	compact?: boolean;
 }) {
-	const headingId = `${pageId}-${section.id}-title`;
+	const headingId = pageId + '-' + section.id + '-title';
 
 	return (
 		<section
 			aria-labelledby={section.title ? headingId : undefined}
 			className={joinClasses(
 				'document-section document-no-break',
-				compact ? 'space-y-2' : 'space-y-3',
+				compact && 'document-section-compact',
 			)}
 		>
-			{section.title ? (
-				<h3
-					id={headingId}
-					className="text-[13px] font-bold leading-5 text-foreground"
-				>
-					{section.title}
-				</h3>
-			) : null}
-			{section.body?.map((paragraph) => (
-				<p
-					key={paragraph}
-					className={joinClasses(
-						'leading-[1.68] text-foreground/80',
-						compact ? 'text-[13.5px]' : 'text-[14px]',
-					)}
-				>
-					{paragraph}
-				</p>
-			))}
-			{section.metrics?.length ? <MetricList metrics={section.metrics} /> : null}
-			{section.items?.length ? <ContentItems items={section.items} /> : null}
-			{section.technologies?.length ? (
-				<TechnologyList technologies={section.technologies} />
-			) : null}
-			{section.links?.length ? (
-				<ul className="space-y-1.5">
-					{section.links.map((link) => (
-						<li key={`${link.label}-${link.href}`}>
-							<DocumentLinkItem link={link} />
-						</li>
-					))}
-				</ul>
-			) : null}
+			{section.title ? <h3 id={headingId}>{section.title}</h3> : null}
+			<div className="document-section-content">
+				{section.body?.map((paragraph) => (
+					<p key={paragraph} className="document-body-copy">
+						{paragraph}
+					</p>
+				))}
+				{section.metrics?.length ? <MetricList metrics={section.metrics} /> : null}
+				{section.items?.length ? <ContentItems items={section.items} /> : null}
+				{section.technologies?.length ? (
+					<TechnologyList technologies={section.technologies} />
+				) : null}
+				{section.links?.length ? (
+					<ul className="document-link-list">
+						{section.links.map((link) => (
+							<li key={link.label + '-' + link.href}>
+								<DocumentLinkItem link={link} />
+							</li>
+						))}
+					</ul>
+				) : null}
+			</div>
 		</section>
 	);
 }
@@ -219,23 +187,16 @@ export function PortfolioSectionBlock({
 export function PortfolioFigure({ image }: { image: PortfolioPageImage }) {
 	const isPhone = image.layout === 'phone';
 	const isSplit = image.layout === 'split';
-	const isPortrait = isPhone || isSplit;
 
 	return (
 		<figure
 			className={joinClasses(
 				'document-figure document-no-break',
-				isPhone && 'mx-auto w-full max-w-[150px]',
-				isSplit && 'mx-auto w-full max-w-[180px]',
-				!isPortrait && 'w-full',
+				isPhone && 'document-figure-phone',
+				isSplit && 'document-figure-split',
 			)}
 		>
-			<div
-				className={joinClasses(
-					'relative overflow-hidden border border-border/30 bg-muted/25',
-					isPortrait ? 'aspect-[9/19]' : 'aspect-[16/5]',
-				)}
-			>
+			<div className="document-figure-frame">
 				<Image
 					src={image.src}
 					alt={image.alt}
@@ -245,11 +206,7 @@ export function PortfolioFigure({ image }: { image: PortfolioPageImage }) {
 					className="object-contain"
 				/>
 			</div>
-			{image.caption ? (
-				<figcaption className="mt-1.5 text-[10px] leading-4 text-muted-foreground">
-					{image.caption}
-				</figcaption>
-			) : null}
+			{image.caption ? <figcaption>{image.caption}</figcaption> : null}
 		</figure>
 	);
 }

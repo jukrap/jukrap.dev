@@ -10,6 +10,7 @@ export interface PersonalInfo {
 }
 
 export interface Activity {
+	id: string;
 	title: string;
 	period: string;
 	role: string;

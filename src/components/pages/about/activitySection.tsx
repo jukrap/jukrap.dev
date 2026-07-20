@@ -16,9 +16,9 @@ const ActivitySection: React.FC = () => {
 			</h2>
 
 			<div className="w-full flex flex-col gap-6">
-				{activities.map((activity, index) => (
+				{activities.map((activity) => (
 					<div
-						key={index}
+						key={activity.id}
 						className="flex flex-col md:flex-row md:justify-between gap-3 md:gap-12 bg-secondary/30 md:bg-transparent p-4 md:p-0 rounded-lg"
 					>
 						{/* 기간 정보 */}

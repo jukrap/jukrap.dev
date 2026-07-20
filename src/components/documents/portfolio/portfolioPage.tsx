@@ -91,8 +91,8 @@ function CoverPage({ page }: { page: PortfolioPageDefinition }) {
 				) : null}
 			</div>
 
-			<div className="grid gap-8 border-t border-border/45 pt-6 sm:grid-cols-[1.3fr_1fr]">
-				<div className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
+			<div className="grid gap-8 border-t border-border/45 pt-6 sm:grid-cols-[1.3fr_1fr] print:grid-cols-1 print:gap-5">
+				<div className="grid gap-x-6 gap-y-3 sm:grid-cols-2 print:grid-cols-1">
 					{page.metadata?.map((item) => (
 						<div key={`${item.label}-${item.value}`}>
 							<p className="text-[10px] font-semibold text-muted-foreground">
@@ -154,7 +154,7 @@ function StandardPage({ page }: { page: PortfolioPageDefinition }) {
 				<div
 					className={joinClasses(
 						'document-section-grid grid content-start gap-x-8 gap-y-5',
-						useTwoColumns && 'sm:grid-cols-2',
+						useTwoColumns && 'sm:grid-cols-2 print:grid-cols-1',
 						!hasImages && !useTwoColumns && 'border-t border-border/30 pt-5',
 					)}
 				>
@@ -169,7 +169,7 @@ function StandardPage({ page }: { page: PortfolioPageDefinition }) {
 								key={section.id}
 								className={joinClasses(
 									isCompactWork && 'border-b border-border/30 pb-4',
-									spansColumns && 'sm:col-span-2',
+									spansColumns && 'sm:col-span-2 print:col-span-1',
 								)}
 							>
 								<PortfolioSectionBlock

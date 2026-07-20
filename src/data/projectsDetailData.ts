@@ -120,7 +120,7 @@ export const projectsDetailData: Project[] = [
 			{
 				type: 'github',
 				url: 'https://github.com/Busan-Trail/busan_trail_front',
-				visible: true,
+				visible: false,
 			},
 			{
 				type: 'appleStore',
@@ -534,7 +534,7 @@ export const projectsDetailData: Project[] = [
 			{
 				type: 'appleStore',
 				url: 'https://apps.apple.com/kr/app/%EC%89%90%EC%96%B4%EB%B9%84/id6502604022',
-				visible: true,
+				visible: false,
 			},
 			{
 				type: 'googleStore',
@@ -679,7 +679,7 @@ export const projectsDetailData: Project[] = [
 			{
 				type: 'googleStore',
 				url: 'https://play.google.com/store/apps/details?id=com.gnupr.postureteacher',
-				visible: true,
+				visible: false,
 			},
 			{ type: 'url', url: '/', visible: false },
 		],

@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale } from '@/contexts/localeContext';
+import { portfolioDocumentDefinition } from '@/data/documents/manifest';
 import { useIcon } from '@/hook/useIcon';
 
 export const PortfolioSection = () => {
@@ -33,7 +34,7 @@ export const PortfolioSection = () => {
 							</p>
 						</div>
 						<Link
-							href="/ko/portfolio"
+							href={portfolioDocumentDefinition.slug}
 							className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-foreground px-4 py-2.5 text-center text-base font-bold leading-5 text-background transition-colors duration-200 interactive-soft hover:bg-accent select-none"
 						>
 							<div className="relative flex h-5 w-5 items-center justify-center">

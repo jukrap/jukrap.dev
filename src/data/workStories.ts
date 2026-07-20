@@ -210,7 +210,8 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				{
 					value: '131 tests / skipped 1',
 					label: '최종 회귀',
-					detail: '운영 반영 전후의 같은 회귀 기준으로 확인',
+					detail:
+						'최종 mvn test로 확인하고 운영 반영 후에는 hash와 smoke를 별도로 확인',
 				},
 			],
 			checks: [
@@ -371,7 +372,8 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				{
 					value: '131 tests / 1 skipped',
 					label: 'final regression',
-					detail: 'checked against the same regression baseline around rollout',
+					detail:
+						'checked in the final mvn test; rollout verified separately by hash and smoke',
 				},
 			],
 			checks: [

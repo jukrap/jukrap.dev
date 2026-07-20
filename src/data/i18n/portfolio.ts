@@ -793,6 +793,7 @@ const coreValuesEn = [
 
 const activitiesEn = [
 	{
+		id: 'study-groups',
 		title: 'Study Group Organizer',
 		period: '2024.05 ~ 2025.06',
 		role: 'Coding-test and development knowledge study groups',
@@ -801,6 +802,7 @@ const activitiesEn = [
 		],
 	},
 	{
+		id: 'programmers-devcourse-assistant-mentor',
 		title: 'Programmers Dev Course',
 		period: '2024.05 ~ 2024.09',
 		role: 'Cloud Application Engineering Course - Assistant Mentor',
@@ -810,6 +812,7 @@ const activitiesEn = [
 		],
 	},
 	{
+		id: 'programmers-devcourse-student',
 		title: 'Programmers Dev Course',
 		period: '2023.12 ~ 2024.05',
 		role: 'Cloud Application Engineering Course - Student',
@@ -819,6 +822,7 @@ const activitiesEn = [
 		],
 	},
 	{
+		id: 'study-mentor',
 		title: 'Study Mentor',
 		period: '2021.09 ~ 2022.02',
 		role: 'Mentor-mentee coding mentoring',

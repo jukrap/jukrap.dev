@@ -62,3 +62,9 @@ export const recruitingDocumentManifest = {
 		resumeProjectIds: ['captain-donghae', 'sharebby', 'ai-agent-playbook'],
 	},
 } as const satisfies RecruitingDocumentManifest;
+
+export const portfolioDocumentDefinition =
+	recruitingDocumentManifest.documents[0];
+export const resumeDocumentDefinition = recruitingDocumentManifest.documents[1];
+export const careerBriefDocumentDefinition =
+	recruitingDocumentManifest.documents[2];

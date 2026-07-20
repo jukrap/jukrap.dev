@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { CareerBriefDocument } from '@/components/documents/private';
+import { careerBriefDocumentDefinition } from '@/data/documents/manifest';
 import {
 	getPrivateDocumentContact,
 	isPrivateDocumentRequestHost,
@@ -14,8 +15,8 @@ interface CareerBriefPageProps {
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-	title: '경력기술서 | 박주철',
-	description: '로컬에서만 열리는 비공개 경력기술서',
+	title: `${careerBriefDocumentDefinition.title} | 박주철`,
+	description: careerBriefDocumentDefinition.description,
 	robots: {
 		index: false,
 		follow: false,

@@ -108,7 +108,7 @@ export const portfolioDocument = [
 		eyebrow: 'Portfolio 2026',
 		title: '박주철',
 		summary:
-			'React 웹 화면과 React Native·Android 연동을 함께 다룹니다. 사용자의 작업이 브라우저를 넘어 장비와 운영까지 이어질 때 책임을 나누고 각 환경에서 결과를 확인합니다.',
+			'React 웹 화면과 React Native 및 Android 연동을 함께 다룹니다. 사용자의 작업이 브라우저를 넘어 장비와 운영까지 이어질 때 책임을 나누고 각 환경에서 결과를 확인합니다.',
 		metadata: [
 			{ label: 'Role', value: '웹/모바일 프론트엔드 엔지니어' },
 			{ label: 'Focus', value: '사용자 흐름, 시스템 경계, 검증 가능한 결과' },
@@ -118,7 +118,7 @@ export const portfolioDocument = [
 				id: 'positioning',
 				body: [
 					'React 기반 업무 화면과 모바일 WebView, Android 연동처럼 하나의 사용자 흐름이 여러 실행 환경을 지날 때 책임과 실패 경계를 먼저 나눕니다.',
-					'기능이 동작한다는 설명에서 멈추지 않고, 번들·테스트·실기기·운영 배포처럼 사례에 맞는 기준으로 확인한 범위를 남깁니다.',
+					'기능이 동작한다는 설명에서 멈추지 않고, 번들, 테스트, 실기기, 운영 배포처럼 사례에 맞는 기준으로 확인한 범위를 남깁니다.',
 				],
 				links: publicLinks,
 			},
@@ -154,7 +154,7 @@ export const portfolioDocument = [
 					{
 						title: '사용자 흐름부터 나눕니다',
 						description:
-							'화면 단위보다 조회·입력·저장·출력처럼 사용자가 완료하려는 흐름을 먼저 확인합니다.',
+							'화면 단위보다 조회, 입력, 저장, 출력처럼 사용자가 완료하려는 흐름을 먼저 확인합니다.',
 					},
 					{
 						title: '브라우저와 장비 책임을 섞지 않습니다',
@@ -180,7 +180,7 @@ export const portfolioDocument = [
 					{
 						title: '대표 업무 4개',
 						description:
-							'물류 Web·Mobile, 차트 편집기, AI 문서화, 생활정보 하이브리드 서비스',
+							'물류 Web과 Mobile, 차트 편집기, AI 문서화, 생활정보 하이브리드 서비스',
 					},
 					{
 						title: '함께 정리한 업무 5개',
@@ -219,7 +219,7 @@ export const portfolioDocument = [
 				id: 'problem',
 				title: '문제',
 				body: [
-					'조회부터 예약·Excel·출력 요청까지 한 흐름으로 이어졌지만, 초기 화면에 spreadsheet 처리가 함께 묶여 첫 진입 비용이 컸습니다.',
+					'조회부터 예약, Excel, 출력 요청까지 한 흐름으로 이어졌지만, 초기 화면에 spreadsheet 처리가 함께 묶여 첫 진입 비용이 컸습니다.',
 					'PC 출력, 모바일 브라우저 fallback, WebView/native 출력은 서로 다른 실패 조건을 가지므로 같은 완료 기준으로 다룰 수 없었습니다.',
 				],
 			},
@@ -230,12 +230,12 @@ export const portfolioDocument = [
 					{
 						title: '업무 흐름과 출력 경계를 먼저 연결',
 						description:
-							'공통 shell·table·modal·form 위에 조회, 예약, 다건 처리, 주소록, Excel 미리보기, 출력 payload 변환을 연결했습니다.',
+							'공통 shell, table, modal, form 위에 조회, 예약, 다건 처리, 주소록, Excel 미리보기, 출력 payload 변환을 연결했습니다.',
 					},
 					{
 						title: '측정 뒤 지연 로딩 범위를 결정',
 						description:
-							'route와 spreadsheet library를 초기 진입에서 분리했습니다. 더 깊은 분리안은 인증·API 초기화와 첫 클릭 부담이 커 채택하지 않았습니다.',
+							'route와 spreadsheet library를 초기 진입에서 분리했습니다. 더 깊은 분리안은 인증 및 API 초기화와 첫 클릭 부담이 커 채택하지 않았습니다.',
 					},
 				],
 				technologies: logisticsWeb.stack,
@@ -279,7 +279,7 @@ export const portfolioDocument = [
 					{
 						title: '화면과 장비 책임을 분리',
 						description:
-							'업무 화면은 WebView에 두고, 출력 payload 변환·장비 상태·출력 명령은 Android native module 경계로 옮겼습니다.',
+							'업무 화면은 WebView에 두고, 출력 payload 변환, 장비 상태, 출력 명령은 Android native module 경계로 옮겼습니다.',
 					},
 					{
 						title: '요청 수락과 물리 출력을 따로 확인',
@@ -332,12 +332,12 @@ export const portfolioDocument = [
 			{
 				title: 'AI 초안 → Workbook 검수',
 				description:
-					'확인한 근거로 요구사항·기능·화면 후보를 만들고 선택한 sheet·cell만 수정합니다.',
+					'확인한 근거로 요구사항, 기능, 화면 후보를 만들고 선택한 sheet와 cell만 수정합니다.',
 			},
 		],
 		[
 			aiDocumentation.editorial!.outcome,
-			'완전자동화나 정확성을 보장하지 않습니다. 지원되지 않은 placeholder를 억제하고 사람이 결정할 항목을 별도로 남겼습니다.',
+			'지원하지 않는 항목은 임의로 채우지 않고 사람이 결정할 항목으로 남겼습니다.',
 			aiDocumentation.editorial!.takeaway,
 		],
 	),
@@ -349,7 +349,7 @@ export const portfolioDocument = [
 			{
 				title: '읽기 경로',
 				description:
-					'즉시 필요한 core와 보조 정보를 나누고 fresh·stale cache와 기준 데이터 cache를 분리했습니다.',
+					'즉시 필요한 core와 보조 정보를 나누고 fresh cache, stale cache, 기준 데이터 cache를 분리했습니다.',
 			},
 			{
 				title: '운영 반영',
@@ -358,7 +358,8 @@ export const portfolioDocument = [
 			},
 		],
 		[
-			'배포 수치는 합산하지 않았습니다. 2026-07-02에는 runtime 111개와 target hash 111/111, 2026-07-08에는 manifest 42개 중 39개 업로드·동일 hash 3개 skip을 확인했습니다.',
+			'2026-07-02 runtime 배포에서는 111개 파일의 target hash 111/111 일치를 확인했습니다.',
+			'2026-07-08 manifest 배포에서는 42개 중 39개를 업로드하고, 동일 hash 3개는 별도로 건너뛰었습니다.',
 			'AirKorea 673행과 법정동 20,560행의 필수값을 확인하고, 변경 범위와 계약, fallback, 배포 증거를 함께 남겼습니다.',
 		],
 	),
@@ -394,7 +395,7 @@ export const portfolioDocument = [
 		eyebrow: 'Project 01 / Web',
 		title: 'C. Donghae',
 		summary:
-			'72시간 동안 동해선 이용객에게 실시간 교통·주변 정보를 연결한 지도 기반 웹 서비스를 구현했습니다.',
+			'72시간 동안 동해선 이용객에게 실시간 교통과 주변 정보를 연결한 지도 기반 웹 서비스를 구현했습니다.',
 		metadata: [
 			{ label: 'Period', value: formatKoreanPeriod(captainDonghae.duration) },
 			{ label: 'Team', value: '3명, 유일한 프론트엔드 개발자' },
@@ -408,7 +409,7 @@ export const portfolioDocument = [
 					{
 						title: '지도와 외부 데이터 통합',
 						description:
-							'Google Maps의 지도·장소 검색·대중교통 경로·주소 변환과 날씨, 역 정보, 주변 장소 데이터를 연결했습니다.',
+							'Google Maps의 지도, 장소 검색, 대중교통 경로, 주소 변환과 날씨, 역 정보, 주변 장소 데이터를 연결했습니다.',
 					},
 					{
 						title: '제한 시간 안의 선택',
@@ -463,12 +464,12 @@ export const portfolioDocument = [
 					{
 						title: '커뮤니티 흐름',
 						description:
-							'게시글·댓글 CRUD, 위치 기반 필터, 정렬, Pull to Refresh, Infinite Scroll을 구현했습니다.',
+							'게시글 및 댓글 CRUD, 위치 기반 필터, 정렬, Pull to Refresh, Infinite Scroll을 구현했습니다.',
 					},
 					{
 						title: '데이터 구조와 실시간 기능',
 						description:
-							'Firebase 데이터 관계를 ERD로 정리하고 댓글·좋아요·다중 이미지 흐름을 연결했습니다.',
+							'Firebase 데이터 관계를 ERD로 정리하고 댓글, 좋아요, 다중 이미지 흐름을 연결했습니다.',
 					},
 					{
 						title: '이미지 캐시 경계',
@@ -510,7 +511,7 @@ export const portfolioDocument = [
 						title: aiAgentPlaybook.title,
 						meta: formatKoreanPeriod(aiAgentPlaybook.duration),
 						description:
-							'반복되는 작업 규칙과 프로젝트 메모리를 CLI·스킬·템플릿으로 나누고, 읽기 전용 MCP 도구와 dry-run 경계를 구성했습니다. npm 패키지와 GitHub 저장소로 공개했습니다.',
+							'반복되는 작업 규칙과 프로젝트 메모리를 CLI, 스킬, 템플릿으로 나누고, 읽기 전용 MCP 도구와 dry-run 경계를 구성했습니다. npm 패키지와 GitHub 저장소로 공개했습니다.',
 						technologies: aiAgentPlaybook.techStack,
 						links: visibleProjectLinks(aiAgentPlaybook.id),
 						evidence: [projectEvidence(aiAgentPlaybook.id)],
@@ -519,7 +520,7 @@ export const portfolioDocument = [
 						title: itzip.subtitle,
 						meta: formatKoreanPeriod(itzip.duration),
 						description:
-							'15명 팀의 프론트엔드 팀장으로 블로그와 Markdown 편집 흐름을 구현하고, Jest·Storybook·Sentry를 활용한 확인 범위를 정리했습니다.',
+							'15명 팀의 프론트엔드 팀장으로 블로그와 Markdown 편집 흐름을 구현하고, Jest, Storybook, Sentry를 활용한 확인 범위를 정리했습니다.',
 						technologies: itzip.techStack,
 						links: visibleProjectLinks(itzip.id),
 						evidence: [projectEvidence(itzip.id)],
@@ -528,7 +529,7 @@ export const portfolioDocument = [
 						title: postureTeacher.subtitle,
 						meta: formatKoreanPeriod(postureTeacher.duration),
 						description:
-							'MediaPipe AAR를 Ubuntu에서 빌드해 Android 앱에 통합하고, OpenCV 대비 5~10배 높은 FPS를 확인했습니다. FPS 측정과 자세 판별 정확도는 별도 기준으로 다뤘습니다.',
+							'MediaPipe AAR를 Ubuntu에서 빌드해 Android 앱에 통합했습니다. 프로젝트 당시 OpenCV 기반 구현과 비교한 프레임 처리에서 5~10배 높은 FPS 범위를 확인했습니다.',
 						technologies: postureTeacher.techStack,
 						links: visibleProjectLinks(postureTeacher.id),
 						evidence: [projectEvidence(postureTeacher.id)],
@@ -556,7 +557,7 @@ export const portfolioDocument = [
 		eyebrow: 'Profile & Contact',
 		title: '웹과 모바일에서 맡을 수 있는 범위',
 		summary:
-			'React 웹 화면과 React Native·Android 연동을 함께 다뤄 왔습니다. 처음 보는 시스템에서도 바꿀 곳과 지킬 계약을 나누고 코드·실기기·운영 환경에서 결과를 확인하겠습니다.',
+			'React 웹 화면과 React Native 및 Android 연동을 함께 다뤄 왔습니다. 처음 보는 시스템에서도 바꿀 곳과 지킬 계약을 나누고 코드, 실기기, 운영 환경에서 결과를 확인해 왔습니다.',
 		sections: [
 			{
 				id: 'skills',
@@ -574,21 +575,25 @@ export const portfolioDocument = [
 						title: '경상국립대학교 컴퓨터과학과',
 						meta: '2023.02 졸업',
 						description: '학점 3.64 / 4.5',
+						evidence: [{ source: 'profile', id: 'education-university' }],
 					},
 					{
 						title: '프로그래머스 데브코스',
 						meta: '2023.12 ~ 2024.05',
 						description: 'Cloud Application Engineering 과정 수료',
+						evidence: [{ source: 'activity', id: 'programmers-devcourse-student' }],
 					},
 					{
 						title: 'DIVE 2024 글로벌 데이터 해커톤',
 						meta: '2024.10',
 						description: '부산테크노파크원장상 수상',
+						evidence: [{ source: 'award', id: 'DIVE 2024 해커톤' }],
 					},
 					{
-						title: '제1회 경남소프트웨어 경진대회',
+						title: '경남소프트웨어 경진대회',
 						meta: '2021.10',
 						description: '최우수상 수상',
+						evidence: [{ source: 'award', id: '경남소프트웨어 경진대회' }],
 					},
 				],
 			},
@@ -603,7 +608,8 @@ export const portfolioDocument = [
 		],
 		evidence: [
 			{ source: 'profile', id: 'skills' },
-			{ source: 'activity', id: '프로그래머스 데브코스' },
+			{ source: 'profile', id: 'education-university' },
+			{ source: 'activity', id: 'programmers-devcourse-student' },
 			{ source: 'award', id: 'DIVE 2024 해커톤' },
 			{ source: 'award', id: '경남소프트웨어 경진대회' },
 		],

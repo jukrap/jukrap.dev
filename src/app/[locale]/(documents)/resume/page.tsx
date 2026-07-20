@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { ResumeDocument } from '@/components/documents/private';
+import { resumeDocumentDefinition } from '@/data/documents/manifest';
 import {
 	getPrivateDocumentContact,
 	isPrivateDocumentRequestHost,
@@ -14,8 +15,8 @@ interface ResumePageProps {
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-	title: '이력서 | 박주철',
-	description: '로컬에서만 열리는 비공개 이력서',
+	title: `${resumeDocumentDefinition.title} | 박주철`,
+	description: resumeDocumentDefinition.description,
 	robots: {
 		index: false,
 		follow: false,

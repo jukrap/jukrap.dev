@@ -1,4 +1,5 @@
 import { resumeDocument } from '@/data/documents';
+import { resumeDocumentDefinition } from '@/data/documents/manifest';
 import type {
 	PrivateDocumentContact,
 	ResumeCareer,
@@ -19,19 +20,21 @@ export interface ResumeDocumentProps {
 
 const ResumeCareerItem = ({ career }: { career: ResumeCareer }) => (
 	<article className="break-inside-avoid border-t border-[#1b1b18]/14 py-3 first:border-t-0 first:pt-0 last:pb-0">
-		<div className="flex items-baseline justify-between gap-4">
-			<h3 className="text-[0.9375rem] font-bold leading-6">{career.company}</h3>
-			<p className="shrink-0 text-[0.75rem] font-medium leading-5 text-[#1b1b18]/62 tabular-nums">
+		<div className="flex items-baseline justify-between gap-4 print:block">
+			<h3 className="text-[0.9375rem] font-bold leading-6 print:inline">
+				{career.company}
+			</h3>
+			<p className="shrink-0 text-[0.75rem] font-medium leading-5 text-[#1b1b18]/62 tabular-nums print:ml-3 print:inline">
 				{career.period}
 			</p>
 		</div>
 		<dl className="mt-0.5 flex flex-wrap gap-x-5 gap-y-0.5 text-[0.75rem] leading-5">
 			<div className="flex gap-1.5">
-				<dt className="font-medium text-[#1b1b18]/56">공식 직급</dt>
+				<dt className="font-medium text-[#1b1b18]/62">공식 직급</dt>
 				<dd className="font-semibold">{career.officialTitle}</dd>
 			</div>
 			<div className="flex gap-1.5">
-				<dt className="font-medium text-[#1b1b18]/56">실제 역할</dt>
+				<dt className="font-medium text-[#1b1b18]/62">실제 역할</dt>
 				<dd className="font-semibold">{career.role}</dd>
 			</div>
 		</dl>
@@ -48,10 +51,12 @@ const ResumeCareerItem = ({ career }: { career: ResumeCareer }) => (
 );
 
 const ResumeProjectItem = ({ project }: { project: ResumeProject }) => (
-	<article className="break-inside-avoid border-t border-[#1b1b18]/14 py-3 first:border-t-0 first:pt-0 last:pb-0">
-		<div className="flex items-baseline justify-between gap-4">
-			<h3 className="text-[0.9375rem] font-bold leading-6">{project.title}</h3>
-			<p className="shrink-0 text-[0.75rem] font-medium leading-5 text-[#1b1b18]/62 tabular-nums">
+	<article className="break-inside-avoid border-t border-[#1b1b18]/14 py-3 first:border-t-0 first:pt-0 last:pb-0 print:py-1.5">
+		<div className="flex items-baseline justify-between gap-4 print:block">
+			<h3 className="text-[0.9375rem] font-bold leading-6 print:inline">
+				{project.title}
+			</h3>
+			<p className="shrink-0 text-[0.75rem] font-medium leading-5 text-[#1b1b18]/62 tabular-nums print:ml-3 print:inline">
 				{project.period}
 			</p>
 		</div>
@@ -66,10 +71,10 @@ const ResumeProjectItem = ({ project }: { project: ResumeProject }) => (
 		{project.highlights && project.highlights.length > 0 && (
 			<DocumentBulletList
 				items={project.highlights}
-				className="mt-2 text-[0.8125rem] leading-5"
+				className="mt-2 text-[0.8125rem] leading-5 print:mt-1"
 			/>
 		)}
-		<p className="mt-2 text-[0.75rem] leading-5 text-[#1b1b18]/62">
+		<p className="mt-2 text-[0.75rem] leading-5 text-[#1b1b18]/62 print:mt-1">
 			{project.technologies.join(', ')}
 		</p>
 	</article>
@@ -83,7 +88,7 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 			<PrivateDocumentPage
 				documentClassName="resume-page"
 				pageNumber={1}
-				totalPages={2}
+				totalPages={resumeDocumentDefinition.pageCount}
 				footerLabel={contact.name}
 			>
 				<PrivateDocumentHeader
@@ -105,12 +110,12 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 							{copy.competencies.map((competency) => (
 								<div
 									key={competency.title}
-									className="grid grid-cols-1 gap-0.5 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4 print:grid-cols-[8rem_minmax(0,1fr)] print:gap-4"
+									className="grid grid-cols-1 gap-0.5 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4 print:block"
 								>
-									<dt className="text-[0.8125rem] font-semibold leading-5">
+									<dt className="text-[0.8125rem] font-semibold leading-5 print:inline print:mr-2">
 										{competency.title}
 									</dt>
-									<dd className="text-[0.8125rem] leading-5 text-[#1b1b18]/78">
+									<dd className="text-[0.8125rem] leading-5 text-[#1b1b18]/78 print:inline">
 										{competency.detail}
 									</dd>
 								</div>
@@ -134,17 +139,18 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 			<PrivateDocumentPage
 				documentClassName="resume-page"
 				pageNumber={2}
-				totalPages={2}
+				totalPages={resumeDocumentDefinition.pageCount}
 				footerLabel={contact.name}
 			>
 				<PageContinuationHeader
 					documentTitle={copy.title}
 					name={contact.name}
 					role={copy.role}
+					compact
 				/>
 
-				<div className="space-y-5">
-					<DocumentSection title="선별 프로젝트">
+				<div className="space-y-5 print:space-y-2.5">
+					<DocumentSection title="선별 프로젝트" compact>
 						<div>
 							{copy.projects.map((project) => (
 								<ResumeProjectItem key={project.id} project={project} />
@@ -152,21 +158,21 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 						</div>
 					</DocumentSection>
 
-					<DocumentSection title="기술">
-						<DocumentSkillGroups groups={copy.skillGroups} />
+					<DocumentSection title="기술" compact>
+						<DocumentSkillGroups groups={copy.skillGroups} compact />
 					</DocumentSection>
 
-					<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 print:grid-cols-2">
-						<DocumentSection title="교육">
-							<ul className="space-y-3">
+					<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 print:grid-cols-1 print:gap-3">
+						<DocumentSection title="교육" compact>
+							<ul className="space-y-3 print:space-y-1.5">
 								{copy.education.map((item) => (
 									<li
 										key={`${item.title}-${item.period}`}
 										className="break-inside-avoid"
 									>
-										<div className="flex items-baseline justify-between gap-3">
+										<div className="flex items-baseline justify-between gap-3 print:block">
 											<strong className="text-[0.8125rem] leading-5">{item.title}</strong>
-											<span className="shrink-0 text-[0.6875rem] text-[#1b1b18]/58 tabular-nums">
+											<span className="shrink-0 text-[0.6875rem] text-[#1b1b18]/62 tabular-nums print:ml-3">
 												{item.period}
 											</span>
 										</div>
@@ -178,16 +184,16 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 							</ul>
 						</DocumentSection>
 
-						<DocumentSection title="수상">
-							<ul className="space-y-3">
+						<DocumentSection title="수상" compact>
+							<ul className="space-y-3 print:space-y-1.5">
 								{copy.awards.map((item) => (
 									<li
 										key={`${item.title}-${item.period}`}
 										className="break-inside-avoid"
 									>
-										<div className="flex items-baseline justify-between gap-3">
+										<div className="flex items-baseline justify-between gap-3 print:block">
 											<strong className="text-[0.8125rem] leading-5">{item.title}</strong>
-											<span className="shrink-0 text-[0.6875rem] text-[#1b1b18]/58 tabular-nums">
+											<span className="shrink-0 text-[0.6875rem] text-[#1b1b18]/62 tabular-nums print:ml-3">
 												{item.period}
 											</span>
 										</div>

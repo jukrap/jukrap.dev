@@ -15,7 +15,6 @@ export type DocumentEvidenceSource =
 export interface DocumentEvidenceRef {
 	source: DocumentEvidenceSource;
 	id: string;
-	field?: string;
 	visibility?: RecruitingDocumentVisibility;
 }
 

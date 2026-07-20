@@ -1,17 +1,17 @@
 import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { PortfolioDocument } from '@/components/documents/portfolio';
+import { portfolioDocumentDefinition } from '@/data/documents/manifest';
 
 interface PortfolioPageProps {
 	params: Promise<{ locale: string }>;
 }
 
 export const metadata: Metadata = {
-	title: '포트폴리오 | 박주철',
-	description:
-		'웹과 모바일 앱에서 사용자 흐름과 시스템 경계를 나눈 판단, 구현, 검증 과정을 정리한 박주철의 포트폴리오',
+	title: `${portfolioDocumentDefinition.title} | 박주철`,
+	description: portfolioDocumentDefinition.description,
 	alternates: {
-		canonical: 'https://jukrap.vercel.app/ko/portfolio',
+		canonical: `https://jukrap.vercel.app${portfolioDocumentDefinition.slug}`,
 	},
 	robots: {
 		index: true,
@@ -23,7 +23,7 @@ export default async function PortfolioPage({ params }: PortfolioPageProps) {
 	const { locale } = await params;
 
 	if (locale === 'en') {
-		redirect('/ko/portfolio');
+		redirect(portfolioDocumentDefinition.slug);
 	}
 
 	if (locale !== 'ko') {

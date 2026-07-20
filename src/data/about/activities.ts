@@ -2,12 +2,14 @@ import { Activity } from '@/types/profile';
 
 export const activities: Activity[] = [
 	{
+		id: 'study-groups',
 		title: '스터디 운영',
 		period: '2024.05 ~ 2025.06',
 		role: '코딩 테스트 및 개발 지식 스터디',
 		details: ['총 2개 스터디(코딩 테스트, 개발 지식)를 운영하였습니다.'],
 	},
 	{
+		id: 'programmers-devcourse-assistant-mentor',
 		title: '프로그래머스 데브코스',
 		period: '2024.05 ~ 2024.09',
 		role: 'Cloud Application Engineering 과정 - 서브멘토',
@@ -17,6 +19,7 @@ export const activities: Activity[] = [
 		],
 	},
 	{
+		id: 'programmers-devcourse-student',
 		title: '프로그래머스 데브코스',
 		period: '2023.12 ~ 2024.05',
 		role: 'Cloud Application Engineering 과정 - 수강생',
@@ -26,6 +29,7 @@ export const activities: Activity[] = [
 		],
 	},
 	{
+		id: 'study-mentor',
 		title: '스터디 멘토',
 		period: '2021.09 ~ 2022.02',
 		role: '멘토-멘티 코딩 멘토링',

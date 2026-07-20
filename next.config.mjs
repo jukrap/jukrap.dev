@@ -2,6 +2,25 @@
 
 const nextConfig = {
 	reactStrictMode: true,
+	async headers() {
+		const privateDocumentHeaders = [
+			{
+				key: 'X-Robots-Tag',
+				value: 'noindex, nofollow, noarchive',
+			},
+		];
+
+		return [
+			{
+				source: '/:locale/resume',
+				headers: privateDocumentHeaders,
+			},
+			{
+				source: '/:locale/career-brief',
+				headers: privateDocumentHeaders,
+			},
+		];
+	},
 	images: {
 		formats: ['image/webp'],
 		deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],

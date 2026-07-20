@@ -27,7 +27,7 @@ export const PrivateDocumentPage = ({
 		data-page={pageNumber}
 	>
 		{children}
-		<footer className="mt-auto flex items-center justify-between border-t border-[#1b1b18]/20 pt-3 text-[0.6875rem] font-medium text-[#1b1b18]/55">
+		<footer className="mt-auto flex items-center justify-between border-t border-[#1b1b18]/20 pt-3 text-[0.6875rem] font-medium text-[#1b1b18]/62">
 			<span>{footerLabel}</span>
 			<span className="tabular-nums">
 				{String(pageNumber).padStart(2, '0')} /{' '}
@@ -133,11 +133,14 @@ export const DocumentBulletList = ({
 	items,
 	className = '',
 }: DocumentBulletListProps) => (
-	<ul className={`space-y-1.5 ${className}`}>
+	<ul className={`space-y-1.5 print:list-disc print:pl-4 ${className}`}>
 		{items.map((item) => (
-			<li key={item} className="relative pl-3.5 text-[#1b1b18]/86">
+			<li
+				key={item}
+				className="relative pl-3.5 text-[#1b1b18]/86 print:static print:pl-0"
+			>
 				<span
-					className="absolute left-0 top-[0.68em] h-1 w-1 rounded-full bg-[#1ac397]"
+					className="absolute left-0 top-[0.68em] h-1 w-1 rounded-full bg-[#1ac397] print:hidden"
 					aria-hidden="true"
 				/>
 				{item}

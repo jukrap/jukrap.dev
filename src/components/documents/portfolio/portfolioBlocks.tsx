@@ -91,7 +91,7 @@ function DocumentLinkItem({
 			</span>
 			{compact ? null : (
 				<span className="break-all text-[10px] leading-4 text-muted-foreground">
-					{link.href.replace(/^https?:\/\//, '')}
+					{link.href.replace(/^(?:https?:\/\/|mailto:)/, '')}
 				</span>
 			)}
 		</a>

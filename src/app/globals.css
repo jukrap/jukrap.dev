@@ -443,7 +443,19 @@
 
 /* Recruiting documents */
 .document-shell {
+	--accent: 164 88% 26%;
+	--accent-opacity: 164 88% 26%;
 	min-height: 100vh;
+}
+
+.dark .document-shell {
+	--accent: 164 76% 43%;
+	--accent-opacity: 164 76% 43%;
+}
+
+.dark .private-document .document-page {
+	--accent: 164 88% 26%;
+	--accent-opacity: 164 88% 26%;
 }
 
 .document-toolbar {
@@ -484,14 +496,14 @@
 	padding: 0 1rem;
 }
 
-.document-toolbar-link:hover,
-.document-toolbar-button:hover {
+.document-toolbar-link:hover {
 	color: hsl(var(--accent));
 }
 
 .document-toolbar-button:hover {
 	border-color: hsl(var(--accent));
 	background: hsl(var(--foreground));
+	color: hsl(var(--background));
 }
 
 .document-toolbar-link:focus-visible,
@@ -634,6 +646,7 @@
 		--border: 45 2% 43%;
 		--input: 60 7% 92%;
 		--ring: 60 6% 10%;
+		font-family: 'Malgun Gothic', sans-serif;
 		width: 210mm;
 		height: 297mm;
 		min-height: 297mm;
@@ -658,6 +671,18 @@
 		line-height: 1.55;
 	}
 
+	.document-portfolio .document-page-introduction h2 {
+		max-width: none;
+	}
+
+	#experience-overview .document-item-list > li {
+		display: block;
+	}
+
+	#experience-overview .document-item-list > li > div + div {
+		margin-top: 0.25rem;
+	}
+
 	.document-page-case .document-page-introduction {
 		margin-top: 1.5rem;
 	}
@@ -668,6 +693,47 @@
 
 	.document-page-case .document-section-grid {
 		row-gap: 1rem;
+	}
+
+	#ai-kickoff-documentation-tool .document-page-introduction,
+	#hybrid-life-info-platform .document-page-introduction {
+		margin-top: 1.25rem;
+	}
+
+	#ai-kickoff-documentation-tool .document-page-body,
+	#hybrid-life-info-platform .document-page-body {
+		margin-top: 1rem;
+	}
+
+	#ai-kickoff-documentation-tool .document-section-grid,
+	#hybrid-life-info-platform .document-section-grid {
+		row-gap: 0.75rem;
+	}
+
+	#hybrid-life-info-platform
+		.document-section
+		> :not([hidden])
+		~ :not([hidden]) {
+		margin-top: 0.5rem;
+	}
+
+	.document-page-closing
+		.document-section-grid
+		> div:last-child
+		.document-section
+		a {
+		flex-direction: row;
+		align-items: baseline;
+		gap: 0.75rem;
+	}
+
+	.document-page-closing
+		.document-section-grid
+		> div:last-child
+		.document-section
+		li
+		+ li {
+		margin-top: 0.25rem;
 	}
 
 	.resume-page,

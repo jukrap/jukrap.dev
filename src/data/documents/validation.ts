@@ -62,6 +62,7 @@ const EXPECTED_PORTFOLIO_PROJECT_IDS = [
 const EXPECTED_RESUME_PROJECT_IDS = [
 	'captain-donghae',
 	'sharebby',
+	'posture-teacher',
 	'ai-agent-playbook',
 ] as const;
 
@@ -472,13 +473,13 @@ export function validateRecruitingDocumentData({
 		'Resume project selection',
 	);
 	if (
-		manifest.selection.resumeProjectIds.length !== 3 ||
+		manifest.selection.resumeProjectIds.length !== 4 ||
 		manifest.selection.resumeProjectIds.some(
 			(id) => !manifest.selection.portfolioProjectIds.includes(id),
 		)
 	) {
 		throw new Error(
-			'Resume projects must be three projects selected from the portfolio.',
+			'Resume projects must be four projects selected from the portfolio.',
 		);
 	}
 

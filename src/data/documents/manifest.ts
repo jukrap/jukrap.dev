@@ -59,7 +59,12 @@ export const recruitingDocumentManifest = {
 			'itzip',
 			'posture-teacher',
 		],
-		resumeProjectIds: ['captain-donghae', 'sharebby', 'ai-agent-playbook'],
+		resumeProjectIds: [
+			'captain-donghae',
+			'sharebby',
+			'posture-teacher',
+			'ai-agent-playbook',
+		],
 	},
 } as const satisfies RecruitingDocumentManifest;
 

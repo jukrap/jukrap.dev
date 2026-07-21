@@ -65,6 +65,7 @@ const supportingResultByStory: Record<string, string> = {
 
 const captainDonghae = getProject('captain-donghae');
 const shareBBy = getProject('sharebby');
+const postureTeacher = getProject('posture-teacher');
 const aiAgentPlaybook = getProject('ai-agent-playbook');
 
 const contributionByStory: Record<string, string> = {
@@ -198,7 +199,7 @@ export const resumeDocument = {
 			id: captainDonghae.id,
 			title: 'C. Donghae',
 			period: formatKoreanPeriod(captainDonghae.duration),
-			role: '3명 팀의 유일한 프론트엔드 개발자',
+			role: '3명 팀 / 프론트엔드 개발',
 			summary:
 				'동해선 이용객이 실시간 교통과 주변 정보를 한 지도에서 볼 수 있는 웹 서비스입니다.',
 			highlights: [
@@ -220,6 +221,19 @@ export const resumeDocument = {
 			],
 			technologies: shareBBy.techStack,
 			evidence: [projectEvidence(shareBBy.id)],
+		},
+		{
+			id: postureTeacher.id,
+			title: postureTeacher.title,
+			period: formatKoreanPeriod(postureTeacher.duration),
+			role: '2명 팀 / Android 개발',
+			summary:
+				'카메라 프레임에서 자세를 판별하고 운동 시간을 기록하는 Android 앱입니다.',
+			highlights: [
+				'Ubuntu에서 MediaPipe AAR를 빌드해 앱에 통합하고, 신체 지점의 각도와 길이로 자세 판별과 유지 시간 측정을 구현했습니다.',
+			],
+			technologies: postureTeacher.techStack,
+			evidence: [projectEvidence(postureTeacher.id)],
 		},
 		{
 			id: aiAgentPlaybook.id,

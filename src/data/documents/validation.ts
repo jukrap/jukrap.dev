@@ -1,10 +1,10 @@
 import { activities } from '@/data/about/activities';
 import { awards } from '@/data/about/awards';
-import { personalInfo } from '@/data/about/personalInfo';
 import { projectsData } from '@/data/projectsData';
 import { workCases } from '@/data/workCases';
 import { workStories } from '@/data/workStories';
 import { validateRecruitingDocumentNumericClaims } from './numericClaimValidation';
+import { portfolioPublicEmails } from './publicContact';
 import {
 	privateProfileEvidenceRecords,
 	publicProfileEvidenceRecords,
@@ -600,10 +600,11 @@ export function validateRecruitingDocumentData({
 	const publicEmails = publicStrings.flatMap(
 		(value) => value.match(/[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/g) ?? [],
 	);
+	const allowedPublicEmails = new Set(
+		portfolioPublicEmails.map(({ address }) => address.toLowerCase()),
+	);
 	if (
-		publicEmails.some(
-			(email) => email.toLowerCase() !== personalInfo.email.toLowerCase(),
-		)
+		publicEmails.some((email) => !allowedPublicEmails.has(email.toLowerCase()))
 	) {
 		throw new Error('Public portfolio contains an unexpected email address.');
 	}

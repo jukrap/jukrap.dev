@@ -110,13 +110,59 @@ function ItemLinks({ links }: { links: readonly DocumentLink[] }) {
 	);
 }
 
-function ContentItems({ items }: { items: readonly DocumentContentItem[] }) {
+function ItemMetadata({ item }: { item: DocumentContentItem }) {
+	if (!item.metadata?.length) return null;
+
+	return (
+		<dl className="document-item-metadata">
+			{item.metadata.map(({ label, value }) => (
+				<div key={label + '-' + value}>
+					<dt>{label}</dt>
+					<dd>{value}</dd>
+				</div>
+			))}
+		</dl>
+	);
+}
+
+function CompactItemContent({ item }: { item: DocumentContentItem }) {
+	return (
+		<div className="document-item-compact-content">
+			<ItemMetadata item={item} />
+			{item.description ? (
+				<div className="document-item-compact-field">
+					<p className="document-item-field-label">핵심 구현</p>
+					<p className="document-item-description">{item.description}</p>
+				</div>
+			) : null}
+			{item.value ? (
+				<div className="document-item-compact-field">
+					<p className="document-item-field-label">대표 검증</p>
+					<p className="document-item-value">{item.value}</p>
+				</div>
+			) : null}
+			<ItemTechnologyList item={item} />
+			{item.links?.length ? <ItemLinks links={item.links} /> : null}
+		</div>
+	);
+}
+
+function ContentItems({
+	items,
+	compact = false,
+}: {
+	items: readonly DocumentContentItem[];
+	compact?: boolean;
+}) {
 	return (
 		<ul className="document-item-list">
 			{items.map((item, index) => (
 				<li
 					key={item.title + '-' + index}
-					className="document-item document-no-break"
+					className={joinClasses(
+						'document-item document-no-break',
+						compact && 'document-item-compact',
+					)}
 				>
 					<header className="document-item-header">
 						{item.label ? (
@@ -127,12 +173,19 @@ function ContentItems({ items }: { items: readonly DocumentContentItem[] }) {
 							{item.meta ? <p className="document-item-meta">{item.meta}</p> : null}
 						</div>
 					</header>
-					<ItemTechnologyList item={item} />
-					{item.value ? <p className="document-item-value">{item.value}</p> : null}
-					{item.description ? (
-						<p className="document-item-description">{item.description}</p>
-					) : null}
-					{item.links?.length ? <ItemLinks links={item.links} /> : null}
+					{compact ? (
+						<CompactItemContent item={item} />
+					) : (
+						<>
+							<ItemMetadata item={item} />
+							<ItemTechnologyList item={item} />
+							{item.value ? <p className="document-item-value">{item.value}</p> : null}
+							{item.description ? (
+								<p className="document-item-description">{item.description}</p>
+							) : null}
+							{item.links?.length ? <ItemLinks links={item.links} /> : null}
+						</>
+					)}
 				</li>
 			))}
 		</ul>
@@ -166,7 +219,9 @@ export function PortfolioSectionBlock({
 					</p>
 				))}
 				{section.metrics?.length ? <MetricList metrics={section.metrics} /> : null}
-				{section.items?.length ? <ContentItems items={section.items} /> : null}
+				{section.items?.length ? (
+					<ContentItems items={section.items} compact={compact} />
+				) : null}
 				{section.technologies?.length ? (
 					<TechnologyList technologies={section.technologies} />
 				) : null}

@@ -63,8 +63,11 @@ function CoverPage({ page }: { page: PortfolioPageDefinition }) {
 			</header>
 
 			<div className="document-cover-title">
-				<p>{page.eyebrow}</p>
+				<p className="document-cover-eyebrow">{page.eyebrow}</p>
 				<h1>{page.title}</h1>
+				{page.nickname ? (
+					<p className="document-cover-nickname">{page.nickname}</p>
+				) : null}
 				{page.summary ? <div>{page.summary}</div> : null}
 			</div>
 

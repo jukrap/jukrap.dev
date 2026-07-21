@@ -1048,6 +1048,12 @@
 	margin-top: 0;
 }
 
+#supporting-work .document-item-value {
+	color: hsl(var(--foreground) / 0.84);
+	font-size: 0.9rem;
+	font-weight: 600;
+	line-height: 1.65;
+}
 #ai-kickoff-documentation-tool .document-evidence-list,
 #hybrid-life-info-platform .document-evidence-list {
 	display: grid;

@@ -32,7 +32,7 @@ const supportingDecisionByStory: Record<string, string> = {
 	'legacy-mobile-compatibility':
 		'최신 빌드 도구를 적용한 뒤에도 오래된 Android에서 실행되는지 따로 점검했습니다.',
 	'react-admin-state-migration':
-		'기존 금융 업무 흐름을 React로 새로 구현하고 서버 상태와 화면 편집 상태를 따로 관리했습니다.',
+		'기존 주식 업무 흐름을 React로 새로 구현하고 서버 상태와 화면 편집 상태를 따로 관리했습니다.',
 	'hybrid-security-boundary':
 		'외부 인증 정보는 서버 프록시에만 두고 WebView에는 필요한 응답만 전달했습니다.',
 	'field-terminal-android':
@@ -121,7 +121,7 @@ export const resumeDocument = {
 	title: '이력서',
 	role: '웹/모바일 프론트엔드 엔지니어',
 	profile:
-		'업무 웹을 만들고 모바일 WebView를 Android 장비 출력과 연결했습니다. 신규 구축과 레거시 유지보수를 함께 맡으며 번들, 테스트, 실기기, 운영 환경에서 결과를 직접 점검했습니다.',
+		'업무 웹을 만들고 모바일 앱을 Android 장비 출력과 연결했습니다. 신규 구축과 레거시 유지보수를 함께 맡으며 번들, 테스트, 실기기, 운영 환경에서 결과를 직접 점검했습니다.',
 	competencies: [
 		{
 			title: '업무 웹 구현',
@@ -164,7 +164,7 @@ export const resumeDocument = {
 			officialTitle: triphosCareerEvidence.officialTitle,
 			role: triphosCareerEvidence.role,
 			summary:
-				'React 업무 웹, 모바일 WebView와 Android 장비 연동, 레거시 웹·앱 유지보수를 맡았습니다.',
+				'React 업무 웹, 모바일 앱과 Android 장비 연동, 레거시 웹·앱 유지보수를 맡았습니다.',
 			highlights: [
 				'물류 운영 웹의 초기 JavaScript를 2,405.50 → 616.59 kB, gzip을 815.10 → 204.38 kB로 줄이고, Android 16/API 36 실기기에서 권한과 Bluetooth 연결 뒤 실물 라벨을 출력했습니다.',
 				'차트마다 쓸 수 있는 옵션을 나누고 데이터 필드, 미리보기, 설정 화면이 같은 편집 상태를 보도록 React 도구를 구현했습니다.',

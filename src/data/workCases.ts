@@ -82,7 +82,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'JSP',
 				'jQuery',
 				'Java',
-				'Android WebView',
+				'Android',
 				'Public API adapter',
 				'SHA-256',
 			],
@@ -265,13 +265,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			period: '2026.03',
 			role: '호환성 안정화/회귀 분리',
 			workType: '유지보수',
-			stack: [
-				'Android Java',
-				'Gradle/AGP',
-				'Android WebView',
-				'RxJava',
-				'FileProvider',
-			],
+			stack: ['Android Java', 'Gradle/AGP', 'RxJava', 'FileProvider'],
 			headline:
 				'최신 Android 빌드 정책 대응과 구형 런타임 회귀를 서로 다른 검증 축으로 분리했습니다.',
 			summary:
@@ -400,13 +394,13 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS08',
 			id: 'hybrid-security-boundary',
-			title: '하이브리드 보안 기능 경계 설계',
+			title: '하이브리드 외부 연동 기능 확장',
 			platform: 'Hybrid',
 			area: 'Server Proxy / WebView QA',
 			period: '2026.06',
-			role: '기능 통합/보안 경계 정리',
+			role: '외부 연동/WebView QA',
 			workType: '기능 확장',
-			stack: ['Android WebView', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
+			stack: ['Android', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
 				'외부 인증 정보를 클라이언트에 두지 않고 서버 프록시와 WebView QA 경계로 나눴습니다.',
 			summary:
@@ -440,9 +434,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS03',
 			id: 'react-admin-state-migration',
-			title: '금융 업무 관리 웹',
+			title: '주식 업무 관리 웹',
 			platform: 'Web',
-			area: '금융 업무 / 관리 화면',
+			area: '주식 업무 / 관리 화면',
 			period: '2026.03',
 			role: '신규 관리 화면 구축',
 			workType: 'React 신규 재구축',
@@ -466,7 +460,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				},
 			],
 			problem:
-				'금융성 업무 화면에서 직접 DOM 조작에 의존하면 비슷한 테이블과 모달이 늘어날수록 변경 지점이 흩어지고, 공통 문제가 화면별 예외로 남을 수 있었습니다.',
+				'주식 업무 화면에서 직접 DOM 조작에 의존하면 비슷한 테이블과 모달이 늘어날수록 변경 지점이 흩어지고, 공통 문제가 화면별 예외로 남을 수 있었습니다.',
 			thinking: [
 				'반복 table/filter/modal 패턴은 공통 primitive로 묶되, 업무별 의미는 각 화면에 남겼습니다.',
 				'서버 데이터 갱신은 React Query 흐름으로 모으고 화면 상태는 별도로 관리했습니다.',
@@ -599,7 +593,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'JSP',
 				'jQuery',
 				'Java',
-				'Android WebView',
+				'Android',
 				'Public API adapter',
 				'SHA-256',
 			],
@@ -782,13 +776,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			period: '2026.03',
 			role: 'Compatibility stabilization and regression isolation',
 			workType: 'Maintenance',
-			stack: [
-				'Android Java',
-				'Gradle/AGP',
-				'Android WebView',
-				'RxJava',
-				'FileProvider',
-			],
+			stack: ['Android Java', 'Gradle/AGP', 'RxJava', 'FileProvider'],
 			headline:
 				'Separated modern Android build-policy work from legacy runtime regression checks.',
 			summary:
@@ -919,13 +907,13 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS08',
 			id: 'hybrid-security-boundary',
-			title: 'Hybrid Security Feature Boundary',
+			title: 'Hybrid External Integration Enhancements',
 			platform: 'Hybrid',
 			area: 'Server Proxy / WebView QA',
 			period: '2026.06',
-			role: 'Feature integration and security boundary',
+			role: 'External integration / WebView QA',
 			workType: 'Feature extension',
-			stack: ['Android WebView', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
+			stack: ['Android', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
 				'Kept external credentials out of the client by separating server proxy and WebView QA boundaries.',
 			summary:
@@ -959,9 +947,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS03',
 			id: 'react-admin-state-migration',
-			title: 'Financial Operations Admin Web',
+			title: 'Stock Operations Admin Web',
 			platform: 'Web',
-			area: 'Financial operations / admin screens',
+			area: 'Stock operations / admin screens',
 			period: '2026.03',
 			role: 'New admin web rebuild',
 			workType: 'React rebuild',
@@ -974,7 +962,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Zustand',
 			],
 			headline:
-				'Rebuilt financial operations lists, filters, modals, and session flows in React from the existing business workflow.',
+				'Rebuilt stock operations lists, filters, modals, and session flows in React from the existing business workflow.',
 			summary:
 				'Organized repeated admin flows such as lookup, search modals, detail checks, create/update, and status changes into shared structures.',
 			impact: [
@@ -985,7 +973,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				},
 			],
 			problem:
-				'In financial operations screens, direct DOM manipulation spreads change points as similar tables and modals grow, while shared concerns can become screen-by-screen exceptions.',
+				'In stock operations screens, direct DOM manipulation spreads change points as similar tables and modals grow, while shared concerns can become screen-by-screen exceptions.',
 			thinking: [
 				'Grouped repeated table/filter/modal behavior into common primitives while leaving domain meaning at the screen level.',
 				'Consolidated server data refresh through React Query and kept screen state separate.',

@@ -14,7 +14,7 @@ export const recruitingDocumentSkillGroups = [
 	},
 	{
 		label: '모바일·하이브리드',
-		items: ['React Native', 'Expo', 'Android WebView', 'Gradle'],
+		items: ['React Native', 'Expo', 'Android', 'Gradle'],
 	},
 	{
 		label: '테스트·관측',

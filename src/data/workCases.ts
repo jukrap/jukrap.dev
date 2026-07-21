@@ -359,7 +359,16 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			period: '2026.03 ~ 2026.04',
 			role: '편집 파트 구축',
 			workType: '신규 개발',
-			stack: ['React', 'TypeScript', 'Vite', 'Chart.js', 'MSW', 'Vitest'],
+			stack: [
+				'React',
+				'TypeScript',
+				'Vite',
+				'Chart.js',
+				'WebGL/GLSL (OpenGL 계열)',
+				'OGL (WebGL 라이브러리)',
+				'MSW',
+				'Vitest',
+			],
 			headline:
 				'차트 렌더링이 아니라, 데이터 역할·preview·설정 패널이 맞물리는 편집 경험으로 정리했습니다.',
 			summary:
@@ -380,6 +389,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			process: [
 				'차트 타입, field mapping, preview, option panel을 같은 편집 흐름으로 맞췄습니다.',
 				'설정 변경 때 preview가 불필요하게 다시 붙는 조건을 줄였습니다.',
+				'WebGL/GLSL 프래그먼트 셰이더와 OGL로 편집 화면의 배경 모드를 구성했습니다.',
 				'portal 도움말, drag overlay, loading·empty·error 상태와 renderer 경계를 별도로 확인했습니다.',
 			],
 			solution: [
@@ -872,7 +882,16 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			period: '2026.03 ~ 2026.04',
 			role: 'Editor feature implementation',
 			workType: 'Build',
-			stack: ['React', 'TypeScript', 'Vite', 'Chart.js', 'MSW', 'Vitest'],
+			stack: [
+				'React',
+				'TypeScript',
+				'Vite',
+				'Chart.js',
+				'WebGL/GLSL (OpenGL-style)',
+				'OGL (WebGL library)',
+				'MSW',
+				'Vitest',
+			],
 			headline:
 				'Built an editing workflow where data roles, preview, and settings panels stayed connected.',
 			summary:
@@ -893,6 +912,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			process: [
 				'Aligned chart type, field mapping, preview, and option panels into one editing flow.',
 				'Reduced cases where setting changes unnecessarily remounted the preview.',
+				'Built editor background modes with WebGL/GLSL fragment shaders and OGL.',
 				'Checked portal help, drag overlays, loading/empty/error states, and renderer boundaries separately.',
 			],
 			solution: [

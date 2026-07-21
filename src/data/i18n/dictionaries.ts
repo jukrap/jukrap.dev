@@ -47,7 +47,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				'대표 업무와 사이드 프로젝트를 문제, 판단, 확인한 결과의 흐름으로 정리했습니다.',
 			portfolioTitle: '웹 포트폴리오',
 			portfolioDescription:
-				'웹과 모바일에서 어떤 경계를 나누고 무엇으로 확인했는지 12쪽의 사례집으로 살펴볼 수 있습니다.',
+				'웹과 모바일에서 어떤 경계를 나누고 무엇으로 확인했는지 사례집에서 살펴볼 수 있습니다.',
 			portfolioLinkLabel: '웹 포트폴리오 보기',
 		},
 		about: {
@@ -183,7 +183,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				'The public portfolio is currently available in Korean and follows each case from problem to decision and verification.',
 			portfolioTitle: 'Korean Portfolio',
 			portfolioDescription:
-				'A 12-page web portfolio covering selected professional work and side projects across web and mobile.',
+				'A web portfolio covering selected professional work and side projects across web and mobile.',
 			portfolioLinkLabel: 'View Korean portfolio',
 		},
 		about: {

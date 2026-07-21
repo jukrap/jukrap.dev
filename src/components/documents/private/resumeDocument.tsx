@@ -52,6 +52,7 @@ const ResumeProjectItem = ({ project }: { project: ResumeProject }) => (
 
 export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 	const copy = resumeDocument;
+	const [firstProject, ...remainingProjects] = copy.projects;
 
 	return (
 		<div className="private-document resume-document">
@@ -65,7 +66,6 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 					contact={contact}
 					documentTitle={copy.title}
 					role={copy.role}
-					showPhoto
 				/>
 
 				<p className="resume-profile">{copy.profile}</p>
@@ -80,6 +80,14 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 						))}
 					</div>
 				</DocumentSection>
+
+				{firstProject ? (
+					<DocumentSection title="프로젝트" compact>
+						<div className="resume-project-list">
+							<ResumeProjectItem project={firstProject} />
+						</div>
+					</DocumentSection>
+				) : null}
 			</PrivateDocumentPage>
 
 			<PrivateDocumentPage
@@ -95,9 +103,9 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 					compact
 				/>
 
-				<DocumentSection title="프로젝트" compact>
+				<DocumentSection title="프로젝트 (계속)" compact>
 					<div className="resume-project-list">
-						{copy.projects.map((project) => (
+						{remainingProjects.map((project) => (
 							<ResumeProjectItem key={project.id} project={project} />
 						))}
 					</div>

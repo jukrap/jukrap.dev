@@ -91,8 +91,6 @@ export interface PrivateDocumentContact {
 	name: string;
 	email: string;
 	phone: string;
-	birthYear: string;
-	photoSrc?: string;
 	links: readonly DocumentLink[];
 }
 

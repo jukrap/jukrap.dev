@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import type { ReactNode } from 'react';
 import type {
 	DocumentSkillGroup,
@@ -72,7 +71,6 @@ interface PrivateDocumentHeaderProps {
 	documentTitle: string;
 	role: string;
 	showPrivateDetails?: boolean;
-	showPhoto?: boolean;
 	compact?: boolean;
 }
 
@@ -91,7 +89,6 @@ export const PrivateDocumentHeader = ({
 	documentTitle,
 	role,
 	showPrivateDetails = true,
-	showPhoto = false,
 	compact = false,
 }: PrivateDocumentHeaderProps) => (
 	<header
@@ -107,22 +104,9 @@ export const PrivateDocumentHeader = ({
 			<address>
 				<a href={'mailto:' + contact.email}>{contact.email}</a>
 				{showPrivateDetails && <a href={'tel:' + contact.phone}>{contact.phone}</a>}
-				{showPrivateDetails && <span>출생 {contact.birthYear}</span>}
 				<ContactLinks links={contact.links} />
 			</address>
 		</div>
-		{showPhoto && contact.photoSrc ? (
-			<div className="private-document-photo">
-				<Image
-					src={contact.photoSrc}
-					alt={contact.name + ' 프로필 사진'}
-					fill
-					priority
-					sizes="84px"
-					className="object-cover object-top"
-				/>
-			</div>
-		) : null}
 	</header>
 );
 

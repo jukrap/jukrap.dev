@@ -34,9 +34,8 @@ export function getPrivateDocumentContact(): PrivateDocumentContact | null {
 
 	const email = process.env.PRIVATE_RESUME_EMAIL;
 	const phone = process.env.PRIVATE_RESUME_PHONE;
-	const birthYear = process.env.PRIVATE_RESUME_BIRTH_YEAR;
 
-	if (!email || !phone || !birthYear) {
+	if (!email || !phone) {
 		return null;
 	}
 
@@ -44,8 +43,6 @@ export function getPrivateDocumentContact(): PrivateDocumentContact | null {
 		name: '박주철',
 		email,
 		phone,
-		birthYear,
-		photoSrc: '/images/profileFront.png',
 		links: [
 			{
 				label: 'jukrap.vercel.app/ko/portfolio',

@@ -32,7 +32,7 @@ const supportingDecisionByStory: Record<string, string> = {
 	'legacy-mobile-compatibility':
 		'최신 빌드 도구를 적용한 뒤에도 오래된 Android에서 실행되는지 따로 점검했습니다.',
 	'react-admin-state-migration':
-		'서버에서 받은 값과 화면에서 편집 중인 값을 나눠 갱신 오류를 줄였습니다.',
+		'기존 금융 업무 흐름을 React로 새로 구현하고 서버 상태와 화면 편집 상태를 따로 관리했습니다.',
 	'hybrid-security-boundary':
 		'외부 인증 정보는 서버 프록시에만 두고 WebView에는 필요한 응답만 전달했습니다.',
 	'field-terminal-android':
@@ -52,7 +52,7 @@ const careerGoalByStory: Partial<Record<string, string>> = {
 	'structured-editor-ui':
 		'데이터 역할과 설정 상태가 실제 미리보기와 어긋나지 않는 편집 흐름을 설계했습니다.',
 	'hybrid-life-info-platform':
-		'레거시 웹과 Android WebView 위에서 외부 API, 캐시와 위치 흐름을 다듬고 운영 반영 절차를 정리했습니다.',
+		'레거시 웹과 Android WebView를 유지보수하며 외부 API 응답, 캐시, 위치 처리와 운영 배포를 고쳤습니다.',
 };
 
 const supportingResultByStory: Record<string, string> = {
@@ -227,7 +227,7 @@ export const resumeDocument = {
 			period: formatKoreanPeriod(aiAgentPlaybook.duration),
 			role: '1인 개발',
 			summary:
-				'에이전트 작업 규칙과 프로젝트 메모리, 점검 명령을 재사용하기 위한 개발 도구입니다.',
+				'프로젝트 규칙과 이전 작업을 이어서 쓰기 위한 개인용 AI 에이전트 하네스입니다.',
 			highlights: [
 				'CLI, 스킬, 템플릿, 읽기 전용 MCP 도구를 만들고 파일을 바꾸는 명령에는 dry-run을 두었습니다.',
 				'npm 패키지와 GitHub 저장소로 공개했습니다.',

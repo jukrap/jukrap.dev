@@ -288,6 +288,7 @@ function validatePortfolioPageNumericClaims(page: PortfolioPageDefinition) {
 			page.title,
 			page.summary,
 			...(page.metadata ?? []).flatMap(({ label, value }) => [label, value]),
+			...(page.technologies ?? []),
 			...pageSections.flatMap(sectionOwnVisibleValues),
 			...(page.images ?? []).flatMap(({ alt, caption }) => [alt, caption]),
 		],

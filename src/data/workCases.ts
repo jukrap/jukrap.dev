@@ -75,8 +75,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			platform: 'Hybrid',
 			area: '레거시 웹 / Android WebView / 운영',
 			period: '2026.06 ~ 2026.07',
-			role: '기능 안정화/운영 반영',
-			workType: '기능 안정화',
+			role: '유지보수/운영 반영',
+			workType: '유지보수',
 			stack: [
 				'Spring MVC',
 				'JSP',
@@ -87,9 +87,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'SHA-256',
 			],
 			headline:
-				'레거시 웹과 Android WebView 위에서 외부 API, cache, 위치 흐름, 운영 반영 기준을 안정화했습니다.',
+				'레거시 웹과 Android WebView의 외부 API, 캐시, 위치 처리와 운영 배포를 유지보수했습니다.',
 			summary:
-				'웹 화면, Android WebView, 외부 API adapter, 기준 데이터 cache, 운영 배포가 함께 움직이는 범위에서 바꾼 것과 바꾸지 않은 것을 분리해 정리했습니다.',
+				'웹 화면과 Android WebView를 고치고 외부 API 응답, 기준 데이터 캐시, 운영 배포 결과를 실제 화면에서 점검했습니다.',
 			impact: [
 				{
 					value: '필수값 검증',
@@ -444,8 +444,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			platform: 'Web',
 			area: '금융 업무 / 관리 화면',
 			period: '2026.03',
-			role: '관리 화면 구현/안정화',
-			workType: '기능 구현',
+			role: '신규 관리 화면 구축',
+			workType: 'React 신규 재구축',
 			stack: [
 				'React',
 				'TypeScript',
@@ -455,7 +455,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Zustand',
 			],
 			headline:
-				'금융 업무 화면의 목록, 필터, 모달, 세션 흐름을 React 상태와 서버 상태 흐름으로 옮겼습니다.',
+				'기존 화면의 업무 절차를 살펴본 뒤 목록, 검색, 상세, Excel 처리 화면을 React로 새로 만들었습니다.',
 			summary:
 				'목록 조회, 검색 모달, 상세 확인, 등록/수정, 상태 변경처럼 반복되는 관리 흐름을 공통 구조로 잡았습니다.',
 			impact: [
@@ -592,8 +592,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			platform: 'Hybrid',
 			area: 'Legacy Web / Android WebView / Operations',
 			period: '2026.06 ~ 2026.07',
-			role: 'Feature stabilization and operations rollout',
-			workType: 'Stabilization',
+			role: 'Maintenance and production rollout',
+			workType: 'Maintenance',
 			stack: [
 				'Spring MVC',
 				'JSP',
@@ -604,9 +604,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'SHA-256',
 			],
 			headline:
-				'Stabilized external API, cache, location, and rollout boundaries across legacy web and Android WebView.',
+				'Maintained external API, cache, location, and production rollout flows across legacy web and Android WebView.',
 			summary:
-				'This work clarified what changed and what intentionally stayed unchanged across web screens, WebView, API adapters, reference-data caches, and operations rollout.',
+				'Updated web and Android WebView behavior, then checked API responses, reference-data caches, and deployed files in production screens.',
 			impact: [
 				{
 					value: 'required-field checks',
@@ -963,8 +963,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			platform: 'Web',
 			area: 'Financial operations / admin screens',
 			period: '2026.03',
-			role: 'Admin screen implementation and stabilization',
-			workType: 'Feature build',
+			role: 'New admin web rebuild',
+			workType: 'React rebuild',
 			stack: [
 				'React',
 				'TypeScript',
@@ -974,7 +974,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Zustand',
 			],
 			headline:
-				'Moved financial operations lists, filters, modals, and session flows toward React state and server-state flows.',
+				'Rebuilt financial operations lists, filters, modals, and session flows in React from the existing business workflow.',
 			summary:
 				'Organized repeated admin flows such as lookup, search modals, detail checks, create/update, and status changes into shared structures.',
 			impact: [

@@ -79,6 +79,7 @@ export interface PortfolioPageDefinition {
 	title: string;
 	summary?: string;
 	metadata?: readonly DocumentMetadataItem[];
+	technologies?: readonly string[];
 	sections: readonly DocumentContentSection[];
 	images?: readonly PortfolioPageImage[];
 	evidence: readonly DocumentEvidenceRef[];

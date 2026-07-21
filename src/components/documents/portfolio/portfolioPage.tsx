@@ -4,6 +4,7 @@ import {
 	joinClasses,
 	PortfolioFigure,
 	PortfolioSectionBlock,
+	TechnologyList,
 } from './portfolioBlocks';
 
 function DocumentPageHeader({ page }: { page: PortfolioPageDefinition }) {
@@ -43,6 +44,11 @@ function PageIntroduction({ page }: { page: PortfolioPageDefinition }) {
 						</div>
 					))}
 				</dl>
+			) : null}
+			{page.technologies?.length ? (
+				<div className="document-page-technologies">
+					<TechnologyList technologies={page.technologies} label="사용 기술" />
+				</div>
 			) : null}
 		</div>
 	);

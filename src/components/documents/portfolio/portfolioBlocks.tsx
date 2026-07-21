@@ -127,11 +127,11 @@ function ContentItems({ items }: { items: readonly DocumentContentItem[] }) {
 							{item.meta ? <p className="document-item-meta">{item.meta}</p> : null}
 						</div>
 					</header>
+					<ItemTechnologyList item={item} />
 					{item.value ? <p className="document-item-value">{item.value}</p> : null}
 					{item.description ? (
 						<p className="document-item-description">{item.description}</p>
 					) : null}
-					<ItemTechnologyList item={item} />
 					{item.links?.length ? <ItemLinks links={item.links} /> : null}
 				</li>
 			))}

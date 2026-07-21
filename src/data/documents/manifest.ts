@@ -11,7 +11,7 @@ export const recruitingDocumentManifest = {
 				'문제를 나눈 기준과 구현·검증 과정을 대표 업무와 프로젝트 사례로 설명합니다.',
 			slug: '/ko/portfolio',
 			visibility: 'public',
-			pageCount: 13,
+			pageCount: 14,
 			indexable: true,
 			showOnHome: true,
 		},

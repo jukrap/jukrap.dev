@@ -15,12 +15,7 @@ export const DocumentShell = ({ children, locale }: DocumentShellProps) => (
 					<span aria-hidden="true">←</span>
 					<span>사이트로 돌아가기</span>
 				</Link>
-				<div className="flex items-center gap-2">
-					<p className="hidden text-xs text-muted-foreground sm:block">
-						A4, 배경 그래픽 켜기, 머리글과 바닥글 끄기
-					</p>
-					<PrintButton />
-				</div>
+				<PrintButton />
 			</div>
 		</header>
 		<main className="document-stage">{children}</main>

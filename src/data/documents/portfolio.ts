@@ -1,5 +1,4 @@
 import { links as aboutLinks } from '@/data/about/links';
-import { personalInfo } from '@/data/about/personalInfo';
 import { dictionaries } from '@/data/i18n/dictionaries';
 import type {
 	DocumentContentItem,
@@ -8,6 +7,7 @@ import type {
 } from '@/types/documents';
 import type { ProfessionalStory } from '@/types/work';
 import { recruitingDocumentSkillGroups } from './documentSkills';
+import { portfolioPublicEmails } from './publicContact';
 import {
 	formatKoreanPeriod,
 	getProject,
@@ -51,14 +51,15 @@ const itzip = getProject('itzip');
 const postureTeacher = getProject('posture-teacher');
 
 const publicLinks = [
-	{ label: '이메일', href: 'mailto:' + personalInfo.email },
+	...portfolioPublicEmails.map(({ label, address }) => ({
+		label,
+		href: 'mailto:' + address,
+	})),
 	...aboutLinks
 		.filter(({ type }) => type !== 'email')
 		.map(({ text, url }) => ({ label: text, href: url })),
 	{ label: '개인 사이트', href: 'https://jukrap.vercel.app' },
 ];
-
-const contactLinks = publicLinks.filter(({ label }) => label !== '개인 사이트');
 
 const moreLinks = [
 	{ label: 'Work', href: 'https://jukrap.vercel.app/ko/work' },
@@ -190,17 +191,17 @@ export const portfolioDocument = [
 		kind: 'cover',
 		eyebrow: '웹/모바일 프론트엔드 엔지니어',
 		title: '박주철',
-		summary:
-			'React로 업무용 웹을 새로 만들고, WebView와 Android 앱을 연결해 Bluetooth 라벨 출력까지 구현했습니다.',
+		nickname: 'Jukrap',
+		summary: '웹과 모바일이 한 흐름으로 이어지는 업무 도구를 개발해 왔습니다.',
 		metadata: [
 			{ label: '직무', value: '웹/모바일 프론트엔드 엔지니어' },
-			{ label: '주요 경험', value: '업무 웹, 하이브리드 앱, Android 연동' },
+			{ label: '주요 경험', value: '웹, 하이브리드 앱, Android 연동' },
 		],
 		sections: [
 			{
 				id: 'positioning',
 				body: [
-					'레거시 웹·앱은 필요한 범위를 먼저 좁힌 뒤, 실제 실행 환경과 운영 화면에서 결과를 확인했습니다.',
+					'네 가지 업무와 다섯 프로젝트에서 문제를 어떻게 파악했고 무엇을 구현했는지, 결과를 어디까지 직접 확인했는지 담았습니다.',
 				],
 				links: publicLinks,
 			},
@@ -399,7 +400,7 @@ export const portfolioDocument = [
 			},
 		],
 		[
-			'옵션 변경, 패널 접기, 드래그 앤 드롭, 툴팁까지 같은 편집 흐름에서 점검했습니다. 작업 속도 향상처럼 측정하지 않은 성과는 적지 않았습니다.',
+			'옵션 변경, 패널 접기, 드래그 앤 드롭, 툴팁까지 같은 편집 흐름에서 점검했습니다.',
 		],
 		[
 			'모든 차트에 같은 옵션을 붙이는 대신 차트 종류에 따라 필요한 설정을 고르고, 데이터가 바뀔 때 미리보기와 설정 화면이 함께 갱신되게 만들었습니다.',
@@ -429,9 +430,7 @@ export const portfolioDocument = [
 		[
 			'자료 수집부터 초안, 워크북 검수, 부분 수정까지 각 단계를 따로 실행해 볼 수 있게 했습니다. 지원하지 않는 항목은 임의로 채우지 않고 사람이 결정할 내용으로 남겼습니다.',
 		],
-		[
-			'AI가 처음부터 문서를 완성한다고 가정하지 않았습니다. 입력 자료와 생성 결과를 사람이 볼 수 있게 두고 수정 범위를 작게 제한했습니다.',
-		],
+		[],
 	),
 	featuredWorkPage(
 		7,
@@ -457,9 +456,7 @@ export const portfolioDocument = [
 		[
 			'서로 다른 날 진행한 두 배포를 합산하지 않았습니다. 각 작업의 파일 수와 해시 결과를 따로 기록했고, 운영 스모크 테스트와 최종 테스트도 별도로 남겼습니다.',
 		],
-		[
-			'외부 API가 느리거나 실패해도 첫 화면 전체가 멈추지 않도록 로딩 순서를 바꾸고, 캐시가 최신인지 만료됐는지에 따라 사용할 값을 골랐습니다.',
-		],
+		[],
 	),
 	{
 		id: 'supporting-work',
@@ -478,7 +475,11 @@ export const portfolioDocument = [
 						label: String(index + 1).padStart(2, '0'),
 						title: story.title,
 						description: copy?.description ?? story.headline,
-						meta: story.workType + '  ' + story.period + '  ' + story.platform,
+						metadata: [
+							{ label: '업무 성격', value: story.workType },
+							{ label: '기간', value: story.period },
+							{ label: '플랫폼', value: story.platform },
+						],
 						value:
 							copy?.value ??
 							(story.impact[0]
@@ -502,7 +503,7 @@ export const portfolioDocument = [
 			'72시간 동안 동해선 이용객이 열차와 주변 정보를 한 지도에서 볼 수 있는 웹 서비스를 만들었습니다.',
 		metadata: [
 			{ label: '기간', value: formatKoreanPeriod(captainDonghae.duration) },
-			{ label: '팀', value: '3명, 유일한 프론트엔드 개발자' },
+			{ label: '팀', value: '3명' },
 			{ label: '결과', value: 'DIVE 2024 부산테크노파크원장상' },
 		],
 		technologies: captainDonghae.techStack,
@@ -511,7 +512,7 @@ export const portfolioDocument = [
 				id: 'problem',
 				title: '문제',
 				body: [
-					'72시간 안에 열차, 날씨, 주변 장소처럼 출처가 다른 정보를 지도 한 화면에 모아야 했습니다. 프론트엔드가 한 명이라 API 선택과 모바일 상호작용도 함께 결정해야 했습니다.',
+					'72시간 안에 열차, 날씨, 주변 장소처럼 출처가 다른 정보를 지도 한 화면에 모아야 했습니다. 제한 시간 안에 API 선택, 연동과 모바일 상호작용도 함께 결정해야 했습니다.',
 				],
 			},
 			{
@@ -539,7 +540,7 @@ export const portfolioDocument = [
 				id: 'result',
 				title: '결과',
 				body: [
-					'Google Maps와 백엔드 API를 연결해 지도 중심 화면과 드래그형 바텀 시트를 완성했고, DIVE 2024에서 부산테크노파크원장상을 받았습니다.',
+					'지도 중심 화면과 드래그형 바텀 시트를 완성해 DIVE 2024 부산테크노파크원장상을 받았습니다.',
 				],
 			},
 		],
@@ -607,7 +608,7 @@ export const portfolioDocument = [
 				id: 'result',
 				title: '결과',
 				body: [
-					'Android 화면과 커뮤니티 기능을 구현하고 이미지 캐시 문제를 대체 라이브러리로 고쳤습니다. 팀 앱은 2024년 App Store에 배포됐습니다.',
+					'Android 화면과 커뮤니티 기능을 구현하고 이미지 캐시 문제를 고쳤습니다. 팀 앱은 2024년 App Store에 배포됐습니다.',
 				],
 				links: visibleProjectLinks(shareBBy.id),
 			},
@@ -702,7 +703,16 @@ export const portfolioDocument = [
 			{ label: '팀', value: '15명' },
 			{ label: '역할', value: '프론트엔드 팀장 / DevOps' },
 		],
-		technologies: itzip.techStack,
+		technologies: [
+			'TypeScript',
+			'React',
+			'Next.js',
+			'Jest',
+			'Storybook',
+			'Sentry',
+			'Jenkins',
+			'Docker',
+		],
 		sections: [
 			{
 				id: 'problem',
@@ -798,7 +808,7 @@ export const portfolioDocument = [
 				id: 'result',
 				title: '결과',
 				body: [
-					'프로젝트 당시 OpenCV 구현과 비교한 프레임 처리에서 5~10배 높은 FPS 범위를 확인했습니다. 이 수치는 자세 판별 정확도와는 별개의 측정값입니다.',
+					'프로젝트 당시 OpenCV 구현보다 프레임 처리 FPS가 5~10배 높았습니다. 자세 판별 정확도와는 별개로 측정했습니다.',
 				],
 				links: visibleProjectLinks(postureTeacher.id),
 			},
@@ -818,8 +828,8 @@ export const portfolioDocument = [
 		pageNumber: 14,
 		kind: 'closing',
 		eyebrow: '프로필',
-		title: '기술과 연락처',
-		summary: '앞선 사례에서 사용한 기술과 교육, 수상 이력을 모았습니다.',
+		title: '기술, 교육과 수상',
+		summary: '앞선 사례에서 사용한 기술과 교육, 수상 이력을 한곳에 모았습니다.',
 		sections: [
 			{
 				id: 'skills',
@@ -872,11 +882,6 @@ export const portfolioDocument = [
 					'개인 사이트의 Work에는 업무별 구현과 점검 기록을, Projects에는 프로젝트 화면과 세부 작업을 남겼습니다.',
 				],
 				links: moreLinks,
-			},
-			{
-				id: 'contact',
-				title: '연락처',
-				links: contactLinks,
 			},
 		],
 		evidence: [

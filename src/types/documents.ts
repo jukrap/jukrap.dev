@@ -40,6 +40,7 @@ export interface DocumentContentItem {
 	label?: string;
 	value?: string;
 	meta?: string;
+	metadata?: readonly DocumentMetadataItem[];
 	technologies?: readonly string[];
 	links?: readonly DocumentLink[];
 	evidence?: readonly DocumentEvidenceRef[];
@@ -77,6 +78,7 @@ export interface PortfolioPageDefinition {
 	kind: PortfolioPageKind;
 	eyebrow: string;
 	title: string;
+	nickname?: string;
 	summary?: string;
 	metadata?: readonly DocumentMetadataItem[];
 	technologies?: readonly string[];

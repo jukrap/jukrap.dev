@@ -14,8 +14,11 @@ export const skills: Skill[] = [
 		items: 'React Native, Expo, Android Java, Gradle',
 	},
 	{
+		category: 'Testing/Observability',
+		items: 'Vitest, Jest, MSW, Storybook, Sentry',
+	},
+	{
 		category: 'Tooling/Ops',
-		items:
-			'Node.js, Firebase, Google Cloud Platform, Vitest, Jest, Storybook, Sentry, AWS, Jenkins, Docker',
+		items: 'Node.js, Firebase, Google Cloud Platform, AWS, Jenkins, Docker',
 	},
 ];

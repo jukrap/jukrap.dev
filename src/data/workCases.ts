@@ -363,7 +363,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			platform: 'Web',
 			area: '시각화 / 편집 UI',
 			period: '2026.03 ~ 2026.04',
-			role: '편집 도구 구축',
+			role: '편집 파트 구축',
 			workType: '신규 개발',
 			stack: ['React', 'TypeScript', 'Vite', 'Chart.js', 'MSW', 'Vitest'],
 			headline:
@@ -882,7 +882,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			platform: 'Web',
 			area: 'Visualization / editor UI',
 			period: '2026.03 ~ 2026.04',
-			role: 'Editor tool build',
+			role: 'Editor feature implementation',
 			workType: 'Build',
 			stack: ['React', 'TypeScript', 'Vite', 'Chart.js', 'MSW', 'Vitest'],
 			headline:

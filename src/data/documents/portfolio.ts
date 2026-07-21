@@ -58,6 +58,14 @@ const publicLinks = [
 	{ label: '개인 사이트', href: 'https://jukrap.vercel.app' },
 ];
 
+const contactLinks = publicLinks.filter(({ label }) => label !== '개인 사이트');
+
+const moreLinks = [
+	{ label: 'Work', href: 'https://jukrap.vercel.app/ko/work' },
+	{ label: 'Projects', href: 'https://jukrap.vercel.app/ko/projects' },
+	{ label: '개인 사이트', href: 'https://jukrap.vercel.app' },
+];
+
 const portfolioMetricCopy: Record<string, Partial<DocumentMetric>> = {
 	'2,405.50 → 616.59 kB': {
 		label: '초기 JavaScript',
@@ -105,7 +113,7 @@ const portfolioStoryCopy: Partial<
 	},
 	'hybrid-life-info-platform': {
 		summary:
-			'레거시 웹과 Android WebView 위에서 외부 API, 캐시, 위치 흐름과 운영 반영 절차를 손봤습니다.',
+			'레거시 웹과 Android WebView를 유지보수하며 외부 API 응답, 캐시, 위치 처리와 운영 배포를 고쳤습니다.',
 	},
 };
 
@@ -150,6 +158,7 @@ function featuredWorkPage(
 			{ label: '담당', value: copy?.area ?? story.area },
 			{ label: '직무', value: story.role },
 		],
+		technologies: story.stack,
 		sections: [
 			{
 				id: 'problem',
@@ -158,11 +167,10 @@ function featuredWorkPage(
 			},
 			{
 				id: 'decision',
-				title: '내가 한 일',
+				title: '구현과 판단',
 				body:
 					decisionBody ?? (story.editorial ? [story.editorial.decision] : undefined),
 				items: actions,
-				technologies: story.stack,
 			},
 			{
 				id: 'result',
@@ -183,7 +191,7 @@ export const portfolioDocument = [
 		eyebrow: '웹/모바일 프론트엔드 엔지니어',
 		title: '박주철',
 		summary:
-			'업무 웹과 모바일 앱을 만들고 Android 장비 연동까지 다룹니다. 화면에서 시작한 사용자의 일이 실제 출력과 운영 배포까지 이어지도록 구현하고, 제가 확인한 범위를 수치와 실행 환경으로 남깁니다.',
+			'React로 업무용 웹을 새로 만들고, WebView와 Android 앱을 연결해 Bluetooth 라벨 출력까지 구현했습니다.',
 		metadata: [
 			{ label: '직무', value: '웹/모바일 프론트엔드 엔지니어' },
 			{ label: '주요 경험', value: '업무 웹, 하이브리드 앱, Android 연동' },
@@ -192,7 +200,7 @@ export const portfolioDocument = [
 			{
 				id: 'positioning',
 				body: [
-					'신규 화면을 만드는 일과 오래된 시스템을 고치는 일을 함께 경험했습니다. 기능을 한 번에 바꾸기보다 웹, WebView, Android가 맡을 일을 나누고 각 환경에서 직접 실행해 봅니다.',
+					'레거시 웹·앱은 필요한 범위를 먼저 좁힌 뒤, 실제 실행 환경과 운영 화면에서 결과를 확인했습니다.',
 				],
 				links: publicLinks,
 			},
@@ -244,9 +252,9 @@ export const portfolioDocument = [
 							'저장소를 먼저 읽고 초안을 만든 뒤 검수용 워크북에서 필요한 부분만 다시 고치는 흐름을 구현했습니다.',
 					},
 					{
-						title: '생활정보 서비스 운영',
+						title: '생활정보 서비스 유지보수',
 						description:
-							'필수 정보의 로딩과 캐시를 손보고, 바뀐 파일만 배포한 뒤 해시와 주요 화면으로 반영 결과를 점검했습니다.',
+							'첫 화면의 로딩과 캐시를 고치고, 바뀐 파일만 배포한 뒤 해시와 주요 화면을 다시 실행했습니다.',
 					},
 				],
 			},
@@ -278,6 +286,7 @@ export const portfolioDocument = [
 			{ label: '담당', value: logisticsWeb.area },
 			{ label: '직무', value: logisticsWeb.role },
 		],
+		technologies: logisticsWeb.stack,
 		sections: [
 			{
 				id: 'problem',
@@ -288,7 +297,7 @@ export const portfolioDocument = [
 			},
 			{
 				id: 'decision',
-				title: '내가 한 일',
+				title: '구현과 판단',
 				items: [
 					{
 						title: '운영 흐름 구현',
@@ -301,7 +310,6 @@ export const portfolioDocument = [
 							'번들 분석 결과를 보고 페이지 라우트와 스프레드시트 라이브러리를 첫 진입에서 뺐습니다. 인증과 API 초기화까지 더 나누는 안은 첫 클릭 부담이 커 적용하지 않았습니다.',
 					},
 				],
-				technologies: logisticsWeb.stack,
 			},
 			{
 				id: 'evidence',
@@ -330,6 +338,7 @@ export const portfolioDocument = [
 			{ label: '담당', value: 'WebView / Android 네이티브 모듈' },
 			{ label: '직무', value: logisticsMobile.role },
 		],
+		technologies: logisticsMobile.stack,
 		sections: [
 			{
 				id: 'problem',
@@ -340,7 +349,7 @@ export const portfolioDocument = [
 			},
 			{
 				id: 'decision',
-				title: '내가 한 일',
+				title: '구현과 판단',
 				items: [
 					{
 						title: '웹과 앱의 역할 구분',
@@ -352,8 +361,12 @@ export const portfolioDocument = [
 						description:
 							'Android 16/API 36에서 장비 탐색 호출을 추적하고 취소 처리와 Bluetooth 권한을 보완한 뒤 실물 라벨을 출력했습니다.',
 					},
+					{
+						title: '실행 환경 구분',
+						description:
+							'개발·운영 URL과 앱 식별자, 설치 산출물을 나눠 테스트용 설치와 운영 설치가 섞이지 않게 했습니다.',
+					},
 				],
-				technologies: logisticsMobile.stack,
 			},
 			{
 				id: 'evidence',
@@ -407,6 +420,11 @@ export const portfolioDocument = [
 				description:
 					'확인한 자료로 요구사항, 기능, 화면 초안을 만들고 선택한 시트와 셀만 다시 작성하도록 구현했습니다.',
 			},
+			{
+				title: '부분 실패 기록',
+				description:
+					'생성에 실패한 항목은 현재 결과와 실행 이력에서 구분했고, 근거가 부족한 내용은 사람이 결정할 항목으로 남겼습니다.',
+			},
 		],
 		[
 			'자료 수집부터 초안, 워크북 검수, 부분 수정까지 각 단계를 따로 실행해 볼 수 있게 했습니다. 지원하지 않는 항목은 임의로 채우지 않고 사람이 결정할 내용으로 남겼습니다.',
@@ -430,6 +448,11 @@ export const portfolioDocument = [
 				description:
 					'전체 파일을 덮어쓰지 않고 배포 목록과 SHA-256 해시로 대상을 좁힌 뒤 주요 화면을 다시 실행했습니다.',
 			},
+			{
+				title: 'WebView 위치 처리',
+				description:
+					'Android 앱에서는 네이티브 위치를 먼저 사용하고 저장된 위치와 브라우저 경로를 대체 수단으로 뒀습니다.',
+			},
 		],
 		[
 			'서로 다른 날 진행한 두 배포를 합산하지 않았습니다. 각 작업의 파일 수와 해시 결과를 따로 기록했고, 운영 스모크 테스트와 최종 테스트도 별도로 남겼습니다.',
@@ -442,10 +465,10 @@ export const portfolioDocument = [
 		id: 'supporting-work',
 		pageNumber: 8,
 		kind: 'compact-work',
-		eyebrow: '추가 업무',
-		title: '유지보수에서 맡은 일',
+		eyebrow: '업무 경험',
+		title: '추가 업무',
 		summary:
-			'짧은 작업도 빌드가 되는지, 실제 실행이 되는지, 운영에서 되돌릴 수 있는지를 구분해 처리했습니다.',
+			'금융 업무 웹은 React로 새로 만들었습니다. Android 호환성, 하이브리드 보안, 현장 단말과 레거시 패널 작업은 기존 환경에서 필요한 범위를 고쳤습니다.',
 		sections: [
 			{
 				id: 'work-list',
@@ -455,7 +478,7 @@ export const portfolioDocument = [
 						label: String(index + 1).padStart(2, '0'),
 						title: story.title,
 						description: copy?.description ?? story.headline,
-						meta: story.period + '  ' + story.platform,
+						meta: story.workType + '  ' + story.period + '  ' + story.platform,
 						value:
 							copy?.value ??
 							(story.impact[0]
@@ -482,10 +505,18 @@ export const portfolioDocument = [
 			{ label: '팀', value: '3명, 유일한 프론트엔드 개발자' },
 			{ label: '결과', value: 'DIVE 2024 부산테크노파크원장상' },
 		],
+		technologies: captainDonghae.techStack,
 		sections: [
 			{
+				id: 'problem',
+				title: '문제',
+				body: [
+					'72시간 안에 열차, 날씨, 주변 장소처럼 출처가 다른 정보를 지도 한 화면에 모아야 했습니다. 프론트엔드가 한 명이라 API 선택과 모바일 상호작용도 함께 결정해야 했습니다.',
+				],
+			},
+			{
 				id: 'contribution',
-				title: '내가 한 일',
+				title: '구현과 판단',
 				items: [
 					{
 						title: '지도와 외부 데이터 연결',
@@ -503,8 +534,13 @@ export const portfolioDocument = [
 							'웹 지원 기능을 비교해 지도 API를 정하고 Swagger 문서를 보며 백엔드 API와 주요 화면을 연결했습니다.',
 					},
 				],
-				technologies: captainDonghae.techStack,
-				links: visibleProjectLinks(captainDonghae.id),
+			},
+			{
+				id: 'result',
+				title: '결과',
+				body: [
+					'Google Maps와 백엔드 API를 연결해 지도 중심 화면과 드래그형 바텀 시트를 완성했고, DIVE 2024에서 부산테크노파크원장상을 받았습니다.',
+				],
 			},
 		],
 		images: [
@@ -537,10 +573,18 @@ export const portfolioDocument = [
 			{ label: '팀', value: '5명' },
 			{ label: '배포', value: '2024년 App Store 배포 이력' },
 		],
+		technologies: shareBBy.techStack,
 		sections: [
 			{
+				id: 'problem',
+				title: '문제',
+				body: [
+					'iOS 기준으로 먼저 만든 화면을 Android에서도 동작하게 고쳐야 했고, 게시글 이미지가 갱신되지 않는 캐시 문제도 있었습니다.',
+				],
+			},
+			{
 				id: 'contribution',
-				title: '내가 한 일',
+				title: '구현과 판단',
 				items: [
 					{
 						title: '게시글과 댓글 흐름',
@@ -558,7 +602,13 @@ export const portfolioDocument = [
 							'기본 이미지 컴포넌트의 캐시 문제를 재현하고 업데이트가 중단된 라이브러리 대신 유지되는 대안을 적용했습니다.',
 					},
 				],
-				technologies: shareBBy.techStack,
+			},
+			{
+				id: 'result',
+				title: '결과',
+				body: [
+					'Android 화면과 커뮤니티 기능을 구현하고 이미지 캐시 문제를 대체 라이브러리로 고쳤습니다. 팀 앱은 2024년 App Store에 배포됐습니다.',
+				],
 				links: visibleProjectLinks(shareBBy.id),
 			},
 		],
@@ -583,16 +633,24 @@ export const portfolioDocument = [
 		eyebrow: '프로젝트 03  개발 도구',
 		title: 'AI Agent Playbook',
 		summary:
-			'에이전트가 프로젝트 규칙과 이전 작업을 매번 처음부터 찾지 않도록 CLI, 문서 틀, 점검 명령을 묶은 공개 도구입니다.',
+			'프로젝트 규칙과 이전 작업을 이어서 사용할 수 있도록 CLI, 스킬, 문서 틀과 점검 명령을 묶은 개인용 AI 에이전트 하네스입니다.',
 		metadata: [
 			{ label: '기간', value: formatKoreanPeriod(aiAgentPlaybook.duration) },
 			{ label: '개발', value: '1인 개발' },
 			{ label: '배포', value: 'npm 패키지와 GitHub 저장소' },
 		],
+		technologies: aiAgentPlaybook.techStack,
 		sections: [
 			{
+				id: 'problem',
+				title: '문제',
+				body: [
+					'프로젝트마다 작업 규칙과 이전 기록이 흩어져 있으면 에이전트가 같은 내용을 다시 찾고, 파일을 바꾸는 명령의 영향도 실행 전에 알기 어렵습니다.',
+				],
+			},
+			{
 				id: 'contribution',
-				title: '만든 이유와 범위',
+				title: '구현과 판단',
 				items: [
 					{
 						title: '규칙과 프로젝트 메모리 분리',
@@ -604,13 +662,14 @@ export const portfolioDocument = [
 						description:
 							'CLI 명령과 읽기 전용 MCP 도구를 만들고 파일을 바꾸는 명령에는 실행 전 결과를 보여주는 dry-run을 두었습니다.',
 					},
-					{
-						title: '공개 배포',
-						description:
-							'npm에서 설치할 수 있는 패키지와 GitHub 저장소로 배포해 다른 프로젝트에서도 같은 흐름을 쓸 수 있게 했습니다.',
-					},
 				],
-				technologies: aiAgentPlaybook.techStack,
+			},
+			{
+				id: 'result',
+				title: '결과',
+				body: [
+					'CLI와 읽기 전용 MCP 도구를 npm 패키지와 GitHub 저장소로 공개했습니다. 파일을 바꾸는 명령은 dry-run 결과를 먼저 보여줍니다.',
+				],
 				links: visibleProjectLinks(aiAgentPlaybook.id),
 			},
 		],
@@ -631,64 +690,136 @@ export const portfolioDocument = [
 		evidence: [projectEvidence(aiAgentPlaybook.id)],
 	},
 	{
-		id: 'selected-projects',
+		id: 'itzip',
 		pageNumber: 12,
-		kind: 'project-collection',
-		eyebrow: '프로젝트 04–05',
-		title: 'Itzip과 Posture Teacher',
+		kind: 'project',
+		eyebrow: '프로젝트 04  웹',
+		title: 'Itzip',
 		summary:
-			'팀 웹 서비스에서는 편집과 품질 도구를, Android 프로젝트에서는 카메라 프레임과 자세 분석을 맡았습니다.',
+			'15명 팀에서 블로그와 Markdown 편집 화면을 만들고, 테스트와 오류 관측 도구를 프론트엔드 개발 흐름에 더했습니다.',
+		metadata: [
+			{ label: '기간', value: formatKoreanPeriod(itzip.duration) },
+			{ label: '팀', value: '15명' },
+			{ label: '역할', value: '프론트엔드 팀장 / DevOps' },
+		],
+		technologies: itzip.techStack,
 		sections: [
 			{
-				id: 'project-list',
+				id: 'problem',
+				title: '문제',
+				body: [
+					'블로그 목록과 편집 화면을 함께 만들면서 컴포넌트 동작과 배포 뒤 오류를 팀이 같은 방식으로 살펴볼 수 있어야 했습니다.',
+				],
+			},
+			{
+				id: 'contribution',
+				title: '구현과 판단',
 				items: [
 					{
-						label: '웹',
-						title: itzip.subtitle,
-						meta: formatKoreanPeriod(itzip.duration),
+						title: 'Markdown 편집 화면',
 						description:
-							'15명 팀에서 프론트엔드 팀장을 맡아 블로그와 Markdown 편집 화면을 구현했습니다. Jest, Storybook, Sentry를 도입해 주요 화면과 오류를 살펴볼 수 있게 했습니다.',
-						technologies: itzip.techStack,
-						links: visibleProjectLinks(itzip.id),
-						evidence: [projectEvidence(itzip.id)],
+							'본문을 쓰는 동안 결과를 바로 볼 수 있는 미리보기와 프로젝트 전용 Markdown 문법을 구현했습니다.',
 					},
 					{
-						label: 'Android',
-						title: postureTeacher.subtitle,
-						meta: formatKoreanPeriod(postureTeacher.duration),
+						title: '테스트와 오류 관측',
 						description:
-							'MediaPipe AAR를 Ubuntu에서 빌드해 Android 앱에 넣었습니다. 프로젝트 당시 OpenCV 구현과 비교한 프레임 처리에서 5~10배 높은 FPS 범위를 확인했습니다.',
-						technologies: postureTeacher.techStack,
-						links: visibleProjectLinks(postureTeacher.id),
-						evidence: [projectEvidence(postureTeacher.id)],
+							'Jest로 주요 동작을 점검하고 Storybook에 컴포넌트를 모았습니다. 배포 뒤 오류는 Sentry에서 볼 수 있게 구성했습니다.',
+					},
+					{
+						title: '필요한 시점에 화면 코드 로드',
+						description:
+							'게시글 안의 무거운 컴포넌트는 Next.js dynamic import로 필요한 시점에 불러오도록 바꿨습니다.',
 					},
 				],
+			},
+			{
+				id: 'result',
+				title: '결과',
+				body: [
+					'블로그와 Markdown 편집 화면을 구현했고, 단위 테스트와 컴포넌트 문서, 배포 뒤 오류 관측 경로를 팀 프로젝트에 적용했습니다.',
+				],
+				links: visibleProjectLinks(itzip.id),
 			},
 		],
 		images: [
 			{
 				src: '/images/itzip/image6.png',
 				alt: 'Itzip Markdown 편집 화면',
-				caption: 'Itzip 편집 화면',
+				caption: 'Markdown 편집과 미리보기',
 				layout: 'wide',
 			},
+		],
+		evidence: [projectEvidence(itzip.id)],
+	},
+	{
+		id: 'posture-teacher',
+		pageNumber: 13,
+		kind: 'project',
+		eyebrow: '프로젝트 05  Android',
+		title: 'Posture Teacher',
+		summary:
+			'카메라 프레임에서 신체 지점을 읽어 앉은 자세와 플랭크 자세를 판별하고 측정 기록을 남기는 Android 앱을 만들었습니다.',
+		metadata: [
+			{ label: '기간', value: formatKoreanPeriod(postureTeacher.duration) },
+			{ label: '팀', value: '2명' },
+			{ label: '역할', value: '팀장 / Android 개발' },
+		],
+		technologies: postureTeacher.techStack,
+		sections: [
+			{
+				id: 'problem',
+				title: '문제',
+				body: [
+					'카메라 프레임을 계속 분석하면서도 화면이 멈추지 않아야 했고, MediaPipe를 Android 프로젝트에서 쓸 수 있는 형태로 직접 빌드해야 했습니다.',
+				],
+			},
+			{
+				id: 'contribution',
+				title: '구현과 판단',
+				items: [
+					{
+						title: 'MediaPipe Android 통합',
+						description:
+							'Docker와 MSYS2에서 이어가지 못한 빌드를 Ubuntu에서 다시 진행해 MediaPipe AAR를 만들고 앱에 넣었습니다.',
+					},
+					{
+						title: '자세 판별과 타이머',
+						description:
+							'신체 지점의 각도와 길이로 앉은 자세와 플랭크 자세를 판별하고, 유지 시간과 어긋난 시간을 각각 기록했습니다.',
+					},
+					{
+						title: '프레임 처리 분리',
+						description:
+							'분석 작업을 별도 스레드에서 실행해 구형 기기에서도 화면 입력과 프레임 처리가 서로 막지 않도록 했습니다.',
+					},
+				],
+			},
+			{
+				id: 'result',
+				title: '결과',
+				body: [
+					'프로젝트 당시 OpenCV 구현과 비교한 프레임 처리에서 5~10배 높은 FPS 범위를 확인했습니다. 이 수치는 자세 판별 정확도와는 별개의 측정값입니다.',
+				],
+				links: visibleProjectLinks(postureTeacher.id),
+			},
+		],
+		images: [
 			{
 				src: '/images/posture-teacher/image5.png',
 				alt: 'Posture Teacher 자세 분석 결과 화면',
-				caption: 'Posture Teacher 분석 결과',
+				caption: '자세 분석 결과와 측정 기록',
 				layout: 'phone',
 			},
 		],
-		evidence: [projectEvidence(itzip.id), projectEvidence(postureTeacher.id)],
+		evidence: [projectEvidence(postureTeacher.id)],
 	},
 	{
 		id: 'closing',
-		pageNumber: 13,
+		pageNumber: 14,
 		kind: 'closing',
 		eyebrow: '프로필',
 		title: '기술과 연락처',
-		summary:
-			'웹 화면과 모바일 앱을 함께 만들었고, Android 장비와 레거시 시스템도 필요한 만큼 직접 다뤘습니다. 기술 이름보다 어느 작업에서 어떻게 썼는지를 포트폴리오와 개인 사이트에 남겼습니다.',
+		summary: '앞선 사례에서 사용한 기술과 교육, 수상 이력을 모았습니다.',
 		sections: [
 			{
 				id: 'skills',
@@ -699,8 +830,8 @@ export const portfolioDocument = [
 				})),
 			},
 			{
-				id: 'education-and-awards',
-				title: '교육과 수상',
+				id: 'education',
+				title: '교육',
 				items: [
 					{
 						title: '경상국립대학교 컴퓨터과학과',
@@ -714,6 +845,12 @@ export const portfolioDocument = [
 						description: 'Cloud Application Engineering 과정 수료',
 						evidence: [{ source: 'activity', id: 'programmers-devcourse-student' }],
 					},
+				],
+			},
+			{
+				id: 'awards',
+				title: '수상',
+				items: [
 					{
 						title: 'DIVE 2024 글로벌 데이터 해커톤',
 						meta: '2024.10',
@@ -729,12 +866,17 @@ export const portfolioDocument = [
 				],
 			},
 			{
+				id: 'more',
+				title: '더 보기',
+				body: [
+					'개인 사이트의 Work에는 업무별 구현과 점검 기록을, Projects에는 프로젝트 화면과 세부 작업을 남겼습니다.',
+				],
+				links: moreLinks,
+			},
+			{
 				id: 'contact',
 				title: '연락처',
-				body: [
-					'업무의 세부 구현과 점검 기록은 개인 사이트 Work에서, 프로젝트별 화면과 구현 내용은 Projects에서 볼 수 있습니다.',
-				],
-				links: publicLinks,
+				links: contactLinks,
 			},
 		],
 		evidence: [

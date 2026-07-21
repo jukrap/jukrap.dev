@@ -26,7 +26,7 @@ const EXPECTED_DOCUMENTS = [
 		id: 'portfolio',
 		slug: '/ko/portfolio',
 		visibility: 'public',
-		pageCount: 13,
+		pageCount: 14,
 		indexable: true,
 		showOnHome: true,
 	},
@@ -108,8 +108,13 @@ const EXPECTED_PROJECT_PAGES = [
 	},
 	{
 		pageNumber: 12,
-		id: 'selected-projects',
-		projectIds: ['itzip', 'posture-teacher'],
+		id: 'itzip',
+		projectIds: ['itzip'],
+	},
+	{
+		pageNumber: 13,
+		id: 'posture-teacher',
+		projectIds: ['posture-teacher'],
 	},
 ] as const;
 
@@ -370,8 +375,8 @@ export function validateRecruitingDocumentData({
 		({ id }) => id === 'portfolio',
 	)!;
 
-	if (portfolio.length !== 13 || portfolioDefinition.pageCount !== 13) {
-		throw new Error('Portfolio must contain exactly thirteen pages.');
+	if (portfolio.length !== 14 || portfolioDefinition.pageCount !== 14) {
+		throw new Error('Portfolio must contain exactly fourteen pages.');
 	}
 	assertUnique(
 		portfolio.map(({ id }) => id),
@@ -549,7 +554,7 @@ export function validateRecruitingDocumentData({
 	);
 
 	EXPECTED_PROJECT_PAGES.forEach(({ pageNumber, id, projectIds }) => {
-		const kind = pageNumber === 12 ? 'project-collection' : 'project';
+		const kind = 'project';
 		const page = getPage(portfolio, pageNumber, id, kind);
 		assertPageEvidence(
 			page,
@@ -558,31 +563,6 @@ export function validateRecruitingDocumentData({
 			`Project evidence on page ${pageNumber}`,
 		);
 	});
-	const selectedProjectItems = getPage(
-		portfolio,
-		12,
-		'selected-projects',
-		'project-collection',
-	).sections.find(({ id }) => id === 'project-list')?.items;
-	if (!selectedProjectItems || selectedProjectItems.length !== 2) {
-		throw new Error('Portfolio page 12 must contain two selected projects.');
-	}
-	const selectedProjectItemIds = selectedProjectItems.map((item, index) => {
-		const ids = (item.evidence ?? [])
-			.filter(({ source }) => source === 'project')
-			.map(({ id }) => id);
-		if (ids.length !== 1) {
-			throw new Error(
-				`Selected project item ${index + 1} must reference exactly one project.`,
-			);
-		}
-		return ids[0];
-	});
-	assertSameOrder(
-		selectedProjectItemIds,
-		EXPECTED_PROJECT_PAGES[3].projectIds,
-		'Selected project item order',
-	);
 
 	const evidence = portfolio.flatMap(pageEvidence);
 	const evidenceVisibilities = evidence.map(resolveEvidenceVisibility);

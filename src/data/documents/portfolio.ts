@@ -118,16 +118,26 @@ const portfolioStoryCopy: Partial<
 	},
 };
 
-const compactWorkCopy: Partial<
-	Record<string, { description?: string; value?: string }>
-> = {
+const compactWorkCopy: Partial<Record<string, { description?: string }>> = {
+	'legacy-mobile-compatibility': {
+		description:
+			'Gradle·AGP·JDK·SDK 조건을 맞춰 빌드 기준선을 복구했습니다. 권한·파일 URI·back API·service 호출은 OS별 helper로 분리해 구형 런타임의 회귀 범위를 좁혔습니다.',
+	},
+	'react-admin-state-migration': {
+		description:
+			'목록·검색 모달·상세·등록·수정·상태 변경을 React의 공통 table·filter·modal 구조로 새로 만들었습니다. 서버 조회와 갱신은 React Query로 모으고 화면 상태는 별도로 관리했습니다.',
+	},
 	'hybrid-security-boundary': {
-		value: '인증 정보는 서버에서 관리',
+		description:
+			'외부 인증 정보와 조회 책임을 서버 프록시로 옮기고, 클라이언트에는 화면에 필요한 결과만 전달했습니다. WebView의 파일 선택·route·tab·bridge 흐름은 emulator와 실기기에서 나눠 확인했습니다.',
+	},
+	'field-terminal-android': {
+		description:
+			'운영 서명과 로컬 개발 빌드 조건을 분리하고 Gradle·JDK·SDK 기준을 맞춰 개발 빌드를 복구했습니다. 로그인·초기 데이터·스캔 입력은 단계별로 확인해 실제 단말에서 볼 항목을 따로 남겼습니다.',
 	},
 	'legacy-panel-baseline': {
 		description:
-			'레거시 화면을 바로 나누기 전에 공유 코드, API 규약과 브라우저 지원 범위를 먼저 확인했습니다.',
-		value: '변경 전 영향 지점 지도화',
+			'레거시 화면을 바로 나누기 전에 공유 popup·selector·page loader와 API 규약의 영향 지점을 지도화했습니다. 기존 동작을 기준으로 수동 확인 절차와 중단 조건을 정리했습니다.',
 	},
 };
 
@@ -485,11 +495,6 @@ export const portfolioDocument = [
 							{ label: '기간', value: story.period },
 							{ label: '플랫폼', value: story.platform },
 						],
-						value:
-							copy?.value ??
-							(story.impact[0]
-								? story.impact[0].label + ': ' + story.impact[0].value
-								: undefined),
 						technologies: story.stack,
 						evidence: [workStoryEvidence(story.id)],
 					};

@@ -76,3 +76,55 @@ After production build, inspect the app build manifests and captured network req
 ## Snapshot update policy
 
 Update baselines only after reviewing the rendered desktop, tablet, and mobile images. A snapshot update is not a pass by itself. Re-run `npm run test:visual` without update mode and keep only reviewed images under the Playwright snapshot directory.
+
+## Verified implementation
+
+| Record             | Value                                      |
+| ------------------ | ------------------------------------------ |
+| Base SHA           | `286edec3792d4d6996219d1ce8e3c2defd2cc26c` |
+| Implementation SHA | `5dec62f7cabd51dc2bd4d0e3b0cbaf79bccc0c9f` |
+| Acceptance runtime | Node 24.x (`.nvmrc` and `engines.node`)    |
+| Baseline tree      | `ac0246e843845246315d43686a792e696fb5da74` |
+
+The verification below was completed against the implementation SHA before this ledger-only commit:
+
+- `npm run format:check`: passed.
+- `npm run typecheck`: passed.
+- `npm run build`: passed.
+- `npm run test:e2e`: public production suite 85 passed, 32 skipped, 0 failed, and 0 retries used; private local-gate suite 4 passed.
+- `npm run test:visual`: 15 passed with no update mode.
+- `npm audit`: reported two high-severity findings through Next.js' nested `sharp@0.34.5`. The project-level Sharp is `0.35.3`; the only proposed automatic repair was a breaking forced downgrade to Next.js 14, so no force fix or override was applied.
+- `src/data/imageMetadata.json`: the normalized staged blob remained unchanged after the final build.
+
+The public browser suites build once and use `next start`, matching deployed route/chunk behavior. The private-enabled localhost proof uses `next dev` with an isolated `.next-private-qa` directory because private documents are intentionally unavailable after a production build.
+
+## Verified privacy and route isolation
+
+- Production HTML and HEAD requests to Korean and English resume/career routes returned 404 with `X-Robots-Tag: noindex, nofollow, noarchive`.
+- RSC not-found transport returned 200 as permitted by Next.js, preserved the robots header, and contained no private sentinel or contact copy.
+- Overview, Work, and Projects indexes each mounted one canvas and loaded their R3F route chunks.
+- Work detail, project detail, and public recruiting-document routes mounted no canvas and loaded no R3F/Three route chunks.
+- Normal production routes produced no console or network errors outside the explicit allowlist for local Vercel Insights endpoints and an aborted Next.js RSC prefetch.
+
+## Verified scene evidence
+
+- Deterministic QA cameras, first-frame nonblank pixels, responsive DPR/framing, hidden/offscreen pause, route teardown, context-loss fallback, reduced-motion pose, and renderer/resource disposal passed.
+- Project texture readiness waits for explicit GPU initialization and three post-upload frames. A crop-variance assertion proves that the live canvas contains media detail rather than a flat material; the project scene repeated successfully in three consecutive non-update runs.
+- Full-page static screenshots cover layout and responsive reflow. Live WebGL baselines target `.graphic-scene-canvas`, isolating renderer output from a transient fallback-opacity transition while preserving deterministic scene comparison.
+- Retry support remains configured for failure artifacts, but the final accepted run used zero retries and reported zero flaky tests.
+- Final manual review found no P0/P1 issue in Overview desktop/mobile or Projects desktop/mobile; Korean word wrapping, overflow, production chrome, 3D framing, project media texture, controls, and list reflow were all checked.
+
+## Final handoff captures
+
+The local handoff images are intentionally ignored by Git. Their SHA-256 digests are:
+
+| Capture                           | SHA-256                                                            |
+| --------------------------------- | ------------------------------------------------------------------ |
+| `overview-desktop-1440x1024.png`  | `F6930E26E4F35BB965D9FB94483A5C0932E81D4102F26485214EDFC06917E5E2` |
+| `overview-tablet-1024x768.png`    | `7155CEC3D05ABF8C877FBE101B62189B0CE6A4122C84E6F1BD40F11748F6F9EB` |
+| `overview-mobile-390x844.png`     | `8CC219F87967EE6B5905FD2EB022995B11A73FB145ABC0355ADAA87CB9DC23EE` |
+| `work-desktop-1440x1024.png`      | `E60C6E01CDF9D4396C3667E136C90F27C57F37AB5D173954FE3BE2FC89641463` |
+| `projects-desktop-1440x1024.png`  | `717BEF18E9110C1B65CC8DF029349FC1DE3C8511626F97CAADF0D417CE10EEC7` |
+| `projects-mobile-390x844.png`     | `0378A4A8C516B51B4308E29AE6B52333B8B7F86AEFC21A2F3398F5288C5C5C3C` |
+| `profile-desktop-1440x1024.png`   | `F05A7C29CF5F06DB485AC645BE437C7410B1CB6695408139D96A5AD385D4C4B9` |
+| `portfolio-desktop-1440x1024.png` | `FA7B35E4D40352E871D6FC873A970B9FA708C078598E41A4DE45A12462FCFC06` |

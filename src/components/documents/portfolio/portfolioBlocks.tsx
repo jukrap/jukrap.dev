@@ -135,12 +135,6 @@ function CompactItemContent({ item }: { item: DocumentContentItem }) {
 					<p className="document-item-description">{item.description}</p>
 				</div>
 			) : null}
-			{item.value ? (
-				<div className="document-item-compact-field">
-					<p className="document-item-field-label">대표 검증</p>
-					<p className="document-item-value">{item.value}</p>
-				</div>
-			) : null}
 			<ItemTechnologyList item={item} />
 			{item.links?.length ? <ItemLinks links={item.links} /> : null}
 		</div>

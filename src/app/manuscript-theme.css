@@ -1,0 +1,28 @@
+.theme-option {
+	color: var(--graphite);
+}
+
+html[data-theme-preference='system'] .theme-option-system,
+html[data-theme-preference='light'] .theme-option-light,
+html[data-theme-preference='dark'] .theme-option-dark {
+	color: var(--ink);
+	text-decoration-line: underline;
+	text-decoration-color: var(--editor-blue);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.25rem;
+}
+
+.theme-option:hover,
+.theme-option:focus-visible {
+	color: var(--editor-blue);
+}
+
+.manuscript-note {
+	grid-template-columns: minmax(3rem, 1fr) minmax(0, 11fr);
+}
+
+@media (max-width: 47.99rem) {
+	.manuscript-note {
+		grid-template-columns: 1fr;
+	}
+}

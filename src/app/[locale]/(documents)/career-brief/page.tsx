@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { CareerBriefDocument } from '@/components/documents/private';
 import { careerBriefDocumentDefinition } from '@/data/documents/manifest';
 import {
-	getPrivateDocumentContact,
-	isPrivateDocumentRequestHost,
-} from '@/lib/privateDocuments';
+	getAuthorizedPrivateDocumentContact,
+	getPrivateDocumentMetadata,
+} from '@/lib/privateDocumentRequest';
 
 interface CareerBriefPageProps {
 	params: Promise<{ locale: string }>;
@@ -14,30 +13,23 @@ interface CareerBriefPageProps {
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-	title: `${careerBriefDocumentDefinition.title} | 박주철`,
-	description: careerBriefDocumentDefinition.description,
-	robots: {
-		index: false,
-		follow: false,
-		noarchive: true,
-		googleBot: {
-			index: false,
-			follow: false,
-			noarchive: true,
-		},
-	},
-};
+export async function generateMetadata({
+	params,
+}: CareerBriefPageProps): Promise<Metadata> {
+	const { locale } = await params;
+	const contact = await getAuthorizedPrivateDocumentContact(locale);
+	return getPrivateDocumentMetadata({
+		authorized: Boolean(contact),
+		title: `${careerBriefDocumentDefinition.title} | 박주철`,
+		description: careerBriefDocumentDefinition.description,
+	});
+}
 
 export default async function CareerBriefPage({
 	params,
 }: CareerBriefPageProps) {
 	const { locale } = await params;
-	const requestHeaders = await headers();
-	const contact =
-		locale === 'ko' && isPrivateDocumentRequestHost(requestHeaders.get('host'))
-			? getPrivateDocumentContact()
-			: null;
+	const contact = await getAuthorizedPrivateDocumentContact(locale);
 
 	if (!contact) {
 		notFound();

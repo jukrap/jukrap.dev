@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { WorkPage } from '@/components/pages/work/workPage';
+import { redirect } from 'next/navigation';
 import { dictionaries } from '@/data/i18n/dictionaries';
 import { isLocale } from '@/lib/locale';
 
@@ -16,6 +16,7 @@ export async function generateMetadata({
 	return isLocale(locale) ? dictionaries[locale].metadata.work : {};
 }
 
-export default function Work() {
-	return <WorkPage />;
+export default async function Work({ params }: LocalePageProps) {
+	const { locale } = await params;
+	redirect(`/${isLocale(locale) ? locale : 'ko'}/cases`);
 }

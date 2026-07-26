@@ -16,5 +16,17 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 		initializeTheme();
 	}, [initializeTheme]);
 
+	useEffect(() => {
+		const media = window.matchMedia('(prefers-color-scheme: dark)');
+		const handleChange = () => {
+			if (useThemeStore.getState().preference === 'system') {
+				useThemeStore.getState().initializeTheme();
+			}
+		};
+
+		media.addEventListener('change', handleChange);
+		return () => media.removeEventListener('change', handleChange);
+	}, []);
+
 	return <>{children}</>;
 };

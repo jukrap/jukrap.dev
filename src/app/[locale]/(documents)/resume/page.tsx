@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { ResumeDocument } from '@/components/documents/private';
 import { resumeDocumentDefinition } from '@/data/documents/manifest';
 import {
-	getPrivateDocumentContact,
-	isPrivateDocumentRequestHost,
-} from '@/lib/privateDocuments';
+	getAuthorizedPrivateDocumentContact,
+	getPrivateDocumentMetadata,
+} from '@/lib/privateDocumentRequest';
 
 interface ResumePageProps {
 	params: Promise<{ locale: string }>;
@@ -14,28 +13,21 @@ interface ResumePageProps {
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-	title: `${resumeDocumentDefinition.title} | 박주철`,
-	description: resumeDocumentDefinition.description,
-	robots: {
-		index: false,
-		follow: false,
-		noarchive: true,
-		googleBot: {
-			index: false,
-			follow: false,
-			noarchive: true,
-		},
-	},
-};
+export async function generateMetadata({
+	params,
+}: ResumePageProps): Promise<Metadata> {
+	const { locale } = await params;
+	const contact = await getAuthorizedPrivateDocumentContact(locale);
+	return getPrivateDocumentMetadata({
+		authorized: Boolean(contact),
+		title: `${resumeDocumentDefinition.title} | 박주철`,
+		description: resumeDocumentDefinition.description,
+	});
+}
 
 export default async function ResumePage({ params }: ResumePageProps) {
 	const { locale } = await params;
-	const requestHeaders = await headers();
-	const contact =
-		locale === 'ko' && isPrivateDocumentRequestHost(requestHeaders.get('host'))
-			? getPrivateDocumentContact()
-			: null;
+	const contact = await getAuthorizedPrivateDocumentContact(locale);
 
 	if (!contact) {
 		notFound();

@@ -6,5 +6,5 @@ export default async function ProjectsRedirect() {
 	const requestHeaders = await headers();
 	const locale = getPreferredLocale(requestHeaders.get('accept-language'));
 
-	redirect(`/${locale}/projects`);
+	redirect(`/${locale}/archive`);
 }

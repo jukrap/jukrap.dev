@@ -14,34 +14,41 @@ interface CareerBriefPageProps {
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-	title: `${careerBriefDocumentDefinition.title} | 박주철`,
-	description: careerBriefDocumentDefinition.description,
+const deniedMetadata: Metadata = {
+	title: 'Not Found',
 	robots: {
 		index: false,
 		follow: false,
 		noarchive: true,
-		googleBot: {
-			index: false,
-			follow: false,
-			noarchive: true,
-		},
+		googleBot: { index: false, follow: false, noarchive: true },
 	},
 };
+
+async function resolveAccess(params: CareerBriefPageProps['params']) {
+	const { locale } = await params;
+	const requestHeaders = await headers();
+	return locale === 'ko' &&
+		isPrivateDocumentRequestHost(requestHeaders.get('host'))
+		? getPrivateDocumentContact()
+		: null;
+}
+
+export async function generateMetadata({
+	params,
+}: CareerBriefPageProps): Promise<Metadata> {
+	const contact = await resolveAccess(params);
+	if (!contact) return deniedMetadata;
+	return {
+		title: `${careerBriefDocumentDefinition.title} | 박주철`,
+		description: careerBriefDocumentDefinition.description,
+		robots: deniedMetadata.robots,
+	};
+}
 
 export default async function CareerBriefPage({
 	params,
 }: CareerBriefPageProps) {
-	const { locale } = await params;
-	const requestHeaders = await headers();
-	const contact =
-		locale === 'ko' && isPrivateDocumentRequestHost(requestHeaders.get('host'))
-			? getPrivateDocumentContact()
-			: null;
-
-	if (!contact) {
-		notFound();
-	}
-
+	const contact = await resolveAccess(params);
+	if (!contact) notFound();
 	return <CareerBriefDocument contact={contact} />;
 }

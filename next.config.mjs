@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+	distDir: process.env.PRIVATE_QA_DIST_DIR || '.next',
 	reactStrictMode: true,
+	devIndicators: false,
 	async headers() {
 		const privateDocumentHeaders = [
 			{

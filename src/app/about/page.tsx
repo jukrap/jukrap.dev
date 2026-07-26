@@ -5,6 +5,5 @@ import { getPreferredLocale } from '@/lib/locale';
 export default async function AboutRedirect() {
 	const requestHeaders = await headers();
 	const locale = getPreferredLocale(requestHeaders.get('accept-language'));
-
-	redirect(`/${locale}/about`);
+	redirect(`/${locale}/profile`);
 }

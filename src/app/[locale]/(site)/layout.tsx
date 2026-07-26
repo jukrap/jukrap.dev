@@ -1,9 +1,9 @@
-import LayoutWrapper from '@/components/layouts/layoutWrapper';
+import { SiteShell } from '@/components/graphic/siteShell';
 
 export default function SiteLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	return <LayoutWrapper>{children}</LayoutWrapper>;
+	return <SiteShell>{children}</SiteShell>;
 }

@@ -1,43 +1,33 @@
 import 'server-only';
 
 import type { PrivateDocumentContact } from '@/types/documents';
-
-const isProductionRuntime =
-	process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL);
+import {
+	canAccessPrivateDocument,
+	isLocalPrivateDocumentHost,
+} from '@/lib/privateDocumentPolicy';
 
 export function arePrivateDocumentsEnabled(): boolean {
-	return (
-		!isProductionRuntime && process.env.PRIVATE_DOCUMENTS_ENABLED === 'true'
-	);
+	return canAccessPrivateDocument({
+		nodeEnv: process.env.NODE_ENV,
+		vercel: process.env.VERCEL,
+		enabled: process.env.PRIVATE_DOCUMENTS_ENABLED,
+		host: 'localhost',
+		locale: 'ko',
+		email: process.env.PRIVATE_RESUME_EMAIL,
+		phone: process.env.PRIVATE_RESUME_PHONE,
+	});
 }
 
 export function isPrivateDocumentRequestHost(host: string | null): boolean {
-	if (!host) {
-		return false;
-	}
-
-	const normalizedHost = host.toLowerCase();
-	return (
-		normalizedHost === 'localhost' ||
-		normalizedHost.startsWith('localhost:') ||
-		normalizedHost === '127.0.0.1' ||
-		normalizedHost.startsWith('127.0.0.1:') ||
-		normalizedHost === '[::1]' ||
-		normalizedHost.startsWith('[::1]:')
-	);
+	return isLocalPrivateDocumentHost(host);
 }
 
 export function getPrivateDocumentContact(): PrivateDocumentContact | null {
-	if (!arePrivateDocumentsEnabled()) {
-		return null;
-	}
+	if (!arePrivateDocumentsEnabled()) return null;
 
 	const email = process.env.PRIVATE_RESUME_EMAIL;
 	const phone = process.env.PRIVATE_RESUME_PHONE;
-
-	if (!email || !phone) {
-		return null;
-	}
+	if (!email || !phone) return null;
 
 	return {
 		name: '박주철',

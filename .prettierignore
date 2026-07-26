@@ -1,4 +1,8 @@
 node_modules
 .next
+.next-private-qa
 out
 src/data/imageMetadata.json
+output
+playwright-report
+test-results

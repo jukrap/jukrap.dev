@@ -14,32 +14,39 @@ interface ResumePageProps {
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-	title: `${resumeDocumentDefinition.title} | 박주철`,
-	description: resumeDocumentDefinition.description,
+const deniedMetadata: Metadata = {
+	title: 'Not Found',
 	robots: {
 		index: false,
 		follow: false,
 		noarchive: true,
-		googleBot: {
-			index: false,
-			follow: false,
-			noarchive: true,
-		},
+		googleBot: { index: false, follow: false, noarchive: true },
 	},
 };
 
-export default async function ResumePage({ params }: ResumePageProps) {
+async function resolveAccess(params: ResumePageProps['params']) {
 	const { locale } = await params;
 	const requestHeaders = await headers();
-	const contact =
-		locale === 'ko' && isPrivateDocumentRequestHost(requestHeaders.get('host'))
-			? getPrivateDocumentContact()
-			: null;
+	return locale === 'ko' &&
+		isPrivateDocumentRequestHost(requestHeaders.get('host'))
+		? getPrivateDocumentContact()
+		: null;
+}
 
-	if (!contact) {
-		notFound();
-	}
+export async function generateMetadata({
+	params,
+}: ResumePageProps): Promise<Metadata> {
+	const contact = await resolveAccess(params);
+	if (!contact) return deniedMetadata;
+	return {
+		title: `${resumeDocumentDefinition.title} | 박주철`,
+		description: resumeDocumentDefinition.description,
+		robots: deniedMetadata.robots,
+	};
+}
 
+export default async function ResumePage({ params }: ResumePageProps) {
+	const contact = await resolveAccess(params);
+	if (!contact) notFound();
 	return <ResumeDocument contact={contact} />;
 }

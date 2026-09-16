@@ -223,32 +223,31 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'외부 API 응답이 늦어도 핵심 정보를 먼저 표시하도록 로딩 순서를 바꾸고 서버 캐시를 적용했습니다. Android 위치 조회를 보완하고 변경 파일을 운영 환경에 반영했습니다.',
 			editorial: {
 				decision:
-					'핵심·보조 loading, fresh·stale cache, 기준 데이터 cache를 분리하고 운영 반영은 manifest와 SHA-256 hash 단위로 좁혔습니다.',
+					'핵심 정보를 먼저 표시하고, 외부 API가 실패하면 허용된 범위에서 이전 캐시를 사용하도록 했습니다. 운영에는 변경된 파일만 반영했습니다.',
 				outcome:
-					'캐시 성능, 회귀 테스트, 날짜별 운영 배포를 서로 다른 기준으로 확인하고 기록했습니다.',
+					'최초 조회와 캐시 재사용, 외부 API 실패 시 이전 값 표시를 점검했습니다. 배포 파일과 주요 화면도 확인했습니다.',
 			},
 			impact: [
 				{
-					value: '약 2.85초 → 0.11초',
-					label: 'core 운영 smoke',
-					detail: '2026-07-08 당시 cold 요청과 cache HIT 비교',
+					value: '캐시 응답 재사용',
+					label: '외부 API 조회',
+					detail: '유효한 캐시가 있으면 저장된 응답 사용',
 				},
 				{
-					value: '약 2.02초 → 0.07초',
-					label: '대기질 운영 smoke',
-					detail: '2026-07-08 당시 cold 요청과 cache HIT 비교',
+					value: '이전 값으로 대체',
+					label: '외부 API 실패',
+					detail: '허용된 범위에서 이전 캐시를 사용해 정보 표시',
 				},
 				{
-					value: '131 tests / skipped 1',
-					label: '최종 회귀',
-					detail:
-						'최종 mvn test로 확인하고 운영 반영 후에는 hash와 smoke를 별도로 확인',
+					value: '변경 파일만 배포',
+					label: '운영 반영',
+					detail: '변경 파일의 해시와 반영 후 주요 화면 확인',
 				},
 			],
 			checks: [
-				'2026-07-02 배포에서 runtime 111개 파일의 target SHA-256 111/111 일치를 확인했습니다.',
-				'2026-07-08 배포에서는 manifest 42개 중 39개를 업로드하고 동일 hash 3개를 별도로 skip했습니다.',
-				'AirKorea 측정소 673행과 법정동 20,560행을 수집해 필수값 누락 없이 기준 데이터 cache로 검증했습니다.',
+				'배포할 파일과 이미 반영된 파일의 해시를 비교해 변경된 파일만 업로드했습니다.',
+				'기준 데이터를 캐시에 반영하기 전에 필수값 누락 여부를 확인했습니다.',
+				'최초 조회와 캐시 재사용, 외부 API 실패 시 이전 값 표시를 점검했습니다.',
 			],
 			aboutSummary:
 				'공공 API·cache·WebView·파일 단위 운영 배포 경계를 안정화한 하이브리드 생활정보 서비스.',
@@ -439,32 +438,32 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'Prioritized core information when external APIs were slow and added server caching. Updated Android location lookup and deployed changed files to production.',
 			editorial: {
 				decision:
-					'Separated core and secondary loading, fresh and stale caches, and reference-data caches, then limited production delivery to manifest and SHA-256 hash scopes.',
+					'Displayed core information first and allowed previously cached values when external APIs failed. Deployed only changed files.',
 				outcome:
-					'Verified cache behavior, regression coverage, and dated production deliveries against separate baselines.',
+					'Checked initial retrieval, cache reuse, and fallback to previous values when external APIs failed. Also verified deployed files and main screens.',
 			},
 			impact: [
 				{
-					value: 'about 2.85s → 0.11s',
-					label: 'core production smoke',
-					detail: 'cold request versus cache hit observed on 2026-07-08',
+					value: 'Reuse cached responses',
+					label: 'External API requests',
+					detail: 'Serve stored responses while the cache is valid',
 				},
 				{
-					value: 'about 2.02s → 0.07s',
-					label: 'air-quality production smoke',
-					detail: 'cold request versus cache hit observed on 2026-07-08',
+					value: 'Fallback to previous values',
+					label: 'External API failure',
+					detail: 'Use previous cached values within the allowed fallback rules',
 				},
 				{
-					value: '131 tests / 1 skipped',
-					label: 'final regression',
+					value: 'Deploy changed files only',
+					label: 'Production rollout',
 					detail:
-						'checked in the final mvn test; rollout verified separately by hash and smoke',
+						'Compare changed-file hashes and check main screens after deployment',
 				},
 			],
 			checks: [
-				'On 2026-07-02, all 111 deployed runtime files matched their target SHA-256 hashes.',
-				'On 2026-07-08, 39 of 42 manifest files were uploaded and three identical hashes were skipped separately.',
-				'Validated 673 AirKorea station rows and 20,560 legal-district rows without missing required values before caching them as reference data.',
+				'Compared hashes of deployment files with deployed versions and uploaded only changed files.',
+				'Checked reference data for missing required values before updating the cache.',
+				'Checked initial retrieval, cache reuse, and fallback to previous values when external APIs failed.',
 			],
 			aboutSummary:
 				'A hybrid life-information service stabilizing public API, cache, WebView, and file-level production delivery boundaries.',

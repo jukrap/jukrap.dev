@@ -132,7 +132,7 @@ const resultByStory: Record<string, string> = {
 	'ai-kickoff-documentation-tool':
 		'문서 생성과 내보내기, 선택 항목 재작성과 생성 실패 시 처리를 확인했습니다.',
 	'hybrid-life-info-platform':
-		'2026-07-08 운영 점검에서 첫 요청 약 2.85초와 캐시 응답 약 0.11초를 비교했습니다. 최종 테스트 결과와 날짜별 배포 내역도 따로 기록했습니다.',
+		'최초 조회와 캐시 재사용, 외부 API 실패 시 이전 값 표시를 점검했습니다. 변경 파일을 배포한 뒤 주요 화면도 확인했습니다.',
 	'settlement-operations-platform':
 		'중복·부분 등록이 차단되고 기존 정산 금액이 유지되는지 DB에서 확인했습니다. 개발 환경에 반영했습니다.',
 	'mobile-operations-platform':
@@ -154,8 +154,8 @@ const careerBriefEvidenceByStory: Record<string, readonly string[]> = {
 		'저장소 자료 확인 → 문서 초안 생성 → 표에서 검토·편집 → 선택 항목 재작성 순서 점검',
 	],
 	'hybrid-life-info-platform': [
-		'2026-07-08 운영 스모크 테스트에서 첫 요청 약 2.85초, 캐시 응답 약 0.11초',
-		'최종 mvn test 131 tests / skipped 1, 운영 반영 뒤 해시와 주요 화면 별도 점검',
+		'최초 조회·캐시 재사용·외부 API 실패 시 이전 값 표시 점검',
+		'변경 파일의 해시 대조와 운영 반영 후 주요 화면 점검',
 	],
 	'settlement-operations-platform': [
 		'격리 MariaDB의 원자 확정·재시도·복구, 개발 환경 전환 전후 업무 필드 해시 대조',

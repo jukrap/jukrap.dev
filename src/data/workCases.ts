@@ -35,7 +35,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			process: [
 				'메뉴 조회와 등록·수정 권한을 서버에서 검사하도록 했습니다. 조직·소유자별 데이터 격리는 별도 과제로 남아 있습니다.',
-				'2026-08-12 개발 검증에서 최대 1,000행의 원천 자료를 최대 4개 SQL로 조회했습니다. 운영 동시 접속 성능을 측정한 값은 아닙니다.',
+				'원천 청구와 배분 정보를 한꺼번에 조회하고, 월 마감에 필요한 자료를 미리 읽도록 바꿨습니다.',
 				'데이터 구조를 바꾸기 전에 백업·복원하고, 전환 전후 기존 업무 값의 해시를 비교한 뒤 개발 환경에 반영했습니다.',
 			],
 			solution: [
@@ -182,8 +182,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'조회, 예약, 주소록, Excel, 출력 흐름을 같은 shell 안에서 이어지도록 먼저 묶었습니다.',
 				'모의 데이터와 실제 API adapter를 분리해 화면 상태와 연동 상태를 따로 확인했습니다.',
 				'출력 흐름은 PC와 모바일 조건을 나눠 formatter, preview, native 요청을 각각 검증했습니다.',
-				'앱, 인증, 공개 API, UI를 더 나눈 실험에서는 500.67 kB(gzip 164.69 kB)까지 줄었지만 초기 인증·API 경계와 첫 클릭 loading 부담이 커져 채택하지 않았습니다.',
-				'최종 지연 로딩 범위는 116개 파일·573개 테스트로 확인했고, PC 실물 라벨 출력 경로는 별도로 8개 파일·73개 테스트를 확인했습니다.',
+				'인증과 공통 UI까지 더 잘게 나누는 방식도 검토했지만, 초기 실행과 첫 화면 조작 시 로딩 부담을 고려해 페이지와 Excel 처리 코드 중심으로 분리했습니다.',
+				'지연 로딩 적용 후 화면 이동과 데이터 조회를 검증하고, PC의 실제 라벨 출력 경로도 별도로 확인했습니다.',
 			],
 			solution: [
 				'공통 shell, table, modal, form, feedback 구조 위에 주요 업무 흐름을 얹었습니다.',
@@ -246,8 +246,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'외부 API 호출, 기준 데이터 조회, 위치 fallback을 화면 loading 순서와 맞춰 다시 나눴습니다.',
 				'기준 데이터는 수집, 임시 저장, 필수값 검증, 교체 순서로 운영 반영 위험을 줄였습니다.',
 				'운영 파일은 변경 범위와 hash를 확인한 뒤 smoke로 실제 화면 흐름을 다시 확인했습니다.',
-				'요청 경로 밖에 대기질 측정소 673행과 법정동 20,560행의 기준 cache를 준비했습니다.',
-				'2026-07-02의 111개 파일 배포와 2026-07-08의 42개 manifest 배포는 서로 다른 작업으로 나눠 검증했습니다.',
+				'대기질 측정소와 법정동 기준 데이터를 서버 캐시로 준비해 요청마다 다시 수집하지 않도록 했습니다.',
+				'배포할 때마다 변경 파일 목록과 해시를 대조하고, 반영 후 주요 화면을 점검했습니다.',
 				'기준 데이터 갱신과 catalog 축소 자동화는 후속 과제로 남았고, JVM memory cache는 단일 Tomcat 범위라는 제한이 있습니다.',
 			],
 			solution: [
@@ -257,7 +257,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			checks: [
 				'기준 데이터 수집 결과와 필수값 누락 여부를 확인했습니다.',
-				'cold request와 cache hit 흐름을 smoke 기준으로 비교했습니다.',
+				'최초 조회와 캐시 재사용이 각각 정상 동작하는지 확인했습니다.',
 				'운영 반영 대상 파일의 hash 일치 여부와 주요 화면 흐름을 확인했습니다.',
 			],
 		},
@@ -740,9 +740,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			process: [
 				'검색 전·초기화·재진입에는 민감 목록을 비워 두고, 페이지 이동은 마지막 제출 조건을 사용하도록 했습니다.',
-				'일관된 읽기 스냅샷에서 조회 순서와 건수, 암호화 필드를 대조했습니다. 서비스 측 성능 측정은 HTTP·인증·렌더링을 제외한 값입니다.',
+				'같은 데이터 기준으로 검색 결과의 정렬 순서와 전체 건수, 암호화 필드 처리를 대조했습니다.',
 				'실행 중 JVM과 정적 자산의 버전 혼재를 찾아 최신 구성으로 다시 실행하고, 로컬 보조 DB 준비를 앱 기동 전에 확인하도록 했습니다.',
-				'변경 전후에 동일한 전체 회귀 실패 15개·오류 1개가 남았으며, 관련 기능 검사 통과를 전체 검사 성공으로 표현하지 않았습니다.',
+				'수정한 기능을 검증하고, 전체 회귀 검사에 남은 실패는 변경 전 코드에서도 발생하는지 대조했습니다.',
 				'정상 로그아웃 차단과 시간 만료 후 인증은 달랐습니다. 기존 인증 쿠키가 남은 시간 만료의 접근 한계는 해결되지 않은 상태로 기록했습니다.',
 			],
 			solution: [
@@ -787,11 +787,11 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			thinking: [
 				'파싱 성공, HTTP 성공, 업무상 등록 가능을 각각 확인했습니다.',
 				'오류 정보는 다음 조사에 필요한 항목만 보여 주고 내부 HTML과 예외 원문은 노출하지 않았습니다.',
-				'성능은 입력 규모·DB 호출·실행계획·메모리로 나눠 관찰하고 미실행 최적화를 성과로 쓰지 않았습니다.',
+				'입력 행 수에 따라 DB 호출과 메모리가 늘어나는 지점을 조사했습니다.',
 			],
 			process: [
 				'실제 처리 주체를 찾은 뒤 파일 파싱과 미리보기 응답을 대조했습니다. 원래 제보된 통신 오류는 재현되지 않았습니다.',
-				'행별 중복 조회와 함수 조건의 인덱스 스캔을 측정하고 입력 상한·집합 조회 방향을 제안했습니다. 백엔드 최적화는 실행하지 않았습니다.',
+				'행마다 반복되는 중복 검사 쿼리와 인덱스 전체 스캔을 확인했습니다. 입력 제한과 일괄 조회를 개선안으로 제안했습니다.',
 				'긴 인라인 이미지에서는 속성 추출과 허용 경로 검증을 분리하고 비대상 이미지는 대체 이미지로 처리했습니다.',
 				'오류 안내 변경은 집중 검사와 로컬 미리보기, WAR 빌드까지 확인했으며 당시 배포 전 상태였습니다.',
 			],
@@ -814,8 +814,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			checks: [
 				'오류 계약 검사, 실제 알림 자산의 로컬 표시, Java WAR 빌드를 확인했습니다.',
-				'개발 환경에서 행 수별 시간과 조회 횟수를 측정했습니다. 운영 처리량이나 개선 후 성능 결과가 아닙니다.',
-				'인라인 이미지 제외와 일반 이미지 경로 유지를 확인했으며 전후 응답시간 개선율은 산출하지 않았습니다.',
+				'개발 환경에서 입력 행 수가 늘수록 중복 검사 쿼리도 함께 늘어나는 것을 확인했습니다. 조회 구조는 원인 분석과 개선안 제안까지 진행했습니다.',
+				'긴 인라인 이미지는 썸네일 변환에서 제외하고, 기존 일반 이미지 처리는 유지되는지 확인했습니다.',
 			],
 		},
 	],
@@ -852,7 +852,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			process: [
 				'Added server-side checks for menu access and create/update permissions. Organization- and owner-level data isolation remains separate work.',
-				'In development checks on 2026-08-12, fetched up to 1,000 source rows with at most four SQL statements. This was not a production concurrency measurement.',
+				'Fetched source charges and allocation data in batches and preloaded records needed for monthly closing.',
 				'Backed up and restored the database, compared hashes of existing business values before and after the schema change, then deployed to development.',
 			],
 			solution: [
@@ -1001,8 +1001,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Connected lookup, reservation, contact, spreadsheet, and print flows inside the same shell first.',
 				'Separated mock data from the API adapter so UI state and integration state could be checked independently.',
 				'Split print verification across formatter, preview, browser fallback, and native request paths.',
-				'A deeper app, auth, public-API, and UI split reached 500.67 kB (164.69 kB gzip), but was rejected because added auth/API initialization and first-click loading boundaries outweighed the gain.',
-				'The accepted lazy-loading scope was checked across 116 files and 573 tests; the physical PC label path was checked separately across 8 files and 73 tests.',
+				'Considered splitting authentication and shared UI further, but kept the split focused on pages and spreadsheet code to limit startup and first-interaction loading.',
+				'Verified navigation and data fetching after lazy loading, and checked physical label printing from the PC separately.',
 			],
 			solution: [
 				'Built the main workflows on a shared shell, table, modal, form, and feedback structure.',
@@ -1065,8 +1065,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Separated external API calls, reference-data lookup, and location fallback by screen loading order.',
 				'Handled reference data through collect, temporary save, required-field validation, and replace steps.',
 				'Checked changed files and hashes before verifying the actual screen flow through smoke checks.',
-				'Prepared 673 air-quality stations and 20,560 legal-district rows as reference caches outside the request path.',
-				'Treated the 111-file rollout on 2026-07-02 and the 42-entry manifest rollout on 2026-07-08 as separate deployments and checks.',
+				'Cached air-quality station and legal-district reference data on the server instead of collecting it for each request.',
+				'Compared the changed-file list and hashes for each deployment, then checked the main screens after rollout.',
 				'Automated reference refresh and catalog reduction remained follow-up work, while the JVM memory cache remained limited to one Tomcat instance.',
 			],
 			solution: [
@@ -1076,7 +1076,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			checks: [
 				'Checked reference-data collection results and required fields.',
-				'Compared cold request and cache-hit flows through smoke checks.',
+				'Checked both initial retrieval and reuse of cached responses.',
 				'Verified file hashes and key screen flows for operations rollout.',
 			],
 		},
@@ -1561,9 +1561,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			process: [
 				'Kept sensitive lists empty before search, after reset, and on re-entry; pagination used the last submitted conditions.',
-				'Compared query order, counts, and encrypted fields in a consistent read snapshot. Service performance measurements excluded HTTP, authentication, and rendering.',
+				'Compared search ordering, total counts, and encrypted-field handling against the same data snapshot.',
 				'Identified mixed JVM and static-asset versions, restarted with a matching configuration, and checked the local auxiliary database before app startup.',
-				'The same 15 full-suite failures and 1 error remained before and after the change. Passing focused checks was not described as a passing full suite.',
+				'Verified the changed features and compared remaining full-suite failures against the pre-change code.',
 				'Normal logout blocking differed from time-based expiry. Continued access with an existing authentication cookie after session expiry remained unresolved.',
 			],
 			solution: [
@@ -1608,11 +1608,11 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			thinking: [
 				'Checked parsing success, HTTP success, and business validation separately.',
 				'Exposed only useful diagnostic fields without internal HTML or raw exceptions.',
-				'Measured input size, database calls, query plans, memory, and response size without claiming unimplemented optimization gains.',
+				'Investigated how database calls and memory usage grew with the number of input rows.',
 			],
 			process: [
 				'Located the actual upload handler and compared parsing with preview responses. The originally reported communication failure was not reproduced.',
-				'Measured per-row duplicate queries and function-based index scans and proposed input limits and set-based queries. Backend optimization was not implemented.',
+				'Identified repeated duplicate-check queries and full index scans, then proposed input limits and batched lookups.',
 				'Separated image attribute extraction from permitted-path checks and used a fallback for unsupported inline images.',
 				'The diagnostic change passed focused checks, a local preview, and a WAR build; it was awaiting deployment at the recorded date.',
 			],
@@ -1637,8 +1637,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			checks: [
 				'Verified error contracts, local display with the actual alert assets, and the Java WAR build.',
-				'Measured elapsed time and query counts by row count in development; these are not production throughput or post-optimization results.',
-				'Checked inline-image exclusion and existing file-image handling without calculating an unsupported speedup.',
+				'Confirmed in development that duplicate-check queries increased with input rows. Query work remained at diagnosis and proposed improvements.',
+				'Verified that long inline images were excluded from thumbnail conversion while existing file-image handling remained intact.',
 			],
 		},
 	],

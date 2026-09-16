@@ -84,14 +84,6 @@ const portfolioMetricCopy: Record<string, Partial<DocumentMetric>> = {
 	'근거 우선': {
 		label: '자료 수집 → 미리보기',
 	},
-	'약 2.85초 → 0.11초': {
-		label: '기본 정보 운영 점검',
-		detail: '2026-07-08 당시 첫 요청과 캐시 응답 비교',
-	},
-	'약 2.02초 → 0.07초': {
-		label: '대기질 운영 점검',
-		detail: '2026-07-08 당시 첫 요청과 캐시 응답 비교',
-	},
 };
 
 const portfolioStoryCopy: Partial<

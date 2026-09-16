@@ -25,8 +25,8 @@ export const recruitingDocumentSkillGroups = [
 		items: ['GitHub Actions', 'Jenkins', 'Docker'],
 	},
 	{
-		label: '서버·클라우드',
-		items: ['Node.js', 'Firebase', 'Spring MVC', 'AWS'],
+		label: '서버·데이터',
+		items: ['Spring Boot', 'Spring MVC', 'MyBatis', 'MariaDB', 'SQLite'],
 	},
 ] as const satisfies readonly DocumentSkillGroup[];
 

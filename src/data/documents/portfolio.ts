@@ -8,6 +8,7 @@ import type {
 import type { ProfessionalStory } from '@/types/work';
 import { recruitingDocumentSkillGroups } from './documentSkills';
 import { portfolioPublicEmails } from './publicContact';
+import { recruitingDocumentManifest } from './manifest';
 import {
 	formatKoreanPeriod,
 	getProject,
@@ -33,16 +34,12 @@ const logisticsMobileResult = logistics.resultSections.find(
 	({ id }) => id === 'mobile-output-bridge',
 )!;
 
-const chartEditor = getWorkStory('structured-editor-ui');
+const settlement = getWorkStory('settlement-operations-platform');
+const memberPlatform = getWorkStory('multi-role-hybrid-platform');
 const aiDocumentation = getWorkStory('ai-kickoff-documentation-tool');
-const lifeInformation = getWorkStory('hybrid-life-info-platform');
-const compactStories = [
-	'legacy-mobile-compatibility',
-	'react-admin-state-migration',
-	'hybrid-security-boundary',
-	'field-terminal-android',
-	'legacy-panel-baseline',
-].map(getWorkStory);
+
+const compactStories =
+	recruitingDocumentManifest.selection.supportingWorkStoryIds.map(getWorkStory);
 
 const captainDonghae = getProject('captain-donghae');
 const shareBBy = getProject('sharebby');
@@ -87,9 +84,6 @@ const portfolioMetricCopy: Record<string, Partial<DocumentMetric>> = {
 	'근거 우선': {
 		label: '자료 수집 → 미리보기',
 	},
-	'workbook 검수': {
-		value: '검수용 워크북',
-	},
 	'약 2.85초 → 0.11초': {
 		label: '기본 정보 운영 점검',
 		detail: '2026-07-08 당시 첫 요청과 캐시 응답 비교',
@@ -103,6 +97,24 @@ const portfolioMetricCopy: Record<string, Partial<DocumentMetric>> = {
 const portfolioStoryCopy: Partial<
 	Record<string, { summary?: string; problem?: string; area?: string }>
 > = {
+	'settlement-operations-platform': {
+		summary:
+			'Excel 대량등록과 청구·정산 관리 화면, Spring Boot API를 개발했습니다.',
+		problem:
+			'Excel 자료의 중복·부분 저장을 막고, 담당 관계가 바뀌어도 이미 확정된 정산 금액은 유지해야 했습니다.',
+	},
+	'multi-role-hybrid-platform': {
+		summary:
+			'기존 웹과 Android 앱에 회원 관리, 문의 작성과 파일 첨부 기능을 추가했습니다.',
+		problem:
+			'암호화된 회원 정보를 검색·수정하고, 문의 접근 권한 검사와 Android 첨부 기능을 추가해야 했습니다.',
+	},
+	'mobile-operations-platform': {
+		summary:
+			'기존 모바일 업무 앱의 지도 화면과 오프라인 저장·재전송 기능을 유지보수했습니다.',
+		problem:
+			'통신 단절이나 앱 재실행으로 입력을 잃을 수 있었고, 웹과 설치 앱의 버전이 다르면 새 브리지 기능이 실행되지 않았습니다.',
+	},
 	'structured-editor-ui': {
 		summary:
 			'데이터 역할과 설정 화면이 실제 미리보기와 어긋나지 않는 편집 흐름을 설계했습니다.',
@@ -139,6 +151,30 @@ const compactWorkCopy: Partial<Record<string, { description?: string }>> = {
 		description:
 			'레거시 화면을 바로 나누기 전에 공유 popup·selector·page loader와 API 규약의 영향 지점을 지도화했습니다. 기존 동작을 기준으로 수동 확인 절차와 중단 조건을 정리했습니다.',
 	},
+	'mobile-operations-platform': {
+		description:
+			'기존 앱의 지도 화면과 오프라인 저장·재전송 기능을 유지보수했습니다. 실기기에서 앱 재실행 후 복원과 재전송을 확인했으며 중복 전송 원인은 조사 중입니다.',
+	},
+	'multi-role-hybrid-platform': {
+		description:
+			'회원 검색·수정·통합과 문의·첨부 기능을 개발했습니다. 작성자·역할별 접근을 제한하고 Android 파일 선택·이미지 확대를 연결했습니다.',
+	},
+	'operations-admin-web': {
+		description:
+			'암호화된 정보의 검색 누락과 건수 불일치를 수정했습니다. 답변 저장에 실패하면 새 파일을 삭제하고, 알림 등록에 실패해도 답변은 유지하도록 했습니다. 인증 만료 처리는 과제로 남았습니다.',
+	},
+	'legacy-support-web': {
+		description:
+			'Excel 업로드의 파일 분석·입력·통신 오류를 구분해 표시했습니다. 대량 입력의 행별 DB 조회 비용은 조사와 개선 제안까지 진행했습니다.',
+	},
+	'structured-editor-ui': {
+		description:
+			'Chart.js 미리보기와 차트별 설정 화면을 개발했습니다. 데이터 필드나 옵션을 바꾸면 미리보기에 반영되도록 하고 불필요한 재생성을 줄였습니다.',
+	},
+	'hybrid-life-info-platform': {
+		description:
+			'외부 API 호출과 캐시, Android 위치 처리를 개선했습니다. 핵심 정보를 먼저 표시하도록 하고, 배포할 때마다 파일 해시와 운영 화면을 확인했습니다.',
+	},
 };
 
 function toPortfolioMetric(
@@ -173,19 +209,19 @@ function featuredWorkPage(
 		sections: [
 			{
 				id: 'problem',
-				title: '문제',
+				title: '배경',
 				body: [copy?.problem ?? story.context],
 			},
 			{
 				id: 'decision',
-				title: '구현과 판단',
+				title: '담당 구현',
 				body:
 					decisionBody ?? (story.editorial ? [story.editorial.decision] : undefined),
 				items: actions,
 			},
 			{
 				id: 'result',
-				title: '결과',
+				title: '확인 내용',
 				body: resultBody,
 				metrics: story.impact.map(toPortfolioMetric),
 			},
@@ -202,7 +238,8 @@ export const portfolioDocument = [
 		eyebrow: '웹/모바일 프론트엔드 엔지니어',
 		title: '박주철',
 		nickname: 'Jukrap',
-		summary: '웹과 모바일이 한 흐름으로 이어지는 업무 도구를 개발해 왔습니다.',
+		summary:
+			'업무용 웹과 모바일 앱을 개발합니다. 화면 구현부터 API와 장비 연동까지 맡았습니다.',
 		metadata: [
 			{ label: '직무', value: '웹/모바일 프론트엔드 엔지니어' },
 			{ label: '주요 경험', value: '웹, 하이브리드 앱, Android 연동' },
@@ -211,7 +248,7 @@ export const portfolioDocument = [
 			{
 				id: 'positioning',
 				body: [
-					'네 가지 업무와 다섯 프로젝트에서 문제를 어떻게 파악했고 무엇을 구현했는지, 결과를 어디까지 직접 확인했는지 담았습니다.',
+					'주요 업무에서 개발한 기능과 사용 기술, 개인 프로젝트의 화면과 구현 내용을 소개합니다.',
 				],
 				links: publicLinks,
 			},
@@ -228,7 +265,7 @@ export const portfolioDocument = [
 		eyebrow: '경력',
 		title: '트리포스에서 맡은 일',
 		summary:
-			'신규 업무 웹을 구축하고 모바일 출력 앱을 연결했습니다. 차트 편집 도구와 AI 문서화 도구를 만들었고, 레거시 웹과 Android 앱의 오류를 고쳐 운영에 반영했습니다.',
+			'업무 정산 웹과 물류 출력·AI 문서화 도구를 개발했습니다. 기존 모바일 업무 앱의 지도·오프라인 기능과 레거시 웹·앱 유지보수도 맡았습니다.',
 		metadata: [
 			{
 				label: '회사와 기간',
@@ -248,24 +285,24 @@ export const portfolioDocument = [
 				title: '주요 경험',
 				items: [
 					{
-						title: '물류 운영 웹과 모바일 출력',
+						title: '업무 정산 플랫폼',
 						description:
-							'조회, 예약, Excel, 출력 요청을 웹에 구현하고 WebView 요청 뒤의 권한, Bluetooth, 라벨 출력은 Android 앱에서 처리했습니다.',
+							'편집표·Excel 등록 화면과 API를 개발했습니다. 중복 저장을 막고 담당 관계 변경 뒤에도 기존 정산 금액을 유지하도록 했습니다.',
 					},
 					{
-						title: '차트 편집 도구',
+						title: '회원·문의 하이브리드',
 						description:
-							'차트마다 쓸 수 있는 옵션을 나누고 데이터 필드, 미리보기, 설정 화면이 같은 편집 상태를 보도록 만들었습니다.',
+							'회원 검색·정보 수정·통합과 문의·첨부 기능을 개발하고 Android 앱의 파일 선택·이미지 확대를 연결했습니다.',
 					},
 					{
-						title: 'AI 문서화 도구',
+						title: '물류 운영·출력',
 						description:
-							'저장소를 먼저 읽고 초안을 만든 뒤 검수용 워크북에서 필요한 부분만 다시 고치는 흐름을 구현했습니다.',
+							'React 업무 웹의 초기 다운로드 용량을 줄이고, Android 앱을 통해 Bluetooth 프린터로 라벨을 출력하도록 구현했습니다.',
 					},
 					{
-						title: '생활정보 서비스 유지보수',
+						title: 'AI 보조 문서화',
 						description:
-							'첫 화면의 로딩과 캐시를 고치고, 바뀐 파일만 배포한 뒤 해시와 주요 화면을 다시 실행했습니다.',
+							'저장소 자료로 문서 초안을 생성하고, 사람이 표에서 검토·편집한 뒤 필요한 항목만 다시 작성하도록 구현했습니다.',
 					},
 				],
 			},
@@ -273,25 +310,91 @@ export const portfolioDocument = [
 				id: 'additional-work',
 				title: '추가 업무',
 				body: [
-					'Android 호환성, 금융 업무 웹, 하이브리드 보안, 현장 단말, 레거시 웹 패널 작업은 8쪽에 짧게 정리했습니다.',
+					'모바일 앱 유지보수, 운영 관리, 업로드 진단, 차트 편집과 생활정보 업무는 8쪽에 정리했습니다. 전체 업무는 사이트 Work에서 확인할 수 있습니다.',
 				],
 			},
 		],
 		evidence: [
-			workStoryEvidence('delivery-output-flow'),
-			workStoryEvidence('structured-editor-ui'),
-			workStoryEvidence('ai-kickoff-documentation-tool'),
-			workStoryEvidence('hybrid-life-info-platform'),
+			{
+				source: 'work-story',
+				id: 'settlement-operations-platform',
+			},
+			{
+				source: 'work-story',
+				id: 'multi-role-hybrid-platform',
+			},
+			{
+				source: 'work-story',
+				id: 'delivery-output-flow',
+			},
+			{
+				source: 'work-story',
+				id: 'ai-kickoff-documentation-tool',
+			},
 		],
 	},
+	featuredWorkPage(
+		3,
+		'주요 업무 01  업무 웹',
+		settlement,
+		[
+			{
+				title: 'Excel 미리보기와 대량등록',
+				description:
+					'검토한 자료를 등록 전에 다시 검사했습니다. 저장에 실패하면 전체를 되돌리고, 재요청에는 기존 결과를 반환하도록 했습니다.',
+			},
+			{
+				title: '담당 관계 변경과 정산 이력',
+				description:
+					'현재 담당 관계와 과거 거래 정보를 따로 저장해 기존 정산 금액과 보험·점검 당시 제원을 유지했습니다.',
+			},
+			{
+				title: '공통 편집표와 서버 권한 검사',
+				description:
+					'표 편집 기능을 공통으로 만들고 저장에 실패해도 입력한 내용은 남도록 했습니다. 조회·수정 권한은 서버에서 확인했습니다.',
+			},
+		],
+		[
+			'저장 실패와 재시도, 담당 관계 변경 후 DB에 남은 자료와 금액을 확인하고 개발 환경에 반영했습니다.',
+			'아직 운영에는 반영하지 않았으며, 감사 기록과 파일 보관 방식은 재설계 중입니다.',
+		],
+		[],
+	),
+	featuredWorkPage(
+		4,
+		'주요 업무 02  웹·Android',
+		memberPlatform,
+		[
+			{
+				title: '회원 검색·수정·통합',
+				description:
+					'암호화된 회원 정보를 검색하고 변경한 필드만 저장했습니다. 중복 회원을 합칠 때도 연결된 정보는 보존했습니다.',
+			},
+			{
+				title: '문의와 첨부 접근 권한',
+				description:
+					'작성자와 역할에 따라 문의와 첨부파일의 접근 권한을 확인했습니다. 저장 후에는 목록을 새로 불러오도록 했습니다.',
+			},
+			{
+				title: 'Android 파일 선택과 이미지 보기',
+				description:
+					'Android 파일 선택기를 연결했습니다. 첨부 취소와 재선택, 작성 중 뒤로가기, 사진 확대 동작을 구현했습니다.',
+			},
+		],
+		[
+			'격리 DB에서 정보 보존과 저장 실패, 동시 요청을 검사하고 Android 실기기에서 문의와 첨부 기능을 확인했습니다.',
+			'iOS 첨부는 지원하지 않습니다. 일부 알림 변경은 배포 전이며 공유 파일 환경은 추가 확인이 필요합니다.',
+		],
+		[],
+	),
 	{
 		id: 'logistics-web',
-		pageNumber: 3,
+		pageNumber: 5,
 		kind: 'case',
-		eyebrow: '주요 업무 01  웹',
+		eyebrow: '주요 업무 03  웹',
 		title: '물류 운영 웹',
 		summary:
-			'조회부터 예약, Excel, 출력 요청까지 이어지는 운영 화면을 만들고 첫 화면에 함께 실리던 무거운 코드를 덜어냈습니다.',
+			'조회와 예약, Excel 등록, 출력 요청을 처리하는 운영 화면을 개발했습니다. 첫 화면에 불필요한 코드가 로드되지 않도록 개선했습니다.',
 		metadata: [
 			{ label: '기간', value: logisticsWeb.period },
 			{ label: '담당', value: logisticsWeb.area },
@@ -301,14 +404,14 @@ export const portfolioDocument = [
 		sections: [
 			{
 				id: 'problem',
-				title: '문제',
+				title: '배경',
 				body: [
 					'예약과 다건 처리, 주소록, Excel 미리보기, 출력 요청이 한 화면 흐름으로 이어졌습니다. 여기에 스프레드시트 코드까지 첫 진입에 포함돼 업무를 시작하기 전부터 내려받아야 할 JavaScript가 컸습니다.',
 				],
 			},
 			{
 				id: 'decision',
-				title: '구현과 판단',
+				title: '담당 구현',
 				items: [
 					{
 						title: '운영 흐름 구현',
@@ -324,7 +427,7 @@ export const portfolioDocument = [
 			},
 			{
 				id: 'evidence',
-				title: '결과',
+				title: '확인 내용',
 				body: [
 					'초기 진입에 필요하지 않은 화면과 Excel 코드를 옮긴 뒤 같은 빌드 산출물에서 초기 JavaScript와 gzip 크기를 다시 비교했습니다.',
 				],
@@ -338,9 +441,9 @@ export const portfolioDocument = [
 	},
 	{
 		id: 'logistics-mobile',
-		pageNumber: 4,
+		pageNumber: 6,
 		kind: 'case',
-		eyebrow: '주요 업무 01  모바일',
+		eyebrow: '주요 업무 03  모바일',
 		title: '모바일 출력 브릿지 앱',
 		summary:
 			'웹의 출력 요청을 Android 앱으로 받아 권한, Bluetooth 연결, 프린터 명령을 거쳐 실제 라벨이 나오는 데까지 구현했습니다.',
@@ -353,14 +456,14 @@ export const portfolioDocument = [
 		sections: [
 			{
 				id: 'problem',
-				title: '문제',
+				title: '배경',
 				body: [
 					'웹에서 출력 버튼이 동작해도 장비가 라벨을 출력했다는 뜻은 아닙니다. 웹과 앱의 메시지, Android 권한, Bluetooth 연결, 프린터 SDK 가운데 어디서 멈췄는지 알 수 있어야 했습니다.',
 				],
 			},
 			{
 				id: 'decision',
-				title: '구현과 판단',
+				title: '담당 구현',
 				items: [
 					{
 						title: '웹과 앱의 역할 구분',
@@ -381,7 +484,7 @@ export const portfolioDocument = [
 			},
 			{
 				id: 'evidence',
-				title: '결과',
+				title: '확인 내용',
 				body: [
 					'요청 수신과 장비 출력을 따로 점검해 웹 요청 성공이 물리 출력 성공으로 잘못 기록되지 않게 했습니다.',
 				],
@@ -394,36 +497,8 @@ export const portfolioDocument = [
 		],
 	},
 	featuredWorkPage(
-		5,
-		'주요 업무 02  웹 도구',
-		chartEditor,
-		[
-			{
-				title: '차트에 맞는 설정만 노출',
-				description:
-					'현재 차트에서 쓸 수 있는 옵션만 보여주고 여섯 영역의 설정 패널과 미리보기를 연결했습니다.',
-			},
-			{
-				title: '편집 상태를 역할별로 구성',
-				description:
-					'데이터 필드, 미리보기 렌더링, 설정 상태가 서로 덮어쓰지 않도록 나누고 하나의 편집 모델을 바라보게 했습니다.',
-			},
-			{
-				title: '편집 화면 배경 렌더링',
-				description:
-					'WebGL/GLSL 프래그먼트 셰이더와 OGL로 포인터, 시간, 해상도 값에 반응하는 배경 모드를 구성했습니다.',
-			},
-		],
-		[
-			'옵션 변경, 패널 접기, 드래그 앤 드롭, 툴팁까지 같은 편집 흐름에서 점검했습니다.',
-		],
-		[
-			'모든 차트에 같은 옵션을 붙이는 대신 차트 종류에 따라 필요한 설정을 고르고, 데이터가 바뀔 때 미리보기와 설정 화면이 함께 갱신되게 만들었습니다.',
-		],
-	),
-	featuredWorkPage(
-		6,
-		'주요 업무 03  사내 도구',
+		7,
+		'주요 업무 04  사내 도구',
 		aiDocumentation,
 		[
 			{
@@ -432,7 +507,7 @@ export const portfolioDocument = [
 					'규칙으로 모은 파일과 구조 정보를 AI에 보내기 전에 사용자가 확인하도록 했습니다.',
 			},
 			{
-				title: '검수용 워크북에서 부분 수정',
+				title: '표에서 검토하고 필요한 항목만 수정',
 				description:
 					'확인한 자료로 요구사항, 기능, 화면 초안을 만들고 선택한 시트와 셀만 다시 작성하도록 구현했습니다.',
 			},
@@ -443,33 +518,7 @@ export const portfolioDocument = [
 			},
 		],
 		[
-			'자료 수집부터 초안, 워크북 검수, 부분 수정까지 각 단계를 따로 실행해 볼 수 있게 했습니다. 지원하지 않는 항목은 임의로 채우지 않고 사람이 결정할 내용으로 남겼습니다.',
-		],
-		[],
-	),
-	featuredWorkPage(
-		7,
-		'주요 업무 04  하이브리드 서비스',
-		lifeInformation,
-		[
-			{
-				title: '필수 정보부터 표시',
-				description:
-					'첫 화면에 필요한 정보와 뒤에 불러올 정보를 나누고 최신 캐시, 만료 캐시, 기준 데이터를 각각 다뤘습니다.',
-			},
-			{
-				title: '바뀐 파일만 운영 반영',
-				description:
-					'전체 파일을 덮어쓰지 않고 배포 목록과 SHA-256 해시로 대상을 좁힌 뒤 주요 화면을 다시 실행했습니다.',
-			},
-			{
-				title: 'WebView 위치 처리',
-				description:
-					'Android 앱에서는 네이티브 위치를 먼저 사용하고 저장된 위치와 브라우저 경로를 대체 수단으로 뒀습니다.',
-			},
-		],
-		[
-			'서로 다른 날 진행한 두 배포를 합산하지 않았습니다. 각 작업의 파일 수와 해시 결과를 따로 기록했고, 운영 스모크 테스트와 최종 테스트도 별도로 남겼습니다.',
+			'자료 수집, 초안 생성, 검토·편집과 부분 재작성을 구현했습니다. 자료만으로 판단할 수 없는 항목은 사람이 결정하도록 남겼습니다.',
 		],
 		[],
 	),
@@ -480,7 +529,7 @@ export const portfolioDocument = [
 		eyebrow: '업무 경험',
 		title: '추가 업무',
 		summary:
-			'금융 업무 웹은 React로 새로 만들었습니다. Android 호환성, 하이브리드 보안, 현장 단말과 레거시 패널 작업은 기존 환경에서 필요한 범위를 고쳤습니다.',
+			'모바일 앱 유지보수와 추가 개발 업무입니다. 전체 사례는 사이트 Work에서 확인할 수 있습니다.',
 		sections: [
 			{
 				id: 'work-list',
@@ -520,14 +569,14 @@ export const portfolioDocument = [
 		sections: [
 			{
 				id: 'problem',
-				title: '문제',
+				title: '배경',
 				body: [
 					'72시간 안에 열차, 날씨, 주변 장소처럼 출처가 다른 정보를 지도 한 화면에 모아야 했습니다. 제한 시간 안에 API 선택, 연동과 모바일 상호작용도 함께 결정해야 했습니다.',
 				],
 			},
 			{
 				id: 'contribution',
-				title: '구현과 판단',
+				title: '담당 구현',
 				items: [
 					{
 						title: '지도와 외부 데이터 연결',
@@ -548,7 +597,7 @@ export const portfolioDocument = [
 			},
 			{
 				id: 'result',
-				title: '결과',
+				title: '확인 내용',
 				body: [
 					'지도 중심 화면과 드래그형 바텀 시트를 완성해 DIVE 2024 부산테크노파크원장상을 받았습니다.',
 				],
@@ -588,14 +637,14 @@ export const portfolioDocument = [
 		sections: [
 			{
 				id: 'problem',
-				title: '문제',
+				title: '배경',
 				body: [
 					'iOS 기준으로 먼저 만든 화면을 Android에서도 동작하게 고쳐야 했고, 게시글 이미지가 갱신되지 않는 캐시 문제도 있었습니다.',
 				],
 			},
 			{
 				id: 'contribution',
-				title: '구현과 판단',
+				title: '담당 구현',
 				items: [
 					{
 						title: '게시글과 댓글 흐름',
@@ -616,7 +665,7 @@ export const portfolioDocument = [
 			},
 			{
 				id: 'result',
-				title: '결과',
+				title: '확인 내용',
 				body: [
 					'Android 화면과 커뮤니티 기능을 구현하고 이미지 캐시 문제를 고쳤습니다. 팀 앱은 2024년 App Store에 배포됐습니다.',
 				],
@@ -654,14 +703,14 @@ export const portfolioDocument = [
 		sections: [
 			{
 				id: 'problem',
-				title: '문제',
+				title: '배경',
 				body: [
 					'프로젝트마다 작업 규칙과 이전 기록이 흩어져 있으면 에이전트가 같은 내용을 다시 찾고, 파일을 바꾸는 명령의 영향도 실행 전에 알기 어렵습니다.',
 				],
 			},
 			{
 				id: 'contribution',
-				title: '구현과 판단',
+				title: '담당 구현',
 				items: [
 					{
 						title: '규칙과 프로젝트 메모리 분리',
@@ -677,7 +726,7 @@ export const portfolioDocument = [
 			},
 			{
 				id: 'result',
-				title: '결과',
+				title: '확인 내용',
 				body: [
 					'CLI와 읽기 전용 MCP 도구를 npm 패키지와 GitHub 저장소로 공개했습니다. 파일을 바꾸는 명령은 dry-run 결과를 먼저 보여줍니다.',
 				],
@@ -726,14 +775,14 @@ export const portfolioDocument = [
 		sections: [
 			{
 				id: 'problem',
-				title: '문제',
+				title: '배경',
 				body: [
 					'블로그 목록과 편집 화면을 함께 만들면서 컴포넌트 동작과 배포 뒤 오류를 팀이 같은 방식으로 살펴볼 수 있어야 했습니다.',
 				],
 			},
 			{
 				id: 'contribution',
-				title: '구현과 판단',
+				title: '담당 구현',
 				items: [
 					{
 						title: 'Markdown 편집 화면',
@@ -754,7 +803,7 @@ export const portfolioDocument = [
 			},
 			{
 				id: 'result',
-				title: '결과',
+				title: '확인 내용',
 				body: [
 					'블로그와 Markdown 편집 화면을 구현했고, 단위 테스트와 컴포넌트 문서, 배포 뒤 오류 관측 경로를 팀 프로젝트에 적용했습니다.',
 				],
@@ -788,14 +837,14 @@ export const portfolioDocument = [
 		sections: [
 			{
 				id: 'problem',
-				title: '문제',
+				title: '배경',
 				body: [
 					'카메라 프레임을 계속 분석하면서도 화면이 멈추지 않아야 했고, MediaPipe를 Android 프로젝트에서 쓸 수 있는 형태로 직접 빌드해야 했습니다.',
 				],
 			},
 			{
 				id: 'contribution',
-				title: '구현과 판단',
+				title: '담당 구현',
 				items: [
 					{
 						title: 'MediaPipe Android 통합',
@@ -816,7 +865,7 @@ export const portfolioDocument = [
 			},
 			{
 				id: 'result',
-				title: '결과',
+				title: '확인 내용',
 				body: [
 					'프로젝트 당시 OpenCV 구현보다 프레임 처리 FPS가 5~10배 높았습니다. 자세 판별 정확도와는 별개로 측정했습니다.',
 				],

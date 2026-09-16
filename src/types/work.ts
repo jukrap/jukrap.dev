@@ -8,7 +8,12 @@ export type WorkstreamId =
 	| 'WS07'
 	| 'WS08'
 	| 'WS09'
-	| 'WS10';
+	| 'WS10'
+	| 'WS11'
+	| 'WS12'
+	| 'WS13'
+	| 'WS14'
+	| 'WS15';
 
 export type WorkStoryTier = 'featured' | 'compact';
 
@@ -54,7 +59,6 @@ export interface WorkStoryResultCopy {
 export interface WorkStoryEditorialCopy {
 	decision: string;
 	outcome: string;
-	takeaway: string;
 }
 
 export interface WorkStoryCopy {

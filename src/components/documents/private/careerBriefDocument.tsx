@@ -28,11 +28,11 @@ const CareerBriefWork = ({ work }: { work: CareerBriefFeaturedWork }) => (
 		</header>
 		<p className="career-work-context">{work.goal}</p>
 		<div className="career-work-actions">
-			<h4>구현과 판단</h4>
+			<h4>담당 구현</h4>
 			<DocumentBulletList items={[work.contribution, work.decision]} />
 		</div>
 		<div className="career-work-result">
-			<h4>결과</h4>
+			<h4>확인 내용</h4>
 			<p>{work.result}</p>
 		</div>
 	</article>

@@ -1760,21 +1760,43 @@
 		gap: 0.3rem;
 	}
 
+	.career-page[data-page='2'] .private-document-continuation-compact {
+		margin-bottom: 0.5rem;
+	}
+
+	.career-page[data-page='2'] .private-document-section-compact {
+		margin-top: 0.75rem;
+	}
+
+	.career-page[data-page='2'] .career-supporting-list {
+		gap: 0.5rem;
+	}
+
+	#settlement-operations-platform .document-section-grid,
+	#multi-role-hybrid-platform .document-section-grid,
 	#ai-kickoff-documentation-tool .document-section-grid,
 	#hybrid-life-info-platform .document-section-grid {
 		gap: 1.3rem;
 	}
 
+	#settlement-operations-platform .document-section,
+	#multi-role-hybrid-platform .document-section,
 	#ai-kickoff-documentation-tool .document-section,
 	#hybrid-life-info-platform .document-section {
 		gap: 0.65rem;
 	}
 
+	#settlement-operations-platform .document-section-content,
+	#multi-role-hybrid-platform .document-section-content,
 	#ai-kickoff-documentation-tool .document-section-content,
 	#hybrid-life-info-platform .document-section-content {
 		gap: 0.7rem;
 	}
 
+	#settlement-operations-platform .document-item,
+	#multi-role-hybrid-platform .document-item,
+	#settlement-operations-platform .document-evidence-item,
+	#multi-role-hybrid-platform .document-evidence-item,
 	#ai-kickoff-documentation-tool .document-item,
 	#hybrid-life-info-platform .document-item,
 	#ai-kickoff-documentation-tool .document-evidence-item,

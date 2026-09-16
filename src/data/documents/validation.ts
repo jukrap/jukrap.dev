@@ -69,32 +69,32 @@ const EXPECTED_RESUME_PROJECT_IDS = [
 const EXPECTED_FEATURED_PAGES = [
 	{
 		pageNumber: 3,
+		id: 'settlement-operations-platform',
+		storyIds: ['settlement-operations-platform'],
+		caseIds: [],
+	},
+	{
+		pageNumber: 4,
+		id: 'multi-role-hybrid-platform',
+		storyIds: ['multi-role-hybrid-platform'],
+		caseIds: [],
+	},
+	{
+		pageNumber: 5,
 		id: 'logistics-web',
 		storyIds: ['delivery-output-flow'],
 		caseIds: ['delivery-operations-web'],
 	},
 	{
-		pageNumber: 4,
+		pageNumber: 6,
 		id: 'logistics-mobile',
 		storyIds: ['delivery-output-flow'],
 		caseIds: ['mobile-output-bridge'],
 	},
 	{
-		pageNumber: 5,
-		id: 'structured-editor-ui',
-		storyIds: ['structured-editor-ui'],
-		caseIds: [],
-	},
-	{
-		pageNumber: 6,
+		pageNumber: 7,
 		id: 'ai-kickoff-documentation-tool',
 		storyIds: ['ai-kickoff-documentation-tool'],
-		caseIds: [],
-	},
-	{
-		pageNumber: 7,
-		id: 'hybrid-life-info-platform',
-		storyIds: ['hybrid-life-info-platform'],
 		caseIds: [],
 	},
 ] as const;
@@ -192,7 +192,6 @@ function assertPageEvidence(
 
 const documentMetricSourceValues: Record<string, string> = {
 	'다시 그리는 범위 축소': '재렌더 조건 축소',
-	'검수용 워크북': 'workbook 검수',
 };
 
 function metricEvidenceKey({ value }: DocumentMetric) {
@@ -426,11 +425,15 @@ export function validateRecruitingDocumentData({
 		featuredIds,
 		'Featured work selection',
 	);
-	assertSameOrder(
-		manifest.selection.supportingWorkStoryIds,
-		supportingIds,
-		'Supporting work selection',
-	);
+	if (
+		manifest.selection.supportingWorkStoryIds.some(
+			(id) => !supportingIds.includes(id),
+		)
+	) {
+		throw new Error(
+			'Supporting document stories must belong to the site supporting stories.',
+		);
+	}
 	assertUnique(
 		[
 			...manifest.selection.featuredWorkStoryIds,

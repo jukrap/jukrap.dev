@@ -35,7 +35,6 @@ export const CompactWorkStory = ({
 	const chapter = story.chapters[0];
 	if (!chapter) return null;
 
-	const primaryDecision = chapter.decisions[0];
 	const primaryImpact = chapter.impact[0];
 	const primaryCheck = chapter.checks[0];
 	const remainingImpacts = primaryImpact
@@ -46,7 +45,7 @@ export const CompactWorkStory = ({
 		: chapter.checks;
 	const hasAdditionalEvidence =
 		Boolean(chapter.context) ||
-		chapter.decisions.length > 1 ||
+		chapter.decisions.length > 0 ||
 		chapter.execution.length > 0 ||
 		remainingImpacts.length > 0 ||
 		remainingChecks.length > 0 ||
@@ -79,13 +78,13 @@ export const CompactWorkStory = ({
 				</header>
 
 				<div className="mt-4 grid gap-6 md:mt-8 md:grid-cols-2 md:gap-8">
-					{primaryDecision && (
+					{story.summary && (
 						<section>
 							<h4 className="text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground">
-								{labels.decisions}
+								{labels.scope}
 							</h4>
 							<p className="mt-2 text-base leading-7 text-foreground/85 break-keep">
-								{primaryDecision}
+								{story.summary}
 							</p>
 						</section>
 					)}
@@ -137,12 +136,12 @@ export const CompactWorkStory = ({
 								</p>
 							</section>
 
-							{chapter.decisions.length > 1 && (
+							{chapter.decisions.length > 0 && (
 								<section className="grid gap-3 border-t border-border/45 py-6 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6">
 									<h4 className="text-sm font-bold leading-6 text-foreground">
 										{labels.thinking}
 									</h4>
-									<DetailList items={chapter.decisions.slice(1)} />
+									<DetailList items={chapter.decisions} />
 								</section>
 							)}
 

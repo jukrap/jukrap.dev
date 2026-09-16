@@ -8,7 +8,7 @@ export const recruitingDocumentManifest = {
 			id: 'portfolio',
 			title: '포트폴리오',
 			description:
-				'문제를 나눈 기준과 구현·검증 과정을 대표 업무와 프로젝트 사례로 설명합니다.',
+				'주요 업무에서 개발한 기능과 개인 프로젝트의 화면·구현 내용을 소개합니다.',
 			slug: '/ko/portfolio',
 			visibility: 'public',
 			pageCount: 14,
@@ -30,7 +30,7 @@ export const recruitingDocumentManifest = {
 			id: 'career-brief',
 			title: '경력기술서',
 			description:
-				'트리포스에서 맡은 업무 범위, 판단, 결과와 검증 기준을 두 쪽으로 정리한 문서입니다.',
+				'트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.',
 			slug: '/ko/career-brief',
 			visibility: 'private',
 			pageCount: 2,
@@ -40,17 +40,17 @@ export const recruitingDocumentManifest = {
 	],
 	selection: {
 		featuredWorkStoryIds: [
+			'settlement-operations-platform',
+			'multi-role-hybrid-platform',
 			'delivery-output-flow',
-			'structured-editor-ui',
 			'ai-kickoff-documentation-tool',
-			'hybrid-life-info-platform',
 		],
 		supportingWorkStoryIds: [
-			'legacy-mobile-compatibility',
-			'react-admin-state-migration',
-			'hybrid-security-boundary',
-			'field-terminal-android',
-			'legacy-panel-baseline',
+			'mobile-operations-platform',
+			'operations-admin-web',
+			'legacy-support-web',
+			'structured-editor-ui',
+			'hybrid-life-info-platform',
 		],
 		portfolioProjectIds: [
 			'captain-donghae',

@@ -80,7 +80,6 @@ export interface LocaleDictionary {
 			context: string;
 			decisions: string;
 			results: string;
-			takeaway: string;
 			additionalEvidence: string;
 			problem: string;
 			thinking: string;

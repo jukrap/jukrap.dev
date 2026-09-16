@@ -332,6 +332,43 @@
 		overflow: hidden;
 	}
 
+	.work-index-scroll {
+		scrollbar-width: thin;
+		scrollbar-color: hsl(var(--foreground) / 0.45) transparent;
+	}
+
+	.work-index-scroll:hover,
+	.work-index-scroll:focus-within {
+		scrollbar-color: hsl(var(--foreground) / 0.65) transparent;
+	}
+
+	.work-index-scroll::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	.work-index-scroll::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.work-index-scroll::-webkit-scrollbar-thumb {
+		border-radius: 999px;
+		background: hsl(var(--foreground) / 0.45);
+	}
+
+	.work-index-scroll:hover::-webkit-scrollbar-thumb,
+	.work-index-scroll:focus-within::-webkit-scrollbar-thumb {
+		background: hsl(var(--foreground) / 0.65);
+	}
+
+	@media (forced-colors: active) {
+		.work-index-scroll,
+		.work-index-scroll:hover,
+		.work-index-scroll:focus-within {
+			scrollbar-width: auto;
+			scrollbar-color: auto;
+		}
+	}
+
 	.scrollbar-hide::-webkit-scrollbar {
 		display: none;
 	}

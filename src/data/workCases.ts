@@ -23,7 +23,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Vitest',
 			],
 			headline:
-				'Excel 대량등록과 청구·정산 관리 화면, Spring Boot API를 개발했습니다.',
+				'React 화면과 Spring Boot API를 개발하고, DB 처리와 개발 환경 배포를 담당했습니다.',
 			summary:
 				'표 안에서 값을 수정하고 Excel 자료를 검토·등록하는 기능을 만들었습니다. 담당 관계가 바뀌어도 이전 거래의 정산 대상과 금액은 유지하도록 데이터 구조를 설계했습니다.',
 			problem:
@@ -840,7 +840,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Vitest',
 			],
 			headline:
-				'Built Excel batch imports, billing and settlement screens, and Spring Boot APIs.',
+				'Developed React screens and Spring Boot APIs, implemented database operations, and deployed to the development environment.',
 			summary:
 				'Built inline editing and Excel review and import features. Designed the data model to retain the original settlement recipient and amount when current assignments change.',
 			problem:

@@ -284,7 +284,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'격리 DB에서 일부 행만 저장되거나 재시도로 중복 등록되지 않는지 확인했습니다. 개발 DB에서는 담당 관계를 바꾼 뒤에도 과거 정산 금액이 유지됐습니다. 개발 환경에 반영했습니다.',
 			},
 			aboutSummary:
-				'Excel 대량등록, 청구·정산 관리 화면과 API를 개발했습니다. 재시도에 따른 중복 등록을 막고 과거 정산 이력을 보존했습니다.',
+				'React 화면과 Spring Boot API를 개발하고, DB 처리와 개발 환경 배포를 담당했습니다.',
 		},
 		'mobile-operations-platform': {
 			impact: workCases.ko
@@ -500,7 +500,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'Verified rollback and duplicate prevention in an isolated database, and retained historical amounts after assignment changes in the development database. Deployed to development.',
 			},
 			aboutSummary:
-				'Built Excel batch imports, billing and settlement screens and APIs, with duplicate prevention on retries and preservation of historical settlements.',
+				'Developed React screens and Spring Boot APIs, implemented database operations, and deployed to the development environment.',
 		},
 		'mobile-operations-platform': {
 			impact: workCases.en

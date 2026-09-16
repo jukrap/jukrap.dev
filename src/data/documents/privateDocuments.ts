@@ -60,7 +60,7 @@ const careerGoalByStory: Partial<Record<string, string>> = {
 	'hybrid-life-info-platform':
 		'레거시 웹과 Android WebView를 유지보수하며 외부 API 응답, 캐시, 위치 처리와 운영 배포를 고쳤습니다.',
 	'settlement-operations-platform':
-		'Excel 대량등록과 청구·정산 관리 화면, Spring Boot API를 개발했습니다.',
+		'React 화면과 Spring Boot API를 개발하고, DB 처리와 개발 환경 배포를 담당했습니다.',
 	'mobile-operations-platform':
 		'기존 모바일 업무 앱의 지도 화면과 오프라인 저장·재전송 기능을 유지보수했습니다.',
 };

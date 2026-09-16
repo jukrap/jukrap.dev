@@ -197,7 +197,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				role: 'Web & Mobile Developer',
 				details: [
 					'Developing React business interfaces, Spring Boot APIs and Android app integrations.',
-					'Built Excel imports, billing and settlement features, offline retries and Bluetooth printing. Also developing AI documentation tools and maintaining legacy systems.',
+					'Built Excel imports, billing and settlement features, and Bluetooth printer integrations. Also developing AI documentation tools and maintaining existing web and mobile apps.',
 				],
 			},
 			workSummary: {

@@ -99,7 +99,7 @@ const portfolioStoryCopy: Partial<
 > = {
 	'settlement-operations-platform': {
 		summary:
-			'Excel 대량등록과 청구·정산 관리 화면, Spring Boot API를 개발했습니다.',
+			'React 화면과 Spring Boot API를 개발하고, DB 처리와 개발 환경 배포를 담당했습니다.',
 		problem:
 			'Excel 자료의 중복·부분 저장을 막고, 담당 관계가 바뀌어도 이미 확정된 정산 금액은 유지해야 했습니다.',
 	},

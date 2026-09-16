@@ -281,7 +281,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'미리보기에서 확인한 자료를 서버에 보관하고 등록 전에 다시 검사했습니다. 저장에 실패하면 전체를 되돌리고, 같은 요청을 다시 보내도 중복 등록되지 않도록 했습니다. 현재 담당 관계와 거래 당시의 정산 대상은 따로 관리했습니다.',
 				outcome:
-					'격리 DB에서 일부 행만 저장되거나 재시도로 중복 등록되지 않는지 확인했습니다. 개발 DB에서는 담당 관계를 바꾼 뒤에도 과거 정산 금액이 유지됐습니다. 개발 환경에 반영했으며 감사 기록·파일 보관 재설계는 진행 중입니다.',
+					'격리 DB에서 일부 행만 저장되거나 재시도로 중복 등록되지 않는지 확인했습니다. 개발 DB에서는 담당 관계를 바꾼 뒤에도 과거 정산 금액이 유지됐습니다. 개발 환경에 반영했습니다.',
 			},
 			aboutSummary:
 				'Excel 대량등록, 청구·정산 관리 화면과 API를 개발했습니다. 재시도에 따른 중복 등록을 막고 과거 정산 이력을 보존했습니다.',
@@ -300,16 +300,14 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'기존 모바일 업무 앱을 유지보수하며 지도 선택·복귀와 오프라인 저장·재전송 동작을 보완했습니다.',
 		},
 		'multi-role-hybrid-platform': {
-			headline:
-				'기존 웹과 Android 앱에 회원 관리, 문의 작성과 파일 첨부 기능을 추가했습니다.',
+			headline: '기존 웹·앱의 회원 관리와 문의 기능을 확장했습니다.',
 			editorial: {
 				decision:
-					'암호화된 회원 정보를 검색·수정하고 중복 회원을 합치는 기능을 개발했습니다. 문의와 답변, 첨부파일은 작성자와 역할에 따라 접근 권한을 확인하도록 했습니다. Android 앱에서는 파일을 선택하고 사진을 확대해 볼 수 있도록 했습니다.',
+					'기존 회원 정보를 보존하며 중복 회원을 통합하고, 역할에 따라 문의 접근 권한을 확인하도록 했습니다.',
 				outcome:
-					'격리 DB에서 회원 정보를 합치거나 수정할 때 기존 정보가 보존되고, 실패하면 변경이 취소되는지 확인했습니다. 브라우저와 Android 실기기에서는 문의 작성과 첨부, 사진 확대를 점검했습니다. iOS 첨부는 지원하지 않으며 일부 알림 변경은 배포 전입니다.',
+					'격리 DB에서 회원 정보 보존과 저장 실패 시 복구를 확인했습니다. Android 첨부는 실기기로 점검했으며 iOS 첨부는 지원하지 않습니다.',
 			},
-			aboutSummary:
-				'회원 관리와 문의 기능을 개발했습니다. 서버에서 접근 권한을 확인하고 Android 앱에서 파일을 첨부하거나 사진을 확대해 볼 수 있도록 했습니다.',
+			aboutSummary: '기존 웹·앱의 회원 관리와 문의 기능을 확장했습니다.',
 		},
 		'operations-admin-web': {},
 		'legacy-support-web': {},
@@ -499,7 +497,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'Kept reviewed data on the server and rechecked it at confirmation. Failed imports roll back the whole batch, and retries cannot create a second copy. Current assignments are stored separately from the recipient recorded on a settlement.',
 				outcome:
-					'Verified rollback and duplicate prevention in an isolated database, and retained historical amounts after assignment changes in the development database. Deployed to development; audit logging and file archive redesign remain in progress.',
+					'Verified rollback and duplicate prevention in an isolated database, and retained historical amounts after assignment changes in the development database. Deployed to development.',
 			},
 			aboutSummary:
 				'Built Excel batch imports, billing and settlement screens and APIs, with duplicate prevention on retries and preservation of historical settlements.',
@@ -519,15 +517,15 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'multi-role-hybrid-platform': {
 			headline:
-				'Added member search, editing and merging, plus inquiries and attachments, to an existing web and Android app.',
+				'Extended member management and inquiries in an existing web and mobile app.',
 			editorial: {
 				decision:
-					'Built search and editing for encrypted member data and duplicate-member merging. Applied author- and role-based access checks to inquiries, replies and attachments, and connected file selection and image zoom to Android WebView.',
+					'Merged duplicate members while preserving existing records and applied role-based access checks to inquiries.',
 				outcome:
-					'Checked data preservation and rollback during member merging and editing in an isolated database. Verified inquiries, file selection and cancellation, and image zoom in browsers and on Android hardware. iOS attachments are unsupported; some notification changes remain undeployed.',
+					'Verified data preservation and rollback in an isolated database and attachments on Android hardware. iOS attachments are unsupported.',
 			},
 			aboutSummary:
-				'Built member search, editing, merging, inquiries and attachments, from server-side access checks to Android file selection and image zoom.',
+				'Extended member management and inquiries in an existing web and mobile app.',
 		},
 		'operations-admin-web': {},
 		'legacy-support-web': {},

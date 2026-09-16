@@ -107,7 +107,7 @@ const contributionByStory: Record<string, string> = {
 
 const decisionByStory: Record<string, string> = {
 	'multi-role-hybrid-platform':
-		'Android 앱에 파일 선택기를 연결하고, 첨부 취소와 뒤로가기, 사진 확대 동작을 구현했습니다.',
+		'기존 회원 정보는 보존하고, Android 앱에서도 문의에 파일을 첨부할 수 있도록 했습니다.',
 	'delivery-output-flow':
 		'첫 화면에서 쓰지 않는 페이지와 Excel 라이브러리를 필요할 때 불러오도록 변경했습니다.',
 	'structured-editor-ui':
@@ -124,7 +124,7 @@ const decisionByStory: Record<string, string> = {
 
 const resultByStory: Record<string, string> = {
 	'multi-role-hybrid-platform':
-		'DB에서 정보 보존과 저장 실패 시 복구를 확인하고 Android 문의·첨부 기능을 점검했습니다. iOS 첨부는 미지원이며 일부 알림 변경은 배포 전입니다.',
+		'격리 DB에서 정보 보존과 실패 시 복구를 확인하고 Android 첨부를 실기기로 점검했습니다. iOS 첨부는 지원하지 않습니다.',
 	'delivery-output-flow':
 		'첫 화면에서 내려받는 JavaScript 용량을 약 74% 줄였습니다. Android 실기기를 Bluetooth 프린터에 연결해 라벨 출력도 확인했습니다.',
 	'structured-editor-ui':
@@ -134,7 +134,7 @@ const resultByStory: Record<string, string> = {
 	'hybrid-life-info-platform':
 		'2026-07-08 운영 점검에서 첫 요청 약 2.85초와 캐시 응답 약 0.11초를 비교했습니다. 최종 테스트 결과와 날짜별 배포 내역도 따로 기록했습니다.',
 	'settlement-operations-platform':
-		'중복·부분 등록이 차단되고 기존 정산 금액이 유지되는지 DB에서 확인했습니다. 개발 환경에 반영했으며 감사 기록은 재설계 중입니다.',
+		'중복·부분 등록이 차단되고 기존 정산 금액이 유지되는지 DB에서 확인했습니다. 개발 환경에 반영했습니다.',
 	'mobile-operations-platform':
 		'실기기에서 통신 단절·앱 재실행 뒤 요청 복원과 서버 반영을 확인했습니다. 일부 장애 조합은 미검증이며 중복 전송 건은 조사 중입니다.',
 };
@@ -167,7 +167,7 @@ const careerBriefEvidenceByStory: Record<string, readonly string[]> = {
 
 export const resumeDocument = {
 	title: '이력서',
-	role: '웹/모바일 프론트엔드 엔지니어',
+	role: '웹·모바일 개발자',
 	profile:
 		'React로 업무용 웹을 개발하며 서버 API와 Android 앱 연동도 맡고 있습니다. 정산 관리, 회원 관리와 문의 응대, 라벨 출력, AI 문서화 도구를 개발했습니다.',
 	competencies: [
@@ -230,7 +230,7 @@ export const resumeDocument = {
 				'정산 웹, 물류 라벨 출력 앱, AI 문서화 도구를 개발하고 기존 웹과 모바일 앱을 유지보수했습니다.',
 			highlights: [
 				'Excel 자료가 중복되거나 일부만 등록되지 않도록 처리하고, 담당 관계가 바뀌어도 기존 정산 금액은 유지하도록 했습니다.',
-				'회원 관리와 문의 기능을 개발하고, Android 앱에서 파일을 첨부하거나 사진을 확대해 볼 수 있도록 했습니다.',
+				'회원 정보 통합과 문의 기능을 확장하고 웹과 Android 앱에서 사용할 수 있도록 했습니다.',
 				'페이지와 Excel 처리 코드를 필요할 때만 불러오도록 바꿔, 첫 화면에서 내려받는 JavaScript 용량을 약 74% 줄였습니다.',
 				'웹에서 요청한 라벨을 Android 앱을 통해 Bluetooth 프린터로 출력하도록 구현하고 실기기로 확인했습니다.',
 				'저장소를 분석해 문서 초안을 만들고, 검토 후 필요한 항목만 AI로 다시 작성할 수 있는 사내 도구를 개발했습니다.',
@@ -352,7 +352,7 @@ export const resumeDocument = {
 
 export const careerBriefDocument = {
 	title: '경력기술서',
-	role: '웹/모바일 프론트엔드 엔지니어',
+	role: '웹·모바일 개발자',
 	company: {
 		name: triphosCareerEvidence.company,
 		period: triphosCareerEvidence.period,

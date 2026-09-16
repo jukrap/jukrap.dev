@@ -12,7 +12,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'웹과 모바일 앱, Android 연동, 개발 도구 경험을 정리한 웹/모바일 프론트엔드 엔지니어 박주철의 Work 페이지',
+					'업무 정산, 회원·문의 기능 확장, 물류 출력과 AI 문서화 경험을 정리한 웹/모바일 프론트엔드 엔지니어 박주철의 Work 페이지',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
@@ -44,10 +44,10 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			welcome: 'Jukrap의 개인 사이트에 오신 것을 환영합니다.',
 			documentsTitle: '포트폴리오에서 더 자세히 확인할 수 있습니다.',
 			documentsDescription:
-				'대표 업무와 사이드 프로젝트를 문제, 판단, 확인한 결과의 흐름으로 정리했습니다.',
+				'정산 웹과 회원 관리, 물류 라벨 출력, AI 문서화 도구를 개발하며 맡았던 일을 소개합니다.',
 			portfolioTitle: '웹 포트폴리오',
 			portfolioDescription:
-				'웹과 모바일에서 어떤 경계를 나누고 무엇으로 확인했는지 사례집에서 살펴볼 수 있습니다.',
+				'주요 업무의 기능과 구현 내용, 개인 프로젝트의 화면을 함께 볼 수 있습니다.',
 			portfolioLinkLabel: '웹 포트폴리오 보기',
 		},
 		about: {
@@ -62,8 +62,8 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				period: '2026.02 ~ Present',
 				role: '웹/모바일 프론트엔드 엔지니어',
 				details: [
-					'React 기반 업무 화면, 모바일 WebView, Android 연동처럼 사용자 흐름과 시스템 경계가 맞물리는 영역을 설계하고 구현합니다.',
-					'신규 구축과 레거시 개선을 함께 다루며 상태, 라우팅, 출력, 검증 기준을 코드와 문서로 남겨둡니다.',
+					'React로 업무 화면을 개발하고 Spring Boot API와 Android 앱 연동도 맡고 있습니다.',
+					'Excel 일괄 등록과 정산 관리, Bluetooth 프린터 연동을 구현했습니다. AI 문서화 도구를 개발하고 기존 웹과 모바일 앱도 유지보수하고 있습니다.',
 				],
 			},
 			workSummary: {
@@ -75,7 +75,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'웹과 모바일 앱의 사용자 흐름부터 Android 장비와 운영 배포까지, 복잡한 경계를 어떤 기준으로 나누고 검증했는지 대표 업무와 보조 경험으로 정리했습니다.',
+				'업무용 웹과 모바일 앱을 개발하며 맡았던 일을 정리했습니다. 화면 개발과 함께 서버 API, 데이터 처리, Android 장비 연동도 담당했습니다.',
 			indexTitle: '업무 사례',
 			currentStory: '현재 업무',
 			openTableOfContents: '목차 열기',
@@ -83,20 +83,19 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			featuredTitle: '대표 업무',
 			compactTitle: '함께 정리한 업무',
 			compactIntro:
-				'기능 확장과 유지보수에서 변경 범위와 회귀 기준을 정리한 경험입니다.',
+				'회원·문의 관리, 차트 편집, 외부 API 연동과 레거시 웹·앱 유지보수 업무입니다.',
 			labels: {
 				stack: '기술 환경',
 				scope: '맡은 범위',
-				context: '문제',
-				decisions: '핵심 판단',
-				results: '확인한 결과',
-				takeaway: '남긴 기준',
+				context: '배경과 요구사항',
+				decisions: '주요 구현',
+				results: '동작 확인',
 				additionalEvidence: '세부 구현 및 검증 기록',
-				problem: '문제',
-				thinking: '판단',
+				problem: '배경',
+				thinking: '설계 이유',
 				process: '실행',
-				solution: '해결',
-				impact: '성과',
+				solution: '구현 내용',
+				impact: '주요 변경',
 				checks: '확인',
 			},
 		},
@@ -149,7 +148,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'Work by Ju-cheol Park, a Web & Mobile Frontend Engineer, covering logistics web, mobile apps, Android, and developer tooling.',
+					'Work by Ju-cheol Park, a Web & Mobile Frontend Engineer, covering settlement workflows, member and inquiry features, logistics output, and AI documentation tools.',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
@@ -180,10 +179,10 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			welcome: "Welcome to Jukrap's personal website.",
 			documentsTitle: 'Read the full casebook in the portfolio.',
 			documentsDescription:
-				'The public portfolio is currently available in Korean and follows each case from problem to decision and verification.',
+				'The Korean portfolio presents my work on settlement software, member and inquiry features, logistics printing and AI documentation tools.',
 			portfolioTitle: 'Korean Portfolio',
 			portfolioDescription:
-				'A web portfolio covering selected professional work and side projects across web and mobile.',
+				'Features I built at work, along with personal project screens and implementation details.',
 			portfolioLinkLabel: 'View Korean portfolio',
 		},
 		about: {
@@ -198,8 +197,8 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				period: '2026.02 ~ Present',
 				role: 'Web & Mobile Frontend Engineer',
 				details: [
-					'Designing and implementing user-facing flows across React business screens, mobile WebView, and Android integration.',
-					'Handling both end-to-end builds and legacy improvements with clear state, routing, output, and verification baselines.',
+					'Developing React business interfaces, Spring Boot APIs and Android app integrations.',
+					'Built Excel imports, billing and settlement features, offline retries and Bluetooth printing. Also developing AI documentation tools and maintaining legacy systems.',
 				],
 			},
 			workSummary: {
@@ -211,7 +210,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		work: {
 			title: 'Work',
 			intro:
-				'Selected work showing how I separated and verified complex flows across web and mobile apps, Android devices, and production delivery.',
+				'Features I built for business web and mobile apps, including interfaces, APIs, data processing and Android device integration.',
 			indexTitle: 'Work Index',
 			currentStory: 'Current story',
 			openTableOfContents: 'Open table of contents',
@@ -219,14 +218,13 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			featuredTitle: 'Selected Work',
 			compactTitle: 'Additional Work',
 			compactIntro:
-				'Additional feature and maintenance work focused on change boundaries and regression baselines.',
+				'Further work in member services, administration, diagnostics, editing tools, and legacy maintenance.',
 			labels: {
 				stack: 'Technology stack',
 				scope: 'Scope',
-				context: 'Problem',
-				decisions: 'Key decision',
-				results: 'Verified outcome',
-				takeaway: 'Working principle',
+				context: 'Requirements',
+				decisions: 'Implementation',
+				results: 'Verification',
 				additionalEvidence: 'Implementation and verification details',
 				problem: 'Problem',
 				thinking: 'Decision',

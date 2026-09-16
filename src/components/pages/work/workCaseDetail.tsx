@@ -80,7 +80,7 @@ const ChapterBoundaries = ({ chapters }: { chapters: WorkStoryChapter[] }) => (
 						{chapter.title}
 					</h5>
 					<p className="mt-1 text-[0.9375rem] leading-7 text-foreground/75 break-keep">
-						{chapter.summary}
+						{chapter.execution[0]}
 					</p>
 				</div>
 			</section>
@@ -301,12 +301,6 @@ export const WorkCaseDetail = ({
 						{editorial.outcome}
 					</p>
 					<StoryResults story={story} />
-				</EditorialSection>
-
-				<EditorialSection title={labels.takeaway}>
-					<p className="max-w-[42rem] text-base font-semibold leading-8 text-foreground break-keep">
-						{editorial.takeaway}
-					</p>
 				</EditorialSection>
 			</div>
 

@@ -16,7 +16,7 @@ export function joinClasses(
 
 const documentTechnologyNames: Record<string, string> = {
 	'Android native module': 'Android 네이티브 모듈',
-	'Workbook UI': '검수용 워크북 UI',
+	'Workbook UI': '표 편집 UI',
 	'Public API adapter': '공공 API 연동',
 	'Server-rendered web': '서버 렌더링 웹',
 };

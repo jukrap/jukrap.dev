@@ -161,7 +161,7 @@ export const WorkChapterRail = ({ stories, labels }: WorkChapterRailProps) => {
 					{isMenuOpen && (
 						<div
 							id={menuId}
-							className="absolute inset-x-0 top-full max-h-[60dvh] overflow-y-auto overscroll-contain border-b border-border/45 bg-background px-3 py-4 shadow-[0_18px_40px_hsl(var(--blacks)/0.12)] sm:px-5"
+							className="work-index-scroll absolute inset-x-0 top-full max-h-[60dvh] overflow-y-auto overscroll-contain border-b border-border/45 bg-background px-3 py-4 shadow-[0_18px_40px_hsl(var(--blacks)/0.12)] sm:px-5"
 						>
 							<div className="space-y-5">
 								{groups.map((group) => (
@@ -224,7 +224,7 @@ export const WorkChapterRail = ({ stories, labels }: WorkChapterRailProps) => {
 			<div className="hidden min-w-0 xl:block xl:h-full">
 				<nav
 					aria-label={labels.index}
-					className="sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto pr-3"
+					className="work-index-scroll sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto pr-3"
 				>
 					<p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">
 						{labels.index}

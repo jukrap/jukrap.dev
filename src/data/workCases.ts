@@ -6,7 +6,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS13',
 			id: 'settlement-operations-platform',
-			title: '업무 정산 플랫폼',
+			title: '업무 정산 ERP 플랫폼',
 			platform: 'Web / API',
 			area: '편집표·Excel 등록 / 청구·정산·이력 관리',
 			period: '2026.07 ~ 2026.09',
@@ -15,6 +15,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			stack: [
 				'React',
 				'TypeScript',
+				'Tailwind CSS',
 				'Vite',
 				'Spring Boot',
 				'MyBatis',
@@ -62,7 +63,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			checks: [
 				'격리 MariaDB에서 저장 중 실패 시 전체 취소, 동시 확정과 재시도 시 중복 등록 차단을 확인했습니다.',
 				'개발 DB에서 담당 관계 변경·종료·재개 후에도 과거 정산 금액이 유지되는지 확인했습니다.',
-				'개발 환경에 배포한 상태입니다. 일부 최종 화면 검수와 운영 반영은 남아 있으며, 감사 기록·파일 보관 재설계는 진행 중입니다.',
+				'개발 환경에 배포하고 제공 파일의 해시를 대조했습니다.',
 			],
 		},
 		{
@@ -822,7 +823,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS13',
 			id: 'settlement-operations-platform',
-			title: 'Settlement Operations Platform',
+			title: 'Settlement ERP Platform',
 			platform: 'Web / API',
 			area: 'Editable tables and Excel imports / Billing and settlement history',
 			period: '2026.07 ~ 2026.09',
@@ -831,6 +832,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			stack: [
 				'React',
 				'TypeScript',
+				'Tailwind CSS',
 				'Vite',
 				'Spring Boot',
 				'MyBatis',
@@ -878,7 +880,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			checks: [
 				'Verified full rollback on save failure and duplicate prevention under concurrent confirmation and retries in an isolated MariaDB database.',
 				'Checked in the development database that assignment changes, termination and resumption retained historical settlement amounts.',
-				'Deployed to development. Some final screen checks and production rollout remain; audit logging and file archive redesign are still in progress.',
+				'Deployed to development and compared hashes of the served files.',
 			],
 		},
 		{

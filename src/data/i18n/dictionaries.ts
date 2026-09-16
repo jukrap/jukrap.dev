@@ -7,17 +7,16 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			home: siteMetadata,
 			about: {
 				title: 'About | Ju-cheol Park',
-				description: 'About page of Ju-cheol Park, Web & Mobile Frontend Engineer',
+				description: 'About page of Ju-cheol Park, Web & Mobile Developer',
 			},
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'업무 정산, 회원·문의 기능 확장, 물류 출력과 AI 문서화 경험을 정리한 웹/모바일 프론트엔드 엔지니어 박주철의 Work 페이지',
+					'업무 정산, 회원·문의 기능 확장, 물류 출력과 AI 문서화 경험을 정리한 웹·모바일 개발자 박주철의 Work 페이지',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
-				description:
-					'Projects page of Ju-cheol Park, Web & Mobile Frontend Engineer',
+				description: 'Projects page of Ju-cheol Park, Web & Mobile Developer',
 			},
 		},
 		navigation: {
@@ -60,7 +59,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			careerSummary: {
 				company: '트리포스㈜',
 				period: '2026.02 ~ Present',
-				role: '웹/모바일 프론트엔드 엔지니어',
+				role: '웹·모바일 개발자',
 				details: [
 					'React로 업무 화면을 개발하고 Spring Boot API와 Android 앱 연동도 맡고 있습니다.',
 					'Excel 일괄 등록과 정산 관리, Bluetooth 프린터 연동을 구현했습니다. AI 문서화 도구를 개발하고 기존 웹과 모바일 앱도 유지보수하고 있습니다.',
@@ -135,24 +134,24 @@ export const dictionaries: Localized<LocaleDictionary> = {
 	en: {
 		metadata: {
 			home: {
-				title: 'Ju-cheol Park | Web & Mobile Frontend Engineer',
-				description: "Web and mobile frontend engineer. This is Jukrap's website.",
+				title: 'Ju-cheol Park | Web & Mobile Developer',
+				description: "Web and mobile developer. This is Jukrap's website.",
 				icons: {
 					icon: '/favicon.ico',
 				},
 			},
 			about: {
 				title: 'About | Ju-cheol Park',
-				description: 'About Ju-cheol Park, Web & Mobile Frontend Engineer',
+				description: 'About Ju-cheol Park, Web & Mobile Developer',
 			},
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'Work by Ju-cheol Park, a Web & Mobile Frontend Engineer, covering settlement workflows, member and inquiry features, logistics output, and AI documentation tools.',
+					'Work by Ju-cheol Park, a Web & Mobile Developer, covering settlement workflows, member and inquiry features, logistics output, and AI documentation tools.',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
-				description: 'Projects by Ju-cheol Park, Web & Mobile Frontend Engineer',
+				description: 'Projects by Ju-cheol Park, Web & Mobile Developer',
 			},
 		},
 		navigation: {
@@ -195,7 +194,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			careerSummary: {
 				company: 'Triphos',
 				period: '2026.02 ~ Present',
-				role: 'Web & Mobile Frontend Engineer',
+				role: 'Web & Mobile Developer',
 				details: [
 					'Developing React business interfaces, Spring Boot APIs and Android app integrations.',
 					'Built Excel imports, billing and settlement features, offline retries and Bluetooth printing. Also developing AI documentation tools and maintaining legacy systems.',

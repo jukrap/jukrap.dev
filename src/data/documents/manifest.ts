@@ -2,7 +2,7 @@ import type { RecruitingDocumentManifest } from '@/types/documents';
 
 export const recruitingDocumentManifest = {
 	locale: 'ko',
-	role: '웹/모바일 프론트엔드 엔지니어',
+	role: '웹·모바일 개발자',
 	documents: [
 		{
 			id: 'portfolio',

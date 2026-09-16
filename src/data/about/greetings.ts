@@ -1,5 +1,5 @@
 export const greetings = [
-	`👋 Hi there, I'm a 【Web & Mobile Frontend Engineer】. `,
+	`👋 Hi there, I'm a 【Web & Mobile Developer】. `,
 	`🤖 Hi there, I'm 【Android Developer】. `,
 	`👋 Hi there, I'm 【Jukrap】. `,
 	`👋 Hi there, I'm 【Ju-cheol Park】. `,

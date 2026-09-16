@@ -19,7 +19,7 @@ import type {
 	RecruitingDocumentValidationInput,
 } from '@/types/documents';
 
-const EXPECTED_ROLE = '웹/모바일 프론트엔드 엔지니어';
+const EXPECTED_ROLE = '웹·모바일 개발자';
 
 const EXPECTED_DOCUMENTS = [
 	{

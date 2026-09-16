@@ -104,8 +104,7 @@ const portfolioStoryCopy: Partial<
 			'Excel 자료의 중복·부분 저장을 막고, 담당 관계가 바뀌어도 이미 확정된 정산 금액은 유지해야 했습니다.',
 	},
 	'multi-role-hybrid-platform': {
-		summary:
-			'기존 웹과 Android 앱에 회원 관리, 문의 작성과 파일 첨부 기능을 추가했습니다.',
+		summary: '기존 웹·앱의 회원 관리와 문의 기능을 확장했습니다.',
 		problem:
 			'암호화된 회원 정보를 검색·수정하고, 문의 접근 권한 검사와 Android 첨부 기능을 추가해야 했습니다.',
 	},
@@ -235,13 +234,12 @@ export const portfolioDocument = [
 		id: 'cover',
 		pageNumber: 1,
 		kind: 'cover',
-		eyebrow: '웹/모바일 프론트엔드 엔지니어',
+		eyebrow: '웹·모바일 개발자',
 		title: '박주철',
 		nickname: 'Jukrap',
-		summary:
-			'업무용 웹과 모바일 앱을 개발합니다. 화면 구현부터 API와 장비 연동까지 맡았습니다.',
+		summary: '정산 관리와 물류 운영에 쓰이는 웹·모바일 서비스를 개발합니다.',
 		metadata: [
-			{ label: '직무', value: '웹/모바일 프론트엔드 엔지니어' },
+			{ label: '직무', value: '웹·모바일 개발자' },
 			{ label: '주요 경험', value: '웹, 하이브리드 앱, Android 연동' },
 		],
 		sections: [
@@ -285,14 +283,14 @@ export const portfolioDocument = [
 				title: '주요 경험',
 				items: [
 					{
-						title: '업무 정산 플랫폼',
+						title: '업무 정산 ERP 플랫폼',
 						description:
 							'편집표·Excel 등록 화면과 API를 개발했습니다. 중복 저장을 막고 담당 관계 변경 뒤에도 기존 정산 금액을 유지하도록 했습니다.',
 					},
 					{
 						title: '회원·문의 하이브리드',
 						description:
-							'회원 검색·정보 수정·통합과 문의·첨부 기능을 개발하고 Android 앱의 파일 선택·이미지 확대를 연결했습니다.',
+							'기존 회원 정보를 보존하며 중복 회원을 통합하고 웹·앱의 문의 기능을 확장했습니다.',
 					},
 					{
 						title: '물류 운영·출력',
@@ -356,7 +354,6 @@ export const portfolioDocument = [
 		],
 		[
 			'저장 실패와 재시도, 담당 관계 변경 후 DB에 남은 자료와 금액을 확인하고 개발 환경에 반영했습니다.',
-			'아직 운영에는 반영하지 않았으며, 감사 기록과 파일 보관 방식은 재설계 중입니다.',
 		],
 		[],
 	),
@@ -376,14 +373,14 @@ export const portfolioDocument = [
 					'작성자와 역할에 따라 문의와 첨부파일의 접근 권한을 확인했습니다. 저장 후에는 목록을 새로 불러오도록 했습니다.',
 			},
 			{
-				title: 'Android 파일 선택과 이미지 보기',
+				title: 'Android 첨부 연동',
 				description:
-					'Android 파일 선택기를 연결했습니다. 첨부 취소와 재선택, 작성 중 뒤로가기, 사진 확대 동작을 구현했습니다.',
+					'웹의 문의 기능을 Android 앱에서도 사용할 수 있도록 파일 첨부를 연동했습니다.',
 			},
 		],
 		[
 			'격리 DB에서 정보 보존과 저장 실패, 동시 요청을 검사하고 Android 실기기에서 문의와 첨부 기능을 확인했습니다.',
-			'iOS 첨부는 지원하지 않습니다. 일부 알림 변경은 배포 전이며 공유 파일 환경은 추가 확인이 필요합니다.',
+			'iOS 첨부는 지원하지 않으며 공유 파일 환경은 추가 확인이 필요합니다.',
 		],
 		[],
 	),

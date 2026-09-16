@@ -23,9 +23,9 @@ export const triphosCareerEvidence = {
 	company: '트리포스㈜',
 	period: '2026.02 ~ 현재',
 	officialTitle: '프로젝트팀 매니저',
-	role: '웹/모바일 프론트엔드 엔지니어',
+	role: '웹·모바일 개발자',
 	summary:
-		'React 기반 신규 업무 화면, 모바일 WebView와 Android 출력, 레거시 웹과 앱 개선 및 운영 반영을 담당합니다.',
+		'React 업무 화면과 Spring Boot API, 모바일 앱 연동을 개발하고 기존 웹과 앱을 유지보수합니다.',
 } as const satisfies CareerProfileEvidence;
 
 export const tisCareerEvidence = {

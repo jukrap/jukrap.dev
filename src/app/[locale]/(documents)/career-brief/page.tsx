@@ -3,10 +3,7 @@ import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { CareerBriefDocument } from '@/components/documents/private';
 import { careerBriefDocumentDefinition } from '@/data/documents/manifest';
-import {
-	getPrivateDocumentContact,
-	isPrivateDocumentRequestHost,
-} from '@/lib/privateDocuments';
+import { getRecruitingDocumentContact } from '@/lib/privateDocuments';
 
 interface CareerBriefPageProps {
 	params: Promise<{ locale: string }>;
@@ -33,15 +30,11 @@ export default async function CareerBriefPage({
 	params,
 }: CareerBriefPageProps) {
 	const { locale } = await params;
-	const requestHeaders = await headers();
-	const contact =
-		locale === 'ko' && isPrivateDocumentRequestHost(requestHeaders.get('host'))
-			? getPrivateDocumentContact()
-			: null;
-
-	if (!contact) {
+	if (locale !== 'ko') {
 		notFound();
 	}
+	const requestHeaders = await headers();
+	const contact = getRecruitingDocumentContact(requestHeaders.get('host'));
 
 	return <CareerBriefDocument contact={contact} />;
 }

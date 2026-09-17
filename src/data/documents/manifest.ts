@@ -21,10 +21,10 @@ export const recruitingDocumentManifest = {
 			description:
 				'경력, 역량, 선별 프로젝트를 두 쪽 안에서 빠르게 확인하는 문서입니다.',
 			slug: '/ko/resume',
-			visibility: 'private',
+			visibility: 'public',
 			pageCount: 2,
 			indexable: false,
-			showOnHome: false,
+			showOnHome: true,
 		},
 		{
 			id: 'career-brief',
@@ -32,10 +32,10 @@ export const recruitingDocumentManifest = {
 			description:
 				'트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.',
 			slug: '/ko/career-brief',
-			visibility: 'private',
+			visibility: 'public',
 			pageCount: 2,
 			indexable: false,
-			showOnHome: false,
+			showOnHome: true,
 		},
 	],
 	selection: {

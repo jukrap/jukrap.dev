@@ -17,6 +17,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'TypeScript',
 				'Tailwind CSS',
 				'Vite',
+				'React Router',
+				'Zustand',
 				'Spring Boot',
 				'MyBatis',
 				'MariaDB',
@@ -80,6 +82,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'TypeScript',
 				'React Native',
 				'Expo',
+				'React Router',
+				'TanStack Query',
+				'TanStack Virtual',
+				'Zustand',
 				'Android',
 				'Spring Boot',
 				'SQLite',
@@ -575,7 +581,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			title: '주식 업무 관리 웹',
 			platform: 'Web',
 			area: '주식 업무 / 관리 화면',
-			period: '2026.03',
+			period: '2026.02 ~ 2026.03',
 			role: '신규 관리 화면 구축',
 			workType: 'React 신규 재구축',
 			stack: [
@@ -614,46 +620,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			checks: ['table, filter, modal, session 흐름을 화면 단위로 확인했습니다.'],
 		},
 		{
-			workstreamId: 'WS09',
-			id: 'legacy-panel-baseline',
-			title: '레거시 웹 패널 분리 기준선',
-			platform: 'Legacy Web',
-			area: 'JSP / jQuery 영향 범위 분석',
-			period: '2026.06',
-			role: '분리 분석/회귀 기준선',
-			workType: '영향 분석',
-			stack: ['JSP', 'jQuery', 'Server-rendered web'],
-			headline:
-				'레거시 화면을 바로 쪼개기 전에 coupling, API contract, browser baseline을 먼저 만들었습니다.',
-			summary:
-				'공유 popup, selector prefix, list state, page loader, backend parameter order를 먼저 확인해 변경 위험을 줄였습니다.',
-			impact: [
-				{
-					value: 'impact map',
-					label: '변경 전 지도화',
-					detail: 'selector, popup, loader, contract 위험 분리',
-				},
-			],
-			problem:
-				'오래된 패널 안에서는 여러 메뉴와 popup callback이 같은 스크립트를 공유하고 있어, 파일만 나누면 주변 기능이 함께 깨질 위험이 있었습니다.',
-			thinking: [
-				'분리 대상과 비대상을 먼저 나누고, 기존 결함과 새 regression을 구분했습니다.',
-				'backend parameter와 upload/download 계약은 이번 분리에서 바꾸지 않는 것으로 고정했습니다.',
-			],
-			process: [
-				'공유 popup, selector prefix, page loader, backend parameter 순서로 영향 지점을 확인했습니다.',
-				'코드를 바로 나누기 전에 수동 확인 runbook과 stop signal을 먼저 남겼습니다.',
-			],
-			solution: [
-				'impact matrix, API contract, manual verification runbook, runtime baseline을 정리했습니다.',
-				'구현 전 static search 목록과 stop signal을 남겼습니다.',
-			],
-			checks: ['browser 접근 기준과 page loader 흐름을 확인했습니다.'],
-		},
-		{
 			workstreamId: 'WS14',
 			id: 'multi-role-hybrid-platform',
-			title: '다중 역할 하이브리드 플랫폼',
+			title: '회원·문의 관리 솔루션',
 			platform: 'Web / Android',
 			area: '회원·문의 / 개인정보·첨부',
 			period: '2026.09',
@@ -834,6 +803,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'TypeScript',
 				'Tailwind CSS',
 				'Vite',
+				'React Router',
+				'Zustand',
 				'Spring Boot',
 				'MyBatis',
 				'MariaDB',
@@ -897,6 +868,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'TypeScript',
 				'React Native',
 				'Expo',
+				'React Router',
+				'TanStack Query',
+				'TanStack Virtual',
+				'Zustand',
 				'Android',
 				'Spring Boot',
 				'SQLite',
@@ -1396,7 +1371,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			title: 'Stock Operations Admin Web',
 			platform: 'Web',
 			area: 'Stock operations / admin screens',
-			period: '2026.03',
+			period: '2026.02 ~ 2026.03',
 			role: 'New admin web rebuild',
 			workType: 'React rebuild',
 			stack: [
@@ -1435,46 +1410,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			checks: ['Checked table, filter, modal, and session flows at screen level.'],
 		},
 		{
-			workstreamId: 'WS09',
-			id: 'legacy-panel-baseline',
-			title: 'Legacy Web Panel Split Baseline',
-			platform: 'Legacy Web',
-			area: 'JSP / jQuery impact mapping',
-			period: '2026.06',
-			role: 'Split analysis and regression baseline',
-			workType: 'Impact analysis',
-			stack: ['JSP', 'jQuery', 'Server-rendered web'],
-			headline:
-				'Mapped coupling, API contracts, and browser baselines before splitting legacy screens.',
-			summary:
-				'Checked shared popups, selector prefixes, list state, page loaders, and backend parameter order before changing files.',
-			impact: [
-				{
-					value: 'impact map',
-					label: 'pre-change mapping',
-					detail: 'selector, popup, loader, and contract risks separated',
-				},
-			],
-			problem:
-				'Multiple menus and popup callbacks shared the same legacy scripts, so simply moving files could break nearby functions.',
-			thinking: [
-				'Separated target and non-target areas first, then distinguished existing defects from new regressions.',
-				'Kept backend parameters and upload/download contracts unchanged for the split scope.',
-			],
-			process: [
-				'Checked shared popups, selector prefixes, page loaders, and backend parameters as impact points.',
-				'Recorded manual verification runbook and stop signals before splitting source files.',
-			],
-			solution: [
-				'Prepared an impact matrix, API contract notes, manual verification runbook, and runtime baseline.',
-				'Recorded static-search targets and stop signals before implementation.',
-			],
-			checks: ['Checked browser access baseline and page-loader behavior.'],
-		},
-		{
 			workstreamId: 'WS14',
 			id: 'multi-role-hybrid-platform',
-			title: 'Multi-role Hybrid Platform',
+			title: 'Member and Inquiry Management Solution',
 			platform: 'Web / Android',
 			area: 'Member inquiries / Privacy and attachments',
 			period: '2026.09',

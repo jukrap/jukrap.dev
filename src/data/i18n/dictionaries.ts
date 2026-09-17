@@ -41,13 +41,19 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		home: {
 			welcome: 'Jukrap의 개인 사이트에 오신 것을 환영합니다.',
-			documentsTitle: '포트폴리오에서 더 자세히 확인할 수 있습니다.',
+			documentsTitle: '포트폴리오와 경력 문서를 확인해 보세요.',
 			documentsDescription:
-				'정산 웹과 회원 관리, 물류 라벨 출력, AI 문서화 도구를 개발하며 맡았던 일을 소개합니다.',
+				'참여한 프로젝트와 경력, 맡았던 일을 문서별로 정리했습니다.',
 			portfolioTitle: '웹 포트폴리오',
 			portfolioDescription:
 				'주요 업무의 기능과 구현 내용, 개인 프로젝트의 화면을 함께 볼 수 있습니다.',
 			portfolioLinkLabel: '웹 포트폴리오 보기',
+			resumeTitle: '이력서',
+			resumeDescription: '경력과 기술, 주요 프로젝트를 간단히 정리했습니다.',
+			resumeLinkLabel: '이력서 보기',
+			careerBriefTitle: '경력기술서',
+			careerBriefDescription: '업무별로 맡은 구현과 확인한 결과를 정리했습니다.',
+			careerBriefLinkLabel: '경력기술서 보기',
 		},
 		about: {
 			title: 'About Me',
@@ -176,13 +182,21 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		home: {
 			welcome: "Welcome to Jukrap's personal website.",
-			documentsTitle: 'Read the full casebook in the portfolio.',
+			documentsTitle: 'Explore my portfolio and career documents.',
 			documentsDescription:
-				'The Korean portfolio presents my work on settlement software, member and inquiry features, logistics printing and AI documentation tools.',
+				'Projects, experience and contributions, presented in three Korean documents.',
 			portfolioTitle: 'Korean Portfolio',
 			portfolioDescription:
 				'Features I built at work, along with personal project screens and implementation details.',
 			portfolioLinkLabel: 'View Korean portfolio',
+			resumeTitle: 'Résumé',
+			resumeDescription:
+				'A concise overview of my experience, skills and projects.',
+			resumeLinkLabel: 'View Korean résumé',
+			careerBriefTitle: 'Career brief',
+			careerBriefDescription:
+				'My implementation work and verification for each assignment.',
+			careerBriefLinkLabel: 'View Korean career brief',
 		},
 		about: {
 			title: 'About Me',

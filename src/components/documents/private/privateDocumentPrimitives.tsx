@@ -1,8 +1,5 @@
 import type { ReactNode } from 'react';
-import type {
-	DocumentSkillGroup,
-	PrivateDocumentContact,
-} from '@/types/documents';
+import type { DocumentSkillGroup, DocumentContact } from '@/types/documents';
 
 interface PrivateDocumentPageProps {
 	children: ReactNode;
@@ -67,14 +64,14 @@ export const DocumentSection = ({
 );
 
 interface PrivateDocumentHeaderProps {
-	contact: PrivateDocumentContact;
+	contact: DocumentContact;
 	documentTitle: string;
 	role: string;
 	showPrivateDetails?: boolean;
 	compact?: boolean;
 }
 
-const ContactLinks = ({ links }: Pick<PrivateDocumentContact, 'links'>) => (
+const ContactLinks = ({ links }: Pick<DocumentContact, 'links'>) => (
 	<>
 		{links.map((link) => (
 			<a key={link.label + '-' + link.href} href={link.href}>
@@ -103,7 +100,9 @@ export const PrivateDocumentHeader = ({
 			<p className="private-document-role">{role}</p>
 			<address>
 				<a href={'mailto:' + contact.email}>{contact.email}</a>
-				{showPrivateDetails && <a href={'tel:' + contact.phone}>{contact.phone}</a>}
+				{showPrivateDetails && contact.phone && (
+					<a href={'tel:' + contact.phone}>{contact.phone}</a>
+				)}
 				<ContactLinks links={contact.links} />
 			</address>
 		</div>

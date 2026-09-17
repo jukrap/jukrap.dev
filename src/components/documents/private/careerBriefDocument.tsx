@@ -3,7 +3,7 @@ import { careerBriefDocumentDefinition } from '@/data/documents/manifest';
 import type {
 	CareerBriefFeaturedWork,
 	CareerBriefSupportingWork,
-	PrivateDocumentContact,
+	DocumentContact,
 } from '@/types/documents';
 import {
 	DocumentBulletList,
@@ -14,7 +14,7 @@ import {
 } from './privateDocumentPrimitives';
 
 export interface CareerBriefDocumentProps {
-	contact: PrivateDocumentContact;
+	contact: DocumentContact;
 }
 
 const CareerBriefWork = ({ work }: { work: CareerBriefFeaturedWork }) => (

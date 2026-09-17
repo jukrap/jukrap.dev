@@ -1,7 +1,7 @@
 import { resumeDocument } from '@/data/documents';
 import { resumeDocumentDefinition } from '@/data/documents/manifest';
 import type {
-	PrivateDocumentContact,
+	DocumentContact,
 	ResumeCareer,
 	ResumeProject,
 } from '@/types/documents';
@@ -15,7 +15,7 @@ import {
 } from './privateDocumentPrimitives';
 
 export interface ResumeDocumentProps {
-	contact: PrivateDocumentContact;
+	contact: DocumentContact;
 }
 
 const ResumeCareerItem = ({ career }: { career: ResumeCareer }) => (

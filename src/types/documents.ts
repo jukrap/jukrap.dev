@@ -87,11 +87,15 @@ export interface PortfolioPageDefinition {
 	evidence: readonly DocumentEvidenceRef[];
 }
 
-export interface PrivateDocumentContact {
+export interface DocumentContact {
 	name: string;
 	email: string;
-	phone: string;
+	phone?: string;
 	links: readonly DocumentLink[];
+}
+
+export interface PrivateDocumentContact extends DocumentContact {
+	phone: string;
 }
 
 export interface ResumeCompetency {

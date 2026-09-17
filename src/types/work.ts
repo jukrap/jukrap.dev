@@ -7,7 +7,6 @@ export type WorkstreamId =
 	| 'WS06'
 	| 'WS07'
 	| 'WS08'
-	| 'WS09'
 	| 'WS10'
 	| 'WS11'
 	| 'WS12'

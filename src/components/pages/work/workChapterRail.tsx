@@ -122,7 +122,7 @@ export const WorkChapterRail = ({ stories, labels }: WorkChapterRailProps) => {
 			<nav
 				ref={railRef}
 				aria-label={labels.index}
-				className="sticky top-16 z-30 -mx-4 border-y border-border/45 bg-background sm:-mx-6 xl:hidden"
+				className="sticky top-16 md:top-[89px] z-30 -mx-4 border-y border-border/45 bg-background sm:-mx-6 xl:hidden"
 			>
 				<div className="relative h-14 px-4 sm:px-6">
 					<button

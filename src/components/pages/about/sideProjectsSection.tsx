@@ -57,7 +57,7 @@ const SideProjectsSection: React.FC = () => {
 
 	return (
 		<section className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
-			<h2 className="font-bold text-2xl md:text-4xl leading-relaxed tracking-tight text-foreground border-b border-border pb-2 w-full md:w-[170px] md:border-none md:pb-0 md:text-right">
+			<h2 className="about-section-title font-bold tracking-tight text-foreground">
 				{dictionary.about.sideProjects}
 			</h2>
 
@@ -65,19 +65,16 @@ const SideProjectsSection: React.FC = () => {
 				{projects
 					.filter((project) => project.major)
 					.map((project, index) => (
-						<div
-							key={index}
-							className="flex flex-col md:flex-row md:justify-between gap-3 md:gap-12 bg-secondary/30 md:bg-transparent p-4 md:p-0 rounded-lg"
-						>
+						<div key={index} className="about-entry">
 							{/* 프로젝트 제목 및 기간 */}
-							<div className="flex flex-col md:w-[170px] items-start md:items-end gap-0.5">
+							<div className="flex flex-col items-start gap-0.5">
 								<button
 									onClick={() => openProjectDetail(project.id)}
-									className="font-medium text-lg md:text-xl leading-6 text-left md:text-right text-foreground transition-colors duration-200 cursor-pointer break-keep hover:text-accent hover:underline decoration-accent/70 decoration-2 underline-offset-4"
+									className="font-medium text-lg md:text-xl leading-6 text-left text-foreground transition-colors duration-200 cursor-pointer break-keep hover:text-accent hover:underline decoration-accent/70 decoration-2 underline-offset-4"
 								>
 									{project.title}
 								</button>
-								<p className="font-medium text-sm leading-6 text-left md:text-right text-muted-foreground">
+								<p className="font-medium text-sm leading-6 text-left text-muted-foreground">
 									{project.duration}
 								</p>
 								<div className="flex items-center gap-3 mt-1">
@@ -111,7 +108,7 @@ const SideProjectsSection: React.FC = () => {
 							</div>
 
 							{/* 프로젝트 설명 */}
-							<div className="md:w-[460px] flex flex-col items-start gap-2 mt-2 md:mt-0">
+							<div className="min-w-0 flex flex-col items-start gap-2 mt-2 md:mt-0">
 								<p className="text-base md:text-lg font-bold leading-relaxed tracking-tight text-left text-foreground">
 									{project.introduction}
 								</p>

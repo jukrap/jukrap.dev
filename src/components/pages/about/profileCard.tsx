@@ -19,7 +19,7 @@ export const ProfileCard: React.FC<ProfileInteractionProps> = ({
 	} = useLocale();
 
 	return (
-		<div className="flex flex-col items-center gap-4 w-fit md:sticky md:top-24 pt-9 md:pt-0">
+		<div className="about-profile flex shrink-0 flex-col items-center gap-4 w-fit md:sticky md:top-28">
 			<ProfileImage
 				isFlipped={isFlipped}
 				onClick={onClick}

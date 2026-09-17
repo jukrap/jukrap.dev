@@ -14,7 +14,7 @@ export const projectsData: SimpleProject[] = [
 			'MCP 기반 읽기 도구와 operator check/search 흐름 구성',
 			'npm 패키지와 GitHub 저장소로 공개',
 		],
-		techStack: 'JavaScript・Node.js・MCP・AI Agent workflow・GitHub Actions',
+		techStack: 'JavaScript, Node.js, MCP, AI Agent workflow, GitHub Actions',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },
@@ -42,10 +42,10 @@ export const projectsData: SimpleProject[] = [
 			'구글 맵스 기반 지도 서비스 개발',
 			'실시간 역 혼잡도, 날씨, 맛집 정보, 추천 코스 등 제공',
 			'드래그 가능한 모달 UI/UX 구현',
-			'DIVE 2024 부산테크노파크원장상(3등) 수상',
+			'DIVE 2024 부산테크노파크원장상(발제사 3등) 수상',
 		],
 		techStack:
-			'TypeScript・React・Next.js・Tailwind CSS・Google Maps Platform・Storybook',
+			'TypeScript, React, Next.js, Tailwind CSS, Google Maps Platform, Storybook',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },
@@ -70,7 +70,7 @@ export const projectsData: SimpleProject[] = [
 			'테스트 및 오류 검출을 통한 개발',
 		],
 		techStack:
-			'TypeScript・React・Next.js・Tailwind CSS・Jotai・Jest・Storybook・Sentry・AWS・Jenkins・Docker',
+			'TypeScript, React, Next.js, Tailwind CSS, Jotai, Jest, Storybook, Sentry, AWS, Jenkins, Docker',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },
@@ -96,7 +96,7 @@ export const projectsData: SimpleProject[] = [
 			'Zustand와 Tailwind를 이용해 화이트 & 다크 모드 전환 기능을 구현',
 		],
 		techStack:
-			'TypeScript・React・Next.js・Tailwind CSS・Framer Motion・Zustand・Sharp',
+			'TypeScript, React, Next.js, Tailwind CSS, Framer Motion, Zustand, Sharp',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },

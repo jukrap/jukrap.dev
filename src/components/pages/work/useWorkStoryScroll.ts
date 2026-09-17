@@ -30,7 +30,11 @@ export const useWorkStoryScroll = (
 
 			if (sections.length === 0) return;
 
-			const marker = window.scrollY + WORK_READING_OFFSET + 1;
+			// Use the same responsive offset as anchor navigation.
+			const readingOffset =
+				Number.parseFloat(window.getComputedStyle(sections[0]).scrollMarginTop) ||
+				WORK_READING_OFFSET;
+			const marker = window.scrollY + readingOffset + 1;
 			const atDocumentEnd =
 				window.scrollY + window.innerHeight >=
 				document.documentElement.scrollHeight - 2;

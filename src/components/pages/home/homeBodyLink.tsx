@@ -1,52 +1,18 @@
-import React from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
-import { IconLink } from '@/types/common';
+import type { IconLink } from '@/types/common';
 
-const HomeBodyLink: React.FC<IconLink> = ({ text, url, icon, isExternal }) => {
+const HomeBodyLink = ({ text, url, isExternal, icon }: IconLink) => {
 	return (
 		<a
 			href={url}
-			target={isExternal ? '_blank' : '_self'}
-			rel={isExternal ? 'noopener noreferrer' : ''}
-			className="group surface-minimal interactive-soft flex items-center justify-between w-full md:w-auto gap-2 p-3 md:p-2 rounded-lg
-        no-select hover:bg-secondary/45 hover:border-accent/45 md:justify-center md:flex-row"
+			target={isExternal ? '_blank' : undefined}
+			rel={isExternal ? 'noopener noreferrer' : undefined}
+			className="home-social-link"
 		>
-			<div className="flex items-center gap-3">
-				<div
-					className="flex items-center justify-center w-10 h-10 md:w-8 md:h-8 rounded-full 
-          bg-secondary/45 transition-colors duration-200 group-hover:bg-secondary/70 group-hover:text-accent"
-				>
-					<Image
-						src={icon}
-						alt={text}
-						width={24}
-						height={24}
-						className="w-5 h-5 md:w-6 md:h-6 transition-opacity duration-200 group-hover:opacity-85"
-					/>
-				</div>
-				<span
-					className="font-medium text-base md:text-lg lg:text-xl text-foreground 
-          transition-colors duration-200 group-hover:text-accent"
-				>
-					{text}
-				</span>
-			</div>
-			<svg
-				width="20"
-				height="20"
-				viewBox="0 0 20 20"
-				fill="none"
-				className="text-muted-foreground group-hover:text-foreground transition-colors duration-200 md:hidden"
-				aria-hidden="true"
-			>
-				<path
-					d="M4.16666 10H15.8333M15.8333 10L10 4.16669M15.8333 10L10 15.8334"
-					stroke="currentColor"
-					strokeWidth="1.67"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				/>
-			</svg>
+			<Image src={icon} alt="" width={18} height={18} aria-hidden="true" />
+			{text}
+			{isExternal && <ArrowUpRight size={14} aria-hidden="true" />}
 		</a>
 	);
 };

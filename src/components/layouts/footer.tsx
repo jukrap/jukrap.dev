@@ -9,7 +9,7 @@ const FooterLink: React.FC<Link> = ({ text, url, isExternal }) => (
 		rel={isExternal ? 'noopener noreferrer' : undefined}
 		className="inline-flex items-center text-foreground transition-colors duration-200 hover:text-accent hover:underline decoration-accent/70 decoration-2 underline-offset-4"
 	>
-		<span className="font-medium text-sm md:text-base lg:text-lg">{text}</span>
+		<span className="font-medium text-sm">{text}</span>
 	</a>
 );
 
@@ -22,17 +22,13 @@ const Footer: React.FC = () => {
 	return (
 		<footer className="w-full pt-12 pb-6 md:pt-16 md:pb-8 px-4 md:px-6 bg-background">
 			<div className="max-w-7xl mx-auto flex flex-col items-center gap-4 md:gap-6 no-select">
-				<p className="text-sm md:text-base lg:text-lg text-center text-foreground">
-					Copyright © {currentYear} Ju-cheol Park · All Rights Reserved.
+				<p className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-center text-muted-foreground">
+					<span>Copyright © {currentYear} Ju-cheol Park</span>
+					<span>All Rights Reserved.</span>
 				</p>
-				<div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 px-4">
-					{footerLinks.map((link, index) => (
-						<React.Fragment key={link.url}>
-							<FooterLink {...link} />
-							{index < footerLinks.length - 1 && (
-								<span className="text-foreground/40 last:hidden">•</span>
-							)}
-						</React.Fragment>
+				<div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-4">
+					{footerLinks.map((link) => (
+						<FooterLink key={link.url} {...link} />
 					))}
 				</div>
 			</div>

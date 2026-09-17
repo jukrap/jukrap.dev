@@ -14,7 +14,7 @@ export default function NavigationLink({ href, children }: NavLinkProps) {
 
 	return (
 		<Link
-			className={cn('nav-link text-xl font-normal', active && 'nav-link-active')}
+			className={cn('nav-link font-medium', active && 'nav-link-active')}
 			href={href}
 			aria-current={active ? 'page' : undefined}
 		>

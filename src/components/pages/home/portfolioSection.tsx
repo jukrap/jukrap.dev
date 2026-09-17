@@ -1,14 +1,12 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 import { useLocale } from '@/contexts/localeContext';
 import { portfolioDocumentDefinition } from '@/data/documents/manifest';
-import { useIcon } from '@/hook/useIcon';
 
 export const PortfolioSection = () => {
-	const { getIcon } = useIcon();
 	const { dictionary } = useLocale();
 
 	return (
@@ -37,20 +35,7 @@ export const PortfolioSection = () => {
 							href={portfolioDocumentDefinition.slug}
 							className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-foreground px-4 py-2.5 text-center text-base font-bold leading-5 text-background transition-colors duration-200 interactive-soft hover:bg-accent select-none"
 						>
-							<div className="relative flex h-5 w-5 items-center justify-center">
-								<Image
-									src={getIcon('forward')}
-									alt=""
-									width={20}
-									height={20}
-									aria-hidden="true"
-									style={{
-										width: '100%',
-										height: '100%',
-										objectFit: 'contain',
-									}}
-								/>
-							</div>
+							<ChevronRight className="h-5 w-5 shrink-0" aria-hidden="true" />
 							<span>{dictionary.home.portfolioLinkLabel}</span>
 						</Link>
 					</article>

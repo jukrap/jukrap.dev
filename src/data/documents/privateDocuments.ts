@@ -31,8 +31,6 @@ const supportingDecisionByStory: Record<string, string> = {
 		'외부 인증 정보는 서버 프록시에만 두고 WebView에는 필요한 응답만 전달했습니다.',
 	'field-terminal-android':
 		'개발용 빌드와 운영 서명 빌드가 섞이지 않도록 설치 경로를 나눴습니다.',
-	'legacy-panel-baseline':
-		'화면을 떼어내기 전에 함께 쓰는 팝업, 선택자, API 요청 순서를 먼저 기록했습니다.',
 	'multi-role-hybrid-platform':
 		'회원 검색·수정·통합과 문의·첨부 기능을 개발했습니다.',
 	'operations-admin-web':
@@ -72,7 +70,6 @@ const supportingResultByStory: Record<string, string> = {
 	'react-admin-state-migration': 'React Query로 서버 상태 갱신',
 	'hybrid-security-boundary': '인증 정보는 서버에서 관리',
 	'field-terminal-android': '개발·운영 빌드 경로 분리',
-	'legacy-panel-baseline': '변경 전 영향 지점 지도화',
 	'multi-role-hybrid-platform':
 		'Android 앱의 파일 선택과 이미지 확대도 연결했습니다.',
 	'operations-admin-web': '알림 등록 실패 시에도 저장된 답변을 유지했습니다.',
@@ -227,7 +224,7 @@ export const resumeDocument = {
 			officialTitle: triphosCareerEvidence.officialTitle,
 			role: triphosCareerEvidence.role,
 			summary:
-				'정산 웹, 물류 라벨 출력 앱, AI 문서화 도구를 개발하고 기존 웹과 모바일 앱을 유지보수했습니다.',
+				'정산 ERP, 물류 라벨 출력 앱, AI 문서화 도구를 개발하고 기존 웹과 모바일 앱을 유지보수했습니다.',
 			highlights: [
 				'Excel 자료가 중복되거나 일부만 등록되지 않도록 처리하고, 담당 관계가 바뀌어도 기존 정산 금액은 유지하도록 했습니다.',
 				'회원 정보 통합과 문의 기능을 확장하고 웹과 Android 앱에서 사용할 수 있도록 했습니다.',
@@ -239,7 +236,7 @@ export const resumeDocument = {
 				{
 					source: 'profile',
 					id: triphosCareerEvidence.id,
-					visibility: 'private',
+					visibility: 'public',
 				},
 				...featuredStories.map(({ id }) => workStoryEvidence(id)),
 			],
@@ -253,7 +250,7 @@ export const resumeDocument = {
 				'공장 에너지 관리 시스템의 화면과 데이터 구조를 정리하고 에너지 데이터 수집을 보조했습니다.',
 			highlights: tisCareerEvidence.highlights,
 			evidence: [
-				{ source: 'profile', id: tisCareerEvidence.id, visibility: 'private' },
+				{ source: 'profile', id: tisCareerEvidence.id, visibility: 'public' },
 			],
 		},
 	],
@@ -359,7 +356,7 @@ export const careerBriefDocument = {
 		officialTitle: triphosCareerEvidence.officialTitle,
 		role: triphosCareerEvidence.role,
 		summary:
-			'정산 웹과 회원 관리, 문의 응대, 물류 라벨 출력, AI 문서화 도구를 개발했습니다. 기존 웹과 앱의 유지보수도 맡았습니다.',
+			'정산 ERP와 회원 관리, 문의 응대, 물류 라벨 출력, AI 문서화 도구를 개발했습니다. 기존 웹과 앱의 유지보수도 맡았습니다.',
 		responsibilities: [
 			'React 편집표·Excel 등록·정산 화면과 Spring Boot API 개발',
 			'회원·문의 API와 Android 파일 선택, Bluetooth 프린터 연동',
@@ -369,7 +366,7 @@ export const careerBriefDocument = {
 			{
 				source: 'profile',
 				id: triphosCareerEvidence.id,
-				visibility: 'private',
+				visibility: 'public',
 			},
 			...featuredStories.map(({ id }) => workStoryEvidence(id)),
 		],

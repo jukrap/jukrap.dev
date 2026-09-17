@@ -138,10 +138,6 @@ const compactWorkCopy: Partial<Record<string, { description?: string }>> = {
 		description:
 			'운영 서명과 로컬 개발 빌드 조건을 분리하고 Gradle·JDK·SDK 기준을 맞춰 개발 빌드를 복구했습니다. 로그인·초기 데이터·스캔 입력은 단계별로 확인해 실제 단말에서 볼 항목을 따로 남겼습니다.',
 	},
-	'legacy-panel-baseline': {
-		description:
-			'레거시 화면을 바로 나누기 전에 공유 popup·selector·page loader와 API 규약의 영향 지점을 지도화했습니다. 기존 동작을 기준으로 수동 확인 절차와 중단 조건을 정리했습니다.',
-	},
 	'mobile-operations-platform': {
 		description:
 			'기존 앱의 지도 화면과 오프라인 저장·재전송 기능을 유지보수했습니다. 실기기에서 앱 재실행 후 복원과 재전송을 확인했으며 중복 전송 원인은 조사 중입니다.',
@@ -229,7 +225,8 @@ export const portfolioDocument = [
 		eyebrow: '웹·모바일 개발자',
 		title: '박주철',
 		nickname: 'Jukrap',
-		summary: '정산 관리와 물류 운영에 쓰이는 웹·모바일 서비스를 개발합니다.',
+		summary:
+			'새로운 기능을 만들고, 기존 서비스의 문제를 찾아 개선하는 웹·모바일 개발자입니다.',
 		metadata: [
 			{ label: '직무', value: '웹·모바일 개발자' },
 			{ label: '주요 경험', value: '웹, 하이브리드 앱, Android 연동' },
@@ -255,7 +252,7 @@ export const portfolioDocument = [
 		eyebrow: '경력',
 		title: '트리포스에서 맡은 일',
 		summary:
-			'업무 정산 웹과 물류 출력·AI 문서화 도구를 개발했습니다. 기존 모바일 업무 앱의 지도·오프라인 기능과 레거시 웹·앱 유지보수도 맡았습니다.',
+			'정산 ERP와 물류 출력·AI 문서화 도구를 개발했습니다. 기존 모바일 업무 앱의 지도·오프라인 기능과 레거시 웹·앱 유지보수도 맡았습니다.',
 		metadata: [
 			{
 				label: '회사와 기간',
@@ -280,7 +277,7 @@ export const portfolioDocument = [
 							'편집표·Excel 등록 화면과 API를 개발했습니다. 중복 저장을 막고 담당 관계 변경 뒤에도 기존 정산 금액을 유지하도록 했습니다.',
 					},
 					{
-						title: '회원·문의 하이브리드',
+						title: '회원·문의 관리 솔루션',
 						description:
 							'기존 회원 정보를 보존하며 중복 회원을 통합하고 웹·앱의 문의 기능을 확장했습니다.',
 					},

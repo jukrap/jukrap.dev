@@ -88,12 +88,6 @@ export const workStoryDefinitions = [
 		caseIds: ['field-terminal-android'],
 		includeInAbout: false,
 	},
-	{
-		id: 'legacy-panel-baseline',
-		tier: 'compact',
-		caseIds: ['legacy-panel-baseline'],
-		includeInAbout: false,
-	},
 ] as const satisfies readonly WorkStoryDefinition[];
 
 type WorkStoryId = (typeof workStoryDefinitions)[number]['id'];
@@ -102,7 +96,7 @@ type WorkStoryCopies = Record<WorkStoryId, WorkStoryCopy>;
 const storyCopies: Localized<WorkStoryCopies> = {
 	ko: {
 		'delivery-output-flow': {
-			title: '물류 운영·출력 흐름',
+			title: '물류 운영 웹·출력 앱',
 			platform: 'Web / Mobile',
 			area: '업무 운영 / WebView·Android 출력',
 			period: '2026.04 ~ 2026.06',
@@ -268,10 +262,6 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			summary:
 				'Gradle·JDK·SDK 설정을 맞춰 현장 단말 앱을 다시 빌드할 수 있도록 했습니다. 운영 서명이 없는 개발 환경에서도 설치·실행할 수 있게 빌드 경로를 나눴습니다.',
 		},
-		'legacy-panel-baseline': {
-			summary:
-				'레거시 화면을 분리하기 전에 공용 팝업, DOM 선택자, 목록 상태와 API 호출 순서를 조사했습니다. 변경 시 함께 확인해야 할 화면과 수동 점검 절차를 정리한 분석 작업입니다.',
-		},
 		'settlement-operations-platform': {
 			impact: workCases.ko
 				.find(({ id }) => id === 'settlement-operations-platform')!
@@ -313,7 +303,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 	},
 	en: {
 		'delivery-output-flow': {
-			title: 'Logistics Operations and Output Flow',
+			title: 'Logistics Operations Web and Printing App',
 			platform: 'Web / Mobile',
 			area: 'Operations / WebView and Android output',
 			period: '2026.04 ~ 2026.06',
@@ -484,10 +474,6 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			summary:
 				'Aligned Gradle, JDK and SDK settings to restore the field-device app build. Separated development builds so they could be installed without production signing credentials.',
 		},
-		'legacy-panel-baseline': {
-			summary:
-				'Investigated shared dialogs, DOM selectors, list state and API call order before separating legacy screens. Documented affected screens and manual checks; this work was analysis.',
-		},
 		'settlement-operations-platform': {
 			impact: workCases.en
 				.find(({ id }) => id === 'settlement-operations-platform')!
@@ -540,7 +526,6 @@ const expectedWorkstreams: readonly WorkstreamId[] = [
 	'WS06',
 	'WS07',
 	'WS08',
-	'WS09',
 	'WS10',
 	'WS11',
 	'WS12',
@@ -562,8 +547,8 @@ function assertUnique(values: readonly string[], label: string) {
 }
 
 function validateWorkData() {
-	if (workStoryDefinitions.length !== 14) {
-		throw new Error('Work story manifest must contain exactly fourteen stories.');
+	if (workStoryDefinitions.length !== 13) {
+		throw new Error('Work story manifest must contain exactly thirteen stories.');
 	}
 
 	assertUnique(
@@ -583,7 +568,7 @@ function validateWorkData() {
 
 		if (records.length !== expectedWorkstreams.length) {
 			throw new Error(
-				`${locale} work records must contain exactly fifteen cases.`,
+				`${locale} work records must contain exactly fourteen cases.`,
 			);
 		}
 

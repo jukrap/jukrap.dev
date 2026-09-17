@@ -44,6 +44,12 @@ export interface LocaleDictionary {
 		portfolioTitle: string;
 		portfolioDescription: string;
 		portfolioLinkLabel: string;
+		resumeTitle: string;
+		resumeDescription: string;
+		resumeLinkLabel: string;
+		careerBriefTitle: string;
+		careerBriefDescription: string;
+		careerBriefLinkLabel: string;
 	};
 	about: {
 		title: string;

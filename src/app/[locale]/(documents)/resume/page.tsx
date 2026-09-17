@@ -3,10 +3,7 @@ import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { ResumeDocument } from '@/components/documents/private';
 import { resumeDocumentDefinition } from '@/data/documents/manifest';
-import {
-	getPrivateDocumentContact,
-	isPrivateDocumentRequestHost,
-} from '@/lib/privateDocuments';
+import { getRecruitingDocumentContact } from '@/lib/privateDocuments';
 
 interface ResumePageProps {
 	params: Promise<{ locale: string }>;
@@ -31,15 +28,11 @@ export const metadata: Metadata = {
 
 export default async function ResumePage({ params }: ResumePageProps) {
 	const { locale } = await params;
-	const requestHeaders = await headers();
-	const contact =
-		locale === 'ko' && isPrivateDocumentRequestHost(requestHeaders.get('host'))
-			? getPrivateDocumentContact()
-			: null;
-
-	if (!contact) {
+	if (locale !== 'ko') {
 		notFound();
 	}
+	const requestHeaders = await headers();
+	const contact = getRecruitingDocumentContact(requestHeaders.get('host'));
 
 	return <ResumeDocument contact={contact} />;
 }

@@ -1,6 +1,10 @@
 import 'server-only';
 
-import type { PrivateDocumentContact } from '@/types/documents';
+import type {
+	DocumentContact,
+	PrivateDocumentContact,
+} from '@/types/documents';
+import { publicDocumentContact } from '@/data/documents/publicContact';
 
 const isProductionRuntime =
 	process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL);
@@ -51,4 +55,13 @@ export function getPrivateDocumentContact(): PrivateDocumentContact | null {
 			{ label: 'github.com/jukrap', href: 'https://github.com/jukrap' },
 		],
 	};
+}
+
+export function getRecruitingDocumentContact(
+	host: string | null,
+): DocumentContact {
+	if (isPrivateDocumentRequestHost(host)) {
+		return getPrivateDocumentContact() ?? publicDocumentContact;
+	}
+	return publicDocumentContact;
 }

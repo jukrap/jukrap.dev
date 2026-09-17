@@ -33,18 +33,18 @@ const EXPECTED_DOCUMENTS = [
 	{
 		id: 'resume',
 		slug: '/ko/resume',
-		visibility: 'private',
+		visibility: 'public',
 		pageCount: 2,
 		indexable: false,
-		showOnHome: false,
+		showOnHome: true,
 	},
 	{
 		id: 'career-brief',
 		slug: '/ko/career-brief',
-		visibility: 'private',
+		visibility: 'public',
 		pageCount: 2,
 		indexable: false,
-		showOnHome: false,
+		showOnHome: true,
 	},
 ] as const satisfies readonly Pick<
 	RecruitingDocumentDefinition,
@@ -594,11 +594,13 @@ export function validateRecruitingDocumentData({
 		'Portfolio project evidence',
 	);
 
-	const publicStrings = collectStrings(portfolio);
+	const publicStrings = collectStrings([portfolio, resume, careerBrief]);
 	const phonePattern =
 		/(?:\+?82[\s.-]*(?:\(0\)[\s.-]*)?10|010)[\s.-]*\d{3,4}[\s.-]*\d{4}\b/;
 	if (publicStrings.some((value) => phonePattern.test(value))) {
-		throw new Error('Public portfolio must not contain a private phone number.');
+		throw new Error(
+			'Public recruiting documents must not contain a private phone number.',
+		);
 	}
 
 	const publicEmails = publicStrings.flatMap(
@@ -610,12 +612,16 @@ export function validateRecruitingDocumentData({
 	if (
 		publicEmails.some((email) => !allowedPublicEmails.has(email.toLowerCase()))
 	) {
-		throw new Error('Public portfolio contains an unexpected email address.');
+		throw new Error(
+			'Public recruiting documents contain an unexpected email address.',
+		);
 	}
 	const birthPattern =
 		/(?:출생|생년|birth\s*(?:year|date)|(?:19|20)\d{2}\s*년\s*생(?:입니다|임)?(?:$|[\s,./()]))/i;
 	if (publicStrings.some((value) => birthPattern.test(value))) {
-		throw new Error('Public portfolio must not contain birth information.');
+		throw new Error(
+			'Public recruiting documents must not contain birth information.',
+		);
 	}
 
 	const resumeEvidence = [
@@ -630,7 +636,15 @@ export function validateRecruitingDocumentData({
 		...careerBrief.featuredWork.flatMap(({ evidenceRefs }) => evidenceRefs),
 		...careerBrief.supportingWork.map(({ evidenceRef }) => evidenceRef),
 	];
-	[...resumeEvidence, ...careerBriefEvidence].forEach(resolveEvidenceVisibility);
+	if (
+		[...resumeEvidence, ...careerBriefEvidence].some(
+			(ref) => resolveEvidenceVisibility(ref) === 'private',
+		)
+	) {
+		throw new Error(
+			'Public recruiting documents cannot reference private evidence.',
+		);
+	}
 
 	if (
 		resume.careers.some(({ evidence: refs }) => refs.length === 0) ||

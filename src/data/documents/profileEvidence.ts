@@ -53,9 +53,9 @@ export const universityEducationEvidence = {
 
 export const publicProfileEvidenceRecords = [
 	universityEducationEvidence,
-] as const;
-
-export const privateProfileEvidenceRecords = [
 	triphosCareerEvidence,
 	tisCareerEvidence,
 ] as const;
+
+export const privateProfileEvidenceRecords: readonly CareerProfileEvidence[] =
+	[];

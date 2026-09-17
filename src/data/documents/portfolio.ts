@@ -140,7 +140,7 @@ const compactWorkCopy: Partial<Record<string, { description?: string }>> = {
 	},
 	'mobile-operations-platform': {
 		description:
-			'기존 앱의 지도 화면과 오프라인 저장·재전송 기능을 유지보수했습니다. 실기기에서 앱 재실행 후 복원과 재전송을 확인했으며 중복 전송 원인은 조사 중입니다.',
+			'지도 화면과 오프라인 저장·재전송 기능을 유지보수했습니다. 실기기에서 앱 재실행 후 요청 복원과 재전송을 확인했습니다.',
 	},
 	'multi-role-hybrid-platform': {
 		description:
@@ -148,7 +148,7 @@ const compactWorkCopy: Partial<Record<string, { description?: string }>> = {
 	},
 	'operations-admin-web': {
 		description:
-			'암호화된 정보의 검색 누락과 건수 불일치를 수정했습니다. 답변 저장에 실패하면 새 파일을 삭제하고, 알림 등록에 실패해도 답변은 유지하도록 했습니다. 인증 만료 처리는 과제로 남았습니다.',
+			'암호화된 정보의 검색 누락과 건수 불일치를 수정했습니다. 답변 저장에 실패하면 새 파일을 삭제하고, 알림 등록에 실패해도 답변은 유지하도록 했습니다.',
 	},
 	'legacy-support-web': {
 		description:
@@ -156,7 +156,7 @@ const compactWorkCopy: Partial<Record<string, { description?: string }>> = {
 	},
 	'structured-editor-ui': {
 		description:
-			'Chart.js 미리보기와 차트별 설정 화면을 개발했습니다. 데이터 필드나 옵션을 바꾸면 미리보기에 반영되도록 하고 불필요한 재생성을 줄였습니다.',
+			'차트 설정·데이터 편집 화면과 미리보기를 개발하고, 불필요한 차트 재생성을 줄였습니다.',
 	},
 	'hybrid-life-info-platform': {
 		description:

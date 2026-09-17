@@ -38,7 +38,13 @@ export interface LocaleDictionary {
 		close: string;
 	};
 	home: {
-		welcome: string;
+		heroTitle: string[];
+		heroDescription: string;
+		workLinkLabel: string;
+		documentsLinkLabel: string;
+		socialLinksLabel: string;
+		pauseVideo: string;
+		playVideo: string;
 		documentsTitle: string;
 		documentsDescription: string;
 		portfolioTitle: string;

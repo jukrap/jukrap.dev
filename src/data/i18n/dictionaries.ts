@@ -40,7 +40,14 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			close: '알림 닫기',
 		},
 		home: {
-			welcome: 'Jukrap의 개인 사이트에 오신 것을 환영합니다.',
+			heroTitle: ['웹과 모바일을', '만듭니다.'],
+			heroDescription:
+				'새로운 기능을 만들고, 기존 서비스의 문제를 찾아 개선하는 웹&모바일 개발자입니다.',
+			workLinkLabel: '맡았던 일 보기',
+			documentsLinkLabel: '포트폴리오와 경력 문서',
+			socialLinksLabel: '연락처와 외부 링크',
+			pauseVideo: '영상 일시정지',
+			playVideo: '영상 재생',
 			documentsTitle: '포트폴리오와 경력 문서를 확인해 보세요.',
 			documentsDescription:
 				'참여한 프로젝트와 경력, 맡았던 일을 문서별로 정리했습니다.',
@@ -181,7 +188,14 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			close: 'Close alert',
 		},
 		home: {
-			welcome: "Welcome to Jukrap's personal website.",
+			heroTitle: ['Building for', 'web and mobile.'],
+			heroDescription:
+				'I build new features and find and fix problems in existing web and mobile services.',
+			workLinkLabel: 'Explore my work',
+			documentsLinkLabel: 'Portfolio & career documents',
+			socialLinksLabel: 'Contact and external links',
+			pauseVideo: 'Pause video',
+			playVideo: 'Play video',
 			documentsTitle: 'Explore my portfolio and career documents.',
 			documentsDescription:
 				'Projects, experience and contributions, presented in three Korean documents.',

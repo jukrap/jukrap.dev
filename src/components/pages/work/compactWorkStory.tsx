@@ -55,7 +55,7 @@ export const CompactWorkStory = ({
 		<article
 			id={story.id}
 			tabIndex={-1}
-			className="scroll-mt-32 grid gap-4 border-t border-border/60 py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-5 sm:py-12"
+			className="scroll-mt-32 md:scroll-mt-40 xl:scroll-mt-32 grid gap-4 border-t border-border/60 py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-5 sm:py-12"
 		>
 			<p className="text-sm font-bold text-accent tabular-nums">
 				{String(index).padStart(2, '0')}

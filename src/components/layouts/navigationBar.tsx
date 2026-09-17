@@ -1,7 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Languages, Menu, Moon, Sun, X } from 'lucide-react';
@@ -32,31 +31,17 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
 		onClick={onToggle}
 		aria-label={label}
 		aria-pressed={isDarkMode}
-		className={[
-			'group inline-flex items-center justify-center gap-3 rounded-full',
-			'surface-minimal interactive-soft text-foreground',
-			'hover:bg-secondary/45 hover:border-accent/45 active:bg-secondary/70',
-			'focus:outline-none focus:ring-2 focus:ring-accent/35',
-			text ? 'w-full px-4 py-3' : 'h-10 w-10',
-		].join(' ')}
+		className={['site-nav-tool', text ? 'w-full justify-start px-3' : ''].join(
+			' ',
+		)}
 	>
-		<span className="relative flex h-5 w-5 items-center justify-center overflow-hidden">
-			<AnimatePresence mode="wait" initial={false}>
-				<motion.span
-					key={isDarkMode ? 'moon' : 'sun'}
-					initial={{ opacity: 0, y: 5 }}
-					animate={{ opacity: 1, y: 0 }}
-					exit={{ opacity: 0, y: -5 }}
-					transition={{ duration: 0.18, ease: 'easeOut' }}
-					className="absolute flex h-5 w-5 items-center justify-center"
-				>
-					{isDarkMode ? (
-						<Moon className="h-4 w-4" aria-hidden="true" />
-					) : (
-						<Sun className="h-4 w-4" aria-hidden="true" />
-					)}
-				</motion.span>
-			</AnimatePresence>
+		<span className="site-theme-icons" aria-hidden="true">
+			<Moon
+				className={`site-theme-icon${isDarkMode ? ' site-theme-icon-visible' : ''}`}
+			/>
+			<Sun
+				className={`site-theme-icon${!isDarkMode ? ' site-theme-icon-visible' : ''}`}
+			/>
 		</span>
 		{text && <span className="text-sm font-semibold">{text}</span>}
 	</button>
@@ -67,6 +52,7 @@ export function NavigationBar() {
 	const { locale, dictionary } = useLocale();
 	const pathname = usePathname() ?? getLocalizedPath('/', locale);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const menuButtonRef = useRef<HTMLButtonElement>(null);
 	const [currentHash, setCurrentHash] = useState('');
 	const titleText = 'Jukrap';
 	const nextLocale: Locale = locale === 'ko' ? 'en' : 'ko';
@@ -91,43 +77,39 @@ export function NavigationBar() {
 		if (!isMenuOpen) return;
 		const previousOverflow = document.body.style.overflow;
 		document.body.style.overflow = 'hidden';
+		const handleEscape = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') {
+				setIsMenuOpen(false);
+				menuButtonRef.current?.focus();
+			}
+		};
+		window.addEventListener('keydown', handleEscape);
 
 		return () => {
 			document.body.style.overflow = previousOverflow;
+			window.removeEventListener('keydown', handleEscape);
 		};
 	}, [isMenuOpen]);
 
 	const closeMenu = () => setIsMenuOpen(false);
 
 	return (
-		<header className="sticky top-0 w-full z-50">
+		<header className="site-header sticky top-0 w-full z-50">
 			<nav className="bg-background border-b border-border/25 transition-colors duration-300">
-				<div className="max-w-7xl mx-auto px-5 sm:px-7 lg:px-9">
-					<div className="flex justify-between items-center h-16">
+				<div className="site-nav-container">
+					<div className="site-nav-row">
 						<Link
 							href={getLocalizedPath('/', locale)}
-							className="shrink-0"
+							className="site-brand shrink-0"
 							aria-label={titleText}
 						>
-							<span
-								className="brand-link text-xl font-bold text-primary"
-								aria-hidden="true"
-							>
-								{titleText.split('').map((letter, index) => (
-									<span
-										key={`${letter}-${index}`}
-										className="brand-letter"
-										style={{ transitionDelay: `${index * 28}ms` }}
-										aria-hidden="true"
-									>
-										{letter}
-									</span>
-								))}
+							<span className="brand-link font-bold text-primary" aria-hidden="true">
+								{titleText}
 							</span>
 						</Link>
 
 						{/* Desktop Navigation */}
-						<ul className="hidden md:flex space-x-4">
+						<ul className="site-nav-links hidden md:flex">
 							{dictionary.navigation.links.map((link) => (
 								<li key={link.href}>
 									<NavigationLink href={getLocalizedPath(link.href, locale)}>
@@ -138,14 +120,15 @@ export function NavigationBar() {
 						</ul>
 
 						{/* Desktop Theme Toggle */}
-						<div className="hidden md:flex items-center gap-3">
+						<div className="site-nav-tools hidden md:flex">
 							<Link
 								href={languageHref}
-								className="surface-minimal interactive-soft inline-flex h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold text-foreground hover:bg-secondary/45 hover:border-accent/45 hover:text-accent active:bg-secondary/70"
+								className="site-nav-tool site-locale-toggle"
 								aria-label={dictionary.navigation.switchLanguage}
 							>
-								<Languages className="h-4 w-4" aria-hidden="true" />
-								{dictionary.navigation.languageName}
+								<span className={locale === 'ko' ? 'site-locale-current' : ''}>KO</span>
+								<span aria-hidden="true">/</span>
+								<span className={locale === 'en' ? 'site-locale-current' : ''}>EN</span>
 							</Link>
 							<ThemeToggle
 								isDarkMode={isDarkMode}
@@ -157,11 +140,13 @@ export function NavigationBar() {
 						{/* Mobile Menu Button */}
 						<button
 							type="button"
+							ref={menuButtonRef}
+							aria-controls="site-mobile-menu"
 							onClick={(event) => {
 								event.stopPropagation();
 								setIsMenuOpen((current) => !current);
 							}}
-							className="relative z-50 p-2 rounded-md text-foreground transition-colors duration-200 hover:bg-muted hover:text-accent md:hidden"
+							className="site-nav-tool site-menu-toggle relative z-50 md:hidden"
 							aria-label={
 								isMenuOpen
 									? dictionary.navigation.closeMenu
@@ -187,15 +172,16 @@ export function NavigationBar() {
 
 				{/* Mobile Navigation Overlay */}
 				<div
+					id="site-mobile-menu"
+					inert={!isMenuOpen}
+					aria-hidden={!isMenuOpen}
 					className={`fixed inset-0 top-16 bg-background/90 transition-opacity duration-200 md:hidden ${
 						isMenuOpen ? 'opacity-100 z-40' : 'opacity-0 pointer-events-none'
 					}`}
 					onClick={closeMenu}
 				>
 					<div
-						className={`absolute inset-x-3 top-3 surface-minimal-strong rounded-lg transition-transform duration-200 ease-out ${
-							isMenuOpen ? 'translate-y-0' : '-translate-y-full'
-						}`}
+						className="site-mobile-panel absolute inset-x-3 top-3 rounded-lg"
 						onClick={(e) => e.stopPropagation()}
 					>
 						<div
@@ -227,10 +213,7 @@ export function NavigationBar() {
 							})}
 							<Link
 								href={languageHref}
-								className={[
-									'flex items-center justify-center px-4 py-3 rounded-lg',
-									'surface-minimal interactive-soft text-foreground transition-colors duration-200 hover:bg-secondary/45 hover:border-accent/45 hover:text-accent',
-								].join(' ')}
+								className="site-nav-tool justify-start px-3"
 								onClick={closeMenu}
 								aria-label={dictionary.navigation.switchLanguage}
 							>

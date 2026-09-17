@@ -335,7 +335,7 @@ export const resumeDocument = {
 		{
 			title: 'DIVE 2024 글로벌 데이터 해커톤',
 			period: '2024.10',
-			detail: '부산테크노파크원장상(3등)',
+			detail: '부산테크노파크원장상(발제사 3등)',
 			evidence: [{ source: 'award', id: 'DIVE 2024 해커톤' }],
 		},
 		{

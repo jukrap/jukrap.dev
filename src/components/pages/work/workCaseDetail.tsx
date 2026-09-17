@@ -69,7 +69,7 @@ const ChapterBoundaries = ({ chapters }: { chapters: WorkStoryChapter[] }) => (
 				key={chapter.id}
 				id={chapter.id}
 				tabIndex={-1}
-				className="scroll-mt-32 grid gap-2 border-l border-border/60 pl-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-6"
+				className="scroll-mt-32 md:scroll-mt-40 xl:scroll-mt-32 grid gap-2 border-l border-border/60 pl-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-6"
 			>
 				<div className="text-xs font-semibold leading-5 text-muted-foreground">
 					<p className="text-foreground">{chapter.platform}</p>
@@ -241,7 +241,7 @@ export const WorkCaseDetail = ({
 		<article
 			id={story.id}
 			tabIndex={-1}
-			className="scroll-mt-32 border-t-2 border-foreground/70 py-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:py-14"
+			className="scroll-mt-32 md:scroll-mt-40 xl:scroll-mt-32 border-t-2 border-foreground/70 py-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:py-14"
 		>
 			<header>
 				<div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-semibold text-muted-foreground">

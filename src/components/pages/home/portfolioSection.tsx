@@ -35,13 +35,18 @@ export const PortfolioSection = () => {
 	};
 
 	return (
-		<section className="flex w-full justify-center px-4">
-			<div className="flex w-full max-w-[1100px] flex-col gap-5">
-				<div className="mx-auto flex max-w-[620px] flex-col items-center gap-2 text-center break-keep">
-					<h2 className="text-xl font-bold leading-relaxed text-foreground md:text-2xl">
+		<section
+			id="documents"
+			className="home-documents"
+			aria-labelledby="home-documents-title"
+		>
+			<div className="flex w-full flex-col gap-7">
+				<div className="break-keep">
+					<p className="home-section-label">DOCUMENTS</p>
+					<h2 id="home-documents-title" className="home-documents-title">
 						{dictionary.home.documentsTitle}
 					</h2>
-					<p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+					<p className="mt-3 text-base leading-relaxed text-muted-foreground">
 						{dictionary.home.documentsDescription}
 					</p>
 				</div>
@@ -56,7 +61,7 @@ export const PortfolioSection = () => {
 							return (
 								<article
 									key={document.id}
-									className="surface-minimal interactive-soft flex min-h-[188px] min-w-0 flex-col justify-between gap-5 rounded-lg p-5"
+									className="home-document-card flex min-h-[218px] min-w-0 flex-col justify-between gap-6 rounded-lg p-6"
 								>
 									<div className="space-y-2">
 										<h3 className="flex items-center gap-2 text-lg font-bold leading-6 text-foreground">
@@ -69,7 +74,7 @@ export const PortfolioSection = () => {
 									</div>
 									<Link
 										href={document.slug}
-										className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-foreground px-4 py-2.5 text-center text-base font-bold leading-5 text-background transition-colors duration-200 interactive-soft hover:bg-accent select-none"
+										className="home-document-link inline-flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 text-center text-base font-semibold leading-5"
 									>
 										<ChevronRight className="h-5 w-5 shrink-0" aria-hidden="true" />
 										<span>{copy[document.id].linkLabel}</span>

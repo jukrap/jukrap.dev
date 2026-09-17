@@ -38,7 +38,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'Google Maps-based map service development',
 			'Real-time station congestion, weather, restaurants, and route recommendations',
 			'Draggable modal UI/UX implementation',
-			'Won the Busan Technopark President Award (3rd place) at DIVE 2024',
+			'Won the Busan Technopark President Award (3rd place in the challenge track) at DIVE 2024',
 		],
 	},
 	itzip: {
@@ -199,7 +199,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Awarded at the DIVE 2024 Global Data Hackathon',
 				details: [
-					'Won the Busan Technopark President Award (3rd place) at the DIVE 2024 Global Data Hackathon hosted by Busan Metropolitan City and organized by Busan Technopark.',
+					'Won the Busan Technopark President Award (3rd place in the challenge track) at the DIVE 2024 Global Data Hackathon hosted by Busan Metropolitan City and organized by Busan Technopark.',
 					'Built Captain Donghae, a guide service for Donghae Line passengers using Korea Railroad Corporation data.',
 					'Participated as the only frontend developer in a three-person team and implemented frontend development plus backend API integration based on Swagger documentation within 72 hours.',
 					'Owned frontend development across Google Maps Platform integration, interactive UI, and real-time data integration.',
@@ -842,7 +842,7 @@ const awardsEn = [
 				projectId: 'captain-donghae',
 			},
 			{
-				text: '3rd place',
+				text: '3rd place in the challenge track',
 				link: '/images/captain-donghae/award.png',
 			},
 		],

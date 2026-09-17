@@ -9,17 +9,13 @@ export const CoreValuesList = () => {
 	} = useLocale();
 
 	return (
-		<div className="space-y-6 md:space-y-6">
+		<div className="about-core-values">
 			{coreValues.map((item, index) => (
-				<div
-					key={index}
-					className="bg-secondary/30 p-4 rounded-lg md:bg-transparent md:p-0"
-				>
-					<p className="text-base leading-8 tracking-tight text-foreground">
-						<span className="font-bold block mb-2 md:mb-0 break-keep">
-							{item.title}
-						</span>
-						<span className="inline-block w-1.5 h-1.5 bg-foreground rounded-full ml-0.5 mr-2 mb-1" />
+				<div key={index} className="about-core-value">
+					<p className="font-semibold text-lg leading-relaxed break-keep">
+						{item.title}
+					</p>
+					<p className="text-base leading-8 text-foreground/80 break-keep">
 						{item.content}
 					</p>
 				</div>

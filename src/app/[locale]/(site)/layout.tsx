@@ -1,4 +1,5 @@
 import LayoutWrapper from '@/components/layouts/layoutWrapper';
+import '../../site.css';
 
 export default function SiteLayout({
 	children,

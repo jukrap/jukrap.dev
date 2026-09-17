@@ -82,11 +82,6 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'TypeScript',
 				'React Native',
 				'Expo',
-				'React Router',
-				'TanStack Query',
-				'TanStack Virtual',
-				'Zustand',
-				'Android',
 				'Spring Boot',
 				'SQLite',
 			],
@@ -211,15 +206,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			period: '2026.06 ~ 2026.07',
 			role: '유지보수/운영 반영',
 			workType: '유지보수',
-			stack: [
-				'Spring MVC',
-				'JSP',
-				'jQuery',
-				'Java',
-				'Android',
-				'Public API adapter',
-				'SHA-256',
-			],
+			stack: ['Spring MVC', 'JSP', 'jQuery', 'Java', 'Android'],
 			headline:
 				'레거시 웹과 Android WebView의 외부 API, 캐시, 위치 처리와 운영 배포를 유지보수했습니다.',
 			summary:
@@ -687,15 +674,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			period: '2026.09',
 			role: '관리 기능 구현 / 실행 안정화',
 			workType: '기능 확장 / 유지보수',
-			stack: [
-				'Java',
-				'Spring MVC',
-				'MyBatis',
-				'Vue 2',
-				'jQuery',
-				'MariaDB',
-				'PowerShell',
-			],
+			stack: ['Java', 'Spring MVC', 'MyBatis', 'Vue 2', 'jQuery', 'MariaDB'],
 			headline:
 				'암호화된 회원 정보 검색과 문의 답변·첨부파일·알림 처리를 개발했습니다.',
 			summary:
@@ -868,11 +847,6 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'TypeScript',
 				'React Native',
 				'Expo',
-				'React Router',
-				'TanStack Query',
-				'TanStack Virtual',
-				'Zustand',
-				'Android',
 				'Spring Boot',
 				'SQLite',
 			],
@@ -999,15 +973,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			period: '2026.06 ~ 2026.07',
 			role: 'Maintenance and production rollout',
 			workType: 'Maintenance',
-			stack: [
-				'Spring MVC',
-				'JSP',
-				'jQuery',
-				'Java',
-				'Android',
-				'Public API adapter',
-				'SHA-256',
-			],
+			stack: ['Spring MVC', 'JSP', 'jQuery', 'Java', 'Android'],
 			headline:
 				'Maintained external API, cache, location, and production rollout flows across legacy web and Android WebView.',
 			summary:
@@ -1477,15 +1443,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			period: '2026.09',
 			role: 'Administration features / Runtime stabilization',
 			workType: 'Feature development / Maintenance',
-			stack: [
-				'Java',
-				'Spring MVC',
-				'MyBatis',
-				'Vue 2',
-				'jQuery',
-				'MariaDB',
-				'PowerShell',
-			],
+			stack: ['Java', 'Spring MVC', 'MyBatis', 'Vue 2', 'jQuery', 'MariaDB'],
 			headline:
 				'Built encrypted member search and inquiry replies with attachments and notifications.',
 			summary:

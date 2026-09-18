@@ -70,7 +70,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS11',
 			id: 'mobile-operations-platform',
-			title: '모바일 업무 플랫폼',
+			title: '택배 업무 앱',
 			platform: 'Web / Android',
 			area: '지도·업무 UI / 오프라인 복원',
 			period: '2026.08',
@@ -85,7 +85,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'SQLite',
 			],
 			headline:
-				'기존 모바일 업무 앱의 지도 화면과 오프라인 저장·재전송 기능을 유지보수했습니다.',
+				'택배 업무 앱의 지도 화면과 오프라인 저장·재전송 기능을 유지보수했습니다.',
 			summary:
 				'React 업무 화면과 React Native 앱, Spring Boot API를 수정했습니다. 지도 선택과 복귀 동작을 고치고, 전송 대기 중인 요청을 앱 재실행 후에도 복원하도록 했습니다.',
 			problem:
@@ -124,7 +124,6 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			checks: [
 				'Android 실기기에서 통신 차단 중 저장, 앱 재실행 후 복원과 연결 복구 뒤 서버 반영을 확인했습니다.',
-				'중복 전송은 원인 조사 단계입니다.',
 			],
 		},
 		{
@@ -189,17 +188,17 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS10',
 			id: 'hybrid-life-info-platform',
-			title: '생활정보 하이브리드 서비스',
+			title: '생활정보 앱',
 			platform: 'Hybrid',
-			area: '레거시 웹 / Android WebView / 운영',
+			area: '공공 데이터 API / 날씨·생활정보 / Android WebView',
 			period: '2026.06 ~ 2026.07',
-			role: '유지보수/운영 반영',
-			workType: '유지보수',
+			role: '기능 확장 / 운영 반영',
+			workType: '기능 확장',
 			stack: ['Spring MVC', 'JSP', 'jQuery', 'Java', 'Android'],
 			headline:
-				'외부 API가 늦어도 핵심 정보를 먼저 보여 주도록 로딩 순서와 캐시를 개선했습니다.',
+				'여러 공공 데이터 API를 연동해 날씨·생활정보 기능을 확장하고, 반복 호출을 줄이기 위해 서버 캐시를 적용했습니다.',
 			summary:
-				'기존 웹과 Android WebView를 유지보수하며 화면 로딩, 외부 API 연동, 서버 캐시와 위치 조회를 함께 개선했습니다. 핵심 정보와 보조 정보 요청을 나누고, 외부 조회가 실패하면 허용한 범위에서 이전 값을 표시하도록 했습니다.',
+				'공공 데이터 API를 연동해 날씨·대기질·기상특보를 조회하는 기능을 확장했습니다. 현재 날씨와 핵심 예보를 먼저 표시하고 부가 정보는 나중에 불러오도록 나눴으며, 서버 캐시와 동시 요청 통합으로 반복 호출을 줄였습니다.',
 			impact: [
 				{
 					value: '핵심 정보 우선 표시',
@@ -213,20 +212,23 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				},
 			],
 			problem:
-				'여러 외부 API와 기준 데이터 조회가 한 요청 안에 묶이면 일부 지연이 전체 화면 지연으로 번질 수 있었습니다. 운영 반영도 파일 단위로 이뤄져 누락과 설정 노출 위험을 함께 관리해야 했습니다.',
+				'날씨 정보를 제공하려면 여러 공공 데이터 API에 나뉜 데이터를 모아야 했습니다. 화면을 조회할 때마다 같은 데이터를 반복 요청하면 호출이 과도해질 수 있었고, 일부 API의 지연이 전체 화면 표시를 늦출 수 있었습니다.',
 			thinking: [
+				'여러 공공 데이터 API의 응답을 서버에 캐시해 같은 데이터를 반복해서 요청하지 않도록 했습니다.',
 				'먼저 보여야 하는 핵심 정보와 늦게 채워져도 되는 보조 정보를 분리했습니다.',
 				'유효한 캐시와 만료된 캐시를 구분하고, 외부 API가 실패하면 허용한 범위에서 이전 값을 사용하도록 했습니다.',
 			],
 			process: [
-				'외부 API 호출과 위치 조회를 화면의 정보 표시 순서에 맞춰 나눴습니다.',
+				'현재 날씨와 핵심 예보를 먼저 표시하고, 대기질·특보·일별 예보는 별도로 불러오도록 나눴습니다.',
+				'정보별 갱신 주기에 맞춰 캐시 유효 시간을 나누고, 같은 데이터의 동시 요청은 하나의 외부 조회 결과를 공유하도록 했습니다.',
 				'기준 데이터는 임시 저장과 필수값 검증을 거친 뒤 캐시를 교체했습니다.',
 				'캐시는 단일 Tomcat의 JVM 메모리 범위에 적용했습니다.',
 			],
 			solution: [
-				'핵심 정보를 먼저 불러오고 정보 영역마다 캐시 사용 기준을 정했습니다.',
+				'대기질·중기예보·기상특보 API를 연동하고 특보는 모달에서 확인할 수 있도록 구현했습니다.',
 				'기준 데이터를 서버에 캐시하고, 갱신할 때는 임시 저장과 검증을 거친 뒤 교체하도록 했습니다.',
 				'Android WebView에서는 네이티브 위치 조회를 우선 사용하고, 실패하면 저장된 위치나 브라우저 위치 조회를 사용하도록 했습니다.',
+				'날씨 외에는 일기 에디터와 Android 카메라·앨범 선택 흐름, 생활동선 지도의 거리·마커 표시도 개선했습니다.',
 			],
 			checks: [
 				'최초 조회, 캐시 재사용과 외부 API 실패 시 이전 값 표시를 확인하고 운영 환경에 반영했습니다.',
@@ -235,7 +237,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS06',
 			id: 'ai-kickoff-documentation-tool',
-			title: 'AI 보조 프로젝트 문서화 도구',
+			title: 'AI 보조 프로젝트 문서화 웹',
 			platform: 'Tooling',
 			area: 'AI API / 개발 생산성',
 			period: '2026.04',
@@ -342,7 +344,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS01',
 			id: 'legacy-mobile-compatibility',
-			title: '레거시 모바일 앱 호환성',
+			title: '출고·재고 관리 레거시 앱',
 			platform: 'Android / Hybrid',
 			area: '빌드 체인 / OS 호환성 / WebView',
 			period: '2026.03',
@@ -352,7 +354,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'레거시 Android 앱의 빌드를 복구하고 OS별 권한·파일·뒤로가기 처리를 정리했습니다.',
 			summary:
-				'오래된 Android 하이브리드 앱의 빌드 환경을 정비하고, 권한·파일 처리·WebView 브리지·로그인·초기 동기화에서 발생한 문제를 나눠 수정했습니다.',
+				'정적 웹을 WebView로 사용하는 기존 Android 업무 앱의 빌드 환경을 업데이트했습니다. Android 버전 변화에 맞춰 권한·파일 접근·뒤로가기 동작을 수정하고, 로그인과 초기 동기화 문제를 개선했습니다.',
 			impact: [
 				{
 					value: '빌드 기준선 복구',
@@ -383,23 +385,23 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'WebView 브리지 응답과 비동기 오류 형식을 통일하고, 장비나 외부 기능이 실패해도 앱 전체가 종료되지 않도록 대체 처리를 마련했습니다.',
 			],
 			checks: [
-				'빌드·호환성 헬퍼·브리지 오류 처리를 검사했습니다. 구형 OS 전체의 실기기 호환성을 확인한 범위는 아닙니다.',
+				'빌드와 권한·파일·브리지 처리를 점검하고, 여러 구형 OS 실기기에서도 동작을 확인했습니다.',
 			],
 		},
 		{
 			workstreamId: 'WS02',
 			id: 'field-terminal-android',
-			title: '현장 단말 Android 앱',
+			title: '물류 입출고 PDA 앱',
 			platform: 'Android',
-			area: '빌드 복구 / 현장 입력',
+			area: 'Android 버전 대응 / 입고 화면 / 바코드 스캔',
 			period: '2026.03 ~ 2026.04',
-			role: '유지보수/빌드 복구',
-			workType: '유지보수',
+			role: 'Android 호환성 개선 / 입고 기능 추가',
+			workType: '유지보수·기능 추가',
 			stack: ['Android Java', 'Gradle/AGP', 'Scanner SDK'],
 			headline:
-				'운영 서명 없이도 개발 빌드가 가능하도록 현장 단말 앱의 빌드 환경을 복구했습니다.',
+				'물류 입출고 PDA 앱의 Android 호환성을 개선하고 입고 화면과 스캔 입력 기능을 추가했습니다.',
 			summary:
-				'현장 단말에서 쓰이는 Android 앱의 빌드와 런타임 흐름을 복구했습니다. 빌드 도구, 서명, 로그인, 초기 데이터, 스캔 입력을 나눠 확인했습니다.',
+				'기존 PDA 앱의 빌드 환경과 Android 저장소·업데이트 흐름을 정비했습니다. 입고 화면의 조회 조건과 수량 입력 모달, QR·바코드 스캔 처리를 구현했습니다.',
 			impact: [
 				{
 					value: '빌드 복구',
@@ -424,21 +426,24 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			solution: [
 				'운영 서명이 없어도 개발 빌드가 막히지 않도록 조건을 분리했습니다.',
+				'업데이트 파일을 앱 전용 저장소에 두고 버전 확인, 다운로드, 설치 흐름을 정리했습니다.',
+				'입고 화면에 조회 조건과 수량 입력 모달을 추가하고 스캔에 따른 수량 계산을 연결했습니다.',
 			],
 			checks: [
 				'개발/운영 빌드 경로와 주요 진입 흐름을 확인했습니다.',
+				'PDA 실기기에서 QR·바코드 스캔과 입출고 연동을 확인했습니다.',
 				'스캔 입력과 초기 데이터 흐름을 단계별로 확인했습니다.',
 			],
 		},
 		{
 			workstreamId: 'WS04',
 			id: 'structured-editor-ui',
-			title: '구조화된 차트 편집 UI',
+			title: '차트 미리보기 페이지',
 			platform: 'Web',
 			area: '시각화 / 편집 UI',
 			period: '2026.03 ~ 2026.04',
-			role: '편집 파트 구축',
-			workType: '신규 개발',
+			role: '차트 설정·미리보기 기능 개발',
+			workType: '기능 개발',
 			stack: [
 				'React',
 				'TypeScript',
@@ -452,7 +457,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'차트별 설정과 데이터 연결을 구현하고, 변경한 내용이 미리보기에 반영되도록 상태를 연결했습니다.',
 			summary:
-				'Chart.js 미리보기와 차트 종류별 설정 패널을 만들었습니다. 데이터 필드 연결과 드래그 조작을 구현하고 설정값이 미리보기에 반영되도록 연결했습니다.',
+				'개발 중이던 사이트에서 차트 설정과 미리보기 기능을 맡았습니다. Chart.js 미리보기와 차트 종류별 설정 패널, 데이터 필드 연결과 드래그 조작을 구현했습니다.',
 			impact: [
 				{
 					value: '차트별 설정',
@@ -488,17 +493,17 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS08',
 			id: 'hybrid-security-boundary',
-			title: '하이브리드 외부 연동 기능 확장',
+			title: '개인정보 보호 앱',
 			platform: 'Hybrid',
-			area: 'Server Proxy / WebView QA',
+			area: '딥페이크·개인정보 유출 검사 / 외부 API / 파일 입력',
 			period: '2026.06',
-			role: '외부 연동/WebView QA',
+			role: '외부 API 기반 검사 기능 / 이미지·파일 입력 구현',
 			workType: '기능 확장',
 			stack: ['Android', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
-				'외부 API 인증 정보를 서버 프록시로 옮기고 하이브리드 앱의 파일 입력을 보완했습니다.',
+				'외부 API를 연동해 딥페이크 이미지와 개인정보 유출 여부를 검사하는 기능을 구현했습니다.',
 			summary:
-				'하이브리드 앱의 외부 API 응답 형식을 정리하고, 이미지 입력과 파일 선택, 화면 이동 및 브리지 처리를 보완했습니다.',
+				'기존 앱에 외부 API를 이용한 딥페이크 이미지 검사와 개인정보 유출 검사 기능을 구현했습니다. 이미지·파일 선택부터 검사 요청과 결과 표시까지 연결하고, Android WebView의 파일 선택과 브리지 처리도 구현했습니다.',
 			impact: [
 				{
 					value: 'server-side proxy',
@@ -507,7 +512,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				},
 			],
 			problem:
-				'외부 인증 정보가 Android APK나 브라우저 JavaScript에 들어가면 노출될 수 있고, 외부 응답 전체를 화면에 전달하면 불필요한 원문 데이터가 섞일 수 있었습니다.',
+				'기존 앱에 딥페이크 이미지와 개인정보 유출 여부를 검사하는 기능이 필요했습니다. 사용자가 선택한 이미지·파일을 외부 검사 API에 연결하면서, API 인증 정보가 앱이나 브라우저에 노출되지 않도록 해야 했습니다.',
 			thinking: [
 				'외부 API 조회는 서버 프록시에서 처리하도록 했습니다.',
 				'클라이언트에는 화면에 필요한 결과와 상태만 전달하도록 응답을 구성했습니다.',
@@ -517,6 +522,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'WebView의 파일 선택은 입력 경로별로 에뮬레이터와 실기기에서 확인했습니다.',
 			],
 			solution: [
+				'딥페이크 검사와 개인정보 유출 검사 API를 연동하고, 입력값을 검사 요청으로 보내 결과를 화면에 표시하도록 구현했습니다.',
 				'외부 API를 서버에서 호출하고 화면에는 필요한 결과와 상태만 반환하도록 했습니다.',
 				'이미지 입력 경로와 네이티브 파일 선택 결과를 WebView에 연결했습니다.',
 			],
@@ -581,7 +587,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS14',
 			id: 'multi-role-hybrid-platform',
-			title: '회원·문의 관리 솔루션',
+			title: '회원·문의 관리 웹 및 앱 솔루션',
 			platform: 'Web / Android',
 			area: '회원·문의 / 개인정보·첨부',
 			period: '2026.09',
@@ -601,10 +607,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			summary:
 				'회원 검색·정보 수정·중복 회원 통합과 문의·첨부 기능을 개발했습니다. 작성자와 역할별로 접근을 제한하고 Android 앱에 파일 선택과 이미지 확대 기능을 연결했습니다.',
 			problem:
-				'역할이 다른 회원은 같은 식별값을 가질 수 있었고, 암호화 적용 뒤 기존 문자열 검색도 그대로 사용할 수 없었습니다. 웹에 파일 입력이 있어도 설치된 앱에 선택기가 연결되어 있지 않으면 첨부할 수 없었습니다.',
+				'역할이 다른 회원이 같은 식별값을 가질 수 있어 회원 검색·수정 시 역할을 구분해야 했습니다. 웹에 파일 입력이 있어도 앱에 선택기가 연결되어 있지 않으면 문의에 파일을 첨부할 수 없었습니다.',
 			thinking: [
 				'사용자 역할과 자료 소유권을 서버에서 확인하고, 문의·답변·첨부에 같은 접근 조건을 적용했습니다.',
-				'기존 암호화 저장을 유지하며 후보 제한·복호화·정규화 비교를 나눴습니다.',
 				'공통 팝업 로더는 유지하고 준비·실패·닫기와 늦은 응답 처리를 기능별 인스턴스에 한정했습니다.',
 			],
 			process: [
@@ -634,64 +639,19 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 		},
 		{
-			workstreamId: 'WS15',
-			id: 'operations-admin-web',
-			title: '회원 정보 조회와 관리자 문의 처리',
-			platform: 'Web',
-			area: '회원 정보 조회 / 관리자 문의·답변 처리',
-			period: '2026.09',
-			role: '기존 솔루션 관리 기능 개발·개선',
-			workType: '솔루션 기능 확장·개선',
-			stack: ['Java', 'Spring MVC', 'MyBatis', 'Vue 2', 'jQuery', 'MariaDB'],
-			headline:
-				'회원·문의 관리 솔루션의 관리자 화면에서 회원 정보를 검색하고, 문의에 답변과 파일을 첨부하는 기능을 개발·개선했습니다.',
-			summary:
-				'관리자가 회원 정보를 검색할 때 결과 누락과 건수 불일치가 없도록 조회 순서를 고쳤습니다. 문의에 답변하고 파일을 첨부하는 기능에서는 저장 실패에 따른 파일 정리와 답변 알림 처리를 보완했습니다.',
-			problem:
-				'관리자 화면에서 회원 정보를 검색하고, 회원이 남긴 문의에 답변해야 했습니다. 검색 결과와 전체 건수가 맞아야 했고, 파일 첨부나 답변 알림에 실패해도 저장된 답변이 사라지지 않도록 처리해야 했습니다.',
-			thinking: [
-				'후보 제한 뒤 복호화·검색·정렬·건수 계산·페이징 순서로 처리하고, 사용자가 제출한 조건으로만 조회했습니다.',
-				'답변 저장과 파일 정리, 후속 알림의 확정 시점을 나눴습니다.',
-			],
-			process: [
-				'검색 전·초기화·재진입에는 민감 목록을 비워 두고, 페이지 이동은 마지막 제출 조건을 사용하도록 했습니다.',
-				'같은 데이터 기준으로 검색 결과의 정렬 순서와 전체 건수, 암호화 필드 처리를 대조했습니다.',
-			],
-			solution: [
-				'열람 기록 저장 성공 뒤 허용 필드만 반환하고 늦은 조회 응답과 인증 거절 때 목록을 정리했습니다.',
-				'답변 저장 전 행 잠금과 충돌 검사를 적용하고, DB 실패 시 새 파일을 정리하며 기존 파일 삭제는 확정 뒤 수행했습니다.',
-				'업무 저장을 먼저 확정하고 알림은 별도 트랜잭션에서 등록해 큐 실패가 답변을 지우지 않도록 했습니다.',
-			],
-			impact: [
-				{
-					value: '검색 후 페이징',
-					label: '암호화 정보 조회',
-					detail: '조건·정렬·건수를 같은 결과 집합에서 계산',
-				},
-				{
-					value: '실패 단계 분리',
-					label: '답변·파일·알림',
-					detail: '저장된 답변과 파일 교체·큐 등록 결과를 구분',
-				},
-			],
-			checks: [
-				'검색 조건 유지와 초기화, 답변·파일 접근 권한, 동시 저장을 개발·격리 환경에서 확인했습니다. 운영 배포 전 구현입니다.',
-			],
-		},
-		{
 			workstreamId: 'WS12',
 			id: 'legacy-support-web',
-			title: '레거시 고객지원 웹',
+			title: '물류 고객지원 레거시 웹',
 			platform: 'Web',
 			area: 'Excel / 오류 진단·성능 분석',
-			period: '2026.05 ~ 2026.08',
+			period: '2026.08',
 			role: '장애 조사 / 오류 처리 개선',
 			workType: '유지보수',
 			stack: ['Java', 'Spring MVC', 'JSP', 'MyBatis', 'jQuery', 'Apache POI'],
 			headline:
 				'같은 시간 초과 안내로 가려졌던 파일 파싱·입력 검증·통신 실패를 분리했습니다.',
 			summary:
-				'Excel 업로드 오류를 파일 분석·입력 검증·통신 단계별로 구분해 표시했습니다. 대량 업로드의 행별 DB 조회 비용을 조사했고, 긴 인라인 이미지 때문에 정규식 처리가 오래 걸리던 부분을 수정했습니다.',
+				'Excel 업로드 오류를 파일 분석·입력 검증·통신 단계별로 구분해 표시했습니다. 대량 업로드에서 행마다 반복되는 DB 조회 비용을 조사하고 개선안을 제안했습니다.',
 			problem:
 				'모든 Ajax 실패가 같은 문구로 표시돼 입력 오류와 통신 장애를 구분하기 어려웠습니다. 대량 입력은 행별 DB 조회와 응답 크기가 늘어나 작은 파일의 성공만으로 안전성을 판단할 수 없었습니다.',
 			thinking: [
@@ -701,12 +661,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			process: [
 				'행마다 반복되는 중복 검사 쿼리와 인덱스 전체 스캔을 확인했습니다. 입력 제한과 일괄 조회를 개선안으로 제안했습니다.',
-				'긴 인라인 이미지에서는 속성 추출과 허용 경로 검증을 분리하고 비대상 이미지는 대체 이미지로 처리했습니다.',
 			],
 			solution: [
 				'파일 분석과 등록 단계에서 HTTP 오류, 입력 검증 실패, 시간 초과, 취소와 응답 해석 오류를 구분하고 경과 시간을 기록했습니다.',
 				'안전한 서버 메시지만 이스케이프해 표시하고 나머지는 오류 유형별 안내로 바꿨습니다.',
-				'이미지 태그 속성을 먼저 추출한 뒤 허용 경로만 썸네일 변환에 넘겼습니다.',
 			],
 			impact: [
 				{
@@ -796,7 +754,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS11',
 			id: 'mobile-operations-platform',
-			title: 'Mobile Operations Platform',
+			title: 'Parcel Delivery App',
 			platform: 'Web / Android',
 			area: 'Map workflows / Offline recovery',
 			period: '2026.08',
@@ -811,7 +769,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'SQLite',
 			],
 			headline:
-				'Maintained map screens and offline storage and retry features in an existing mobile operations app.',
+				'Maintained map screens and offline storage and retry features in a parcel delivery app.',
 			summary:
 				'Updated the React screens, React Native app and Spring Boot APIs. Fixed map selection and return behavior and restored pending requests after an app restart.',
 			problem:
@@ -852,7 +810,6 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			checks: [
 				'Verified saving while offline, restoring after restart and server updates after reconnection on an Android device.',
-				'Duplicate-send investigation remained in progress.',
 			],
 		},
 		{
@@ -917,17 +874,17 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS10',
 			id: 'hybrid-life-info-platform',
-			title: 'Hybrid Life Information Service',
+			title: 'Daily Information App',
 			platform: 'Hybrid',
-			area: 'Legacy Web / Android WebView / Operations',
+			area: 'Public-data APIs / Weather and daily information / Android WebView',
 			period: '2026.06 ~ 2026.07',
-			role: 'Maintenance and production rollout',
-			workType: 'Maintenance',
+			role: 'Feature extension and production rollout',
+			workType: 'Feature extension',
 			stack: ['Spring MVC', 'JSP', 'jQuery', 'Java', 'Android'],
 			headline:
-				'Improved loading order and caching so core information appears before slower external API responses.',
+				'Integrated multiple public-data APIs to extend weather and daily information features, using server caching to reduce repeated calls.',
 			summary:
-				'Maintained the existing web and Android WebView service across screen loading, external APIs, server caching and location lookup. Separated core and supplementary requests, with limited stale-cache fallback when external requests fail.',
+				'Integrated public-data APIs for weather, air quality and weather alerts. Displayed current weather and core forecasts before supplementary information, using server caching and shared results for concurrent requests to reduce repeated API calls.',
 			impact: [
 				{
 					value: 'Core information first',
@@ -941,20 +898,23 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				},
 			],
 			problem:
-				'Multiple external APIs and reference-data lookups were tied to one request, so one slow section could delay the whole screen. File-level rollout also required missing-file and exposed-setting checks.',
+				'Weather information was spread across multiple public-data APIs. Requesting the same data on every screen visit could cause excessive API calls, while one slow API could delay the whole screen.',
 			thinking: [
+				'Cached public-data API responses on the server to avoid repeatedly requesting the same data.',
 				'Separated immediately visible core information from secondary information that could load later.',
 				'Split fresh and stale cache so limited fallback could be shown when external APIs failed.',
 			],
 			process: [
-				'Separated external API and location requests to match the order of information shown on screen.',
+				'Loaded current weather and core forecasts first, then fetched air quality, alerts and daily forecasts separately.',
+				'Set cache lifetimes by each information type’s update cycle and shared one external lookup result across concurrent requests for the same data.',
 				'Replaced reference-data cache entries after temporary storage and required-field validation.',
 				'The cache was scoped to JVM memory in a single Tomcat instance.',
 			],
 			solution: [
-				'Built a core-first loading model with section-specific cache rules.',
+				'Integrated air quality, medium-range forecast and weather alert APIs, with alerts available in a modal.',
 				'Prepared reference data as server cache with temporary-save, validation, and replace flow.',
 				'Used native location first in Android WebView, then stored location and browser fallback.',
+				'Also improved the diary editor, Android camera and gallery selection, and distance and marker displays on activity maps.',
 			],
 			checks: [
 				'Checked initial lookup, cache reuse and stale-value fallback on API failure, then deployed the changes to production.',
@@ -963,7 +923,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS06',
 			id: 'ai-kickoff-documentation-tool',
-			title: 'AI-assisted Project Documentation Tool',
+			title: 'AI-assisted Project Documentation Web App',
 			platform: 'Tooling',
 			area: 'AI API / developer productivity',
 			period: '2026.04',
@@ -1071,7 +1031,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS01',
 			id: 'legacy-mobile-compatibility',
-			title: 'Legacy Mobile App Compatibility',
+			title: 'Legacy Shipping and Inventory App',
 			platform: 'Android / Hybrid',
 			area: 'Build chain / OS compatibility / WebView',
 			period: '2026.03',
@@ -1081,7 +1041,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'Restored builds for a legacy Android app and organized OS-specific permissions, file handling and back navigation.',
 			summary:
-				'Stabilized an older Android hybrid app by treating the build chain, permissions and files, WebView bridge, login, and initial synchronization as separate failure boundaries.',
+				'Updated the build environment of an existing Android business app that displays static web pages in a WebView. Adapted permissions, file access and back navigation to Android version changes, and improved login and initial synchronization.',
 			impact: [
 				{
 					value: 'build baseline restored',
@@ -1114,23 +1074,23 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Normalized WebView bridge responses and asynchronous errors, with fallbacks that kept optional device or external-function failures from terminating the whole app.',
 			],
 			checks: [
-				'Checked builds, compatibility helpers and bridge error handling; physical-device compatibility across all older OS versions was not established.',
+				'Checked builds, permissions, file handling and bridge behavior, including tests on several physical devices running older OS versions.',
 			],
 		},
 		{
 			workstreamId: 'WS02',
 			id: 'field-terminal-android',
-			title: 'Field Terminal Android App',
+			title: 'Logistics Receiving and Shipping PDA App',
 			platform: 'Android',
-			area: 'Build recovery / field input',
+			area: 'Android compatibility / Receiving screens / Barcode scanning',
 			period: '2026.03 ~ 2026.04',
-			role: 'Maintenance and build recovery',
-			workType: 'Maintenance',
+			role: 'Android compatibility / Receiving features',
+			workType: 'Maintenance and feature additions',
 			stack: ['Android Java', 'Gradle/AGP', 'Scanner SDK'],
 			headline:
-				'Restored the field-terminal app build so development builds could run without production signing credentials.',
+				'Improved Android compatibility in a logistics PDA app and added receiving screens and scan input features.',
 			summary:
-				'Recovered build and runtime flows for an Android app used on field devices, separating build tools, signing, login, initial data, and scan input checks.',
+				'Updated the existing PDA app’s build environment, Android storage and app-update flow. Implemented receiving filters, a quantity-entry modal, and QR and barcode scan handling.',
 			impact: [
 				{
 					value: 'build recovery',
@@ -1155,21 +1115,23 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			solution: [
 				'Separated signing conditions so development builds did not stop before verification.',
+				'Moved update files to app-specific storage and organized version checks, downloads and installation.',
+				'Added receiving filters and a quantity-entry modal, connecting scans to quantity calculations.',
 			],
 			checks: [
 				'Checked development and production build paths with the main entry flow.',
-				'Checked scan input and initial data flow by stage.',
+				'Verified QR and barcode scans and receiving/shipping integration on a physical PDA.',
 			],
 		},
 		{
 			workstreamId: 'WS04',
 			id: 'structured-editor-ui',
-			title: 'Structured Chart Editing UI',
+			title: 'Chart Preview Page',
 			platform: 'Web',
 			area: 'Visualization / editor UI',
 			period: '2026.03 ~ 2026.04',
-			role: 'Editor feature implementation',
-			workType: 'Build',
+			role: 'Chart settings and preview implementation',
+			workType: 'Feature development',
 			stack: [
 				'React',
 				'TypeScript',
@@ -1183,7 +1145,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'Built chart-specific settings and data mapping, connecting editing state to the preview.',
 			summary:
-				'Built a Chart.js preview and settings panels for each chart type. Implemented field mapping and drag interactions, connecting settings to the preview.',
+				'Implemented chart settings and preview features within a website that was under development. Built a Chart.js preview, chart-specific settings panels, field mapping and drag interactions.',
 			impact: [
 				{
 					value: 'Chart-specific settings',
@@ -1219,17 +1181,17 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS08',
 			id: 'hybrid-security-boundary',
-			title: 'Hybrid External Integration Enhancements',
+			title: 'Privacy Check App',
 			platform: 'Hybrid',
-			area: 'Server Proxy / WebView QA',
+			area: 'Deepfake and data-leak checks / External APIs / File input',
 			period: '2026.06',
-			role: 'External integration / WebView QA',
+			role: 'API-based inspection features / Image and file input',
 			workType: 'Feature extension',
 			stack: ['Android', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
-				'Moved external API credentials behind a server proxy and improved file input in a hybrid app.',
+				'Implemented deepfake image and personal-data leak checks by integrating external APIs.',
 			summary:
-				'Organized the boundary between external integration, response normalization, image input, file picker, routes, and WebView bridge behavior.',
+				'Implemented deepfake image and personal-data leak checks in an existing app using external APIs. Connected image and file selection to inspection requests and displayed results, including Android WebView file selection and bridge handling.',
 			impact: [
 				{
 					value: 'server-side proxy',
@@ -1238,7 +1200,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				},
 			],
 			problem:
-				'Putting external credentials into an Android APK or 브라우저 JavaScript would expose them, and sending full external responses to the UI could leak unnecessary raw data.',
+				'The existing app needed deepfake image and personal-data leak checks. User-selected images and files had to connect to external inspection APIs without exposing API credentials in the app or browser.',
 			thinking: [
 				'Kept external lookup responsibility inside a server-side proxy.',
 				'Returned only the minimum result and state needed by the client UI.',
@@ -1248,6 +1210,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Checked WebView file chooser behavior by input source across emulator and real device flows.',
 			],
 			solution: [
+				'Integrated deepfake and personal-data leak inspection APIs, sending user input for inspection and displaying the results.',
 				'Called the external API on the server and returned only the results and states needed by the UI.',
 				'Connected image input paths and native file-picker results to the WebView.',
 			],
@@ -1313,7 +1276,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS14',
 			id: 'multi-role-hybrid-platform',
-			title: 'Member and Inquiry Management Solution',
+			title: 'Member and Inquiry Management Web and App',
 			platform: 'Web / Android',
 			area: 'Member inquiries / Privacy and attachments',
 			period: '2026.09',
@@ -1333,10 +1296,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			summary:
 				'Built member search, editing, duplicate merging, inquiries and attachments. Added author- and role-based access checks, file selection and image zoom in the Android app.',
 			problem:
-				'Different member roles could share the same identifier, and existing string searches did not work on randomized ciphertext. A web file input could not open a picker when the installed native shell lacked the connection.',
+				'Different member roles could share the same identifier, so member search and editing needed to distinguish roles. Web file inputs also needed a native picker connection before users could attach files to inquiries in the Android app.',
 			thinking: [
 				'Checked role and ownership on the server and reused access conditions across inquiries, answers, and attachments.',
-				'Preserved encrypted storage while separating candidate filtering, decryption, and normalized comparison.',
 				'Kept the shared popup loader intact and handled readiness, failure, closing, and late responses per feature instance.',
 			],
 			process: [
@@ -1366,64 +1328,19 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 		},
 		{
-			workstreamId: 'WS15',
-			id: 'operations-admin-web',
-			title: 'Member Search and Inquiry Administration',
-			platform: 'Web',
-			area: 'Member search / Inquiry and reply management',
-			period: '2026.09',
-			role: 'Administration features for an existing solution',
-			workType: 'Solution feature development and improvements',
-			stack: ['Java', 'Spring MVC', 'MyBatis', 'Vue 2', 'jQuery', 'MariaDB'],
-			headline:
-				'Developed and improved member search, inquiry replies and file attachments in the administrator interface of the member and inquiry management solution.',
-			summary:
-				'Fixed the member search order to avoid missing results and incorrect counts. Improved file cleanup after failed reply saves and notification handling for administrator replies.',
-			problem:
-				'Administrators needed to search member information and reply to member inquiries. Search results and totals had to agree, and failures in file handling or reply notifications must not erase saved replies.',
-			thinking: [
-				'Applied candidate limits, decryption, filtering, sorting, counting, and pagination in order, using only submitted search conditions.',
-				'Separated answer commits, file cleanup, and subsequent notification registration.',
-			],
-			process: [
-				'Kept sensitive lists empty before search, after reset, and on re-entry; pagination used the last submitted conditions.',
-				'Compared search ordering, total counts, and encrypted-field handling against the same data snapshot.',
-			],
-			solution: [
-				'Returned permitted fields only after recording access, and cleared lists on rejected authentication or invalidated queries.',
-				'Locked inquiry rows and checked concurrent edits before saving answers; cleaned new files on database failure and deleted old files only after commit.',
-				'Committed business data before registering notifications in a separate transaction so a queue failure would not erase the answer.',
-			],
-			impact: [
-				{
-					value: 'Filter before pagination',
-					label: 'Encrypted search',
-					detail: 'Derive conditions, ordering, and counts from the same result set',
-				},
-				{
-					value: 'Separate failure stages',
-					label: 'Answers, files, and notifications',
-					detail: 'Distinguish committed answers from file and queue outcomes',
-				},
-			],
-			checks: [
-				'Checked submitted search conditions, reset, answer and file authorization, and concurrent saves in development and isolated environments. These changes had not been deployed to production.',
-			],
-		},
-		{
 			workstreamId: 'WS12',
 			id: 'legacy-support-web',
-			title: 'Legacy Customer Support Web',
+			title: 'Legacy Logistics Customer Support Web',
 			platform: 'Web',
 			area: 'Excel / Error and performance diagnosis',
-			period: '2026.05 ~ 2026.08',
+			period: '2026.08',
 			role: 'Incident investigation / Error handling',
 			workType: 'Maintenance',
 			stack: ['Java', 'Spring MVC', 'JSP', 'MyBatis', 'jQuery', 'Apache POI'],
 			headline:
 				'Separated parsing, validation, and network failures previously hidden behind the same timeout message.',
 			summary:
-				'Added separate Excel upload messages for parsing, validation and network errors. Investigated per-row database query cost and revised slow regex handling of long inline images.',
+				'Added separate Excel upload messages for parsing, validation and network errors. Investigated repeated per-row database queries in bulk uploads and proposed improvements.',
 			problem:
 				'Every Ajax failure used the same message, obscuring input and network errors. Row-by-row queries and response sizes grew with bulk input, so small-file success did not establish safe scaling.',
 			thinking: [
@@ -1433,12 +1350,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			process: [
 				'Identified repeated duplicate-check queries and full index scans, then proposed input limits and batched lookups.',
-				'Separated image attribute extraction from permitted-path checks and used a fallback for unsupported inline images.',
 			],
 			solution: [
 				'Distinguished HTTP and business errors, timeouts, cancellations, response parsing, and elapsed time for analysis and registration requests.',
 				'Escaped safe structured messages and used category-specific guidance for other errors.',
-				'Extracted image attributes before passing allowed paths to thumbnail conversion.',
 			],
 			impact: [
 				{

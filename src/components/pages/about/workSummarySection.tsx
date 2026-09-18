@@ -24,7 +24,7 @@ const WorkSummarySection = () => {
 						<div className="flex flex-col items-start gap-0.5">
 							<Link
 								href={`${getLocalizedPath('/work', locale)}#${workStory.id}`}
-								className="font-medium text-lg md:text-xl leading-6 text-left text-foreground whitespace-pre-line break-keep hover:underline decoration-foreground/50 decoration-2 underline-offset-4"
+								className="font-medium text-lg md:text-xl leading-6 text-left text-foreground whitespace-pre-line break-keep transition-colors duration-200 hover:text-accent hover:underline focus-visible:text-accent focus-visible:underline decoration-accent/70 decoration-2 underline-offset-4"
 							>
 								{workStory.title}
 							</Link>
@@ -37,8 +37,10 @@ const WorkSummarySection = () => {
 							<p className="text-base md:text-lg font-bold leading-relaxed tracking-tight text-left text-foreground break-keep">
 								{workStory.aboutSummary}
 							</p>
-							<div className="flex flex-wrap gap-x-4 gap-y-1 text-sm md:text-base leading-relaxed text-left text-foreground break-keep">
-								<span>{workStory.workType}</span>
+							<div className="flex flex-wrap gap-x-2.5 gap-y-1 text-sm md:text-base leading-relaxed text-left text-foreground break-keep">
+								<span className="text-muted-foreground whitespace-nowrap">
+									{workStory.workType}
+								</span>
 								<span>{workStory.area}</span>
 							</div>
 							<p className="font-light text-xs md:text-sm leading-relaxed tracking-tight text-left text-muted-foreground py-1">

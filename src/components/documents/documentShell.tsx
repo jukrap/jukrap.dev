@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Locale } from '@/types/locale';
-import { PrintButton } from './printButton';
+import { DocumentDownloadLink } from './downloadLink';
 
 interface DocumentShellProps {
 	children: React.ReactNode;
@@ -18,7 +18,7 @@ export const DocumentShell = ({ children, locale }: DocumentShellProps) => (
 					<span aria-hidden="true">←</span>
 					<span>{locale === 'ko' ? '사이트로 돌아가기' : 'Back to website'}</span>
 				</Link>
-				<PrintButton locale={locale} />
+				<DocumentDownloadLink locale={locale} />
 			</div>
 		</header>
 		<main className="document-stage">{children}</main>

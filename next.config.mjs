@@ -19,6 +19,22 @@ const nextConfig = {
 				source: '/:locale/career-brief',
 				headers: privateDocumentHeaders,
 			},
+			...['portfolio', 'resume', 'career-brief'].flatMap((documentId) =>
+				['ko', 'en'].map((locale) => {
+					const filename = `${documentId}-${locale}.pdf`;
+
+					return {
+						source: `/documents/${filename}`,
+						headers: [
+							...privateDocumentHeaders,
+							{
+								key: 'Content-Disposition',
+								value: `attachment; filename="${filename}"`,
+							},
+						],
+					};
+				}),
+			),
 		];
 	},
 	images: {

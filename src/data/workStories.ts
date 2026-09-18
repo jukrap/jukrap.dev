@@ -36,7 +36,7 @@ export const workStoryDefinitions = [
 	{
 		id: 'multi-role-hybrid-platform',
 		tier: 'compact',
-		caseIds: ['multi-role-hybrid-platform', 'operations-admin-web'],
+		caseIds: ['multi-role-hybrid-platform'],
 		includeInAbout: false,
 	},
 	{
@@ -146,17 +146,11 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		'multi-role-hybrid-platform': {
 			role: '기존 솔루션의 웹·Android 기능 개발·개선',
 			workType: '솔루션 기능 확장·개선',
-			area: '회원 관리 / 문의·답변·첨부 / 관리자 웹',
+			area: '회원 관리 / 문의·답변·첨부',
 			headline:
-				'기존 솔루션의 회원 관리와 문의·첨부 기능을 웹, Android 앱과 관리자 화면에 연결했습니다.',
+				'기존 웹과 Android 앱의 회원 관리, 문의·첨부 기능을 개발하고 개선했습니다.',
 			summary:
-				'회원 검색·정보 수정·중복 회원 통합과 Android 첨부 기능을 개발했습니다. 같은 솔루션의 관리자 웹에서는 암호화 검색과 답변·파일 저장 처리를 개선하고 후속 알림 등록을 분리했습니다.',
-			resultSections: ['multi-role-hybrid-platform', 'operations-admin-web'].map(
-				(chapterId) => {
-					const record = workCases.ko.find(({ id }) => id === chapterId)!;
-					return { chapterId, impact: record.impact, checks: record.checks };
-				},
-			),
+				'회원 검색·정보 수정·중복 회원 통합과 문의 기능을 개발했습니다. Android 앱에는 파일 선택과 이미지 미리보기를 연결했습니다.',
 		},
 		'ai-kickoff-documentation-tool': {},
 		'mobile-operations-platform': {},
@@ -226,17 +220,11 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		'multi-role-hybrid-platform': {
 			role: 'Web and Android feature development for an existing solution',
 			workType: 'Solution feature development and improvements',
-			area: 'Member management / Inquiries, replies and attachments / Admin web',
+			area: 'Member management / Inquiries, replies and attachments',
 			headline:
-				'Connected member management, inquiries and attachments across an existing solution’s web, Android app and administration screens.',
+				'Developed and improved member management, inquiries and attachments across an existing web solution and Android app.',
 			summary:
-				'Built member search, editing, duplicate-member merging and Android attachments. In the same solution’s administration web, improved encrypted search and reply/file saves, separating subsequent notification registration.',
-			resultSections: ['multi-role-hybrid-platform', 'operations-admin-web'].map(
-				(chapterId) => {
-					const record = workCases.en.find(({ id }) => id === chapterId)!;
-					return { chapterId, impact: record.impact, checks: record.checks };
-				},
-			),
+				'Built member search, editing, duplicate-member merging and inquiry features. Connected file selection and image previews in the Android app.',
 		},
 		'ai-kickoff-documentation-tool': {},
 		'mobile-operations-platform': {},
@@ -262,7 +250,6 @@ const expectedWorkstreams: readonly WorkstreamId[] = [
 	'WS12',
 	'WS13',
 	'WS14',
-	'WS15',
 ];
 
 function assertUnique(values: readonly string[], label: string) {
@@ -299,7 +286,7 @@ function validateWorkData() {
 
 		if (records.length !== expectedWorkstreams.length) {
 			throw new Error(
-				`${locale} work records must contain exactly fourteen cases.`,
+				`${locale} work records must contain exactly thirteen public cases.`,
 			);
 		}
 

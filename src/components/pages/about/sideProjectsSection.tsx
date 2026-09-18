@@ -71,7 +71,7 @@ const SideProjectsSection: React.FC = () => {
 							<div className="flex flex-col items-start gap-0.5">
 								<button
 									onClick={() => openProjectDetail(project.id)}
-									className="font-medium text-lg md:text-xl leading-6 text-left text-foreground transition-colors duration-200 cursor-pointer break-keep hover:text-accent hover:underline decoration-accent/70 decoration-2 underline-offset-4"
+									className="font-medium text-lg md:text-xl leading-6 text-left text-foreground transition-colors duration-200 cursor-pointer break-keep hover:text-accent hover:underline focus-visible:text-accent focus-visible:underline decoration-accent/70 decoration-2 underline-offset-4"
 								>
 									{project.title}
 								</button>

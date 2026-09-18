@@ -250,33 +250,29 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 export const supportingDocumentCopy: Record<Locale, Record<string, string>> = {
 	ko: {
 		'hybrid-life-info-platform':
-			'기존 웹과 Android WebView를 유지보수하며 화면 로딩, 외부 API 호출, 서버 캐시와 위치 조회를 개선하고 운영에 반영했습니다.',
+			'공공 데이터 API로 날씨·대기질·기상특보 기능을 확장했습니다. 핵심 정보를 먼저 표시하고, 서버 캐시와 동시 요청 통합으로 반복 호출을 줄이도록 구현해 운영에 반영했습니다.',
 		'structured-editor-ui':
-			'차트 설정 패널과 데이터 연결, 미리보기 화면을 구현했습니다.',
+			'개발 중이던 사이트의 일부 기능으로 차트 설정 패널과 데이터 연결, 미리보기 화면을 구현했습니다.',
 		'mobile-operations-platform':
 			'지도 화면과 오프라인 저장·재전송 기능을 유지보수했습니다. 앱을 다시 실행해도 전송을 기다리던 요청이 복원되도록 했습니다.',
-		'operations-admin-web':
-			'기존 운영 관리 솔루션의 회원 검색과 건수 불일치를 수정하고, 답변 저장 실패 시 파일 정리를 개발 환경에서 구현했습니다.',
 		'legacy-support-web':
 			'Excel 업로드 중 파일 분석, 입력값 검사, 통신 중 어느 단계에서 문제가 생겼는지 구분해 안내하도록 구현하고 로컬 화면에서 확인했습니다.',
 		'multi-role-hybrid-platform':
-			'기존 솔루션의 회원 검색·수정·통합과 문의·첨부 기능을 확장하고 Android에서도 파일을 첨부하도록 연결했습니다. 관리자 검색과 답변 저장 기능은 개발 환경에서 구현했습니다.',
+			'기존 솔루션의 회원 검색·수정·통합과 문의·첨부 기능을 확장하고 Android에서도 파일을 첨부하도록 연결했습니다.',
 		'ai-kickoff-documentation-tool':
 			'저장소 자료로 문서 초안을 만들고, 표에서 검토·편집한 뒤 선택한 항목만 다시 작성하는 도구를 개발했습니다.',
 	},
 	en: {
 		'hybrid-life-info-platform':
-			'Maintained page loading, external APIs, server caching, and location lookup across an existing web service and Android WebView, delivering the changes to production.',
+			'Extended weather, air quality and alert features with public-data APIs. Deployed core-first loading, server caching and shared results for concurrent requests to reduce repeated API calls.',
 		'structured-editor-ui':
-			'Built chart settings panels, data connections, and preview interfaces.',
+			'Built chart settings panels, data connections, and previews as part of a website that was under development.',
 		'mobile-operations-platform':
 			'Maintained maps and offline save/retry flows, restoring queued requests after app restarts.',
-		'operations-admin-web':
-			'Extended an existing administration solution with member search fixes, matching counts, and failed-save file cleanup in the development environment.',
 		'legacy-support-web':
 			'Implemented distinct messages for parsing, input, and network errors in Excel imports and checked them locally.',
 		'multi-role-hybrid-platform':
-			'Extended an existing solution with member search, editing, merging, inquiries, and attachments. Integrated Android attachments and implemented administrator search and reply saving in the development environment.',
+			'Extended an existing solution with member search, editing, merging, inquiries, and attachments. Integrated file selection and image previews in the Android app.',
 		'ai-kickoff-documentation-tool':
 			'Built a tool that drafts documents from repository material, supports table-based review, and rewrites selected items.',
 	},

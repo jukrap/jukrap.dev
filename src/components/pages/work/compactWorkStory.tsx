@@ -55,7 +55,14 @@ export const CompactWorkStory = ({
 				{String(index).padStart(2, '0')}
 			</p>
 
-			<div className="min-w-0">
+			<div
+				className="min-w-0 scroll-mt-32"
+				id={
+					story.id === 'multi-role-hybrid-platform'
+						? 'operations-admin-web'
+						: undefined
+				}
+			>
 				<header>
 					<div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-semibold text-muted-foreground">
 						<span>{story.workType}</span>

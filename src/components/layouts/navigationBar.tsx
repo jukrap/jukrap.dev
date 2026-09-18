@@ -36,12 +36,8 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
 		)}
 	>
 		<span className="site-theme-icons" aria-hidden="true">
-			<Moon
-				className={`site-theme-icon${isDarkMode ? ' site-theme-icon-visible' : ''}`}
-			/>
-			<Sun
-				className={`site-theme-icon${!isDarkMode ? ' site-theme-icon-visible' : ''}`}
-			/>
+			<Moon className="site-theme-icon site-theme-icon-moon" />
+			<Sun className="site-theme-icon site-theme-icon-sun" />
 		</span>
 		{text && <span className="text-sm font-semibold">{text}</span>}
 	</button>

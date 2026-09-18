@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useId, useState } from 'react';
 import Image from 'next/image';
-import { AnimatePresence, motion } from 'framer-motion';
 import { ProfileInteractionProps } from '@/types/profile';
 import { useLocale } from '@/contexts/localeContext';
-import ProfileImageSkeleton from '@/components/skeletons/profileImageSkeleton';
 
 const ProfileImage: React.FC<ProfileInteractionProps> = ({
 	isFlipped,
@@ -11,109 +9,89 @@ const ProfileImage: React.FC<ProfileInteractionProps> = ({
 	onMouseEnter,
 	onMouseLeave,
 	showMessage,
-	isMessageFadingOut,
 }) => {
-	const [isLoaded, setIsLoaded] = useState(false);
-	const { dictionary } = useLocale();
-
-	useEffect(() => {
-		const loadImages = async () => {
-			try {
-				await Promise.all([
-					fetch('/_next/image?url=%2Fimages%2FprofileFront.png&w=200&q=75'),
-					fetch('/_next/image?url=%2Fimages%2FprofileBack.png&w=200&q=75'),
-				]);
-				setTimeout(() => {
-					setIsLoaded(true);
-				}, 1200);
-			} catch (error) {
-				//console.error('Error loading images:', error);
-				setIsLoaded(true);
-			}
-		};
-
-		loadImages();
-	}, []);
-
-	const handleClick = (e: React.MouseEvent) => {
-		if (!isLoaded) return; // 로딩 중에는 클릭 무시
-		onClick();
-	};
-
-	const handleMouseEnter = (e: React.MouseEvent) => {
-		if (!isLoaded) return; // 로딩 중에는 호버 효과 무시
-		onMouseEnter();
-	};
-
+	const {
+		dictionary,
+		data: { personalInfo },
+	} = useLocale();
+	const [frontStatus, setFrontStatus] = useState<'loading' | 'loaded' | 'error'>(
+		'loading',
+	);
+	const [backStatus, setBackStatus] = useState<'loading' | 'loaded' | 'error'>(
+		'loading',
+	);
+	const hintId = useId();
 	return (
 		<div
-			className="relative w-40 h-40 cursor-pointer perspective-1000"
-			onClick={handleClick}
-			onMouseEnter={handleMouseEnter}
+			className="profile-portrait"
+			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 		>
-			<AnimatePresence mode="wait">
-				{!isLoaded ? (
-					<motion.div
-						key="skeleton"
-						initial={{ opacity: 1 }}
-						exit={{
-							opacity: 0,
-							transition: { duration: 0.5, ease: 'easeInOut' },
-						}}
-					>
-						<ProfileImageSkeleton />
-					</motion.div>
-				) : (
-					<motion.div
-						key="image"
-						initial={{ opacity: 0 }}
-						animate={{
-							opacity: 1,
-							transition: { duration: 0.5, ease: 'easeInOut', delay: 0.2 },
-						}}
-						className={`relative w-full h-full select-none transition-transform duration-1000 transform-style-3d ${
-							isFlipped ? 'rotate-x-180' : ''
-						}`}
-					>
+			<button
+				type="button"
+				className="profile-portrait-button"
+				onClick={onClick}
+				onFocus={onMouseEnter}
+				onBlur={onMouseLeave}
+				aria-label={
+					isFlipped ? dictionary.about.profileRestore : dictionary.about.profileFlip
+				}
+				aria-pressed={isFlipped}
+				aria-describedby={showMessage ? hintId : undefined}
+			>
+				<span
+					className={`profile-portrait-faces${isFlipped ? ' profile-portrait-flipped' : ''}`}
+				>
+					<span className="profile-portrait-face" aria-hidden={isFlipped}>
+						{frontStatus !== 'loaded' && (
+							<span className="profile-portrait-placeholder">
+								{frontStatus === 'error' ? personalInfo.name : ''}
+							</span>
+						)}
 						<Image
 							src="/images/profileFront.png"
-							alt="Profile Picture Front"
-							width={200}
-							height={200}
-							className="rounded-full absolute w-full h-full object-cover backface-hidden"
-							priority
-							quality={75}
-							unoptimized={false}
+							alt={personalInfo.name}
+							fill
+							sizes="160px"
+							preload
+							className={`profile-portrait-image${frontStatus === 'loaded' ? ' profile-portrait-image-ready' : ''}`}
+							onLoad={() => setFrontStatus('loaded')}
+							onError={() => setFrontStatus('error')}
 						/>
+					</span>
+					<span
+						className="profile-portrait-face profile-portrait-back"
+						aria-hidden={!isFlipped}
+					>
+						{backStatus !== 'loaded' && (
+							<span className="profile-portrait-placeholder">
+								{backStatus === 'error' ? 'Doge' : ''}
+							</span>
+						)}
 						<Image
 							src="/images/profileBack.png"
-							alt="Profile Picture Back"
-							width={200}
-							height={200}
-							className="rounded-full absolute w-full h-full object-cover backface-hidden rotate-x-180"
-							priority
-							quality={75}
-							unoptimized={false}
+							alt="Doge"
+							fill
+							sizes="160px"
+							className={`profile-portrait-image${backStatus === 'loaded' ? ' profile-portrait-image-ready' : ''}`}
+							onLoad={() => setBackStatus('loaded')}
+							onError={() => setBackStatus('error')}
 						/>
-					</motion.div>
-				)}
-			</AnimatePresence>
-
-			{showMessage && isLoaded && (
-				<div
-					className={`font-bold absolute -right-16 -top-16 bg-foreground text-background p-2 rounded-lg shadow-md ${
-						isMessageFadingOut ? 'animate-fadeOut' : 'animate-fadeIn'
-					}`}
+					</span>
+				</span>
+			</button>
+			{showMessage && (
+				<span
+					id={hintId}
+					role="tooltip"
+					className="profile-portrait-hint profile-portrait-hint-visible"
 				>
 					{isFlipped
 						? dictionary.about.profileMessageFlipped
 						: dictionary.about.profileMessageDefault}
-					<div className="absolute left-4 bottom-0 transform translate-y-1/2 rotate-45 bg-foreground w-4 h-4" />
-				</div>
+				</span>
 			)}
 		</div>
 	);
 };
-
 export default ProfileImage;

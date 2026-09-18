@@ -1,4 +1,18 @@
 import type { RecruitingDocumentManifest } from '@/types/documents';
+import type { Locale } from '@/types/locale';
+
+const featuredWorkStoryIds = [
+	'settlement-operations-platform',
+	'delivery-output-flow',
+	'react-admin-state-migration',
+] as const;
+const supportingWorkStoryIds = [
+	'multi-role-hybrid-platform',
+	'mobile-operations-platform',
+	'legacy-support-web',
+	'hybrid-life-info-platform',
+	'structured-editor-ui',
+] as const;
 
 export const recruitingDocumentManifest = {
 	locale: 'ko',
@@ -11,7 +25,7 @@ export const recruitingDocumentManifest = {
 				'주요 업무에서 개발한 기능과 개인 프로젝트의 화면·구현 내용을 소개합니다.',
 			slug: '/ko/portfolio',
 			visibility: 'public',
-			pageCount: 14,
+			pageCount: featuredWorkStoryIds.length + 10,
 			indexable: true,
 			showOnHome: true,
 		},
@@ -39,19 +53,8 @@ export const recruitingDocumentManifest = {
 		},
 	],
 	selection: {
-		featuredWorkStoryIds: [
-			'settlement-operations-platform',
-			'multi-role-hybrid-platform',
-			'delivery-output-flow',
-			'ai-kickoff-documentation-tool',
-		],
-		supportingWorkStoryIds: [
-			'mobile-operations-platform',
-			'operations-admin-web',
-			'legacy-support-web',
-			'structured-editor-ui',
-			'hybrid-life-info-platform',
-		],
+		featuredWorkStoryIds,
+		supportingWorkStoryIds,
 		portfolioProjectIds: [
 			'captain-donghae',
 			'sharebby',
@@ -73,3 +76,26 @@ export const portfolioDocumentDefinition =
 export const resumeDocumentDefinition = recruitingDocumentManifest.documents[1];
 export const careerBriefDocumentDefinition =
 	recruitingDocumentManifest.documents[2];
+
+export function getRecruitingDocumentManifest(
+	locale: Locale,
+): RecruitingDocumentManifest {
+	if (locale === 'ko') return recruitingDocumentManifest;
+	const titles = ['Portfolio', 'Resume', 'Career Brief'];
+	const descriptions = [
+		'Frontend case studies, implementation decisions, and selected personal projects.',
+		'A two-page summary of experience, skills, and selected projects.',
+		'A two-page account of implementation work and outcomes at Triphos.',
+	];
+	return {
+		...recruitingDocumentManifest,
+		locale,
+		role: 'Web & Mobile Developer',
+		documents: recruitingDocumentManifest.documents.map((document, index) => ({
+			...document,
+			title: titles[index],
+			description: descriptions[index],
+			slug: `/${locale}/${document.id}`,
+		})),
+	};
+}

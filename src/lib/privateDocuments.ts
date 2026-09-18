@@ -1,3 +1,4 @@
+import type { Locale } from '@/types/locale';
 import 'server-only';
 
 import type {
@@ -59,9 +60,18 @@ export function getPrivateDocumentContact(): PrivateDocumentContact | null {
 
 export function getRecruitingDocumentContact(
 	host: string | null,
+	locale: Locale = 'ko',
 ): DocumentContact {
-	if (isPrivateDocumentRequestHost(host)) {
-		return getPrivateDocumentContact() ?? publicDocumentContact;
-	}
-	return publicDocumentContact;
+	const contact = isPrivateDocumentRequestHost(host)
+		? (getPrivateDocumentContact() ?? publicDocumentContact)
+		: publicDocumentContact;
+	return {
+		...contact,
+		name: locale === 'ko' ? contact.name : 'Ju-cheol Park',
+		links: contact.links.map((link) => ({
+			...link,
+			label: link.label.replace('/ko/', `/${locale}/`),
+			href: link.href.replace('/ko/', `/${locale}/`),
+		})),
+	};
 }

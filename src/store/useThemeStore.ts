@@ -11,11 +11,24 @@ const applyThemeClass = (isDarkMode: boolean) => {
 const getPreferredDarkMode = () => {
 	if (typeof window === 'undefined') return false;
 
-	const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+	let savedTheme: string | null = null;
+	try {
+		savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+	} catch {
+		// Theme selection still works when browser storage is unavailable.
+	}
 	if (savedTheme === 'dark') return true;
 	if (savedTheme === 'light') return false;
 
 	return window.matchMedia('(prefers-color-scheme: dark)').matches;
+};
+
+const persistTheme = (isDarkMode: boolean) => {
+	try {
+		window.localStorage.setItem(THEME_STORAGE_KEY, isDarkMode ? 'dark' : 'light');
+	} catch {
+		// Keep the current session usable without persistent storage.
+	}
 };
 
 export const useThemeStore = create<ThemeState>((set) => ({
@@ -28,24 +41,14 @@ export const useThemeStore = create<ThemeState>((set) => ({
 	},
 	setMode: (isDarkMode) => {
 		applyThemeClass(isDarkMode);
-		if (typeof window !== 'undefined') {
-			window.localStorage.setItem(
-				THEME_STORAGE_KEY,
-				isDarkMode ? 'dark' : 'light',
-			);
-		}
+		if (typeof window !== 'undefined') persistTheme(isDarkMode);
 		set({ isDarkMode, isHydrated: true });
 	},
 	toggleMode: () => {
 		set((state) => {
 			const isDarkMode = !state.isDarkMode;
 			applyThemeClass(isDarkMode);
-			if (typeof window !== 'undefined') {
-				window.localStorage.setItem(
-					THEME_STORAGE_KEY,
-					isDarkMode ? 'dark' : 'light',
-				);
-			}
+			if (typeof window !== 'undefined') persistTheme(isDarkMode);
 			return { isDarkMode, isHydrated: true };
 		});
 	},

@@ -4,11 +4,13 @@ import { workStories } from '@/data/workStories';
 import type { DocumentEvidenceRef, DocumentMetric } from '@/types/documents';
 import type { Project, SimpleProject } from '@/types/project';
 import type { ProfessionalStory, WorkImpact } from '@/types/work';
+import type { Locale } from '@/types/locale';
 
-const koStories = workStories.ko;
-
-export function getWorkStory(id: string): ProfessionalStory {
-	const story = koStories.find((candidate) => candidate.id === id);
+export function getWorkStory(
+	id: string,
+	locale: Locale = 'ko',
+): ProfessionalStory {
+	const story = workStories[locale].find((candidate) => candidate.id === id);
 
 	if (!story) {
 		throw new Error(`Unknown Korean work story: ${id}`);

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import type { Locale } from '@/types/locale';
 
 const ASSET_TIMEOUT_MS = 12_000;
 
@@ -73,7 +74,8 @@ const waitForDocumentAssets = async () => {
 	});
 };
 
-export const PrintButton = () => {
+export const PrintButton = ({ locale = 'ko' }: { locale?: Locale }) => {
+	const t = (ko: string, en: string) => (locale === 'ko' ? ko : en);
 	const [status, setStatus] = useState<'idle' | 'preparing' | 'error'>('idle');
 
 	const handlePrint = async () => {
@@ -91,15 +93,21 @@ export const PrintButton = () => {
 
 	const label =
 		status === 'preparing'
-			? '출력 준비 중…'
+			? t('출력 준비 중…', 'Preparing…')
 			: status === 'error'
-				? '새로고침 후 다시 시도'
-				: 'PDF로 저장';
+				? t('새로고침 후 다시 시도', 'Reload and retry')
+				: t('PDF로 저장', 'Save as PDF');
 	const statusMessage =
 		status === 'preparing'
-			? '문서 이미지와 글꼴을 확인하고 있습니다.'
+			? t(
+					'문서 이미지와 글꼴을 확인하고 있습니다.',
+					'Checking document images and fonts.',
+				)
 			: status === 'error'
-				? '문서 자산을 불러오지 못했습니다. 새로고침한 뒤 다시 시도해 주세요.'
+				? t(
+						'문서 자산을 불러오지 못했습니다. 새로고침한 뒤 다시 시도해 주세요.',
+						'Document assets could not load. Reload the page and try again.',
+					)
 				: '';
 
 	return (

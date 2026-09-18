@@ -19,14 +19,17 @@ import type {
 	RecruitingDocumentValidationInput,
 } from '@/types/documents';
 
-const EXPECTED_ROLE = '웹·모바일 개발자';
+const EXPECTED_ROLES = {
+	ko: '웹·모바일 개발자',
+	en: 'Web & Mobile Developer',
+} as const;
 
 const EXPECTED_DOCUMENTS = [
 	{
 		id: 'portfolio',
 		slug: '/ko/portfolio',
 		visibility: 'public',
-		pageCount: 14,
+		pageCount: 13,
 		indexable: true,
 		showOnHome: true,
 	},
@@ -75,15 +78,15 @@ const EXPECTED_FEATURED_PAGES = [
 	},
 	{
 		pageNumber: 4,
-		id: 'multi-role-hybrid-platform',
-		storyIds: ['multi-role-hybrid-platform'],
-		caseIds: [],
-	},
-	{
-		pageNumber: 5,
 		id: 'logistics-web',
 		storyIds: ['delivery-output-flow'],
 		caseIds: ['delivery-operations-web'],
+	},
+	{
+		pageNumber: 5,
+		id: 'react-admin-state-migration',
+		storyIds: ['react-admin-state-migration'],
+		caseIds: [],
 	},
 	{
 		pageNumber: 6,
@@ -91,33 +94,15 @@ const EXPECTED_FEATURED_PAGES = [
 		storyIds: ['delivery-output-flow'],
 		caseIds: ['mobile-output-bridge'],
 	},
-	{
-		pageNumber: 7,
-		id: 'ai-kickoff-documentation-tool',
-		storyIds: ['ai-kickoff-documentation-tool'],
-		caseIds: [],
-	},
 ] as const;
 
-const EXPECTED_PROJECT_PAGES = [
-	{ pageNumber: 9, id: 'captain-donghae', projectIds: ['captain-donghae'] },
-	{ pageNumber: 10, id: 'sharebby', projectIds: ['sharebby'] },
-	{
-		pageNumber: 11,
-		id: 'ai-agent-playbook',
-		projectIds: ['ai-agent-playbook'],
-	},
-	{
-		pageNumber: 12,
-		id: 'itzip',
-		projectIds: ['itzip'],
-	},
-	{
-		pageNumber: 13,
-		id: 'posture-teacher',
-		projectIds: ['posture-teacher'],
-	},
-] as const;
+const EXPECTED_PROJECT_PAGES = EXPECTED_PORTFOLIO_PROJECT_IDS.map(
+	(id, index) => ({
+		pageNumber: index + EXPECTED_FEATURED_PAGES.length + 4,
+		id,
+		projectIds: [id],
+	}),
+);
 
 function assertUnique(values: readonly string[], label: string) {
 	const duplicates = values.filter(
@@ -198,7 +183,10 @@ function metricEvidenceKey({ value }: DocumentMetric) {
 	return documentMetricSourceValues[value] ?? value;
 }
 
-function expectedWorkMetrics(page: PortfolioPageDefinition): DocumentMetric[] {
+function expectedWorkMetrics(
+	page: PortfolioPageDefinition,
+	locale: 'ko' | 'en',
+): DocumentMetric[] {
 	const refs = pageEvidence(page);
 	const storyIds = uniqueInOrder(
 		refs.filter(({ source }) => source === 'work-story').map(({ id }) => id),
@@ -207,7 +195,7 @@ function expectedWorkMetrics(page: PortfolioPageDefinition): DocumentMetric[] {
 		refs.filter(({ source }) => source === 'work-case').map(({ id }) => id),
 	);
 	const stories = storyIds.map((id) => {
-		const story = workStories.ko.find((candidate) => candidate.id === id);
+		const story = workStories[locale].find((candidate) => candidate.id === id);
 		if (!story) {
 			throw new Error(`Unknown work-story metric evidence: ${id}`);
 		}
@@ -233,13 +221,16 @@ function expectedWorkMetrics(page: PortfolioPageDefinition): DocumentMetric[] {
 	});
 }
 
-function validatePageMetrics(page: PortfolioPageDefinition) {
+function validatePageMetrics(
+	page: PortfolioPageDefinition,
+	locale: 'ko' | 'en',
+) {
 	const actualMetrics = page.sections.flatMap(({ metrics }) => metrics ?? []);
 	if (page.kind !== 'case' && actualMetrics.length === 0) {
 		return;
 	}
 
-	const expectedMetrics = expectedWorkMetrics(page);
+	const expectedMetrics = expectedWorkMetrics(page, locale);
 	if (expectedMetrics.length === 0) {
 		throw new Error(
 			`Portfolio metrics require attributable work evidence: ${page.id}`,
@@ -333,14 +324,9 @@ export function validateRecruitingDocumentData({
 	resume,
 	careerBrief,
 }: RecruitingDocumentValidationInput) {
-	if (manifest.locale !== 'ko') {
-		throw new Error('The first recruiting-document release must be Korean.');
-	}
-	if (manifest.role !== EXPECTED_ROLE) {
-		throw new Error(
-			`Recruiting-document role must be ${EXPECTED_ROLE}, received ${manifest.role}.`,
-		);
-	}
+	const expectedRole = EXPECTED_ROLES[manifest.locale];
+	if (manifest.role !== expectedRole)
+		throw new Error(`Unexpected document role: ${manifest.role}`);
 
 	if (manifest.documents.length !== EXPECTED_DOCUMENTS.length) {
 		throw new Error('Recruiting-document manifest must define three documents.');
@@ -363,7 +349,10 @@ export function validateRecruitingDocumentData({
 		(
 			['slug', 'visibility', 'pageCount', 'indexable', 'showOnHome'] as const
 		).forEach((field) => {
-			if (actual[field] !== expected[field]) {
+			if (
+				actual[field] !==
+				(field === 'slug' ? `/${manifest.locale}/${expected.id}` : expected[field])
+			) {
 				throw new Error(
 					`Recruiting document ${expected.id}.${field} must be ${String(expected[field])}, received ${String(actual[field])}.`,
 				);
@@ -375,8 +364,16 @@ export function validateRecruitingDocumentData({
 		({ id }) => id === 'portfolio',
 	)!;
 
-	if (portfolio.length !== 14 || portfolioDefinition.pageCount !== 14) {
-		throw new Error('Portfolio must contain exactly fourteen pages.');
+	if (
+		portfolio.length !== portfolioDefinition.pageCount ||
+		portfolioDefinition.pageCount !==
+			manifest.selection.featuredWorkStoryIds.length +
+				manifest.selection.portfolioProjectIds.length +
+				5
+	) {
+		throw new Error(
+			'Portfolio page count must match its selected cases and projects.',
+		);
 	}
 	assertUnique(
 		portfolio.map(({ id }) => id),
@@ -392,26 +389,22 @@ export function validateRecruitingDocumentData({
 		}
 	});
 
-	const portfolioRole = getPage(portfolio, 1, 'cover', 'cover').metadata?.find(
-		({ label }) => label === '직무',
-	)?.value;
-	const overviewRole = getPage(
-		portfolio,
-		2,
-		'experience-overview',
-		'overview',
-	).metadata?.find(({ label }) => label === '직무')?.value;
+	const portfolioRole = getPage(portfolio, 1, 'cover', 'cover').eyebrow;
 	if (
 		portfolioRole !== manifest.role ||
-		overviewRole !== manifest.role ||
 		resume.role !== manifest.role ||
-		resume.careers[0]?.role !== manifest.role ||
-		careerBrief.role !== manifest.role ||
-		careerBrief.company.role !== manifest.role
+		careerBrief.role !== manifest.role
 	) {
-		throw new Error(
-			'Recruiting documents must use the manifest role in public and private document headers.',
-		);
+		throw new Error('Document headers must use the common frontend positioning.');
+	}
+	// Employment records retain the actual role instead of the document headline.
+	const officialRole =
+		manifest.locale === 'ko' ? '웹·모바일 개발자' : 'Web & Mobile Developer';
+	if (
+		resume.careers[0]?.role !== officialRole ||
+		careerBrief.company.role !== officialRole
+	) {
+		throw new Error('Employment roles must preserve the actual web/mobile role.');
 	}
 
 	const featuredIds = workStories.ko
@@ -443,11 +436,11 @@ export function validateRecruitingDocumentData({
 	);
 
 	if (
-		manifest.selection.featuredWorkStoryIds.length !== 4 ||
+		manifest.selection.featuredWorkStoryIds.length !== 3 ||
 		manifest.selection.supportingWorkStoryIds.length !== 5
 	) {
 		throw new Error(
-			'Recruiting documents must keep four featured and five supporting stories.',
+			'Recruiting documents must keep three featured and five supporting stories.',
 		);
 	}
 
@@ -524,7 +517,7 @@ export function validateRecruitingDocumentData({
 
 	const supportingPage = getPage(
 		portfolio,
-		8,
+		manifest.selection.featuredWorkStoryIds.length + 4,
 		'supporting-work',
 		'compact-work',
 	);
@@ -532,13 +525,18 @@ export function validateRecruitingDocumentData({
 		supportingPage,
 		'work-story',
 		manifest.selection.supportingWorkStoryIds,
-		'Supporting work-story evidence on page 8',
+		'Supporting work-story evidence',
 	);
 	const supportingItems = supportingPage.sections.find(
 		({ id }) => id === 'work-list',
 	)?.items;
-	if (!supportingItems || supportingItems.length !== 5) {
-		throw new Error('Portfolio page 8 must contain five supporting work items.');
+	if (
+		!supportingItems ||
+		supportingItems.length !== manifest.selection.supportingWorkStoryIds.length
+	) {
+		throw new Error(
+			'Portfolio supporting page must contain the selected additional work.',
+		);
 	}
 	const supportingItemIds = supportingItems.map((item, index) => {
 		const ids = (item.evidence ?? [])
@@ -659,11 +657,15 @@ export function validateRecruitingDocumentData({
 		);
 	}
 
-	portfolio.forEach(validatePageMetrics);
+	portfolio.forEach((page) => validatePageMetrics(page, manifest.locale));
 	validateRecruitingDocumentNumericClaims({ portfolio, resume, careerBrief });
 
-	if (resume.competencies.length !== 4) {
-		throw new Error('Resume must expose exactly four core competencies.');
+	if (
+		resume.competencies.length !== manifest.selection.featuredWorkStoryIds.length
+	) {
+		throw new Error(
+			'Resume competencies must match the featured work selection.',
+		);
 	}
 	if (resume.careers.length < 2) {
 		throw new Error(

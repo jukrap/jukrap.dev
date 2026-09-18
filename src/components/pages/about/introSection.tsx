@@ -15,7 +15,6 @@ const IntroSection: React.FC = () => {
 	const {
 		isFlipped,
 		showMessage,
-		isMessageFadingOut,
 		handleImageClick,
 		handleMouseEnter,
 		handleMouseLeave,
@@ -29,7 +28,6 @@ const IntroSection: React.FC = () => {
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 				showMessage={showMessage}
-				isMessageFadingOut={isMessageFadingOut}
 			/>
 
 			<div className="about-intro-copy min-w-0 flex-1 w-full">

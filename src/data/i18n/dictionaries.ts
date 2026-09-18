@@ -7,16 +7,18 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			home: siteMetadata,
 			about: {
 				title: 'About | Ju-cheol Park',
-				description: 'About page of Ju-cheol Park, Web & Mobile Developer',
+				description:
+					'About Ju-cheol Park, a frontend developer working with React and TypeScript',
 			},
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'업무 정산, 회원·문의 기능 확장, 물류 출력과 AI 문서화 경험을 정리한 웹·모바일 개발자 박주철의 Work 페이지',
+					'React·TypeScript 업무 화면, 차트 편집, 성능 개선과 API 연동 경험을 정리한 프론트엔드 개발자 박주철의 Work 페이지',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
-				description: 'Projects page of Ju-cheol Park, Web & Mobile Developer',
+				description:
+					'Web, mobile and developer-tool projects by frontend developer Ju-cheol Park',
 			},
 		},
 		navigation: {
@@ -51,15 +53,16 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			documentsTitle: '포트폴리오와 경력 문서를 확인해 보세요.',
 			documentsDescription:
 				'참여한 프로젝트와 경력, 맡았던 일을 문서별로 정리했습니다.',
-			portfolioTitle: '웹 포트폴리오',
+			portfolioTitle: '포트폴리오',
 			portfolioDescription:
 				'주요 업무의 기능과 구현 내용, 개인 프로젝트의 화면을 함께 볼 수 있습니다.',
-			portfolioLinkLabel: '웹 포트폴리오 보기',
+			portfolioLinkLabel: '포트폴리오 보기',
 			resumeTitle: '이력서',
 			resumeDescription: '경력과 기술, 주요 프로젝트를 간단히 정리했습니다.',
 			resumeLinkLabel: '이력서 보기',
 			careerBriefTitle: '경력기술서',
-			careerBriefDescription: '업무별로 맡은 구현과 확인한 결과를 정리했습니다.',
+			careerBriefDescription:
+				'업무별 문제와 구현한 기능, 개선한 내용을 정리했습니다.',
 			careerBriefLinkLabel: '경력기술서 보기',
 		},
 		about: {
@@ -74,20 +77,22 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				period: '2026.02 ~ Present',
 				role: '웹·모바일 개발자',
 				details: [
-					'React로 업무 화면을 개발하고 Spring Boot API와 Android 앱 연동도 맡고 있습니다.',
-					'Excel 일괄 등록과 정산 관리, Bluetooth 프린터 연동을 구현했습니다. AI 문서화 도구를 개발하고 기존 웹과 모바일 앱도 유지보수하고 있습니다.',
+					'React와 TypeScript로 업무 화면을 개발하고, 공통 컴포넌트와 화면 상태를 설계합니다.',
+					'물류 운영, 차트 편집, 정산과 관리 화면을 만들었습니다. 필요한 Spring Boot API와 Android 연동을 구현하고 기존 웹·앱도 개선합니다.',
 				],
 			},
 			workSummary: {
 				title: 'Work',
 			},
-			profileMessageDefault: '🤔 여기를 눌러보세요!',
-			profileMessageFlipped: '👨‍💻 저를 데려가 주세요!',
+			profileFlip: '프로필 사진 뒤집기',
+			profileRestore: '원래 프로필 사진으로 돌아가기',
+			profileMessageDefault: '다른 모습도 있어요.',
+			profileMessageFlipped: '다시 누르면 돌아와요.',
 		},
 		work: {
 			title: 'Work',
 			intro:
-				'업무용 웹과 모바일 앱을 개발하며 맡았던 일을 정리했습니다. 화면 개발과 함께 서버 API, 데이터 처리, Android 장비 연동도 담당했습니다.',
+				'React와 TypeScript로 만든 업무 화면과 개선 사례입니다. 화면 상태와 데이터 흐름, 성능을 다루고 필요한 API와 모바일 기능까지 연결했습니다.',
 			indexTitle: '업무 사례',
 			currentStory: '현재 업무',
 			openTableOfContents: '목차 열기',
@@ -95,14 +100,14 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			featuredTitle: '대표 업무',
 			compactTitle: '함께 정리한 업무',
 			compactIntro:
-				'회원·문의 관리, 차트 편집, 외부 API 연동과 레거시 웹·앱 유지보수 업무입니다.',
+				'회원·문의 관리, AI 도구, 외부 API 연동과 기존 웹·앱의 개선 경험입니다.',
 			labels: {
 				stack: '기술 환경',
 				scope: '맡은 범위',
 				context: '배경과 요구사항',
 				decisions: '주요 구현',
-				results: '동작 확인',
-				additionalEvidence: '세부 구현 및 검증 기록',
+				results: '구현 결과',
+				additionalEvidence: '구현 과정과 기술적 판단',
 				problem: '배경',
 				thinking: '설계 이유',
 				process: '실행',
@@ -147,24 +152,25 @@ export const dictionaries: Localized<LocaleDictionary> = {
 	en: {
 		metadata: {
 			home: {
-				title: 'Ju-cheol Park | Web & Mobile Developer',
-				description: "Web and mobile developer. This is Jukrap's website.",
+				title: 'Ju-cheol Park | Frontend Developer',
+				description:
+					'Frontend developer building React and TypeScript interfaces, with API and mobile integrations.',
 				icons: {
 					icon: '/favicon.ico',
 				},
 			},
 			about: {
 				title: 'About | Ju-cheol Park',
-				description: 'About Ju-cheol Park, Web & Mobile Developer',
+				description: 'About Ju-cheol Park, Frontend Developer',
 			},
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'Work by Ju-cheol Park, a Web & Mobile Developer, covering settlement workflows, member and inquiry features, logistics output, and AI documentation tools.',
+					'React and TypeScript interfaces, chart editing, performance improvements and API integrations by frontend developer Ju-cheol Park.',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
-				description: 'Projects by Ju-cheol Park, Web & Mobile Developer',
+				description: 'Projects by Ju-cheol Park, Frontend Developer',
 			},
 		},
 		navigation: {
@@ -198,19 +204,19 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			playVideo: 'Play video',
 			documentsTitle: 'Explore my portfolio and career documents.',
 			documentsDescription:
-				'Projects, experience and contributions, presented in three Korean documents.',
-			portfolioTitle: 'Korean Portfolio',
+				'Projects, experience and contributions, presented in three documents.',
+			portfolioTitle: 'Portfolio',
 			portfolioDescription:
 				'Features I built at work, along with personal project screens and implementation details.',
-			portfolioLinkLabel: 'View Korean portfolio',
+			portfolioLinkLabel: 'View portfolio',
 			resumeTitle: 'Résumé',
 			resumeDescription:
 				'A concise overview of my experience, skills and projects.',
-			resumeLinkLabel: 'View Korean résumé',
+			resumeLinkLabel: 'View résumé',
 			careerBriefTitle: 'Career brief',
 			careerBriefDescription:
-				'My implementation work and verification for each assignment.',
-			careerBriefLinkLabel: 'View Korean career brief',
+				'The problems I worked on, my contributions and the results.',
+			careerBriefLinkLabel: 'View career brief',
 		},
 		about: {
 			title: 'About Me',
@@ -224,20 +230,22 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				period: '2026.02 ~ Present',
 				role: 'Web & Mobile Developer',
 				details: [
-					'Developing React business interfaces, Spring Boot APIs and Android app integrations.',
-					'Built Excel imports, billing and settlement features, and Bluetooth printer integrations. Also developing AI documentation tools and maintaining existing web and mobile apps.',
+					'Developing React and TypeScript business interfaces, shared components and UI state flows.',
+					'Built logistics, chart editing, settlement and administration interfaces, with Spring Boot APIs and Android integrations where needed. Also improving existing web and mobile apps.',
 				],
 			},
 			workSummary: {
 				title: 'Work',
 			},
-			profileMessageDefault: '🤔 Try clicking here!',
-			profileMessageFlipped: '👨‍💻 Please take me with you!',
+			profileFlip: 'Flip profile photo',
+			profileRestore: 'Restore profile photo',
+			profileMessageDefault: 'There is another side.',
+			profileMessageFlipped: 'Click again to return.',
 		},
 		work: {
 			title: 'Work',
 			intro:
-				'Features I built for business web and mobile apps, including interfaces, APIs, data processing and Android device integration.',
+				'Business interfaces built with React and TypeScript. These projects cover UI state, data flow and performance, with API and mobile integrations where needed.',
 			indexTitle: 'Work Index',
 			currentStory: 'Current story',
 			openTableOfContents: 'Open table of contents',
@@ -245,14 +253,14 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			featuredTitle: 'Selected Work',
 			compactTitle: 'Additional Work',
 			compactIntro:
-				'Further work in member services, administration, diagnostics, editing tools, and legacy maintenance.',
+				'Further work in member services, AI tools, API integration, and existing web and mobile apps.',
 			labels: {
 				stack: 'Technology stack',
 				scope: 'Scope',
 				context: 'Requirements',
 				decisions: 'Implementation',
-				results: 'Verification',
-				additionalEvidence: 'Implementation and verification details',
+				results: 'Results',
+				additionalEvidence: 'Implementation details and decisions',
 				problem: 'Problem',
 				thinking: 'Decision',
 				process: 'Execution',

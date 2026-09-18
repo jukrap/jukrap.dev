@@ -1,5 +1,6 @@
 'use client';
 
+import ScrollReveal from '@/components/common/scrollReveal';
 import React from 'react';
 import { useLocale } from '@/contexts/localeContext';
 
@@ -8,7 +9,7 @@ const CareerSection: React.FC = () => {
 	const career = dictionary.about.careerSummary;
 
 	return (
-		<section className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
+		<ScrollReveal className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
 			<h2 className="about-section-title font-bold tracking-tight text-foreground">
 				{dictionary.about.career}
 			</h2>
@@ -44,7 +45,7 @@ const CareerSection: React.FC = () => {
 					</div>
 				</div>
 			</div>
-		</section>
+		</ScrollReveal>
 	);
 };
 

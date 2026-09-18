@@ -9,13 +9,16 @@ interface DocumentShellProps {
 
 export const DocumentShell = ({ children, locale }: DocumentShellProps) => (
 	<div className="document-shell min-h-screen bg-secondary/35 text-foreground">
-		<header className="document-toolbar" aria-label="문서 도구">
+		<header
+			className="document-toolbar"
+			aria-label={locale === 'ko' ? '문서 도구' : 'Document tools'}
+		>
 			<div className="mx-auto flex min-h-14 w-full max-w-[1100px] items-center justify-between gap-3 px-4 sm:px-6">
 				<Link href={`/${locale}`} className="document-toolbar-link">
 					<span aria-hidden="true">←</span>
-					<span>사이트로 돌아가기</span>
+					<span>{locale === 'ko' ? '사이트로 돌아가기' : 'Back to website'}</span>
 				</Link>
-				<PrintButton />
+				<PrintButton locale={locale} />
 			</div>
 		</header>
 		<main className="document-stage">{children}</main>

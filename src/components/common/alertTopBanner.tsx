@@ -49,14 +49,15 @@ const AlertTopBanner: React.FC<AlertTopBannerProps> = ({
 
 	return (
 		<div className="relative z-40 w-full bg-background border-b border-border/25 transition-colors duration-300">
-			<div className="max-w-7xl mx-auto py-2.5 px-4 sm:px-6 lg:px-8">
-				<div className="max-w-3xl mx-auto flex items-center justify-center relative">
-					<p className="text-sm sm:text-base font-medium text-foreground text-center break-keep pr-8">
+			<div className="site-notice-container">
+				<div className="site-notice-content">
+					<p className="site-notice-message text-sm sm:text-base font-medium text-foreground text-center break-keep">
 						{parseMessage(message)}
 					</p>
 					<button
+						type="button"
 						onClick={() => setIsVisible(false)}
-						className="absolute right-0 p-1 rounded-md transition-colors duration-200 hover:bg-muted/80 hover:text-accent"
+						className="site-notice-close rounded-md transition-colors duration-200 hover:bg-muted/80"
 						aria-label={closeLabel}
 					>
 						<X size={20} className="text-foreground" />

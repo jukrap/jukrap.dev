@@ -1,5 +1,6 @@
 'use client';
 
+import ScrollReveal from '@/components/common/scrollReveal';
 import Link from 'next/link';
 import { useLocale } from '@/contexts/localeContext';
 import { getLocalizedPath } from '@/lib/locale';
@@ -12,7 +13,7 @@ const WorkSummarySection = () => {
 	);
 
 	return (
-		<section className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
+		<ScrollReveal className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
 			<h2 className="about-section-title font-bold tracking-tight text-foreground">
 				{summary.title}
 			</h2>
@@ -47,7 +48,7 @@ const WorkSummarySection = () => {
 					</div>
 				))}
 			</div>
-		</section>
+		</ScrollReveal>
 	);
 };
 

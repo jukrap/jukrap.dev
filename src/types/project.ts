@@ -5,8 +5,14 @@ export interface BaseProjectTask {
 	details: string[];
 }
 
+export interface ProjectImage {
+	src: string;
+	alt: string;
+	caption?: string;
+}
+
 export interface ProjectData {
-	images: string[];
+	images: ProjectImage[];
 	subLinks: ProjectLink[];
 	background?: {
 		image?: string;

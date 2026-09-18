@@ -39,5 +39,4 @@ export interface ProfileInteractionProps {
 	onMouseEnter: () => void;
 	onMouseLeave: () => void;
 	showMessage: boolean;
-	isMessageFadingOut: boolean;
 }

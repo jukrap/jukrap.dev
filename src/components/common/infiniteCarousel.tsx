@@ -1,236 +1,241 @@
-import React, { useEffect, useCallback, useRef, useState } from 'react';
-import Image from 'next/image';
-import { useThemeStore } from '@/store/useThemeStore';
-import { LoadingState } from '@/types/component';
-import { InfiniteCarouselProps } from '@/types/component';
-import { getIconPath } from '@/util/iconPaths';
+import { useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import type { InfiniteCarouselProps } from '@/types/component';
+import { useLocale } from '@/contexts/localeContext';
 import LoadImage from './loadImage';
+import ImagePagination from './imagePagination';
+import './media.css';
 
-const MIN_INDICATOR_WIDTH = 12; // 인디케이터 최소 너비 (w-2 = 0.5rem = 8px) + 간격 (gap-2 = 0.5rem = 8px)
-const CONTAINER_PADDING = 32; // 좌우 패딩값 (px-4 = 1rem = 16px * 2)
-
-const debounce = (callback: () => void, delay: number) => {
-	let timer: ReturnType<typeof setTimeout> | undefined;
-
-	return () => {
-		if (timer) clearTimeout(timer);
-		timer = setTimeout(callback, delay);
-	};
-};
-
-const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
+export default function InfiniteCarousel({
+	title,
 	images,
 	currentIndex,
 	onImageClick,
 	onIndexChange,
 	isViewerOpen,
-}) => {
-	const intervalRef = useRef<NodeJS.Timeout | null>(null);
-	const isDarkMode = useThemeStore((state) => state.isDarkMode);
-	const [loadingStates, setLoadingStates] = useState<LoadingState>({});
-	const [useNumericIndicator, setUseNumericIndicator] = useState(false);
-	const indicatorContainerRef = useRef<HTMLDivElement>(null);
-
-	const handleImageLoad = (index: number) => {
-		setLoadingStates((prev) => ({
-			...prev,
-			[index]: false,
-		}));
-	};
-
-	const nextSlide = useCallback(() => {
-		onIndexChange((currentIndex + 1) % images.length);
-	}, [images.length, currentIndex, onIndexChange]);
-
-	const prevSlide = useCallback(() => {
-		onIndexChange((currentIndex - 1 + images.length) % images.length);
-	}, [images.length, currentIndex, onIndexChange]);
-
-	const startAutoScroll = useCallback(() => {
-		if (intervalRef.current) clearInterval(intervalRef.current);
-		intervalRef.current = setInterval(nextSlide, 3000);
-	}, [nextSlide]);
-
-	const stopAutoScroll = useCallback(() => {
-		if (intervalRef.current) {
-			clearInterval(intervalRef.current);
-			intervalRef.current = null;
-		}
-	}, []);
-
+}: InfiniteCarouselProps) {
+	const { locale } = useLocale();
+	const rootRef = useRef<HTMLDivElement>(null);
+	const count = images.length;
+	const [desktop, setDesktop] = useState(false);
+	const [reducedMotion, setReducedMotion] = useState(true);
+	const [inView, setInView] = useState(false);
+	const [visibleTab, setVisibleTab] = useState(true);
+	const [hovered, setHovered] = useState(false);
+	const [paused, setPaused] = useState(false);
+	const [trackIndex, setTrackIndex] = useState(currentIndex + 1);
+	const [animate, setAnimate] = useState(true);
+	const previousIndex = useRef(currentIndex);
 	useEffect(() => {
-		if (!isViewerOpen) {
-			startAutoScroll();
-		} else {
-			stopAutoScroll();
-		}
-		return () => stopAutoScroll();
-	}, [startAutoScroll, stopAutoScroll, isViewerOpen]);
-
-	useEffect(() => {
-		const checkIndicatorSpace = () => {
-			const container = indicatorContainerRef.current;
-			if (!container) return;
-
-			const containerWidth = container.clientWidth - CONTAINER_PADDING;
-			const requiredWidth = images.length * MIN_INDICATOR_WIDTH;
-
-			setUseNumericIndicator(containerWidth < requiredWidth);
+		const viewport = window.matchMedia('(min-width: 768px)');
+		const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const update = () => {
+			setDesktop(viewport.matches);
+			setReducedMotion(motion.matches);
 		};
-
-		// 초기 체크
-		checkIndicatorSpace();
-
-		// resize 이벤트에 대한 대응
-		const handleResize = debounce(checkIndicatorSpace, 200);
-		window.addEventListener('resize', handleResize);
-
+		const visibility = () => setVisibleTab(!document.hidden);
+		update();
+		visibility();
+		viewport.addEventListener('change', update);
+		motion.addEventListener('change', update);
+		document.addEventListener('visibilitychange', visibility);
+		const observer = new IntersectionObserver(
+			([entry]) => setInView(entry.isIntersecting),
+			{ threshold: 0.05 },
+		);
+		if (rootRef.current) observer.observe(rootRef.current);
 		return () => {
-			window.removeEventListener('resize', handleResize);
+			viewport.removeEventListener('change', update);
+			motion.removeEventListener('change', update);
+			document.removeEventListener('visibilitychange', visibility);
+			observer.disconnect();
 		};
-	}, [images.length]);
-
-	const handleIndicatorClick = (index: number) => {
-		onIndexChange(index);
-		stopAutoScroll();
-		startAutoScroll();
+	}, []);
+	useEffect(() => {
+		const previous = previousIndex.current;
+		previousIndex.current = currentIndex;
+		if (
+			!reducedMotion &&
+			!isViewerOpen &&
+			previous === count - 1 &&
+			currentIndex === 0
+		)
+			setTrackIndex(count + 1);
+		else if (
+			!reducedMotion &&
+			!isViewerOpen &&
+			previous === 0 &&
+			currentIndex === count - 1
+		)
+			setTrackIndex(0);
+		else setTrackIndex(currentIndex + 1);
+	}, [currentIndex, count, reducedMotion, isViewerOpen]);
+	const autoPlaying =
+		count > 1 &&
+		!paused &&
+		!hovered &&
+		inView &&
+		visibleTab &&
+		!isViewerOpen &&
+		!reducedMotion;
+	useEffect(() => {
+		if (!autoPlaying) return;
+		const timer = setTimeout(
+			() => onIndexChange((currentIndex + 1) % count),
+			3000,
+		);
+		return () => clearTimeout(timer);
+	}, [autoPlaying, currentIndex, count, onIndexChange]);
+	const settleTrack = () => {
+		if (trackIndex !== 0 && trackIndex !== count + 1) return;
+		setAnimate(false);
+		setTrackIndex(currentIndex + 1);
 	};
-
+	useEffect(() => {
+		if (animate) return;
+		let second = 0;
+		const first = requestAnimationFrame(() => {
+			second = requestAnimationFrame(() => setAnimate(true));
+		});
+		return () => {
+			cancelAnimationFrame(first);
+			cancelAnimationFrame(second);
+		};
+	}, [animate]);
+	if (count === 0) return null;
+	const slides = [
+		images[count - 1],
+		...images,
+		images[0],
+		images[1 % count],
+		images[2 % count],
+	];
+	const move = (index: number) => {
+		setPaused(true);
+		onIndexChange((index + count) % count);
+	};
+	const previousLabel = locale === 'ko' ? '이전 이미지' : 'Previous image';
+	const nextLabel = locale === 'ko' ? '다음 이미지' : 'Next image';
 	return (
-		<div className="relative w-full">
-			{/* PC 뷰 - 3개의 이미지 표시 */}
-			<div className="hidden md:block relative overflow-hidden">
-				<div
-					className="flex transition-transform duration-300 ease-in-out"
-					style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
-				>
-					{[...images, ...images.slice(0, 2)].map((image, index) => (
-						<div
-							key={index}
-							className="flex-none w-1/3 px-1"
-							style={{ minWidth: 'calc(100% / 3)' }}
-						>
-							<div
-								className="w-full h-full flex items-center justify-center cursor-pointer"
-								onClick={() => onImageClick(index % images.length)}
-							>
-								<div className="relative">
-									<LoadImage
-										src={image}
-										alt={`Project Image ${index + 1}`}
-										maxWidth={200}
-										maxHeight={300}
-										className="rounded-lg transition-opacity duration-200 hover:opacity-85"
-										onLoad={() => handleImageLoad(index)}
-									/>
-								</div>
-							</div>
-						</div>
-					))}
-				</div>
-			</div>
-			{/* 모바일 뷰 - 단일 이미지 표시 */}
-			<div className="md:hidden relative bg-background rounded-lg">
-				{/* 오버플로우 컨테이너 */}
-				<div className="overflow-hidden">
-					<div
-						className="flex transition-transform duration-300 ease-in-out"
-						style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+		<div
+			ref={rootRef}
+			className="media-gallery w-full"
+			role="region"
+			aria-label={locale === 'ko' ? '프로젝트 화면' : 'Project screenshots'}
+			onMouseEnter={() => setHovered(true)}
+			onMouseLeave={() => setHovered(false)}
+			onFocusCapture={(event) => {
+				if (!(event.target as HTMLElement).closest('[data-autoplay-control]'))
+					setPaused(true);
+			}}
+		>
+			<header className="media-gallery-heading">
+				<h3 className="font-bold text-2xl text-foreground">{title}</h3>
+
+				{count > 1 && !reducedMotion && (
+					<button
+						type="button"
+						data-autoplay-control
+						className="media-gallery-playback"
+						aria-label={
+							locale === 'ko'
+								? paused
+									? '이미지 자동 넘김 재생'
+									: '이미지 자동 넘김 일시정지'
+								: paused
+									? 'Play slideshow'
+									: 'Pause slideshow'
+						}
+						aria-pressed={!paused}
+						onClick={() => setPaused((value) => !value)}
 					>
-						{images.map((image, index) => (
-							<div
-								key={index}
-								className="flex-none w-full"
-								style={{ minWidth: '100%' }}
-							>
-								{/* 이미지 컨테이너 - 고정된 높이와 정중앙 정렬 */}
+						{paused ? (
+							<Play size={16} strokeWidth={1.75} aria-hidden="true" />
+						) : (
+							<Pause size={16} strokeWidth={1.75} aria-hidden="true" />
+						)}
+					</button>
+				)}
+			</header>
+			<div className="relative">
+				<div className="media-gallery-viewport relative overflow-hidden rounded-lg">
+					<div
+						className="media-gallery-track"
+						style={{
+							transform: `translateX(calc(-1 * ${trackIndex} * var(--media-slide-width)))`,
+							transition: animate ? undefined : 'none',
+						}}
+						onTransitionEnd={(event) => {
+							if (
+								event.target === event.currentTarget &&
+								event.propertyName === 'transform'
+							)
+								settleTrack();
+						}}
+					>
+						{slides.map((image, index) => {
+							const realIndex = (index - 1 + count) % count;
+							const visible =
+								index >= trackIndex && index < trackIndex + (desktop ? 3 : 1);
+							return (
 								<div
-									className="relative min-h-[400px] w-full flex items-center justify-center p-4 pt-8"
-									onClick={() => onImageClick(index)}
+									key={index}
+									className="media-gallery-slide px-1"
+									inert={!visible}
+									aria-hidden={!visible}
 								>
-									<div className="relative w-full h-full flex items-center justify-center">
+									<div className="relative mx-auto flex h-[400px] max-w-[300px] items-center justify-center md:h-[300px] md:max-w-[200px]">
 										<LoadImage
-											src={image}
-											alt={`Project Image ${index + 1}`}
-											maxWidth={300}
-											maxHeight={400}
+											src={image.src}
+											alt={image.alt}
+											fill
+											sizes="(max-width: 767px) 300px, 200px"
 											className="rounded-lg"
-											onLoad={() => handleImageLoad(index)}
+										/>
+										<button
+											type="button"
+											className="absolute inset-0 rounded-lg transition-opacity hover:bg-foreground/5"
+											onClick={() => {
+												setPaused(true);
+												onImageClick(realIndex);
+											}}
+											aria-label={
+												locale === 'ko' ? `${image.alt} 확대` : `Enlarge ${image.alt}`
+											}
 										/>
 									</div>
 								</div>
-							</div>
-						))}
+							);
+						})}
 					</div>
 				</div>
+				{count > 1 && (
+					<>
+						<button
+							type="button"
+							className="absolute left-2 top-[200px] z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border/35 bg-background/90 transition-colors hover:bg-secondary md:top-[150px]"
+							onClick={() => move(currentIndex - 1)}
+							aria-label={previousLabel}
+						>
+							<ChevronLeft size={18} aria-hidden="true" />
+						</button>
+						<button
+							type="button"
+							className="absolute right-2 top-[200px] z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-border/35 bg-background/90 transition-colors hover:bg-secondary md:top-[150px]"
+							onClick={() => move(currentIndex + 1)}
+							aria-label={nextLabel}
+						>
+							<ChevronRight size={18} aria-hidden="true" />
+						</button>
+					</>
+				)}
 			</div>
-			{/* 네비게이션 버튼 */}
-			<button
-				className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-background/90 hover:bg-secondary hover:border-accent/55 border border-border/35 rounded-full p-2 z-10 transition-colors duration-200"
-				onClick={(e) => {
-					e.stopPropagation();
-					prevSlide();
-				}}
-				aria-label="이전 이미지"
-			>
-				<Image
-					src={getIconPath('back', isDarkMode)}
-					alt="Previous"
-					width={16}
-					height={16}
-					className="select-none"
-				/>
-			</button>
-			<button
-				className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-background/90 hover:bg-secondary hover:border-accent/55 border border-border/35 rounded-full p-2 z-10 transition-colors duration-200"
-				onClick={(e) => {
-					e.stopPropagation();
-					nextSlide();
-				}}
-				aria-label="다음 이미지"
-			>
-				<Image
-					src={getIconPath('forward', isDarkMode)}
-					alt="Next"
-					width={16}
-					height={16}
-					className="select-none"
-				/>
-			</button>
-			{/* 인디케이터 */}
-			<div ref={indicatorContainerRef} className="mt-4 w-full px-4">
-				<div className="flex justify-center items-center">
-					{!useNumericIndicator ? (
-						// 도트 인디케이터
-						<div className="flex gap-2">
-							{images.map((_, index) => (
-								<button
-									key={index}
-									className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-										index === currentIndex % images.length
-											? 'bg-accent'
-											: 'bg-gray-300 hover:bg-gray-400'
-									}`}
-									onClick={(e) => {
-										e.stopPropagation();
-										handleIndicatorClick(index);
-									}}
-									aria-label={`${index + 1}번째 이미지로 이동`}
-								/>
-							))}
-						</div>
-					) : (
-						// 숫자 인디케이터
-						<div className="text-sm text-muted-foreground font-medium">
-							<span className="text-accent">{currentIndex + 1}</span>
-							<span className="mx-1">/</span>
-							<span>{images.length}</span>
-						</div>
-					)}
-				</div>
-			</div>
+			<ImagePagination
+				images={images}
+				currentIndex={currentIndex}
+				onIndexChange={move}
+				autoPlaying={autoPlaying}
+			/>
 		</div>
 	);
-};
-
-export default InfiniteCarousel;
+}

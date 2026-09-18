@@ -56,6 +56,9 @@ export const WorkChapterRail = ({ stories, labels }: WorkChapterRailProps) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const menuId = `work-chapters-${useId().replaceAll(':', '')}`;
 	const railRef = useRef<HTMLElement>(null);
+	const desktopIndexRef = useRef<HTMLElement>(null);
+	const mobileIndexRef = useRef<HTMLDivElement>(null);
+	const previousActiveId = useRef(activeId);
 	const menuButtonRef = useRef<HTMLButtonElement>(null);
 	const activeStory = stories[activeIndex] ?? stories[0];
 	const groups = [
@@ -68,6 +71,57 @@ export const WorkChapterRail = ({ stories, labels }: WorkChapterRailProps) => {
 			stories: stories.filter((story) => story.tier === 'compact'),
 		},
 	];
+
+	useEffect(() => {
+		const changed = previousActiveId.current !== activeId;
+		previousActiveId.current = activeId;
+		const containers = [desktopIndexRef.current, mobileIndexRef.current].filter(
+			(element): element is HTMLElement => element !== null,
+		);
+		const revealActiveLink = (smooth = false) => {
+			for (const container of containers) {
+				// Keep manual browsing and keyboard focus under the reader's control.
+				if (
+					container.clientHeight === 0 ||
+					container.matches(':hover') ||
+					container.contains(document.activeElement)
+				)
+					continue;
+				const link = container.querySelector<HTMLElement>(
+					'[aria-current="location"]',
+				);
+				if (!link) continue;
+				const bounds = container.getBoundingClientRect();
+				const item = link.getBoundingClientRect();
+				const top = bounds.top + 12;
+				const bottom = bounds.bottom - 12;
+				const delta =
+					activeIndex === 0
+						? -container.scrollTop
+						: item.top < top
+							? item.top - top
+							: item.bottom > bottom
+								? item.bottom - bottom
+								: 0;
+				if (Math.abs(delta) < 1) continue;
+				// Scroll only this index, never the document or its other ancestors.
+				container.scrollTo({
+					top: container.scrollTop + delta,
+					behavior:
+						smooth && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+							? 'smooth'
+							: 'instant',
+				});
+			}
+		};
+		const frame = window.requestAnimationFrame(() => revealActiveLink(changed));
+		const observer = new ResizeObserver(() => revealActiveLink());
+		containers.forEach((container) => observer.observe(container));
+		return () => {
+			window.cancelAnimationFrame(frame);
+			observer.disconnect();
+		};
+	}, [activeId, activeIndex, isMenuOpen]);
 
 	useEffect(() => {
 		const restoreHashPosition = () =>
@@ -160,6 +214,7 @@ export const WorkChapterRail = ({ stories, labels }: WorkChapterRailProps) => {
 
 					{isMenuOpen && (
 						<div
+							ref={mobileIndexRef}
 							id={menuId}
 							className="work-index-scroll absolute inset-x-0 top-full max-h-[60dvh] overflow-y-auto overscroll-contain border-b border-border/45 bg-background px-3 py-4 shadow-[0_18px_40px_hsl(var(--blacks)/0.12)] sm:px-5"
 						>
@@ -223,8 +278,9 @@ export const WorkChapterRail = ({ stories, labels }: WorkChapterRailProps) => {
 
 			<div className="hidden min-w-0 xl:block xl:h-full">
 				<nav
+					ref={desktopIndexRef}
 					aria-label={labels.index}
-					className="work-index-scroll sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto pr-3"
+					className="work-index-scroll sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain pr-3"
 				>
 					<p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">
 						{labels.index}

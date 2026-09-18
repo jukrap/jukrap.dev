@@ -18,15 +18,11 @@ export const recruitingDocumentSkillGroups = [
 	},
 	{
 		label: '테스트·관측',
-		items: ['Vitest', 'Jest', 'MSW', 'Storybook', 'Sentry'],
+		items: ['Vitest', 'MSW', 'Storybook', 'Sentry'],
 	},
 	{
-		label: '빌드·배포',
-		items: ['GitHub Actions', 'Jenkins', 'Docker'],
-	},
-	{
-		label: '서버·데이터',
-		items: ['Spring Boot', 'Spring MVC', 'MyBatis', 'MariaDB', 'SQLite'],
+		label: '도구와 데이터',
+		items: ['GitHub Actions', 'Jenkins', 'Docker', 'MariaDB', 'SQLite'],
 	},
 ] as const satisfies readonly DocumentSkillGroup[];
 

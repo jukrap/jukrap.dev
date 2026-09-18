@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Platform, Project } from '@/types/project';
 import { useLocale } from '@/contexts/localeContext';
-import ProjectDetail from '@/components/common/projectDetail';
+import ProjectDetailEntry from '@/components/common/projectDetailEntry';
 import CategoryFilter from './categoryFilter';
 import { ProjectGrid } from './projectGrid';
 
@@ -30,7 +30,8 @@ export function ProjectListSection() {
 				onProjectClick={setSelectedProject}
 			/>
 			{selectedProject && (
-				<ProjectDetail
+				<ProjectDetailEntry
+					key={selectedProject.id}
 					project={selectedProject}
 					onClose={() => setSelectedProject(null)}
 				/>

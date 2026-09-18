@@ -1,4 +1,5 @@
-import { resumeDocument } from '@/data/documents';
+import type { Locale } from '@/types/locale';
+import { getResumeDocument } from '@/data/documents';
 import { resumeDocumentDefinition } from '@/data/documents/manifest';
 import type {
 	DocumentContact,
@@ -16,14 +17,15 @@ import {
 
 export interface ResumeDocumentProps {
 	contact: DocumentContact;
+	locale?: Locale;
 }
 
 const ResumeCareerItem = ({ career }: { career: ResumeCareer }) => (
 	<article className="resume-career-item break-inside-avoid">
 		<header>
 			<div>
-				<h3>{career.company}</h3>
-				<p>{career.role}</p>
+				<h3 className="document-heading-item">{career.company}</h3>
+				<p>{[career.officialTitle, career.role].filter(Boolean).join(' / ')}</p>
 			</div>
 			<time className="tabular-nums">{career.period}</time>
 		</header>
@@ -38,7 +40,7 @@ const ResumeProjectItem = ({ project }: { project: ResumeProject }) => (
 	<article className="resume-project-item break-inside-avoid">
 		<header>
 			<div>
-				<h3>{project.title}</h3>
+				<h3 className="document-heading-item">{project.title}</h3>
 				{project.role ? <p>{project.role}</p> : null}
 			</div>
 			<time className="tabular-nums">{project.period}</time>
@@ -50,8 +52,12 @@ const ResumeProjectItem = ({ project }: { project: ResumeProject }) => (
 	</article>
 );
 
-export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
-	const copy = resumeDocument;
+export const ResumeDocument = ({
+	contact,
+	locale = 'ko',
+}: ResumeDocumentProps) => {
+	const copy = getResumeDocument(locale);
+	const t = (ko: string, en: string) => (locale === 'ko' ? ko : en);
 	const [firstProject, ...remainingProjects] = copy.projects;
 
 	return (
@@ -70,7 +76,7 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 
 				<p className="resume-profile">{copy.profile}</p>
 
-				<DocumentSection title="경력">
+				<DocumentSection title={t('경력', 'Experience')}>
 					<div className="resume-career-list">
 						{copy.careers.map((career) => (
 							<ResumeCareerItem
@@ -82,7 +88,7 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 				</DocumentSection>
 
 				{firstProject ? (
-					<DocumentSection title="프로젝트" compact>
+					<DocumentSection title={t('프로젝트', 'Projects')} compact>
 						<div className="resume-project-list">
 							<ResumeProjectItem project={firstProject} />
 						</div>
@@ -103,7 +109,10 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 					compact
 				/>
 
-				<DocumentSection title="프로젝트 (계속)" compact>
+				<DocumentSection
+					title={t('프로젝트 (계속)', 'Projects (continued)')}
+					compact
+				>
 					<div className="resume-project-list">
 						{remainingProjects.map((project) => (
 							<ResumeProjectItem key={project.id} project={project} />
@@ -111,17 +120,17 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 					</div>
 				</DocumentSection>
 
-				<DocumentSection title="기술" compact>
+				<DocumentSection title={t('기술', 'Skills')} compact>
 					<DocumentSkillGroups groups={copy.skillGroups} compact />
 				</DocumentSection>
 
 				<div className="resume-bottom-grid">
-					<DocumentSection title="교육" compact>
+					<DocumentSection title={t('교육', 'Education')} compact>
 						<ul className="private-document-simple-list">
 							{copy.education.map((item) => (
 								<li key={item.title + '-' + item.period}>
 									<header>
-										<strong>{item.title}</strong>
+										<strong className="document-heading-item">{item.title}</strong>
 										<time className="tabular-nums">{item.period}</time>
 									</header>
 									<p>{item.detail}</p>
@@ -130,12 +139,12 @@ export const ResumeDocument = ({ contact }: ResumeDocumentProps) => {
 						</ul>
 					</DocumentSection>
 
-					<DocumentSection title="수상" compact>
+					<DocumentSection title={t('수상', 'Awards')} compact>
 						<ul className="private-document-simple-list">
 							{copy.awards.map((item) => (
 								<li key={item.title + '-' + item.period}>
 									<header>
-										<strong>{item.title}</strong>
+										<strong className="document-heading-item">{item.title}</strong>
 										<time className="tabular-nums">{item.period}</time>
 									</header>
 									<p>{item.detail}</p>

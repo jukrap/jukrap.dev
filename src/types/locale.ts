@@ -73,6 +73,8 @@ export interface LocaleDictionary {
 		workSummary: {
 			title: string;
 		};
+		profileFlip: string;
+		profileRestore: string;
 		profileMessageDefault: string;
 		profileMessageFlipped: string;
 	};

@@ -1,3 +1,4 @@
+import type { Locale } from '@/types/locale';
 import Image from 'next/image';
 
 import type {
@@ -23,20 +24,27 @@ const documentTechnologyNames: Record<string, string> = {
 
 export function TechnologyList({
 	technologies,
-	label = '기술',
+	label,
+	locale = 'ko',
 }: {
 	technologies: readonly string[];
 	label?: string;
+	locale?: Locale;
 }) {
 	if (!technologies.length) return null;
+	const displayLabel = label ?? (locale === 'ko' ? '기술' : 'Technologies');
 
 	return (
 		<div className="document-technology-list">
-			<p className="document-technology-label">{label}</p>
-			<ul aria-label={label} className="document-technology-items">
+			<p className="document-technology-label">{displayLabel}</p>
+			<ul aria-label={displayLabel} className="document-technology-items">
 				{technologies.map((technology, index) => (
 					<li key={technology}>
-						<span>{documentTechnologyNames[technology] ?? technology}</span>
+						<span>
+							{locale === 'ko'
+								? (documentTechnologyNames[technology] ?? technology)
+								: technology}
+						</span>
 						{index < technologies.length - 1 ? ',' : ''}
 					</li>
 				))}
@@ -53,7 +61,7 @@ function MetricList({ metrics }: { metrics: readonly DocumentMetric[] }) {
 					key={metric.label + '-' + metric.value}
 					className="document-evidence-item document-no-break"
 				>
-					<dt>{metric.label}</dt>
+					<dt className="document-heading-label">{metric.label}</dt>
 					<dd>
 						<p className="document-evidence-value">{metric.value}</p>
 						{metric.detail ? (
@@ -69,9 +77,11 @@ function MetricList({ metrics }: { metrics: readonly DocumentMetric[] }) {
 function DocumentLinkItem({
 	link,
 	compact = false,
+	locale = 'ko',
 }: {
 	link: DocumentLink;
 	compact?: boolean;
+	locale?: Locale;
 }) {
 	const isExternal = link.href.startsWith('http');
 
@@ -84,7 +94,11 @@ function DocumentLinkItem({
 		>
 			<span>
 				{link.label}
-				{isExternal ? <span className="sr-only"> (새 탭에서 열림)</span> : null}
+				{isExternal ? (
+					<span className="sr-only">
+						{locale === 'ko' ? ' (새 탭에서 열림)' : ' (opens in a new tab)'}
+					</span>
+				) : null}
 			</span>
 			{compact ? null : (
 				<small>{link.href.replace(/^(?:https?:\/\/|mailto:)/, '')}</small>
@@ -93,17 +107,29 @@ function DocumentLinkItem({
 	);
 }
 
-function ItemTechnologyList({ item }: { item: DocumentContentItem }) {
+function ItemTechnologyList({
+	item,
+	locale,
+}: {
+	item: DocumentContentItem;
+	locale: Locale;
+}) {
 	if (!item.technologies?.length) return null;
-	return <TechnologyList technologies={item.technologies} />;
+	return <TechnologyList technologies={item.technologies} locale={locale} />;
 }
 
-function ItemLinks({ links }: { links: readonly DocumentLink[] }) {
+function ItemLinks({
+	links,
+	locale,
+}: {
+	links: readonly DocumentLink[];
+	locale: Locale;
+}) {
 	return (
 		<ul className="document-link-list">
 			{links.map((link) => (
 				<li key={link.label + '-' + link.href}>
-					<DocumentLinkItem link={link} />
+					<DocumentLinkItem link={link} locale={locale} />
 				</li>
 			))}
 		</ul>
@@ -125,18 +151,28 @@ function ItemMetadata({ item }: { item: DocumentContentItem }) {
 	);
 }
 
-function CompactItemContent({ item }: { item: DocumentContentItem }) {
+function CompactItemContent({
+	item,
+	locale,
+}: {
+	item: DocumentContentItem;
+	locale: Locale;
+}) {
 	return (
 		<div className="document-item-compact-content">
 			<ItemMetadata item={item} />
 			{item.description ? (
 				<div className="document-item-compact-field">
-					<p className="document-item-field-label">핵심 구현</p>
+					<p className="document-item-field-label">
+						{locale === 'ko' ? '핵심 구현' : 'Implementation'}
+					</p>
 					<p className="document-item-description">{item.description}</p>
 				</div>
 			) : null}
-			<ItemTechnologyList item={item} />
-			{item.links?.length ? <ItemLinks links={item.links} /> : null}
+			<ItemTechnologyList item={item} locale={locale} />
+			{item.links?.length ? (
+				<ItemLinks links={item.links} locale={locale} />
+			) : null}
 		</div>
 	);
 }
@@ -144,9 +180,11 @@ function CompactItemContent({ item }: { item: DocumentContentItem }) {
 function ContentItems({
 	items,
 	compact = false,
+	locale = 'ko',
 }: {
 	items: readonly DocumentContentItem[];
 	compact?: boolean;
+	locale?: Locale;
 }) {
 	return (
 		<ul className="document-item-list">
@@ -163,21 +201,23 @@ function ContentItems({
 							<span className="document-item-label">{item.label}</span>
 						) : null}
 						<div>
-							<h4>{item.title}</h4>
+							<h4 className="document-heading-item">{item.title}</h4>
 							{item.meta ? <p className="document-item-meta">{item.meta}</p> : null}
 						</div>
 					</header>
 					{compact ? (
-						<CompactItemContent item={item} />
+						<CompactItemContent item={item} locale={locale} />
 					) : (
 						<>
 							<ItemMetadata item={item} />
-							<ItemTechnologyList item={item} />
+							<ItemTechnologyList item={item} locale={locale} />
 							{item.value ? <p className="document-item-value">{item.value}</p> : null}
 							{item.description ? (
 								<p className="document-item-description">{item.description}</p>
 							) : null}
-							{item.links?.length ? <ItemLinks links={item.links} /> : null}
+							{item.links?.length ? (
+								<ItemLinks links={item.links} locale={locale} />
+							) : null}
 						</>
 					)}
 				</li>
@@ -190,10 +230,12 @@ export function PortfolioSectionBlock({
 	section,
 	pageId,
 	compact = false,
+	locale = 'ko',
 }: {
 	section: DocumentContentSection;
 	pageId: string;
 	compact?: boolean;
+	locale?: Locale;
 }) {
 	const headingId = pageId + '-' + section.id + '-title';
 
@@ -202,10 +244,15 @@ export function PortfolioSectionBlock({
 			aria-labelledby={section.title ? headingId : undefined}
 			className={joinClasses(
 				'document-section document-no-break',
+				section.variant === 'note' && 'document-section-note',
 				compact && 'document-section-compact',
 			)}
 		>
-			{section.title ? <h3 id={headingId}>{section.title}</h3> : null}
+			{section.title ? (
+				<h3 id={headingId} className="document-heading-section">
+					{section.title}
+				</h3>
+			) : null}
 			<div className="document-section-content">
 				{section.body?.map((paragraph) => (
 					<p key={paragraph} className="document-body-copy">
@@ -214,16 +261,16 @@ export function PortfolioSectionBlock({
 				))}
 				{section.metrics?.length ? <MetricList metrics={section.metrics} /> : null}
 				{section.items?.length ? (
-					<ContentItems items={section.items} compact={compact} />
+					<ContentItems items={section.items} compact={compact} locale={locale} />
 				) : null}
 				{section.technologies?.length ? (
-					<TechnologyList technologies={section.technologies} />
+					<TechnologyList technologies={section.technologies} locale={locale} />
 				) : null}
 				{section.links?.length ? (
 					<ul className="document-link-list">
 						{section.links.map((link) => (
 							<li key={link.label + '-' + link.href}>
-								<DocumentLinkItem link={link} />
+								<DocumentLinkItem link={link} locale={locale} />
 							</li>
 						))}
 					</ul>

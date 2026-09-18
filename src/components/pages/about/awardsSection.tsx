@@ -1,10 +1,11 @@
 'use client';
 
+import ScrollReveal from '@/components/common/scrollReveal';
 import React from 'react';
 import WebViewModal from '@/components/common/webViewModal';
 import { useLocale } from '@/contexts/localeContext';
 import { Project } from '@/types/project';
-import ProjectDetail from '@/components/common/projectDetail';
+import ProjectDetailEntry from '@/components/common/projectDetailEntry';
 
 const AwardsSection: React.FC = () => {
 	const {
@@ -42,7 +43,7 @@ const AwardsSection: React.FC = () => {
 	};
 
 	return (
-		<section className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
+		<ScrollReveal className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
 			<h2 className="about-section-title font-bold tracking-tight text-foreground">
 				{dictionary.about.awards}
 			</h2>
@@ -109,9 +110,13 @@ const AwardsSection: React.FC = () => {
 				linkText={selectedLinkText}
 			/>
 			{selectedProject && (
-				<ProjectDetail project={selectedProject} onClose={closeProjectDetail} />
+				<ProjectDetailEntry
+					key={selectedProject.id}
+					project={selectedProject}
+					onClose={closeProjectDetail}
+				/>
 			)}
-		</section>
+		</ScrollReveal>
 	);
 };
 

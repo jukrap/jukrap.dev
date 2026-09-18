@@ -1,5 +1,6 @@
 'use client';
 
+import ScrollReveal from '@/components/common/scrollReveal';
 import React from 'react';
 import { useLocale } from '@/contexts/localeContext';
 
@@ -10,7 +11,7 @@ const ActivitySection: React.FC = () => {
 	} = useLocale();
 
 	return (
-		<section className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
+		<ScrollReveal className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
 			<h2 className="about-section-title font-bold tracking-tight text-foreground">
 				{dictionary.about.activity}
 			</h2>
@@ -50,7 +51,7 @@ const ActivitySection: React.FC = () => {
 					</div>
 				))}
 			</div>
-		</section>
+		</ScrollReveal>
 	);
 };
 

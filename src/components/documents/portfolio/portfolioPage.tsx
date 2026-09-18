@@ -1,3 +1,4 @@
+import type { Locale } from '@/types/locale';
 import type { PortfolioPageDefinition } from '@/types/documents';
 
 import {
@@ -7,12 +8,20 @@ import {
 	TechnologyList,
 } from './portfolioBlocks';
 
-function DocumentPageHeader({ page }: { page: PortfolioPageDefinition }) {
+function DocumentPageHeader({
+	page,
+	locale,
+}: {
+	page: PortfolioPageDefinition;
+	locale: Locale;
+}) {
 	if (page.kind === 'cover') return null;
 
 	return (
 		<header className="document-page-header">
-			<span>박주철 포트폴리오</span>
+			<span>
+				{locale === 'ko' ? '박주철 포트폴리오' : 'Ju-cheol Park / Portfolio'}
+			</span>
 			<span>{page.eyebrow}</span>
 		</header>
 	);
@@ -27,7 +36,13 @@ function DocumentPageFooter({ pageNumber }: { pageNumber: number }) {
 	);
 }
 
-function PageIntroduction({ page }: { page: PortfolioPageDefinition }) {
+function PageIntroduction({
+	page,
+	locale,
+}: {
+	page: PortfolioPageDefinition;
+	locale: Locale;
+}) {
 	return (
 		<div className="document-page-introduction">
 			<p className="document-page-eyebrow">{page.eyebrow}</p>
@@ -47,18 +62,28 @@ function PageIntroduction({ page }: { page: PortfolioPageDefinition }) {
 			) : null}
 			{page.technologies?.length ? (
 				<div className="document-page-technologies">
-					<TechnologyList technologies={page.technologies} label="사용 기술" />
+					<TechnologyList
+						technologies={page.technologies}
+						label={locale === 'ko' ? '사용 기술' : 'Technologies'}
+						locale={locale}
+					/>
 				</div>
 			) : null}
 		</div>
 	);
 }
 
-function CoverPage({ page }: { page: PortfolioPageDefinition }) {
+function CoverPage({
+	page,
+	locale,
+}: {
+	page: PortfolioPageDefinition;
+	locale: Locale;
+}) {
 	return (
 		<>
 			<header className="document-cover-header">
-				<span>포트폴리오</span>
+				<span>{locale === 'ko' ? '포트폴리오' : 'Portfolio'}</span>
 				<span>2026</span>
 			</header>
 
@@ -85,6 +110,7 @@ function CoverPage({ page }: { page: PortfolioPageDefinition }) {
 						<PortfolioSectionBlock
 							key={section.id}
 							section={section}
+							locale={locale}
 							pageId={page.id}
 							compact
 						/>
@@ -95,14 +121,20 @@ function CoverPage({ page }: { page: PortfolioPageDefinition }) {
 	);
 }
 
-function StandardPage({ page }: { page: PortfolioPageDefinition }) {
+function StandardPage({
+	page,
+	locale,
+}: {
+	page: PortfolioPageDefinition;
+	locale: Locale;
+}) {
 	const images = page.images ?? [];
 	const isCompactWork = page.kind === 'compact-work';
 
 	return (
 		<>
-			<DocumentPageHeader page={page} />
-			<PageIntroduction page={page} />
+			<DocumentPageHeader page={page} locale={locale} />
+			<PageIntroduction page={page} locale={locale} />
 
 			<div className="document-page-body">
 				{images.length > 0 ? (
@@ -123,6 +155,7 @@ function StandardPage({ page }: { page: PortfolioPageDefinition }) {
 						<PortfolioSectionBlock
 							key={section.id}
 							section={section}
+							locale={locale}
 							pageId={page.id}
 							compact={isCompactWork}
 						/>
@@ -135,20 +168,26 @@ function StandardPage({ page }: { page: PortfolioPageDefinition }) {
 	);
 }
 
-export function PortfolioPage({ page }: { page: PortfolioPageDefinition }) {
+export function PortfolioPage({
+	page,
+	locale,
+}: {
+	page: PortfolioPageDefinition;
+	locale: Locale;
+}) {
 	return (
 		<section
 			id={page.id}
-			aria-label={page.pageNumber + '쪽 ' + page.title}
+			aria-label={`${locale === 'ko' ? '쪽' : 'Page'} ${page.pageNumber} ${page.title}`}
 			className={joinClasses(
 				'print-page document-page document-portfolio',
 				'document-page-' + page.kind,
 			)}
 		>
 			{page.kind === 'cover' ? (
-				<CoverPage page={page} />
+				<CoverPage page={page} locale={locale} />
 			) : (
-				<StandardPage page={page} />
+				<StandardPage page={page} locale={locale} />
 			)}
 		</section>
 	);

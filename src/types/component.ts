@@ -1,8 +1,8 @@
 import { Link } from './common';
-import { Platform, Project } from './project';
+import { Platform, Project, ProjectImage } from './project';
 
 export interface ImageViewerProps {
-	images: string[];
+	images: ProjectImage[];
 	currentIndex: number;
 	onClose: () => void;
 	onIndexChange: (newIndex: number) => void;
@@ -58,13 +58,6 @@ export interface ImageSpinnerProps {
 	className?: string;
 }
 
-export interface ImageViewerProps {
-	images: string[];
-	currentIndex: number;
-	onClose: () => void;
-	onIndexChange: (newIndex: number) => void;
-}
-
 export interface LoadImageProps {
 	src: string;
 	alt: string;
@@ -75,10 +68,15 @@ export interface LoadImageProps {
 	objectFit?: 'contain' | 'cover';
 	onLoad?: () => void;
 	fill?: boolean;
+	sizes?: string;
+	containerClassName?: string;
+	imageStyle?: React.CSSProperties;
+	loadingAppearance?: 'spinner' | 'skeleton';
 }
 
 export interface InfiniteCarouselProps {
-	images: string[];
+	title: string;
+	images: ProjectImage[];
 	currentIndex: number;
 	onImageClick: (index: number) => void;
 	onIndexChange: (index: number) => void;
@@ -89,16 +87,6 @@ export interface InfiniteCarouselProps {
 export interface AlertTopBannerProps {
 	message: string;
 	closeLabel: string;
-}
-
-export interface TechStackIconsProps {
-	techStack: string[];
-	className?: string;
-}
-
-// LoadingState 타입
-export interface LoadingState {
-	[key: number]: boolean;
 }
 
 export interface ImageMetadata {

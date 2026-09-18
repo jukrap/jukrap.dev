@@ -58,7 +58,7 @@ export const DocumentSection = ({
 			className
 		}
 	>
-		<h2>{title}</h2>
+		<h2 className="document-heading-section">{title}</h2>
 		<div className="private-document-section-body">{children}</div>
 	</section>
 );
@@ -140,7 +140,7 @@ export const DocumentSkillGroups = ({
 	>
 		{groups.map((group) => (
 			<div key={group.label}>
-				<dt>{group.label}</dt>
+				<dt className="document-meta-copy">{group.label}</dt>
 				<dd>
 					<ul>
 						{group.items.map((item, index) => (

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence, type Transition } from 'framer-motion';
-import { Project, BaseProjectTask } from '@/types/project';
+import { BaseProjectTask } from '@/types/project';
 import { ProjectDetailProps } from '@/types/modal';
 import { useIcon } from '@/hook/useIcon';
 import { useLocale } from '@/contexts/localeContext';
@@ -9,56 +8,28 @@ import ImageViewer from './imageViewer';
 import InfiniteCarousel from './infiniteCarousel';
 import TechStackDetailIcons from './techStackDetailIcons';
 
-const overlayTransition: Transition = {
-	duration: 0.12,
-	ease: 'easeOut',
-};
-const panelTransition: Transition = {
-	duration: 0.1,
-	ease: 'easeOut',
-};
-
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	const { getIcon } = useIcon();
 	const { dictionary } = useLocale();
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const [isViewerOpen, setIsViewerOpen] = useState(false);
-	const [isVisible, setIsVisible] = useState(true);
-
-	useEffect(() => {
-		const scrollBarWidth =
-			window.innerWidth - document.documentElement.clientWidth;
-		const previousOverflow = document.body.style.overflow;
-		const previousPaddingRight = document.body.style.paddingRight;
-		document.body.style.overflow = 'hidden';
-		document.body.style.paddingRight = `${scrollBarWidth}px`;
-
-		return () => {
-			document.body.style.overflow = previousOverflow;
-			document.body.style.paddingRight = previousPaddingRight;
-		};
-	}, []);
-
-	const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (e.target === e.currentTarget) {
-			setIsVisible(false);
-		}
-	};
-
-	const handleCloseClick = () => {
-		setIsVisible(false);
-	};
+	const handleCloseClick = onClose;
 
 	const handleImageClick = (index: number) => {
 		setCurrentImageIndex(index);
 		setIsViewerOpen(true);
 	};
 
-	const renderSection = (title: string, content: React.ReactNode) => (
+	const renderSection = (
+		title: string | undefined,
+		content: React.ReactNode,
+	) => (
 		<div className="mb-8 p-6 surface-minimal rounded-lg">
-			<h3 className="font-bold text-2xl text-foreground mb-4 pb-2 border-b border-border">
-				{title}
-			</h3>
+			{title && (
+				<h3 className="font-bold text-2xl text-foreground mb-4 pb-2 border-b border-border">
+					{title}
+				</h3>
+			)}
 			{content}
 		</div>
 	);
@@ -86,276 +57,244 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	);
 
 	return (
-		<AnimatePresence mode="sync" onExitComplete={onClose}>
-			{isVisible && (
-				<motion.div
-					key="project-detail-modal"
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1, transition: overlayTransition }}
-					exit={{ opacity: 0, transition: overlayTransition }}
-					className="fixed inset-0 z-50 flex items-stretch justify-center bg-background/90 p-0 md:items-center md:p-4"
-					onClick={handleBackgroundClick}
-				>
-					<motion.div
-						key="project-detail-content"
-						initial={{ opacity: 0 }}
-						animate={{
-							opacity: 1,
-							transition: panelTransition,
-						}}
-						exit={{
-							opacity: 0,
-							transition: panelTransition,
-						}}
-						className="relative surface-minimal-strong h-[100dvh] max-h-[100dvh] w-full overflow-hidden rounded-none
-            md:h-auto md:max-h-[90vh] md:w-[90%] md:max-w-[900px] md:rounded-lg"
+		<>
+			<div className="h-full overflow-y-auto scrollbar-hide md:max-h-[90vh]">
+				<div className="relative">
+					{/* 배경 컨테이너 */}
+					<div
+						className="absolute top-0 left-0 right-0 h-[400px] overflow-hidden"
+						aria-hidden="true"
 					>
-						<div className="h-full overflow-y-auto scrollbar-hide md:max-h-[90vh]">
-							<div className="relative">
-								{/* 배경 컨테이너 */}
-								<div
-									className="absolute top-0 left-0 right-0 h-[400px] overflow-hidden"
-									aria-hidden="true"
-								>
-									{(project.projectData.background?.image ||
-										project.projectData.background?.gradientStart) && (
-										<>
-											{project.projectData.background?.image ? (
-												<>
-													<div className="absolute inset-0">
-														<Image
-															src={project.projectData.background.image}
-															alt="background"
-															fill
-															quality={75}
-															className="object-cover transform-gpu"
-															sizes="(max-width: 900px) 90vw, 900px"
-														/>
-													</div>
-												</>
-											) : (
-												<div
-													className="absolute inset-0 bg-center bg-cover transform-gpu"
-													style={{
-														background: `linear-gradient(to bottom, ${project.projectData.background?.gradientStart}, ${project.projectData.background?.gradientStart}00)`,
-													}}
-												/>
-											)}
-											{/* 메인 그라데이션 */}
-											<div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/70 to-background/95 transform-gpu" />
-											{/* 추가 그라데이션 */}
-											<div className="absolute bottom-0 h-3/5 w-full bg-gradient-to-t from-background via-background/100 to-transparent transform-gpu" />
-										</>
-									)}
-								</div>
+						{(project.projectData.background?.image ||
+							project.projectData.background?.gradientStart) && (
+							<>
+								{project.projectData.background?.image ? (
+									<>
+										<div className="absolute inset-0">
+											<Image
+												src={project.projectData.background.image}
+												alt="background"
+												fill
+												quality={75}
+												className="object-cover transform-gpu"
+												sizes="(max-width: 900px) 90vw, 900px"
+											/>
+										</div>
+									</>
+								) : (
+									<div
+										className="absolute inset-0 bg-center bg-cover transform-gpu"
+										style={{
+											background: `linear-gradient(to bottom, ${project.projectData.background?.gradientStart}, ${project.projectData.background?.gradientStart}00)`,
+										}}
+									/>
+								)}
+								{/* 메인 그라데이션 */}
+								<div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/70 to-background/95 transform-gpu" />
+								{/* 추가 그라데이션 */}
+								<div className="absolute bottom-0 h-3/5 w-full bg-gradient-to-t from-background via-background/100 to-transparent transform-gpu" />
+							</>
+						)}
+					</div>
 
-								{/* 메인 콘텐츠 */}
-								<div className="relative z-[1]">
-									{/* 헤더 섹션 */}
-									<div className="relative h-[260px] md:h-[300px] flex flex-col justify-end p-5 md:p-8">
-										<div>
-											<h2 className="text-4xl font-bold text-foreground pb-0.5 break-keep">
-												{project.title}
-											</h2>
-											<p className="text-xl font-light text-foreground/80 pb-4">
-												{project.subtitle}
-											</p>
-											<p className="text-lg text-foreground/80 pb-6">{project.duration}</p>
+					{/* 메인 콘텐츠 */}
+					<div className="relative z-[1]">
+						{/* 헤더 섹션 */}
+						<div className="relative h-[260px] md:h-[300px] flex flex-col justify-end p-5 md:p-8">
+							<div>
+								<h2 className="text-4xl font-bold text-foreground pb-0.5 break-keep">
+									{project.title}
+								</h2>
+								<p className="text-xl font-light text-foreground/80 pb-4">
+									{project.subtitle}
+								</p>
+								<p className="text-lg text-foreground/80 pb-6">{project.duration}</p>
 
-											{/* 프로젝트 링크 */}
-											<div className="flex flex-wrap gap-2 md:gap-4">
-												{project.links
-													.filter((link) => link.visible)
-													.map((link, index) => (
-														<a
-															key={index}
-															href={link.url}
-															target="_blank"
-															rel="noopener noreferrer"
-															className="flex items-center gap-2 px-4 py-2 rounded-lg 
+								{/* 프로젝트 링크 */}
+								<div className="flex flex-wrap gap-2 md:gap-4">
+									{project.links
+										.filter((link) => link.visible)
+										.map((link, index) => (
+											<a
+												key={index}
+												href={link.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="flex items-center gap-2 px-4 py-2 rounded-lg
                               border border-accent/45 bg-accent/10 text-foreground
                               hover:bg-accent/15 hover:border-accent/70 hover:text-accent transition-colors duration-200"
-														>
-															<Image
-																src={getIcon(link.type)}
-																alt={link.type}
-																width={20}
-																height={20}
-															/>
-															<span>
-																{link.type === 'appleStore'
-																	? 'App Store'
-																	: link.type === 'googleStore'
-																		? 'Play Store'
-																		: link.type.charAt(0).toUpperCase() + link.type.slice(1)}
-															</span>
-														</a>
-													))}
-											</div>
-										</div>
+											>
+												<Image
+													src={getIcon(link.type)}
+													alt={link.type}
+													width={20}
+													height={20}
+												/>
+												<span>
+													{link.type === 'appleStore'
+														? 'App Store'
+														: link.type === 'googleStore'
+															? 'Play Store'
+															: link.type.charAt(0).toUpperCase() + link.type.slice(1)}
+												</span>
+											</a>
+										))}
+								</div>
+							</div>
 
-										{/* 닫기 버튼 */}
-										<button
-											onClick={handleCloseClick}
-											className="absolute top-5 right-5 md:top-8 md:right-8 p-2 rounded-full z-30
+							{/* 닫기 버튼 */}
+							<button
+								onClick={handleCloseClick}
+								className="absolute top-5 right-5 md:top-8 md:right-8 p-2 rounded-full z-30
                       bg-background/85 hover:bg-secondary
                       transition-colors duration-200 border border-border/30 hover:border-accent/45"
-											aria-label={dictionary.projectDetail.close}
-										>
-											<Image
-												src={getIcon('close')}
-												alt={dictionary.projectDetail.close}
-												width={24}
-												height={24}
+								aria-label={dictionary.projectDetail.close}
+							>
+								<Image
+									src={getIcon('close')}
+									alt={dictionary.projectDetail.close}
+									width={24}
+									height={24}
+								/>
+							</button>
+						</div>
+
+						{/* 콘텐츠 섹션 */}
+						<div className="relative bg-background">
+							<div className="p-5 md:p-8 space-y-8">
+								{/* 프로젝트 개요 */}
+								{renderSection(
+									dictionary.projectDetail.overview,
+									<div className="space-y-4">
+										<p className="text-foreground leading-relaxed">{project.overview}</p>
+										<TechStackDetailIcons techStack={project.techStack} />
+									</div>,
+								)}
+
+								{/* 프로젝트 정보 */}
+								{renderSection(
+									dictionary.projectDetail.info,
+									<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+										<div className="p-4 bg-secondary/20 rounded-lg border border-border/30">
+											<h4 className="font-semibold text-lg mb-2 text-foreground">
+												{dictionary.projectDetail.role}
+											</h4>
+											<p className="text-muted-foreground">{project.role.join(', ')}</p>
+										</div>
+										<div className="p-4 bg-secondary/20 rounded-lg border border-border/30">
+											<h4 className="font-semibold text-lg mb-2 text-foreground">
+												{dictionary.projectDetail.teamSize}
+											</h4>
+											<p className="text-muted-foreground">
+												{project.teamSize}
+												{dictionary.projectDetail.teamSizeUnit}
+											</p>
+										</div>
+									</div>,
+								)}
+
+								{/* 주요 작업 */}
+								{renderSection(
+									dictionary.projectDetail.tasks,
+									renderList(project.tasks),
+								)}
+
+								{/* 문제 해결 */}
+								{project.troubleshooting &&
+									renderSection(
+										dictionary.projectDetail.troubleshooting,
+										renderList(project.troubleshooting),
+									)}
+
+								{/* 성능 개선 */}
+								{project.performanceImprovements &&
+									renderSection(
+										dictionary.projectDetail.performance,
+										renderList(project.performanceImprovements),
+									)}
+
+								{/* 특별 구현 사항 */}
+								{project.specialImplementations &&
+									renderSection(
+										dictionary.projectDetail.special,
+										renderList(project.specialImplementations),
+									)}
+
+								{/* 프로젝트 이미지 */}
+								{project.projectData.images.length > 0 &&
+									renderSection(
+										undefined,
+										<>
+											<InfiniteCarousel
+												title={dictionary.projectDetail.screenshots}
+												images={project.projectData.images}
+												currentIndex={currentImageIndex}
+												onImageClick={handleImageClick}
+												onIndexChange={setCurrentImageIndex}
+												isViewerOpen={isViewerOpen}
 											/>
-										</button>
-									</div>
-
-									{/* 콘텐츠 섹션 */}
-									<div className="relative bg-background">
-										<div className="p-5 md:p-8 space-y-8">
-											{/* 프로젝트 개요 */}
-											{renderSection(
-												dictionary.projectDetail.overview,
-												<div className="space-y-4">
-													<p className="text-foreground leading-relaxed">
-														{project.overview}
-													</p>
-													<TechStackDetailIcons techStack={project.techStack} />
-												</div>,
-											)}
-
-											{/* 프로젝트 정보 */}
-											{renderSection(
-												dictionary.projectDetail.info,
-												<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-													<div className="p-4 bg-secondary/20 rounded-lg border border-border/30">
-														<h4 className="font-semibold text-lg mb-2 text-foreground">
-															{dictionary.projectDetail.role}
-														</h4>
-														<p className="text-muted-foreground">{project.role.join(', ')}</p>
-													</div>
-													<div className="p-4 bg-secondary/20 rounded-lg border border-border/30">
-														<h4 className="font-semibold text-lg mb-2 text-foreground">
-															{dictionary.projectDetail.teamSize}
-														</h4>
-														<p className="text-muted-foreground">
-															{project.teamSize}
-															{dictionary.projectDetail.teamSizeUnit}
-														</p>
-													</div>
-												</div>,
-											)}
-
-											{/* 주요 작업 */}
-											{renderSection(
-												dictionary.projectDetail.tasks,
-												renderList(project.tasks),
-											)}
-
-											{/* 문제 해결 */}
-											{project.troubleshooting &&
-												renderSection(
-													dictionary.projectDetail.troubleshooting,
-													renderList(project.troubleshooting),
-												)}
-
-											{/* 성능 개선 */}
-											{project.performanceImprovements &&
-												renderSection(
-													dictionary.projectDetail.performance,
-													renderList(project.performanceImprovements),
-												)}
-
-											{/* 특별 구현 사항 */}
-											{project.specialImplementations &&
-												renderSection(
-													dictionary.projectDetail.special,
-													renderList(project.specialImplementations),
-												)}
-
-											{/* 프로젝트 이미지 */}
-											{project.projectData.images.length > 0 &&
-												renderSection(
-													dictionary.projectDetail.screenshots,
-													<>
-														<InfiniteCarousel
-															images={project.projectData.images}
-															currentIndex={currentImageIndex}
-															onImageClick={handleImageClick}
-															onIndexChange={setCurrentImageIndex}
-															isViewerOpen={isViewerOpen}
-														/>
-														{/* 부가 자료 링크 */}
-														{project.projectData.subLinks.some((link) => link.visible) && (
-															<div className="flex flex-wrap gap-4 mt-6 justify-center">
-																{project.projectData.subLinks
-																	.filter((link) => link.visible)
-																	.map((link, index) => (
-																		<a
-																			key={index}
-																			href={link.url}
-																			target="_blank"
-																			rel="noopener noreferrer"
-																			className="flex items-center gap-2 px-4 py-2 rounded-lg 
+											{/* 부가 자료 링크 */}
+											{project.projectData.subLinks.some((link) => link.visible) && (
+												<div className="flex flex-wrap gap-4 mt-6 justify-center">
+													{project.projectData.subLinks
+														.filter((link) => link.visible)
+														.map((link, index) => (
+															<a
+																key={index}
+																href={link.url}
+																target="_blank"
+																rel="noopener noreferrer"
+																className="flex items-center gap-2 px-4 py-2 rounded-lg
                                       bg-primary text-primary-foreground hover:bg-primary/80
                                       transition-colors duration-200"
-																		>
-																			<Image
-																				src={getIcon(link.type)}
-																				alt={link.type}
-																				width={20}
-																				height={20}
-																			/>
-																			<span>
-																				{link.type === 'video'
-																					? 'Video'
-																					: link.type === 'ppt'
-																						? 'PPT'
-																						: link.type === 'doc'
-																							? 'Doc'
-																							: 'Other'}
-																			</span>
-																		</a>
-																	))}
-															</div>
-														)}
-													</>,
-												)}
+															>
+																<Image
+																	src={getIcon(link.type)}
+																	alt={link.type}
+																	width={20}
+																	height={20}
+																/>
+																<span>
+																	{link.type === 'video'
+																		? 'Video'
+																		: link.type === 'ppt'
+																			? 'PPT'
+																			: link.type === 'doc'
+																				? 'Doc'
+																				: 'Other'}
+																</span>
+															</a>
+														))}
+												</div>
+											)}
+										</>,
+									)}
 
-											{/* 닫기 버튼 */}
-											<div className="pt-4">
-												<button
-													onClick={handleCloseClick}
-													className="w-full px-6 py-3 bg-primary hover:bg-primary/50 
+								{/* 닫기 버튼 */}
+								<div className="pt-4">
+									<button
+										onClick={handleCloseClick}
+										className="w-full px-6 py-3 bg-primary hover:bg-primary/50
                           text-primary-foreground font-semibold rounded-lg
                           transition-colors duration-200"
-												>
-													{dictionary.projectDetail.close}
-												</button>
-											</div>
-										</div>
-									</div>
+									>
+										{dictionary.projectDetail.close}
+									</button>
 								</div>
 							</div>
 						</div>
-					</motion.div>
-				</motion.div>
+					</div>
+				</div>
+			</div>
+			{isViewerOpen && (
+				<ImageViewer
+					images={project.projectData.images}
+					currentIndex={currentImageIndex}
+					onClose={() => setIsViewerOpen(false)}
+					onIndexChange={setCurrentImageIndex}
+				/>
 			)}
-
-			{/* 이미지 뷰어 */}
-			<AnimatePresence mode="sync">
-				{isViewerOpen && (
-					<ImageViewer
-						key="image-viewer-component"
-						images={project.projectData.images}
-						currentIndex={currentImageIndex}
-						onClose={() => setIsViewerOpen(false)}
-						onIndexChange={setCurrentImageIndex}
-					/>
-				)}
-			</AnimatePresence>
-		</AnimatePresence>
+		</>
 	);
 };
 

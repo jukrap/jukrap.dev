@@ -1,6 +1,6 @@
+import ScrollReveal from '@/components/common/scrollReveal';
 import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { useIcon } from '@/hook/useIcon';
 import { ProjectCardProps } from '@/types/component';
 import TechStackIcons from '@/components/common/techStackIcons';
@@ -12,11 +12,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 	index = 0,
 }) => {
 	const { getIcon } = useIcon();
+	const thumbnail = project.projectData.images[0];
 
 	return (
-		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
+		<ScrollReveal
+			as="div"
 			className={[
 				'group relative overflow-hidden rounded-lg surface-minimal',
 				'interactive-soft cursor-pointer hover:border-accent/45 hover:shadow-[0_8px_24px_hsl(var(--blacks)/0.08)]',
@@ -55,12 +55,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 					</>
 				) : null}
 				<div className="absolute inset-0 flex items-center justify-center p-6 z-10">
-					<AspectRatioImage
-						src={project.projectData.images[0]}
-						alt={project.title}
-						priority={index < 3}
-						containerClassName="max-w-[24rem] max-h-[16rem]"
-					/>
+					{thumbnail && (
+						<AspectRatioImage
+							src={thumbnail.src}
+							alt={thumbnail.alt}
+							priority={index < 3}
+							containerClassName="max-w-[24rem] max-h-[16rem]"
+						/>
+					)}
 				</div>
 			</div>
 
@@ -69,7 +71,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 				<div className="space-y-4">
 					<div className="space-y-1">
 						<h3 className="text-xl font-bold text-foreground tracking-tight">
-							{project.title}
+							<button
+								type="button"
+								className="text-left"
+								onClick={(event) => {
+									event.stopPropagation();
+									onClick();
+								}}
+							>
+								{project.title}
+							</button>
 						</h3>
 						<p className="text-sm text-muted-foreground">{project.subtitle}</p>
 					</div>
@@ -125,7 +136,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 					</div>
 				</div>
 			</div>
-		</motion.div>
+		</ScrollReveal>
 	);
 };
 

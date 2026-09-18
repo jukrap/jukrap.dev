@@ -1,5 +1,6 @@
 'use client';
 
+import ScrollReveal from '@/components/common/scrollReveal';
 import React from 'react';
 import Link from 'next/link';
 import {
@@ -9,10 +10,11 @@ import {
 	UserRound,
 } from 'lucide-react';
 import { useLocale } from '@/contexts/localeContext';
-import { recruitingDocumentManifest } from '@/data/documents/manifest';
+import { getRecruitingDocumentManifest } from '@/data/documents/manifest';
 
 export const PortfolioSection = () => {
-	const { dictionary } = useLocale();
+	const { dictionary, locale } = useLocale();
+	const recruitingDocumentManifest = getRecruitingDocumentManifest(locale);
 	const copy = {
 		portfolio: {
 			icon: PanelsTopLeft,
@@ -35,7 +37,7 @@ export const PortfolioSection = () => {
 	};
 
 	return (
-		<section
+		<ScrollReveal
 			id="documents"
 			className="home-documents"
 			aria-labelledby="home-documents-title"
@@ -61,7 +63,7 @@ export const PortfolioSection = () => {
 							return (
 								<article
 									key={document.id}
-									className="home-document-card flex min-h-[218px] min-w-0 flex-col justify-between gap-6 rounded-lg p-6"
+									className="home-document-card flex min-w-0 flex-col gap-5 rounded-lg p-6"
 								>
 									<div className="space-y-2">
 										<h3 className="flex items-center gap-2 text-lg font-bold leading-6 text-foreground">
@@ -74,7 +76,7 @@ export const PortfolioSection = () => {
 									</div>
 									<Link
 										href={document.slug}
-										className="home-document-link inline-flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 text-center text-base font-semibold leading-5"
+										className="home-document-link mt-auto inline-flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 text-center text-base font-semibold leading-5"
 									>
 										<ChevronRight className="h-5 w-5 shrink-0" aria-hidden="true" />
 										<span>{copy[document.id].linkLabel}</span>
@@ -84,6 +86,6 @@ export const PortfolioSection = () => {
 						})}
 				</div>
 			</div>
-		</section>
+		</ScrollReveal>
 	);
 };

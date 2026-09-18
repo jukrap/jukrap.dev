@@ -48,6 +48,7 @@ export interface DocumentContentItem {
 
 export interface DocumentContentSection {
 	id: string;
+	variant?: 'default' | 'note';
 	title?: string;
 	body?: readonly string[];
 	items?: readonly DocumentContentItem[];
@@ -107,7 +108,7 @@ export interface ResumeCompetency {
 export interface ResumeCareer {
 	company: string;
 	period: string;
-	officialTitle: string;
+	officialTitle?: string;
 	role: string;
 	summary?: string;
 	highlights: readonly string[];
@@ -159,7 +160,7 @@ export interface ResumeDocumentCopy {
 export interface CareerBriefCompany {
 	name: string;
 	period: string;
-	officialTitle: string;
+	officialTitle?: string;
 	role: string;
 	summary: string;
 	responsibilities: readonly string[];

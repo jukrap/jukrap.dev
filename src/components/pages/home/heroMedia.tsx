@@ -67,10 +67,11 @@ export const HeroMedia = () => {
 	return (
 		<>
 			<Image
-				src="/images/home/first-light.png"
+				src="/images/home/first-light-poster.jpg"
 				alt=""
 				fill
 				preload
+				unoptimized
 				sizes="(max-width: 1440px) 100vw, 1392px"
 				className="home-hero-media"
 			/>

@@ -1,173 +1,101 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { useThemeStore } from '@/store/useThemeStore';
-import { ImageViewerProps } from '@/types/component';
-import { getIconPath } from '@/util/iconPaths';
+import { useEffect, useState } from 'react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import type { ImageViewerProps } from '@/types/component';
+import { useLocale } from '@/contexts/localeContext';
 import LoadImage from './loadImage';
-import ImageSpinner from './ImageSpinner';
+import MediaModal from './mediaModal';
+import ImagePagination from './imagePagination';
 
-const ImageViewer: React.FC<ImageViewerProps> = ({
+export default function ImageViewer({
 	images,
 	currentIndex,
 	onClose,
 	onIndexChange,
-}) => {
-	const isDarkMode = useThemeStore((state) => state.isDarkMode);
-	const [isImageLoading, setIsImageLoading] = useState(true);
-	const [currentImageUrl, setCurrentImageUrl] = useState(images[currentIndex]);
-
+}: ImageViewerProps) {
+	const { locale } = useLocale();
+	const [open, setOpen] = useState(true);
+	const image = images[currentIndex];
+	const close = () => setOpen(false);
 	useEffect(() => {
-		const previousOverflow = document.body.style.overflow;
-		document.body.style.overflow = 'hidden';
-
-		return () => {
-			document.body.style.overflow = previousOverflow;
-		};
-	}, []);
-
-	useEffect(() => {
-		setIsImageLoading(true);
-		setCurrentImageUrl(images[currentIndex]);
-	}, [currentIndex, images]);
-
-	const handleClose = useCallback(() => {
-		onClose();
-	}, [onClose]);
-
-	const handleImageLoad = () => {
-		setIsImageLoading(false);
-	};
-
-	const nextImage = (e: React.MouseEvent) => {
-		e.stopPropagation();
-		onIndexChange((currentIndex + 1) % images.length);
-	};
-
-	const prevImage = (e: React.MouseEvent) => {
-		e.stopPropagation();
-		onIndexChange((currentIndex - 1 + images.length) % images.length);
-	};
-
-	useEffect(() => {
+		if (!open) return;
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.key === 'ArrowRight')
-				onIndexChange((currentIndex + 1) % images.length);
-			if (event.key === 'ArrowLeft')
-				onIndexChange((currentIndex - 1 + images.length) % images.length);
-			if (event.key === 'Escape') handleClose();
+			if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+			if (event.altKey || event.ctrlKey || event.metaKey || images.length < 2)
+				return;
+			event.preventDefault();
+			event.stopPropagation();
+			onIndexChange(
+				(currentIndex + (event.key === 'ArrowRight' ? 1 : -1) + images.length) %
+					images.length,
+			);
 		};
 		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, [currentIndex, handleClose, images.length, onIndexChange]);
-
+	}, [currentIndex, images.length, onIndexChange, open]);
+	if (!image) return null;
+	const controlClass =
+		'flex h-11 w-11 items-center justify-center rounded-full border border-border/35 bg-background/95 transition-colors hover:border-accent/55 hover:bg-secondary';
 	return (
-		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			transition={{ duration: 0.16, ease: 'easeOut' }}
-			className="fixed inset-0 z-[70] flex items-center justify-center bg-black/75"
-			onClick={handleClose}
+		<MediaModal
+			isOpen={open}
+			label={locale === 'ko' ? '프로젝트 이미지 확대' : 'Project image viewer'}
+			variant="viewer"
+			onClose={close}
+			onAfterClose={onClose}
 		>
-			<motion.div
-				initial={{ opacity: 0, scale: 0.98 }}
-				animate={{ opacity: 1, scale: 1 }}
-				exit={{ opacity: 0, scale: 0.98 }}
-				transition={{ duration: 0.14, ease: 'easeOut' }}
-				className="relative flex h-[70vh] w-full transform-gpu items-center justify-center md:w-[60vw]"
-				onClick={(e) => e.stopPropagation()}
-			>
-				<div className="relative w-full h-full px-4 md:px-0">
-					<div className="relative w-full h-full">
-						{isImageLoading && (
-							<motion.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								exit={{ opacity: 0 }}
-								className="absolute inset-0 flex items-center justify-center bg-black/20"
+			<div className="absolute inset-0" onClick={close} aria-hidden="true" />
+			<div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+				<figure className="pointer-events-auto relative h-[70vh] w-full px-4 md:w-[60vw] md:px-0">
+					<LoadImage
+						src={image.src}
+						alt={image.alt}
+						fill
+						priority
+						sizes="(max-width: 767px) calc(100vw - 32px), 60vw"
+					/>
+					{image.caption && (
+						<figcaption className="mt-3 text-center text-sm text-white">
+							{image.caption}
+						</figcaption>
+					)}
+					{images.length > 1 && (
+						<>
+							<button
+								type="button"
+								className={`absolute left-2 top-1/2 -translate-y-1/2 md:left-[-70px] ${controlClass}`}
+								onClick={() =>
+									onIndexChange((currentIndex - 1 + images.length) % images.length)
+								}
+								aria-label={locale === 'ko' ? '이전 이미지' : 'Previous image'}
 							>
-								<ImageSpinner />
-							</motion.div>
-						)}
-						<LoadImage
-							key={currentImageUrl} // 키를 추가하여 이미지 변경 시 컴포넌트 재생성
-							src={currentImageUrl}
-							alt="Project Image"
-							fill
-							objectFit="contain"
-							priority
-							onLoad={handleImageLoad}
-							className="transition-transform duration-300"
-						/>
-					</div>
-				</div>
-
-				{/* 네비게이션 버튼 - 모바일에서는 양쪽 여백 축소 */}
-				<button
-					className="absolute top-1/2 left-2 md:left-[-70px] flex h-10 w-10 md:h-11 md:w-11 -translate-y-1/2 transform items-center justify-center rounded-full border border-border/35 bg-background/95 transition-colors duration-200 hover:border-accent/55 hover:bg-secondary"
-					onClick={prevImage}
-					aria-label="Previous image"
-				>
-					<Image
-						src={getIconPath('back', isDarkMode)}
-						alt="Previous"
-						width={18}
-						height={18}
-						className="h-4 w-4 md:h-5 md:w-5"
-					/>
-				</button>
-				<button
-					className="absolute top-1/2 right-2 md:right-[-70px] flex h-10 w-10 md:h-11 md:w-11 -translate-y-1/2 transform items-center justify-center rounded-full border border-border/35 bg-background/95 transition-colors duration-200 hover:border-accent/55 hover:bg-secondary"
-					onClick={nextImage}
-					aria-label="Next image"
-				>
-					<Image
-						src={getIconPath('forward', isDarkMode)}
-						alt="Next"
-						width={18}
-						height={18}
-						className="h-4 w-4 md:h-5 md:w-5"
-					/>
-				</button>
-			</motion.div>
-
-			{/* 닫기 버튼 */}
+								<ChevronLeft size={18} aria-hidden="true" />
+							</button>
+							<button
+								type="button"
+								className={`absolute right-2 top-1/2 -translate-y-1/2 md:right-[-70px] ${controlClass}`}
+								onClick={() => onIndexChange((currentIndex + 1) % images.length)}
+								aria-label={locale === 'ko' ? '다음 이미지' : 'Next image'}
+							>
+								<ChevronRight size={18} aria-hidden="true" />
+							</button>
+						</>
+					)}
+				</figure>
+			</div>
 			<button
 				type="button"
-				className="absolute top-6 right-6 flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full border border-border/35 bg-background/95 transition-colors duration-200 hover:border-accent/55 hover:bg-secondary no-select"
-				onClick={(e) => {
-					e.stopPropagation();
-					handleClose();
-				}}
-				aria-label="Close image viewer"
+				className={`absolute right-6 top-6 ${controlClass}`}
+				onClick={close}
+				aria-label={locale === 'ko' ? '이미지 확대 닫기' : 'Close image viewer'}
 			>
-				<Image
-					src={getIconPath('close', isDarkMode)}
-					alt="Close"
-					width={18}
-					height={18}
-					className="h-4 w-4 md:h-5 md:w-5"
-				/>
+				<X size={18} aria-hidden="true" />
 			</button>
-
-			{/* 인디케이터 */}
-			<div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 md:gap-4">
-				{images.map((_, index) => (
-					<button
-						key={index}
-						className={`w-2 h-2 md:w-4 md:h-4 aspect-square rounded-full transition-colors duration-300 ${
-							index === currentIndex ? 'bg-accent' : 'bg-gray-300 hover:bg-gray-400'
-						}`}
-						onClick={(e) => {
-							e.stopPropagation();
-							onIndexChange(index);
-						}}
-					/>
-				))}
-			</div>
-		</motion.div>
+			<ImagePagination
+				images={images}
+				currentIndex={currentIndex}
+				onIndexChange={onIndexChange}
+				variant="viewer"
+			/>
+		</MediaModal>
 	);
-};
-
-export default ImageViewer;
+}

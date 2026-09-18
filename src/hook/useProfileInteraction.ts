@@ -1,55 +1,34 @@
-import { useState, useRef, useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useProfileInteraction = () => {
 	const [isFlipped, setIsFlipped] = useState(false);
 	const [showMessage, setShowMessage] = useState(false);
-	const [isMessageFadingOut, setIsMessageFadingOut] = useState(false);
-	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-	const handleImageClick = () => {
-		if (showMessage) {
-			setIsMessageFadingOut(true);
-			setTimeout(() => {
-				setShowMessage(false);
-				setIsMessageFadingOut(false);
-				setIsFlipped(!isFlipped);
-			}, 300);
-		} else {
-			setIsFlipped(!isFlipped);
-		}
-	};
-
-	const handleMouseEnter = () => {
-		timeoutRef.current = setTimeout(() => {
-			setShowMessage(true);
-		}, 1000);
-	};
-
-	const handleMouseLeave = () => {
-		if (timeoutRef.current) {
-			clearTimeout(timeoutRef.current);
-		}
-		if (showMessage) {
-			setIsMessageFadingOut(true);
-			setTimeout(() => {
-				setShowMessage(false);
-				setIsMessageFadingOut(false);
-			}, 200);
-		}
-	};
-
-	useEffect(() => {
-		return () => {
-			if (timeoutRef.current) {
-				clearTimeout(timeoutRef.current);
-			}
-		};
+	const hintDismissed = useRef(false);
+	const hintTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const clearHint = useCallback(() => {
+		if (hintTimer.current !== null) clearTimeout(hintTimer.current);
+		hintTimer.current = null;
 	}, []);
-
+	const handleMouseEnter = () => {
+		if (hintDismissed.current) return;
+		clearHint();
+		hintTimer.current = setTimeout(() => setShowMessage(true), 650);
+	};
+	const handleMouseLeave = () => {
+		hintDismissed.current = false;
+		clearHint();
+		setShowMessage(false);
+	};
+	const handleImageClick = () => {
+		hintDismissed.current = true;
+		clearHint();
+		setShowMessage(false);
+		setIsFlipped((current) => !current);
+	};
+	useEffect(() => clearHint, [clearHint]);
 	return {
 		isFlipped,
 		showMessage,
-		isMessageFadingOut,
 		handleImageClick,
 		handleMouseEnter,
 		handleMouseLeave,

@@ -8,7 +8,6 @@ import IntroSectionLink from './introSectionLinks';
 export const ProfileCard: React.FC<ProfileInteractionProps> = ({
 	isFlipped,
 	showMessage,
-	isMessageFadingOut,
 	onClick,
 	onMouseEnter,
 	onMouseLeave,
@@ -26,7 +25,6 @@ export const ProfileCard: React.FC<ProfileInteractionProps> = ({
 				onMouseEnter={onMouseEnter}
 				onMouseLeave={onMouseLeave}
 				showMessage={showMessage}
-				isMessageFadingOut={isMessageFadingOut}
 			/>
 
 			<div className="text-center space-y-1">

@@ -1,10 +1,11 @@
 'use client';
 
+import ScrollReveal from '@/components/common/scrollReveal';
 import type { ReactNode } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { LocaleDictionary } from '@/types/locale';
 import type { ProfessionalStory, WorkStoryChapter } from '@/types/work';
-import { WorkEvidenceList } from './workEvidenceList';
+import { getWorkMeasurements, WorkEvidenceList } from './workEvidenceList';
 import { WorkTechnologyList } from './workTechnologyList';
 
 type WorkLabels = LocaleDictionary['work']['labels'];
@@ -22,7 +23,7 @@ interface EditorialSectionProps {
 
 const EditorialSection = ({ title, children }: EditorialSectionProps) => (
 	<section className="grid gap-3 py-4 sm:py-6 md:grid-cols-[7.5rem_minmax(0,1fr)] md:gap-8 md:py-8">
-		<h4 className="text-sm font-bold text-foreground break-keep">{title}</h4>
+		<h4 className="work-section-label text-foreground break-keep">{title}</h4>
 		<div className="min-w-0">{children}</div>
 	</section>
 );
@@ -89,7 +90,14 @@ const ChapterBoundaries = ({ chapters }: { chapters: WorkStoryChapter[] }) => (
 );
 
 const StoryResults = ({ story }: { story: ProfessionalStory }) => {
-	const hasMultipleSections = story.resultSections.length > 1;
+	const sections = story.resultSections
+		.map((section) => ({
+			...section,
+			impact: getWorkMeasurements(section.impact),
+		}))
+		.filter((section) => section.impact.length > 0);
+	if (sections.length === 0) return null;
+	const hasMultipleSections = sections.length > 1;
 
 	return (
 		<div
@@ -97,7 +105,7 @@ const StoryResults = ({ story }: { story: ProfessionalStory }) => {
 				hasMultipleSections ? 'divide-y divide-border/45' : ''
 			}`}
 		>
-			{story.resultSections.map((section) => (
+			{sections.map((section) => (
 				<section
 					key={section.id}
 					className={
@@ -107,11 +115,11 @@ const StoryResults = ({ story }: { story: ProfessionalStory }) => {
 					}
 				>
 					{hasMultipleSections && section.title && (
-						<h5 className="pb-1 pt-5 text-sm font-bold leading-6 text-foreground break-keep lg:py-4">
+						<h5 className="pb-1 pt-5 work-section-label text-foreground break-keep lg:py-4">
 							{section.title}
 						</h5>
 					)}
-					<div className="min-w-0">
+					<div className={`min-w-0 ${hasMultipleSections ? 'py-4' : ''}`}>
 						<WorkEvidenceList items={section.impact} />
 					</div>
 				</section>
@@ -122,14 +130,12 @@ const StoryResults = ({ story }: { story: ProfessionalStory }) => {
 
 const DetailRow = ({ title, children }: EditorialSectionProps) => (
 	<section className="grid gap-3 border-t border-border/45 py-6 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6">
-		<h6 className="text-sm font-bold leading-6 text-foreground break-keep">
-			{title}
-		</h6>
+		<h6 className="work-section-label text-foreground break-keep">{title}</h6>
 		<div className="min-w-0">{children}</div>
 	</section>
 );
 
-const ChapterEvidence = ({
+export const ChapterEvidence = ({
 	chapter,
 	labels,
 	showTitle,
@@ -169,22 +175,18 @@ const ChapterEvidence = ({
 
 			<div className="grid gap-8 border-t border-border/45 py-6 lg:grid-cols-2 lg:gap-10">
 				<section className="space-y-3">
-					<h6 className="text-sm font-bold leading-6 text-foreground">
-						{labels.solution}
-					</h6>
+					<h6 className="work-section-label text-foreground">{labels.solution}</h6>
 					<EvidenceList items={chapter.execution} />
 				</section>
 				<section className="space-y-3">
-					<h6 className="text-sm font-bold leading-6 text-foreground">
-						{labels.process}
-					</h6>
+					<h6 className="work-section-label text-foreground">{labels.process}</h6>
 					<EvidenceList items={chapter.additionalEvidence} />
 				</section>
 			</div>
 
-			{chapter.impact.length > 0 && (
+			{getWorkMeasurements(chapter.impact).length > 0 && (
 				<DetailRow title={labels.impact}>
-					<WorkEvidenceList items={chapter.impact} />
+					<WorkEvidenceList items={getWorkMeasurements(chapter.impact)} />
 				</DetailRow>
 			)}
 			{chapter.checks.length > 0 && (
@@ -204,7 +206,7 @@ const AdditionalEvidence = ({
 	labels: WorkLabels;
 }) => (
 	<details className="group border-y border-border/55">
-		<summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-sm font-bold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+		<summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 work-section-label text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
 			<span>{labels.additionalEvidence}</span>
 			<ChevronDown
 				className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180 motion-reduce:transition-none"
@@ -238,7 +240,8 @@ export const WorkCaseDetail = ({
 	if (!editorial) return null;
 
 	return (
-		<article
+		<ScrollReveal
+			as="article"
 			id={story.id}
 			tabIndex={-1}
 			className="scroll-mt-32 md:scroll-mt-40 xl:scroll-mt-32 border-t-2 border-foreground/70 py-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:py-14"
@@ -261,7 +264,7 @@ export const WorkCaseDetail = ({
 
 				<dl className="mt-6 space-y-4 border-t border-border/45 pt-4 sm:mt-7 sm:pt-5">
 					<div className="grid gap-2 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-8">
-						<dt className="text-xs font-bold text-muted-foreground">
+						<dt className="work-section-label text-muted-foreground">
 							{labels.scope}
 						</dt>
 						<dd className="text-sm leading-6 break-keep">
@@ -270,7 +273,7 @@ export const WorkCaseDetail = ({
 						</dd>
 					</div>
 					<div className="grid gap-2 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-8">
-						<dt className="text-xs font-bold text-muted-foreground">
+						<dt className="work-section-label text-muted-foreground">
 							{labels.stack}
 						</dt>
 						<dd>
@@ -305,6 +308,6 @@ export const WorkCaseDetail = ({
 			</div>
 
 			<AdditionalEvidence story={story} labels={labels} />
-		</article>
+		</ScrollReveal>
 	);
 };

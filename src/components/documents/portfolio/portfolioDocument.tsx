@@ -1,22 +1,30 @@
-import { portfolioDocument } from '@/data/documents';
+import type { Locale } from '@/types/locale';
+import { getPortfolioDocument } from '@/data/documents';
 import type { PortfolioPageDefinition } from '@/types/documents';
 
 import { PortfolioPage } from './portfolioPage';
 
 interface PortfolioDocumentProps {
 	pages?: readonly PortfolioPageDefinition[];
+	locale?: Locale;
 }
 
 export function PortfolioDocument({
-	pages = portfolioDocument,
+	locale = 'ko',
+	pages = getPortfolioDocument(locale),
 }: PortfolioDocumentProps) {
 	return (
 		<article
-			aria-label="박주철 웹·모바일 프론트엔드 포트폴리오"
+			lang={locale}
+			aria-label={
+				locale === 'ko'
+					? '박주철 프론트엔드 포트폴리오'
+					: 'Ju-cheol Park frontend portfolio'
+			}
 			className="document-pages document-page-stack mx-auto w-full bg-muted/30 print:bg-white"
 		>
 			{pages.map((page) => (
-				<PortfolioPage key={page.id} page={page} />
+				<PortfolioPage key={page.id} page={page} locale={locale} />
 			))}
 		</article>
 	);

@@ -1,12 +1,13 @@
 'use client';
 
+import ScrollReveal from '@/components/common/scrollReveal';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useThemeStore } from '@/store/useThemeStore';
 import { ProjectLink, SimpleProject, Project } from '@/types/project';
 import { useIcon } from '@/hook/useIcon';
 import { useLocale } from '@/contexts/localeContext';
-import ProjectDetail from '@/components/common/projectDetail';
+import ProjectDetailEntry from '@/components/common/projectDetailEntry';
 
 const SideProjectsLink: React.FC<ProjectLink> = ({ type, url }) => {
 	const { getIcon } = useIcon();
@@ -56,7 +57,7 @@ const SideProjectsSection: React.FC = () => {
 	};
 
 	return (
-		<section className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
+		<ScrollReveal className="w-full max-w-[700px] flex flex-col items-start gap-6 md:gap-8">
 			<h2 className="about-section-title font-bold tracking-tight text-foreground">
 				{dictionary.about.sideProjects}
 			</h2>
@@ -70,7 +71,7 @@ const SideProjectsSection: React.FC = () => {
 							<div className="flex flex-col items-start gap-0.5">
 								<button
 									onClick={() => openProjectDetail(project.id)}
-									className="font-medium text-lg md:text-xl leading-6 text-left text-foreground transition-colors duration-200 cursor-pointer break-keep hover:text-accent hover:underline decoration-accent/70 decoration-2 underline-offset-4"
+									className="font-medium text-lg md:text-xl leading-6 text-left text-foreground transition-colors duration-200 cursor-pointer break-keep hover:text-accent hover:underline focus-visible:text-accent focus-visible:underline decoration-accent/70 decoration-2 underline-offset-4"
 								>
 									{project.title}
 								</button>
@@ -134,9 +135,13 @@ const SideProjectsSection: React.FC = () => {
 			</div>
 
 			{selectedProject && (
-				<ProjectDetail project={selectedProject} onClose={closeProjectDetail} />
+				<ProjectDetailEntry
+					key={selectedProject.id}
+					project={selectedProject}
+					onClose={closeProjectDetail}
+				/>
 			)}
-		</section>
+		</ScrollReveal>
 	);
 };
 

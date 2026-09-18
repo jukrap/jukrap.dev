@@ -17,6 +17,7 @@ export type WorkstreamId =
 export type WorkStoryTier = 'featured' | 'compact';
 
 export interface WorkImpact {
+	presentation?: 'measurement';
 	value: string;
 	label: string;
 	detail?: string;

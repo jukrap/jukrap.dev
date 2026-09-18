@@ -144,6 +144,11 @@
     "height": 521,
     "isPortrait": false
   },
+  "/public/images/home/first-light-poster.jpg": {
+    "width": 1364,
+    "height": 768,
+    "isPortrait": false
+  },
   "/public/images/home/first-light.png": {
     "width": 1672,
     "height": 941,
@@ -187,6 +192,21 @@
   "/public/images/itzip/image7.png": {
     "width": 2560,
     "height": 1439,
+    "isPortrait": false
+  },
+  "/public/images/jukrap-website/2026-home-desktop.png": {
+    "width": 1425,
+    "height": 942,
+    "isPortrait": false
+  },
+  "/public/images/jukrap-website/2026-home-mobile.png": {
+    "width": 375,
+    "height": 812,
+    "isPortrait": true
+  },
+  "/public/images/jukrap-website/2026-work-desktop.png": {
+    "width": 1425,
+    "height": 942,
     "isPortrait": false
   },
   "/public/images/jukrap-website/image1.png": {

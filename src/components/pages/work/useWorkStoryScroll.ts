@@ -42,7 +42,8 @@ export const useWorkStoryScroll = (
 
 			if (!atDocumentEnd) {
 				for (let index = 0; index < sections.length; index += 1) {
-					if (sections[index].offsetTop <= marker) activeIndex = index;
+					if (sections[index].getBoundingClientRect().top + window.scrollY <= marker)
+						activeIndex = index;
 					else break;
 				}
 			}

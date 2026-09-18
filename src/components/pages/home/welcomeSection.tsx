@@ -22,7 +22,17 @@ export const WelcomeSection = () => {
 						</span>
 					))}
 				</h1>
-				<p className="home-hero-intro">{home.heroDescription}</p>
+				<p className="home-hero-intro">
+					{home.heroDescription.split(/(웹&모바일)/).map((part, index) =>
+						part === '웹&모바일' ? (
+							<span key={index} className="whitespace-nowrap">
+								{part}
+							</span>
+						) : (
+							part
+						),
+					)}
+				</p>
 				<div className="home-hero-actions">
 					<Link
 						href={getLocalizedPath('/work', locale)}

@@ -15,14 +15,11 @@ export const skills: Skill[] = [
 	},
 	{
 		category: 'Testing/Observability',
-		items: 'Vitest, Jest, MSW, Storybook, Sentry',
+		items: 'Vitest, MSW, Storybook, Sentry',
 	},
 	{
-		category: 'Server/Data',
-		items: 'Spring Boot, Spring MVC, MyBatis, MariaDB, SQLite',
-	},
-	{
-		category: 'Tooling/Ops',
-		items: 'Node.js, Firebase, Google Cloud Platform, AWS, Jenkins, Docker',
+		category: 'Tools & Data',
+		items:
+			'Node.js, MariaDB, SQLite, Firebase, Google Cloud Platform, AWS, Jenkins, Docker',
 	},
 ];

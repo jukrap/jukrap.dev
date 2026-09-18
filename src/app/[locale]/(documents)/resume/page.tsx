@@ -1,38 +1,47 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { isLocale } from '@/lib/locale';
+import { getRecruitingDocumentManifest } from '@/data/documents/manifest';
 import { ResumeDocument } from '@/components/documents/private';
-import { resumeDocumentDefinition } from '@/data/documents/manifest';
+import { headers } from 'next/headers';
 import { getRecruitingDocumentContact } from '@/lib/privateDocuments';
-
-interface ResumePageProps {
+export const dynamic = 'force-dynamic';
+interface PageProps {
 	params: Promise<{ locale: string }>;
 }
-
-export const dynamic = 'force-dynamic';
-
-export const metadata: Metadata = {
-	title: `${resumeDocumentDefinition.title} | 박주철`,
-	description: resumeDocumentDefinition.description,
-	robots: {
-		index: false,
-		follow: false,
-		noarchive: true,
-		googleBot: {
+export async function generateMetadata({
+	params,
+}: PageProps): Promise<Metadata> {
+	const { locale } = await params;
+	if (!isLocale(locale)) notFound();
+	const definition = getRecruitingDocumentManifest(locale).documents.find(
+		(document) => document.id === 'resume',
+	)!;
+	return {
+		title: `${definition.title} | ${locale === 'ko' ? '박주철' : 'Ju-cheol Park'}`,
+		description: definition.description,
+		alternates: {
+			canonical: `https://jukrap.vercel.app${definition.slug}`,
+			languages: {
+				ko: 'https://jukrap.vercel.app/ko/resume',
+				en: 'https://jukrap.vercel.app/en/resume',
+			},
+		},
+		robots: {
 			index: false,
 			follow: false,
 			noarchive: true,
+			googleBot: { index: false, follow: false, noarchive: true },
 		},
-	},
-};
-
-export default async function ResumePage({ params }: ResumePageProps) {
+	};
+}
+export default async function ResumePage({ params }: PageProps) {
 	const { locale } = await params;
-	if (locale !== 'ko') {
-		notFound();
-	}
+	if (!isLocale(locale)) notFound();
 	const requestHeaders = await headers();
-	const contact = getRecruitingDocumentContact(requestHeaders.get('host'));
-
-	return <ResumeDocument contact={contact} />;
+	const contact = getRecruitingDocumentContact(
+		requestHeaders.get('host'),
+		locale,
+	);
+	return <ResumeDocument locale={locale} contact={contact} />;
 }

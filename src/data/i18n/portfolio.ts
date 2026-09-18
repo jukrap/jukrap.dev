@@ -53,12 +53,14 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 	},
 	'jukrap-website': {
 		title: 'Jukrap Website',
-		introduction: 'A personal website built with React and Next.js.',
+		introduction:
+			'A personal website for work experience, projects, and career documents.',
 		description: [
 			'Solo development',
-			'Used modern frameworks where possible (React 18, Next.js 14)',
-			'Implemented a custom typing effect with hooks',
-			'Built light and dark mode switching with Zustand and Tailwind',
+			'Built with React 19 and the Next.js 16 App Router',
+			'Korean and English content with web and print layouts for career documents',
+			'Theme switching, project details, and an image viewer',
+			'Home video playback controls with a still-image fallback',
 		],
 	},
 	'ai-agent-playbook': {
@@ -87,7 +89,8 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 	},
 	'posture-teacher': {
 		title: 'Posture Teacher',
-		introduction: 'An app that detects posture and summarizes posture results.',
+		introduction:
+			'An app that detects sitting and exercise posture and displays the results.',
 		description: [
 			'Team lead and Android developer',
 			'Owned sitting and exercise posture detection pages',
@@ -117,7 +120,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 	mytime: {
 		title: 'MyTime',
 		introduction:
-			'An app that detects focus state and provides focus-related results.',
+			'A timer app that detects and records focus using facial movement.',
 		description: [
 			'Team lead and Android developer',
 			'Owned face-detection-based focus determination pages',
@@ -156,7 +159,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Integrated external APIs and built data services',
 				details: [
 					'Modularized API calls with axios and used Next.js API Routes to integrate Google Maps APIs, weather, station information with live congestion, running and cycling courses, and restaurant information.',
-					'Handled request parameters such as latitude, longitude, pagination, and category filtering, and added error handling for more stable data delivery.',
+					'Handled latitude, longitude, pagination, and category filters as request parameters and added API error handling.',
 				],
 			},
 			{
@@ -191,7 +194,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Compared web capabilities across domestic and global map APIs, including Kakao Maps, Naver Maps, T Map, and Google Maps.',
 					'Evaluated support for transit APIs, directions APIs, and custom styling, then selected Google Maps Platform as the best fit.',
-					'Combined Maps JavaScript API, Directions API, Places API, and Static Maps API to build a more complete map service.',
+					'Connected Maps JavaScript API, Directions API, Places API, and Static Maps API to map display, directions, and place search.',
 				],
 			},
 		],
@@ -224,8 +227,8 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Implemented the blog system',
 				details: [
-					'Improved user experience by displaying total post counts with a slot-machine-style animation using react-spring.',
-					'Built a custom carousel component to improve visual appeal on the main page.',
+					'Used react-spring to animate the total post count in a slot-machine style.',
+					'Built a custom carousel component for the main page.',
 					'Provided multiple filtering and sorting options so users could find desired content easily.',
 					'Improved pagination usability by automatically scrolling to the top when a page number was selected.',
 				],
@@ -234,7 +237,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Developed a Markdown editor',
 				details: [
 					'Implemented a Markdown editor with real-time preview.',
-					'Supported custom Markdown syntax to provide a richer and more convenient writing environment.',
+					'Added support for custom Markdown syntax.',
 				],
 			},
 			{
@@ -247,14 +250,14 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Improved code quality',
 				details: [
-					'Improved code quality with unit tests using Jest and component documentation using Storybook.',
-					'Built a real-time error monitoring system with Sentry for faster bug response.',
+					'Wrote unit tests with Jest and documented component states and usage in Storybook.',
+					'Connected Sentry to collect and inspect runtime errors.',
 				],
 			},
 			{
 				title: 'Built DevOps and infrastructure',
 				details: [
-					'Designed and built scalable cloud infrastructure with AWS.',
+					'Configured the service runtime environment on AWS.',
 					'Configured a CI/CD pipeline with Jenkins to automate continuous integration and deployment.',
 					'Containerized the service with Docker and configured development and operating environments.',
 				],
@@ -273,14 +276,14 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Image optimization',
 				details: [
-					'Optimized image loading performance with the Next.js Image component.',
+					'Used Next.js Image to display images and manage their sizing and loading.',
 				],
 			},
 			{
 				title: 'Code splitting with dynamic imports',
 				details: [
 					'Loaded components inside posts dynamically with Next.js dynamic imports.',
-					'Reduced initial page load time by loading related components only when needed.',
+					'Separated components inside posts from the initial code and loaded them when needed.',
 				],
 			},
 		],
@@ -290,7 +293,6 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Extended Tailwind CSS to build a consistent typography system across the project.',
 					'Developed responsive font scaling logic so font sizes could adjust by screen size.',
-					'Maintained design consistency while improving user experience across devices.',
 				],
 			},
 			{
@@ -298,16 +300,15 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Built a custom component similar to GitHub contribution graphs to visualize user writing activity.',
 					'Added hover tooltips so users could view more detailed information.',
-					'Used the feature to express activity patterns intuitively and encourage ongoing participation.',
 				],
 			},
 			{
 				title: 'Efficient team collaboration system',
 				details: [
 					'Served as frontend team lead in a 15-person team with five frontend developers, five backend developers, and five designers.',
-					'Built structured documentation and real-time communication practices using Notion, Discord, and Slack.',
+					'Documented tasks in Notion and shared progress and decisions through Discord and Slack.',
 					'Shared project status through weekly meetings and continuously improved code quality.',
-					'Used Figma and Swagger to establish efficient design-development and frontend-backend collaboration.',
+					'Worked with designers and backend developers using Figma designs and Swagger API specifications.',
 				],
 			},
 		],
@@ -315,43 +316,47 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 	'jukrap-website': {
 		title: "Jukrap's Personal Website",
 		subtitle: 'Jukrap Website',
-		overview: 'A personal website built with React and Next.js.',
+		overview:
+			'A personal website presenting work experience, personal projects, a portfolio, a résumé, and a career brief.',
 		tasks: [
 			{
-				title: 'Used modern frameworks where possible',
-				details: ['Used React 18 and Next.js 14.'],
+				title: 'Localized pages and career content',
+				details: [
+					'Built Home, About, Work, and Projects pages with React 19 and the Next.js 16 App Router.',
+					'Kept Korean and English content separate and connected both to shared components and localized routes.',
+					'Managed work cases and career documents as data, with layouts for reading on the web and printing.',
+				],
 			},
 			{
-				title: 'Key features',
+				title: 'Themes and project navigation',
 				details: [
-					'Added a typing effect to titles and content using custom hooks.',
-					'Implemented light and dark mode switching with Zustand and Tailwind.',
+					'Implemented light and dark themes with Zustand and Tailwind CSS.',
+					'Connected project filters, detail modals, and an image viewer so visitors can move from the list to implementation details and screenshots.',
 				],
 			},
 		],
 		troubleshooting: [
 			{
-				title: 'Resolved TypeScript type errors',
+				title: 'Controlled when the home video plays',
 				details: [
-					'Reworked interfaces and used utility types to resolve type errors from complex nested object structures.',
-					'Improved code stability and readability through the type restructuring.',
+					'Paused the home video when it leaves the viewport or the tab is hidden, while preserving a manual pause across scrolling.',
+					'Used a still image for reduced-motion or data-saving preferences and kept the introduction readable if the video fails to load.',
 				],
 			},
 		],
 		performanceImprovements: [
 			{
-				title: 'Image optimization',
+				title: 'Image requests sized for their display area',
 				details: [
-					'Improved image loading performance with the Next.js Image component.',
+					'Used Next.js Image to request images suited to the screen size and assigned different loading priorities to the hero image and project images further down the page.',
 				],
 			},
 		],
 		specialImplementations: [
 			{
-				title: 'Typing effect with a custom hook',
+				title: 'A shared hook for the typing effect',
 				details: [
-					'Developed a useTypingEffect hook to implement typing animation for titles and content.',
-					'Made the hook reusable and configurable for typing speed and delay.',
+					'Applied useTypingEffect to the About greeting with configurable typing speed and delays between phrases.',
 				],
 			},
 		],
@@ -367,7 +372,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Built a Node.js CLI that can run through npx or a global command.',
 					'Separated bootstrap, checks, and search flows into explicit commands so a target project can be inspected and dry-run output can be reviewed first.',
-					'Created a project playbook structure for keeping project-specific working rules and current context under `.ai-playbook/`.',
+					'Created a project playbook structure for keeping project-specific working rules and current context under `.ai-agent-playbook/`.',
 				],
 			},
 			{
@@ -440,7 +445,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Identified excessive traffic and slow loading caused by the default React Native image component.',
 					'Attempted to apply fast-image, but used faster-image as an alternative because fast-image was no longer actively updated.',
-					'Resolved image caching problems and improved app performance significantly.',
+					'Applied the faster-image cache to image loading.',
 				],
 			},
 		],
@@ -448,14 +453,14 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Image optimization',
 				details: [
-					'Worked on image handling with mobile-optimized UI in mind.',
-					'Improved performance through image resizing and caching.',
+					'Resized images to fit mobile screens.',
+					'Improved image loading through resizing and caching.',
 				],
 			},
 			{
 				title: 'Board and comment performance improvements',
 				details: [
-					'Used pull-to-refresh and infinite scroll to load large amounts of data efficiently.',
+					'Implemented pull-to-refresh to refresh lists and infinite scroll to load subsequent results.',
 				],
 			},
 		],
@@ -464,21 +469,19 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Real-time features with Firebase',
 				details: [
 					'Implemented real-time comments, likes, and multi-image features using Firebase Realtime Database.',
-					'Provided users with a more dynamic and interactive experience.',
 				],
 			},
 			{
 				title: 'Location-based post filtering',
 				details: [
 					'Implemented filtering so users could see posts near their current location.',
-					'Improved user experience by processing location data efficiently.',
 				],
 			},
 			{
 				title: 'Collaboration tools',
 				details: [
 					'Used Scrum practices to coordinate communication, development work, and schedules.',
-					'Actively used Notion, Slack, GitHub, and Figma to improve team efficiency.',
+					'Shared tasks in Notion and Slack and reviewed code and design changes in GitHub and Figma.',
 				],
 			},
 		],
@@ -487,7 +490,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		title: 'Posture Teacher',
 		subtitle: 'Posture Teacher',
 		overview:
-			'An app that detects sitting or plank posture, determines correctness from body-point angles and lengths, and provides data.',
+			'An app that assesses sitting and plank posture from body-point angles and lengths and displays the measurements.',
 		tasks: [
 			{
 				title: 'Implemented timer features',
@@ -501,7 +504,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Built MediaPipe AAR in a Linux environment and integrated it into the project.',
 					'Developed a solution that measured body and face movement using MediaPipe.',
-					'Achieved 5-10 times higher FPS than OpenCV and greatly improved performance.',
+					'Observed 5–10 times higher FPS than the OpenCV implementation during the project.',
 				],
 			},
 			{
@@ -514,8 +517,8 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Built the database',
 				details: [
-					'Designed and built an efficient database structure using SQLite-based Room Library.',
-					'Designed Dao, Entity, and Database structures to optimize CRUD work.',
+					'Designed measurement-record storage with the SQLite-based Room Library.',
+					'Separated DAO, Entity, and Database structures for reading and storing data.',
 					'Implemented a system to store and manage user measurement data effectively.',
 				],
 			},
@@ -540,7 +543,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Improved FPS',
 				details: [
-					'Achieved 5-10 times higher FPS by using MediaPipe instead of OpenCV.',
+					'Observed a 5–10-fold FPS increase after switching from OpenCV to MediaPipe during the project.',
 				],
 			},
 		],
@@ -556,7 +559,6 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Agile Scrum-based project process',
 				details: [
 					'Shared development progress and set next goals through one or two regular meetings each week.',
-					'Maintained fast feedback and a stable team atmosphere through this process.',
 				],
 			},
 		],
@@ -579,7 +581,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Built the database',
 				details: [
 					'Designed and built an efficient database structure with SQLite-based Room Library.',
-					'Designed Dao, Entity, and Database structures to optimize CRUD work.',
+					'Separated DAO, Entity, and Database structures for reading and storing data.',
 					'Implemented features to store and query statistics related to read books.',
 				],
 			},
@@ -650,7 +652,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		title: 'MyTime',
 		subtitle: 'MyTime',
 		overview:
-			'An Android timer app that detects facial movement to determine whether focus is maintained, then provides focus-improvement guidance and statistics.',
+			'An Android timer app that uses facial movement to detect focus and provides status-based guidance and statistics.',
 		tasks: [
 			{
 				title: 'Implemented focus detection',
@@ -665,14 +667,13 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Integrated and optimized MediaPipe',
 				details: [
 					'Built MediaPipe AAR directly in a Linux environment and integrated it into the project.',
-					'Improved app performance and increased real-time face recognition efficiency.',
 				],
 			},
 			{
 				title: 'Designed and implemented the database',
 				details: [
 					'Designed and built an efficient database structure with SQLite-based Room Library.',
-					'Designed Dao, Entity, and Database structures to optimize CRUD work.',
+					'Separated DAO, Entity, and Database structures for reading and storing data.',
 					'Implemented a system to store and manage user focus-time data effectively.',
 				],
 			},
@@ -681,10 +682,9 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Switched from OpenCV to MediaPipe',
 				details: [
-					'The initial OpenCV and NDK combination caused severe performance degradation.',
-					'Switched to MediaPipe, which significantly improved frames per second.',
-					'Obtained more accurate landmark values with MediaPipe and improved overall system performance.',
-					'Improved FPS from under 10 FPS to over 30 FPS.',
+					'The initial OpenCV and NDK implementation had a low frame rate.',
+					'Replaced the OpenCV implementation with MediaPipe.',
+					'Observed FPS increase from under 10 to over 30 during the project.',
 				],
 			},
 			{
@@ -717,7 +717,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Frontend development',
 				details: [
 					'Implemented a dynamic web application based on React.',
-					'Built an efficient routing system with react-router-dom.',
+					'Configured routing between pages with react-router-dom.',
 					'Implemented responsive design with react-bootstrap.',
 					'Built layouts and features for key pages such as main, hot deal, and search pages.',
 				],
@@ -726,7 +726,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Backend development',
 				details: [
 					'Designed and implemented the backend with Express.',
-					'Developed an efficient web crawling system with Puppeteer.',
+					'Developed a web crawler with Puppeteer to collect hot-deal information.',
 					'Implemented a system that crawled and processed tens of thousands of hot-deal records within three to five minutes.',
 					'Designed and built a document-based NoSQL database with Firebase.',
 				],
@@ -736,7 +736,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Built reusable product information components used across multiple pages with styled-components.',
 					'Implemented components with hyperlinks to each ESD site.',
-					'Improved development efficiency and provided consistent UI/UX.',
+					'Reused the same product-information component across multiple pages.',
 				],
 			},
 		],
@@ -744,9 +744,8 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Resolved static web hosting issues',
 				details: [
-					'Initially tried static web hosting through GitHub Pages, but encountered problems because of React SPA dynamics.',
-					'Clearly learned the difference between static and dynamic web applications through the process.',
-					'Eventually solved the issue by using a dynamic web hosting service.',
+					'Encountered deployment issues while initially using GitHub Pages for the React SPA.',
+					'Moved the deployment to another hosting service.',
 				],
 			},
 		],
@@ -774,19 +773,19 @@ const personalInfoEn = {
 
 const coreValuesEn = [
 	{
-		title: 'I try to build features that users can actually finish with.',
+		title: 'I build interfaces around the way people work.',
 		content:
-			'While building a logistics management web flow and mobile label-printing features, I learned that a working button on the screen is not enough. Reservation intake, Excel upload, label printing, mobile permissions, device selection, and output results all had to connect before the workflow could be used in actual operations. Since then, I try to check the user order and likely blocking points before building a feature.',
+			'I have built business web applications with React and TypeScript, covering search, reservations, Excel imports and label printing. I made shared components for recurring tables and forms and connected API data to screens and printing. I handle failed saves and retries so users do not lose their input.',
 	},
 	{
-		title: 'I try to write code where state and data flow are visible.',
+		title: 'I separate server data from editing state in the UI.',
 		content:
-			'While building several business screens with React and TypeScript, I saw how quickly small changes become hard to predict when reads, writes, and screen state are mixed together. I used TanStack Query to organize server-data refresh flows and Zustand to separate screen state such as modals and tables, with maintainability in mind.',
+			'I used TanStack Query to manage data fetching and list refreshes after saves, keeping selected items and modal visibility separate. In the settlement ERP, I also separated saved values from editing drafts so users retained their input after a failed save.',
 	},
 	{
-		title: 'I narrow unfamiliar problems down under real conditions.',
+		title: 'I look beyond the interface to the systems it connects to.',
 		content:
-			'When connecting a mobile WebView to Android native modules for Bluetooth printer output, browser-side debugging alone was not enough. I narrowed down causes by checking Android permissions, the WebView bridge, device SDK behavior, and label data formats on real devices. In the Posture Teacher project, I also improved a performance issue by moving from an OpenCV-based implementation to MediaPipe.',
+			'I have also developed Spring Boot APIs and integrated Android printing. For Bluetooth printing, I checked WebView requests, Android permissions and device SDK calls, then verified physical label output. When an issue appears in the interface, I examine API responses and native behavior as well to find its cause.',
 	},
 ];
 
@@ -887,9 +886,51 @@ const projectsDataEn = projectsData.map((project) => ({
 	...simpleProjectTranslations[project.id],
 }));
 
+const websiteImageAlts: Record<string, string> = {
+	'image1.png': 'Previous home page in dark mode',
+	'image2.png': 'Previous About page with the profile Easter egg',
+	'image3.png': 'Previous project detail modal',
+	'image4.png': 'Previous image viewer',
+	'2026-home-desktop.png': 'Current desktop home page',
+	'2026-work-desktop.png': 'Current desktop Work page',
+	'2026-home-mobile.png': 'Current mobile home page',
+};
+
+const playbookImageAlts: Record<string, string> = {
+	'logo-wide.png': 'AI Agent Playbook logo',
+	'npm-overview.png': 'AI Agent Playbook npm package overview',
+	'quick-start.png': 'AI Agent Playbook quick-start guide',
+	'command-guide.png': 'AI Agent Playbook command guide',
+	'repository-map.png': 'AI Agent Playbook repository structure',
+	'mcp-settings.png': 'AI Agent Playbook MCP settings',
+};
+
 const projectsDetailDataEn = projectsDetailData.map((project) => ({
 	...project,
 	...projectDetailTranslations[project.id],
+	projectData: {
+		...project.projectData,
+		images: project.projectData.images.map((image, index) => {
+			const filename = image.src.split('/').pop() ?? '';
+			const isWebsite = project.id === 'jukrap-website';
+			return {
+				...image,
+				alt:
+					(isWebsite
+						? websiteImageAlts[filename]
+						: project.id === 'ai-agent-playbook'
+							? playbookImageAlts[filename]
+							: undefined) ??
+					`${projectDetailTranslations[project.id]?.title ?? project.title} screenshot ${index + 1}`,
+				caption:
+					isWebsite && image.caption
+						? /^image[1-4]\.png$/.test(filename)
+							? 'Previous version'
+							: image.caption
+						: image.caption,
+			};
+		}),
+	},
 }));
 
 export const portfolioData: Localized<PortfolioData> = {

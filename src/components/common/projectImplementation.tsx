@@ -10,13 +10,13 @@ export default function ProjectImplementation({
 }) {
 	const { locale } = useLocale();
 	return (
-		<details className="group/implementation border-t border-border/60">
-			<summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-5 [&::-webkit-details-marker]:hidden">
+		<details className="group/implementation bg-secondary/20 rounded-md border border-border/30">
+			<summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 p-4 rounded-md [&::-webkit-details-marker]:hidden">
 				<span>
 					<span className="block text-lg font-semibold text-foreground">
 						{content.title}
 					</span>
-					<span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
+					<span className="mt-2 ml-5 list-item list-disc list-outside text-sm text-muted-foreground">
 						{content.summary}
 					</span>
 				</span>
@@ -26,17 +26,17 @@ export default function ProjectImplementation({
 					className="shrink-0 transition-transform duration-150 group-open/implementation:rotate-180 motion-reduce:transition-none"
 				/>
 			</summary>
-			<div className="space-y-6 pb-6 pt-1">
+			<div className="space-y-6 px-4 pb-4 pt-2">
 				{content.sections.map((section) => (
 					<section key={section.title}>
 						<h4 className="mb-2 text-base font-semibold text-foreground">
 							{section.title}
 						</h4>
-						<div className="space-y-2 text-sm leading-7 text-muted-foreground">
+						<ul className="list-disc pl-5 space-y-2 text-sm leading-7 text-muted-foreground">
 							{section.details.map((paragraph) => (
-								<p key={paragraph}>{paragraph}</p>
+								<li key={paragraph}>{paragraph}</li>
 							))}
-						</div>
+						</ul>
 					</section>
 				))}
 				<a

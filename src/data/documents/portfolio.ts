@@ -28,8 +28,8 @@ export function getPortfolioDocument(
 	const featured = manifest.selection.featuredWorkStoryIds.map((id) =>
 		getWorkStory(id, locale),
 	);
-	const supporting = manifest.selection.supportingWorkStoryIds.map((id) =>
-		getWorkStory(id, locale),
+	const supporting = manifest.selection.portfolioSupportingWorkStoryIds.map(
+		(id) => getWorkStory(id, locale),
 	);
 	const resume = getResumeDocument(locale);
 	const supportingPageNumber = featured.length + 4;
@@ -136,7 +136,7 @@ export function getPortfolioDocument(
 				id: isLogistics ? 'logistics-web' : story.id,
 				pageNumber: index + 3,
 				kind: 'case',
-				eyebrow: `${t('주요 업무', 'Selected work')} ${String(index + 1).padStart(2, '0')}`,
+				eyebrow: `${t('주요 업무', 'Selected work')} ${String(index + 1).padStart(2, '0')}${isLogistics ? ' / Web' : ''}`,
 				title: chapter?.title ?? story.title,
 				summary: copy.summary,
 				metadata: [
@@ -183,65 +183,73 @@ export function getPortfolioDocument(
 		({ id }) => id === 'mobile-output-bridge',
 	)!;
 	const mobileCopy = workDocumentCopy[locale]['mobile-output-bridge'];
-	pages.push(
-		{
-			id: 'logistics-mobile',
-			pageNumber: featured.length + 3,
-			kind: 'case',
-			eyebrow: t('Android 연동', 'Related work / Android'),
-			title: mobile.title,
-			summary: mobileCopy.summary,
-			metadata: [
-				{ label: t('기간', 'Period'), value: mobile.period },
-				{ label: t('담당', 'Scope'), value: mobile.area },
-			],
-			technologies: mobile.stack,
-			sections: [
-				{ id: 'problem', title: t('배경', 'Context'), body: [mobileCopy.problem] },
-				{
-					id: 'contribution',
-					title: t('담당 구현', 'Implementation'),
-					items: mobileCopy.actions,
-				},
-				{
-					id: 'result',
-					title: t('결과', 'Outcome'),
-					body: [mobileCopy.result],
-					metrics: logistics.resultSections.find(({ id }) => id === mobile.id)!
-						.impact,
-				},
-			],
-			evidence: [workStoryEvidence(logistics.id), workCaseEvidence(mobile.id)],
-		},
-		{
-			id: 'supporting-work',
-			pageNumber: supportingPageNumber,
-			kind: 'compact-work',
-			eyebrow: t('업무 경험', 'Experience'),
-			title: t('추가 업무', 'Additional work'),
-			summary: t(
-				'웹과 모바일의 기능 확장과 유지보수 경험입니다.',
-				'Further feature development and maintenance across web and mobile.',
-			),
-			sections: [
-				{
-					id: 'work-list',
-					items: supporting.map((story, index) => ({
-						label: String(index + 1).padStart(2, '0'),
-						title: story.title,
-						description: supportingDocumentCopy[locale][story.id],
-						metadata: [
-							{ label: t('기간', 'Period'), value: story.period },
-							{ label: t('플랫폼', 'Platform'), value: story.platform },
-						],
-						technologies: story.stack,
-						evidence: [workStoryEvidence(story.id)],
-					})),
-				},
-			],
-			evidence: supporting.map(({ id }) => workStoryEvidence(id)),
-		},
-	);
+	const logisticsPageIndex = pages.findIndex(({ id }) => id === 'logistics-web');
+	const logisticsWorkNumber = String(
+		featured.findIndex(({ id }) => id === logistics.id) + 1,
+	).padStart(2, '0');
+	pages.splice(logisticsPageIndex + 1, 0, {
+		id: 'logistics-mobile',
+		pageNumber: logisticsPageIndex + 2,
+		kind: 'case',
+		eyebrow: `${t('주요 업무', 'Selected work')} ${logisticsWorkNumber} / Android`,
+		title: t('물류 라벨 출력 앱', 'Logistics Label Printing App'),
+		summary: t(
+			'물류 운영 웹과 같은 프로젝트에서, 웹의 라벨 출력 요청을 Android 앱과 Bluetooth 프린터로 연결했습니다.',
+			'As part of the same logistics project, connected label-print requests from the web to the Android app and Bluetooth printers.',
+		),
+		metadata: [
+			{ label: t('기간', 'Period'), value: mobile.period },
+			{ label: t('담당', 'Scope'), value: mobile.area },
+		],
+		technologies: mobile.stack,
+		sections: [
+			{ id: 'problem', title: t('배경', 'Context'), body: [mobileCopy.problem] },
+			{
+				id: 'contribution',
+				title: t('담당 구현', 'Implementation'),
+				items: mobileCopy.actions,
+			},
+			{
+				id: 'result',
+				title: t('결과', 'Outcome'),
+				body: [mobileCopy.result],
+				metrics: logistics.resultSections.find(({ id }) => id === mobile.id)!
+					.impact,
+			},
+		],
+		evidence: [workStoryEvidence(logistics.id), workCaseEvidence(mobile.id)],
+	});
+	pages.forEach((page, index) => {
+		page.pageNumber = index + 1;
+	});
+	pages.push({
+		id: 'supporting-work',
+		pageNumber: supportingPageNumber,
+		kind: 'compact-work',
+		eyebrow: t('업무 경험', 'Experience'),
+		title: t('추가 업무', 'Additional work'),
+		summary: t(
+			'웹과 모바일의 기능 확장과 유지보수 경험입니다.',
+			'Further feature development and maintenance across web and mobile.',
+		),
+		sections: [
+			{
+				id: 'work-list',
+				items: supporting.map((story, index) => ({
+					label: String(index + 1).padStart(2, '0'),
+					title: story.title,
+					description: supportingDocumentCopy[locale][story.id],
+					metadata: [
+						{ label: t('기간', 'Period'), value: story.period },
+						{ label: t('플랫폼', 'Platform'), value: story.platform },
+					],
+					technologies: story.stack,
+					evidence: [workStoryEvidence(story.id)],
+				})),
+			},
+		],
+		evidence: supporting.map(({ id }) => workStoryEvidence(id)),
+	});
 	manifest.selection.portfolioProjectIds.forEach((id, index) => {
 		const project = getProject(id);
 		const copy = projectDocumentCopy[locale][id];
@@ -324,9 +332,10 @@ export function getPortfolioDocument(
 				id: 'more',
 				title: t('더 보기', 'More'),
 				links: [
+					{ label: 'About', href: `https://jukrap.vercel.app/${locale}/about` },
 					{ label: 'Work', href: `https://jukrap.vercel.app/${locale}/work` },
 					{
-						label: 'Projects',
+						label: 'Side Projects',
 						href: `https://jukrap.vercel.app/${locale}/projects`,
 					},
 				],

@@ -84,15 +84,15 @@ const EXPECTED_FEATURED_PAGES = [
 	},
 	{
 		pageNumber: 5,
-		id: 'react-admin-state-migration',
-		storyIds: ['react-admin-state-migration'],
-		caseIds: [],
-	},
-	{
-		pageNumber: 6,
 		id: 'logistics-mobile',
 		storyIds: ['delivery-output-flow'],
 		caseIds: ['mobile-output-bridge'],
+	},
+	{
+		pageNumber: 6,
+		id: 'react-admin-state-migration',
+		storyIds: ['react-admin-state-migration'],
+		caseIds: [],
 	},
 ] as const;
 
@@ -413,15 +413,18 @@ export function validateRecruitingDocumentData({
 	const supportingIds = workStories.ko
 		.filter(({ tier }) => tier === 'compact')
 		.map(({ id }) => id);
+	const portfolioSupportingIds =
+		manifest.selection.portfolioSupportingWorkStoryIds;
 	assertSameOrder(
 		manifest.selection.featuredWorkStoryIds,
 		featuredIds,
 		'Featured work selection',
 	);
 	if (
-		manifest.selection.supportingWorkStoryIds.some(
-			(id) => !supportingIds.includes(id),
-		)
+		[
+			...manifest.selection.supportingWorkStoryIds,
+			...portfolioSupportingIds,
+		].some((id) => !supportingIds.includes(id))
 	) {
 		throw new Error(
 			'Supporting document stories must belong to the site supporting stories.',
@@ -434,10 +437,15 @@ export function validateRecruitingDocumentData({
 		],
 		'Recruiting work story selection',
 	);
+	assertUnique(
+		[...manifest.selection.featuredWorkStoryIds, ...portfolioSupportingIds],
+		'Portfolio work story selection',
+	);
 
 	if (
 		manifest.selection.featuredWorkStoryIds.length !== 3 ||
-		manifest.selection.supportingWorkStoryIds.length !== 5
+		manifest.selection.supportingWorkStoryIds.length !== 5 ||
+		portfolioSupportingIds.length !== 5
 	) {
 		throw new Error(
 			'Recruiting documents must keep three featured and five supporting stories.',
@@ -524,7 +532,7 @@ export function validateRecruitingDocumentData({
 	assertPageEvidence(
 		supportingPage,
 		'work-story',
-		manifest.selection.supportingWorkStoryIds,
+		portfolioSupportingIds,
 		'Supporting work-story evidence',
 	);
 	const supportingItems = supportingPage.sections.find(
@@ -532,7 +540,7 @@ export function validateRecruitingDocumentData({
 	)?.items;
 	if (
 		!supportingItems ||
-		supportingItems.length !== manifest.selection.supportingWorkStoryIds.length
+		supportingItems.length !== portfolioSupportingIds.length
 	) {
 		throw new Error(
 			'Portfolio supporting page must contain the selected additional work.',
@@ -551,7 +559,7 @@ export function validateRecruitingDocumentData({
 	});
 	assertSameOrder(
 		supportingItemIds,
-		manifest.selection.supportingWorkStoryIds,
+		portfolioSupportingIds,
 		'Supporting work item order',
 	);
 
@@ -577,10 +585,7 @@ export function validateRecruitingDocumentData({
 	);
 	assertSameOrder(
 		portfolioWorkStoryIds,
-		[
-			...manifest.selection.featuredWorkStoryIds,
-			...manifest.selection.supportingWorkStoryIds,
-		],
+		[...manifest.selection.featuredWorkStoryIds, ...portfolioSupportingIds],
 		'Portfolio work story evidence',
 	);
 	const portfolioProjectIds = uniqueInOrder(

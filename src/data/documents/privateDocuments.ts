@@ -9,7 +9,7 @@ import {
 } from './sourceSelectors';
 import { recruitingDocumentSkillGroups } from './documentSkills';
 import {
-	documentProfile,
+	resumeProfile,
 	supportingDocumentCopy,
 	workDocumentCopy,
 } from './editorialCopy';
@@ -45,7 +45,7 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 	return {
 		title: ko ? '이력서' : 'Resume',
 		role: manifest.role,
-		profile: documentProfile[locale],
+		profile: resumeProfile[locale],
 		competencies: manifest.selection.featuredWorkStoryIds.map((id) => ({
 			title: getWorkStory(id, locale).title,
 			detail: copy[id].summary,
@@ -120,6 +120,18 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 					? 'Cloud Application Engineering 과정, React와 React Native'
 					: 'Cloud Application Engineering, React and React Native',
 				evidence: [{ source: 'activity', id: 'programmers-devcourse-student' }],
+			},
+			{
+				title: ko
+					? '프로그래머스 데브코스 서브멘토'
+					: 'Programmers Devcourse / Assistant Mentor',
+				period: '2024.05 ~ 2024.09',
+				detail: ko
+					? '개발 정보 공유, 데일리 스크럼 참여와 프로젝트 점검 지원'
+					: 'Shared development resources and supported daily scrums and project reviews.',
+				evidence: [
+					{ source: 'activity', id: 'programmers-devcourse-assistant-mentor' },
+				],
 			},
 		],
 		awards: [

@@ -1120,6 +1120,7 @@
 }
 
 .document-page-closing .document-section-grid {
+	align-items: start;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -2215,6 +2216,15 @@
 .document-page.private-document-page {
 	--doc-ink: 60 6% 10%;
 }
+.document-page.resume-page .private-document-header {
+	margin-bottom: 20px;
+}
+.document-page.resume-page .resume-profile {
+	margin: 0;
+	font-size: var(--doc-body-size);
+	font-weight: 400;
+	word-break: keep-all;
+}
 @media print {
 	.document-page {
 		--doc-section-size: 13pt;
@@ -2229,6 +2239,9 @@
 	}
 	.document-page.private-document-page {
 		--doc-body-size: 10.25pt;
+	}
+	.document-page.resume-page .private-document-header {
+		margin-bottom: 12pt;
 	}
 	#itzip.document-page .document-section-grid {
 		gap: var(--doc-section-gap);

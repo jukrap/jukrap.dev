@@ -1,8 +1,13 @@
 import type { Locale } from '@/types/locale';
 
+export const resumeProfile = {
+	ko: 'React와 TypeScript로 화면을 만들고, API 개발과 모바일 작업을 진행합니다.',
+	en: 'I build interfaces with React and TypeScript, develop APIs, and work on mobile apps.',
+};
+
 export const documentProfile = {
-	ko: '웹&모바일 개발자, 박주철입니다. React와 TypeScript로 화면을 만들고, API 개발과 모바일 연동도 맡아 왔습니다.',
-	en: 'I’m Ju-cheol Park, a web and mobile developer. I build interfaces with React and TypeScript and have also worked on APIs and mobile integrations.',
+	ko: `웹&모바일 개발자, 박주철입니다. ${resumeProfile.ko}`,
+	en: `I’m Ju-cheol Park, a web and mobile developer. ${resumeProfile.en}`,
 };
 
 interface CaseCopy {

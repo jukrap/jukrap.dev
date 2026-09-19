@@ -1,70 +1,91 @@
 .footer {
 	position: relative;
-	padding-bottom: 108px;
+	padding-bottom: 156px;
 }
 .corner {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	width: 108px;
-	height: 104px;
-	overflow: hidden;
+	width: 44px;
+	height: 44px;
 	border: 0;
 	background: transparent;
 	isolation: isolate;
+	transition:
+		width 400ms ease,
+		height 400ms ease;
 }
-.fold {
+.corner[data-open='true'] {
+	width: 148px;
+	height: 148px;
+}
+.corner:focus-visible {
+	outline: 2px solid hsl(var(--accent));
+	outline-offset: -3px;
+}
+.paper {
 	position: absolute;
 	right: 0;
 	bottom: 0;
 	width: 30px;
 	height: 30px;
-	background: linear-gradient(
-		135deg,
-		hsl(var(--background)) 48%,
-		hsl(var(--muted-foreground) / 0.18) 50%,
-		hsl(var(--background)) 95%
-	);
-	filter: drop-shadow(-2px -2px 2px hsl(var(--foreground) / 0.06));
-	clip-path: polygon(100% 0, 100% 100%, 0 100%);
 	transition:
-		width 400ms ease,
-		height 400ms ease;
-	z-index: 2;
+		width 400ms cubic-bezier(0.2, 0.7, 0.3, 1),
+		height 400ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.corner[data-open='true'] .paper {
+	width: 148px;
+	height: 148px;
+}
+.recess {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	clip-path: polygon(100% 0, 100% 100%, 0 100%);
+	background: color-mix(
+		in srgb,
+		hsl(var(--background)) 88%,
+		hsl(var(--foreground))
+	);
 }
 .peek {
 	position: absolute;
-	right: 0;
-	bottom: 0;
-	width: 108px;
-	height: 104px;
-	overflow: hidden;
-	transform: translate(50px, 80px);
+	inset: 0;
 	opacity: 0;
-	transition:
-		transform 400ms cubic-bezier(0.2, 0.7, 0.3, 1),
-		opacity 220ms ease;
+	transition: opacity 180ms ease;
 }
 .peek img {
 	position: absolute;
-	right: 0;
-	bottom: -34px;
+	right: -4px;
+	bottom: -44px;
 	width: 100px;
 	height: auto;
 	max-width: none;
-	object-fit: contain;
-	transform: none;
 }
 .corner[data-open='true'] .peek {
-	transform: translate(0, 0);
 	opacity: 1;
+	transition-delay: 100ms;
 }
-.corner[data-open='true'] .fold {
-	width: 62px;
-	height: 62px;
+.fold {
+	position: absolute;
+	inset: 0;
+	filter: drop-shadow(3px 3px 3px rgb(0 0 0 / 20%));
+}
+.fold::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	clip-path: polygon(0 0, 100% 0, 0 100%);
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, hsl(var(--background)) 80%, hsl(var(--foreground))) 0%,
+		hsl(var(--background)) 35%,
+		color-mix(in srgb, hsl(var(--background)) 93%, hsl(var(--foreground))) 47%,
+		color-mix(in srgb, hsl(var(--background)) 65%, hsl(var(--foreground))) 50%
+	);
 }
 .corner:hover .fold {
-	filter: drop-shadow(-2px -2px 3px hsl(var(--foreground) / 0.14));
+	filter: drop-shadow(3px 3px 4px rgb(0 0 0 / 28%));
 }
 .invitation {
 	position: relative;
@@ -92,6 +113,8 @@
 	}
 }
 @media (prefers-reduced-motion: reduce) {
+	.corner,
+	.paper,
 	.peek,
 	.fold {
 		transition: none;

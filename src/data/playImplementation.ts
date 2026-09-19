@@ -3,9 +3,9 @@ import type { Locale } from '@/types/locale';
 
 export const playImplementation: Record<Locale, ProjectImplementation> = {
 	ko: {
-		title: '숨겨 둔 기능의 구현',
+		title: '이스터에그',
 		summary: '궁금하다면 펼쳐 보세요. 구현 방식과 사용한 기술을 정리했습니다.',
-		demo: { label: '3D 놀이터 열기', path: '/play' },
+		demo: { label: '이스터에그...?', path: '/play' },
 		sections: [
 			{
 				title: '화면과 3D 루프를 분리',
@@ -60,10 +60,10 @@ export const playImplementation: Record<Locale, ProjectImplementation> = {
 		],
 	},
 	en: {
-		title: 'How a hidden feature works',
+		title: 'Easter egg',
 		summary:
 			'Curious? Open this section to explore the implementation and tools.',
-		demo: { label: 'Open the 3D playground', path: '/play' },
+		demo: { label: 'Easter egg...?', path: '/play' },
 		sections: [
 			{
 				title: 'Separate the interface from the 3D loop',

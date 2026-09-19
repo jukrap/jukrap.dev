@@ -1,7 +1,7 @@
 import type { Locale } from '@/types/locale';
 
 export const documentProfile = {
-	ko: '웹과 모바일 서비스를 개발하는 박주철입니다. React와 TypeScript로 화면을 만들고, API 개발과 모바일 연동도 맡아 왔습니다.',
+	ko: '웹&모바일 개발자, 박주철입니다. React와 TypeScript로 화면을 만들고, API 개발과 모바일 연동도 맡아 왔습니다.',
 	en: 'I’m Ju-cheol Park, a web and mobile developer. I build interfaces with React and TypeScript and have also worked on APIs and mobile integrations.',
 };
 

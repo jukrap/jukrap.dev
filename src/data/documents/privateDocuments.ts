@@ -79,9 +79,7 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				company: tisCareerEvidence.company,
 				period: tisCareerEvidence.period,
 				officialTitle: ko ? tisCareerEvidence.officialTitle : 'University Intern',
-				role: ko
-					? '대학생 현장실습(기획·데이터 자동화)'
-					: 'University internship / planning and data automation',
+				role: ko ? tisCareerEvidence.role : 'Planning and data automation support',
 				highlights: ko
 					? [...tisCareerEvidence.highlights]
 					: [

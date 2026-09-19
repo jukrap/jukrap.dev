@@ -90,7 +90,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 	ko: {
 		'delivery-output-flow': {
 			title: '물류 운영 웹·출력 앱',
-			platform: 'Web / Mobile',
+			platform: 'Web / Android',
 			area: '업무 UI / 번들 최적화 / Android 출력',
 			role: '신규 구축/출력 연동',
 			headline:
@@ -163,7 +163,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 	en: {
 		'delivery-output-flow': {
 			title: 'Logistics Operations Web and Printing App',
-			platform: 'Web / Mobile',
+			platform: 'Web / Android',
 			area: 'Business UI / Bundle optimization / Android printing',
 			role: 'New build and output integration',
 			headline:

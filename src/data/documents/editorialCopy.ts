@@ -254,6 +254,8 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 
 export const supportingDocumentCopy: Record<Locale, Record<string, string>> = {
 	ko: {
+		'legacy-mobile-compatibility':
+			'정적 웹을 WebView로 사용하는 Android 앱의 빌드 환경을 업데이트하고, OS별 권한·파일 접근·뒤로가기 처리를 수정했습니다. 여러 구형 OS 실기기에서 동작을 확인했습니다.',
 		'hybrid-life-info-platform':
 			'공공 데이터 API로 날씨·대기질·기상특보 기능을 확장했습니다. 핵심 정보를 먼저 표시하고, 서버 캐시와 동시 요청 통합으로 반복 호출을 줄이도록 구현해 운영에 반영했습니다.',
 		'structured-editor-ui':
@@ -268,6 +270,8 @@ export const supportingDocumentCopy: Record<Locale, Record<string, string>> = {
 			'저장소 자료로 문서 초안을 만들고, 표에서 검토·편집한 뒤 선택한 항목만 다시 작성하는 도구를 개발했습니다.',
 	},
 	en: {
+		'legacy-mobile-compatibility':
+			'Updated the build environment of a legacy Android app with a WebView interface, adapting permissions, file access, and back navigation to OS changes. Verified behavior on devices running several older Android versions.',
 		'hybrid-life-info-platform':
 			'Extended weather, air quality and alert features with public-data APIs. Deployed core-first loading, server caching and shared results for concurrent requests to reduce repeated API calls.',
 		'structured-editor-ui':

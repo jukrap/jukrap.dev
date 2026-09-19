@@ -223,6 +223,7 @@ export interface RecruitingDocumentManifest {
 	selection: {
 		featuredWorkStoryIds: readonly string[];
 		supportingWorkStoryIds: readonly string[];
+		portfolioSupportingWorkStoryIds: readonly string[];
 		portfolioProjectIds: readonly string[];
 		resumeProjectIds: readonly string[];
 	};

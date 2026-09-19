@@ -55,6 +55,13 @@ export const recruitingDocumentManifest = {
 	selection: {
 		featuredWorkStoryIds,
 		supportingWorkStoryIds,
+		portfolioSupportingWorkStoryIds: [
+			'multi-role-hybrid-platform',
+			'mobile-operations-platform',
+			'hybrid-life-info-platform',
+			'structured-editor-ui',
+			'legacy-mobile-compatibility',
+		],
 		portfolioProjectIds: [
 			'captain-donghae',
 			'sharebby',

@@ -6,15 +6,15 @@ export const projectsData: SimpleProject[] = [
 		title: 'AI Agent Playbook',
 		duration: '2026.06 ~ Present',
 		major: true,
-		introduction:
-			'AI 에이전트 작업 규칙과 프로젝트 메모리를 재사용하기 위한 개인용 개발 도구.',
+		introduction: 'AI 코딩 도구의 프로젝트 기록과 스킬을 관리하는 하네스.',
 		description: [
 			'1인 개발',
-			'CLI, 스킬, 템플릿, 프로젝트 playbook 구조 정리',
-			'MCP 기반 읽기 도구와 operator check/search 흐름 구성',
-			'npm 패키지와 GitHub 저장소로 공개',
+			'단일 프로젝트와 여러 저장소의 기록을 관리하는 CLI',
+			'읽기 전용 MCP와 긴 기록의 나누어 읽기',
+			'사용자 수정본 보존, 스킬 전환과 복구',
+			'npm 배포와 한영 사용 문서',
 		],
-		techStack: 'JavaScript, Node.js, MCP, AI Agent workflow, GitHub Actions',
+		techStack: 'JavaScript, Node.js, MCP SDK, Zod, GitHub Actions',
 		links: [
 			{ type: 'appleStore', url: '/', visible: false },
 			{ type: 'googleStore', url: '/', visible: false },

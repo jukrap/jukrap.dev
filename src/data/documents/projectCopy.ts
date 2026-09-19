@@ -87,36 +87,24 @@ export const projectDocumentCopy: Record<
 			title: 'AI Agent Playbook',
 			role: '1인 개발',
 			summary:
-				'AI 에이전트가 프로젝트 규칙과 이전 작업 기록을 참고하도록 만든 개인 개발 도구입니다. CLI, 스킬, 문서 템플릿과 점검 명령을 제공합니다.',
+				'AI 코딩 도구가 프로젝트 규칙과 작업 기록을 이어서 참고하도록 하네스를 만들었습니다. 필요한 스킬을 선택해 설치하고, 기존 파일을 보존하며 전환·복구할 수 있습니다.',
 			problem:
-				'프로젝트마다 규칙과 기록이 흩어져 있으면 에이전트가 같은 자료를 다시 찾고, 파일 변경의 영향도 실행 전에 알기 어렵습니다.',
+				'여러 저장소를 오가며 작업할 때 공통 기록과 저장소별 기록을 구분해야 했습니다. 스킬을 업데이트하면서 사용자가 수정한 파일을 덮어쓰거나, 설치 실패로 기존 구성을 잃지 않도록 해야 했습니다.',
 			actions: [
 				{
-					title: '재사용 규칙과 프로젝트 기록',
+					title: '공유 기록과 읽기 전용 MCP',
 					description:
-						'여러 프로젝트에서 쓰는 작업 규칙은 스킬과 템플릿으로 만들고, 프로젝트별 기록은 각 저장소에서 관리하도록 나눴습니다.',
+						'등록한 저장소의 기록을 CLI와 MCP로 조회하도록 구현했습니다. 긴 결과는 나눠 읽고, 원문이 바뀌면 이전 조회를 이어 가지 않도록 했습니다.',
 				},
 				{
-					title: '변경 전 미리보기',
+					title: '사용자 수정본 보존과 설치 복구',
 					description:
-						'CLI와 읽기 전용 MCP 도구를 만들고 파일 변경 명령에는 실행 전 결과를 보여 주는 dry-run을 제공했습니다.',
+						'소유권과 해시로 파일 변경을 확인하고 백업·복구 기록을 남겼습니다. 프로필 전환은 새 스킬 전체를 확인한 뒤에만 기존 항목을 정리하며, 삭제 직전에도 다시 검사합니다.',
 				},
 			],
-			result: 'npm 패키지와 GitHub 저장소로 공개했습니다.',
-			images: [
-				{
-					src: '/images/ai-agent-playbook/npm-overview.png',
-					alt: 'AI Agent Playbook npm 페이지',
-					caption: 'npm 패키지',
-					layout: 'wide',
-				},
-				{
-					src: '/images/ai-agent-playbook/quick-start.png',
-					alt: '설치와 시작 명령',
-					caption: '설치와 초기 설정',
-					layout: 'wide',
-				},
-			],
+			result:
+				'npm과 GitHub에 공개하고, 설치와 사용법을 한국어와 영어로 정리했습니다. 설치 충돌·부분 실패·복구와 조회 범위·이어 읽기를 테스트하고 Windows·Ubuntu CI를 구성했습니다.',
+			images: [],
 		},
 		itzip: {
 			title: 'Itzip',
@@ -252,36 +240,24 @@ export const projectDocumentCopy: Record<
 			title: 'AI Agent Playbook',
 			role: 'Solo developer',
 			summary:
-				'A personal developer tool combining a CLI, skills, templates, and checks to carry project rules and history across agent sessions.',
+				'Built a harness that helps AI coding tools carry project rules and work history across sessions. Added selected skill installation, migration and recovery while preserving existing files.',
 			problem:
-				'Scattered rules and records led agents to rediscover the same material, while file-changing commands were difficult to assess before execution.',
+				'Working across repositories required shared records to remain distinct from local history. Updating skills also had to preserve user edits and avoid losing a working setup after a failed installation.',
 			actions: [
 				{
-					title: 'Reusable rules and project records',
+					title: 'Shared records and read-only MCP',
 					description:
-						'Separated reusable skills and templates from repository-specific project memory.',
+						'Implemented CLI and MCP access to registered repositories’ records. Paginated long responses and rejected continuation after the underlying source changed.',
 				},
 				{
-					title: 'Previewing changes',
+					title: 'Preserving edits and recovering installations',
 					description:
-						'Built a CLI and read-only MCP tools, with dry-run previews for commands that modify files.',
+						'Checked ownership and file hashes, keeping backups and recovery records. Profile migration requires every selected replacement to be valid and rechecks them before each removal.',
 				},
 			],
-			result: 'Published the tool as an npm package and GitHub repository.',
-			images: [
-				{
-					src: '/images/ai-agent-playbook/npm-overview.png',
-					alt: 'AI Agent Playbook npm page',
-					caption: 'npm package',
-					layout: 'wide',
-				},
-				{
-					src: '/images/ai-agent-playbook/quick-start.png',
-					alt: 'Installation and setup commands',
-					caption: 'Installation and setup',
-					layout: 'wide',
-				},
-			],
+			result:
+				'Published on npm and GitHub, with installation and usage documented in English and Korean. Tested installation conflicts, partial failures, recovery, query scope and continuation, and configured Windows/Ubuntu CI.',
+			images: [],
 		},
 		itzip: {
 			title: 'Itzip',

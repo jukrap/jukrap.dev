@@ -70,12 +70,13 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 	'ai-agent-playbook': {
 		title: 'AI Agent Playbook',
 		introduction:
-			'A personal developer tool for reusing AI agent working rules and project memory.',
+			'A harness for managing project records and skills across AI coding tools.',
 		description: [
 			'Solo development',
-			'Organized a CLI, reusable skills, templates, and project playbook structure',
-			'Built MCP-based read tools and operator check/search flows',
-			'Published as an npm package and GitHub repository',
+			'CLI for records in single projects and multi-repository workspaces',
+			'Read-only MCP with paginated record access',
+			'User-edit preservation, skill migration and recovery',
+			'npm distribution and English/Korean guides',
 		],
 	},
 	sharebby: {
@@ -368,50 +369,61 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 	},
 	'ai-agent-playbook': {
 		title: 'AI Agent Playbook',
-		subtitle: 'Personal AI agent harness',
+		subtitle: 'A harness for coding-agent context and skills',
 		overview:
-			'A personal developer tool for reusing working rules, skills, templates, and check commands when AI agents work inside software repositories.',
+			'A harness that helps AI coding tools carry project rules and work history across sessions. Includes a record-management CLI, read-only MCP tools, and selected skill installation with recovery.',
 		tasks: [
 			{
-				title: 'Built the CLI and runtime harness',
+				title: 'Project records across repositories',
 				details: [
-					'Built a Node.js CLI that can run through npx or a global command.',
-					'Separated bootstrap, checks, and search flows into explicit commands so a target project can be inspected and dry-run output can be reviewed first.',
-					'Created a project playbook structure for keeping project-specific working rules and current context under `.ai-agent-playbook/`.',
+					'Built a Node.js CLI that separates the current goal and next action from topic knowledge and monthly worklogs.',
+					'Added interactive setup for a single project or a workspace, with a final review of files and settings before applying changes.',
+					'Limited shared records to explicitly registered repositories and allowed existing member records to be read separately without moving or overwriting them.',
 				],
 			},
 			{
-				title: 'Organized reusable skills and templates',
+				title: 'Read-only MCP and long record responses',
 				details: [
-					'Separated recurring work such as repository onboarding, UI quality, review, Git, and legacy maintenance into short skill documents.',
-					'Organized templates for root rules, project memory, run ledgers, and contract notes into dedicated directories.',
-					'Kept English source documents and Korean reading copies separate so public docs and personal usage could evolve together.',
+					'Provided four MCP tools for status, search, reading and validation so coding tools can access the same project records.',
+					'Split long responses with continuation cursors, rejected stale cursors after query or source changes, and reported incomplete search coverage.',
 				],
 			},
 			{
-				title: 'Added MCP-based read tools',
+				title: 'Selected skill installation and recovery',
 				details: [
-					'Added an MCP server entry so AI apps can read local repository context, search results, and check results through named tools.',
-					'Kept the default MCP surface read-only, while file-writing flows stay behind explicit CLI commands and dry-run checks.',
-					'Made operator check/search/research flows usable from both the CLI and MCP surfaces.',
+					'Added light, core, development and legacy profiles, plus individual skill selection. Kept additive installation separate from profile migration that removes unselected managed skills.',
+					'Used ownership and hash checks to preserve user edits and unrelated files, with backups and transaction records for rollback.',
 				],
 			},
 		],
 		troubleshooting: [
 			{
-				title: 'Kept execution explicit instead of fully automatic',
+				title: 'Preserving the old profile when replacements fail',
 				details: [
-					'Designed the tool so a user runs a command, reviews the result, and then decides whether to apply changes instead of letting an agent write to a repository immediately.',
-					'Kept installation, skill copying, project playbook bootstrap, and MCP registration as separate actions to make the tool easier to reason about.',
+					'A partial installation must not remove the working profile first. Required every selected replacement to be valid before removing old managed skills.',
+					'Repeated the check before each removal to catch changes after preview. Tested conflicts, partial failures, edits during application and rollback.',
+				],
+			},
+			{
+				title: 'Separating responsibilities from the coding host',
+				details: [
+					'The early tool included execution and scheduling, which overlapped with coding hosts. From 1.0, refocused the package on project records and selected guidance.',
+					'Kept package installation, skill installation, project setup and MCP registration separate so users can choose what to apply.',
 				],
 			},
 		],
 		specialImplementations: [
 			{
-				title: 'Published package and documentation',
+				title: 'Optional source search and forge integration',
 				details: [
-					'Published the project as an npm package and GitHub repository so it can be checked with `npx ai-agent-playbook`.',
-					'Documented Quick Start, Command Guide, and install/uninstall flows so first-time users can tell what each command does and whether it writes files.',
+					'Kept ast-grep structural source search optional. GitHub/Gitea coordination previews a change plan before explicit application.',
+				],
+			},
+			{
+				title: 'Distribution and usage guides',
+				details: [
+					'Published on npm and GitHub, documenting installation, usage, migration and recovery in English and Korean.',
+					'Configured Windows and Ubuntu CI to run tests, type checks, and skill, translation and documentation validation.',
 				],
 			},
 		],
@@ -902,6 +914,9 @@ const websiteImageAlts: Record<string, string> = {
 };
 
 const playbookImageAlts: Record<string, string> = {
+	'workspace-1.3.png': 'Version 1.3.0 workspace and record CLI output excerpt',
+	'migration-1.3.png':
+		'Version 1.3.0 skill installation and migration CLI output excerpt',
 	'logo-wide.png': 'AI Agent Playbook logo',
 	'npm-overview.png': 'AI Agent Playbook npm package overview',
 	'quick-start.png': 'AI Agent Playbook quick-start guide',

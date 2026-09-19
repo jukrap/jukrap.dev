@@ -12,6 +12,7 @@ import { projectsData } from '@/data/projectsData';
 import { workStories } from '@/data/workStories';
 import { Localized, PortfolioData } from '@/types/locale';
 import { Project, SimpleProject } from '@/types/project';
+import { playImplementation } from '@/data/playImplementation';
 
 type ProjectTranslation = Pick<
 	Project,
@@ -20,7 +21,10 @@ type ProjectTranslation = Pick<
 	Partial<
 		Pick<
 			Project,
-			'troubleshooting' | 'performanceImprovements' | 'specialImplementations'
+			| 'troubleshooting'
+			| 'performanceImprovements'
+			| 'specialImplementations'
+			| 'implementation'
 		>
 	>;
 
@@ -315,6 +319,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 	},
 	'jukrap-website': {
 		title: "Jukrap's Personal Website",
+		implementation: playImplementation.en,
 		subtitle: 'Jukrap Website',
 		overview:
 			'A personal website presenting work experience, personal projects, a portfolio, a résumé, and a career brief.',

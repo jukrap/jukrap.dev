@@ -1,0 +1,102 @@
+.footer {
+	position: relative;
+	padding-bottom: 108px;
+}
+.corner {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 108px;
+	height: 104px;
+	overflow: hidden;
+	border: 0;
+	background: transparent;
+	isolation: isolate;
+}
+.fold {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 30px;
+	height: 30px;
+	background: linear-gradient(
+		135deg,
+		hsl(var(--background)) 48%,
+		hsl(var(--muted-foreground) / 0.18) 50%,
+		hsl(var(--background)) 95%
+	);
+	filter: drop-shadow(-2px -2px 2px hsl(var(--foreground) / 0.06));
+	clip-path: polygon(100% 0, 100% 100%, 0 100%);
+	transition:
+		width 400ms ease,
+		height 400ms ease;
+	z-index: 2;
+}
+.peek {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 108px;
+	height: 104px;
+	overflow: hidden;
+	transform: translate(50px, 80px);
+	opacity: 0;
+	transition:
+		transform 400ms cubic-bezier(0.2, 0.7, 0.3, 1),
+		opacity 220ms ease;
+}
+.peek img {
+	position: absolute;
+	right: 0;
+	bottom: -34px;
+	width: 100px;
+	height: auto;
+	max-width: none;
+	object-fit: contain;
+	transform: none;
+}
+.corner[data-open='true'] .peek {
+	transform: translate(0, 0);
+	opacity: 1;
+}
+.corner[data-open='true'] .fold {
+	width: 62px;
+	height: 62px;
+}
+.corner:hover .fold {
+	filter: drop-shadow(-2px -2px 3px hsl(var(--foreground) / 0.14));
+}
+.invitation {
+	position: relative;
+	text-decoration: none !important;
+}
+.invitation::after {
+	position: absolute;
+	content: '';
+	bottom: -4px;
+	height: 2px;
+	width: 100%;
+	background: hsl(var(--accent) / 0.7);
+	transform-origin: left;
+	animation: invite 400ms ease both;
+}
+.highlighted {
+	color: hsl(var(--accent)) !important;
+}
+@keyframes invite {
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: scaleX(1);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.peek,
+	.fold {
+		transition: none;
+	}
+	.invitation::after {
+		animation: none;
+	}
+}

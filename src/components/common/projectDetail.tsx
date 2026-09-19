@@ -7,6 +7,7 @@ import { useLocale } from '@/contexts/localeContext';
 import ImageViewer from './imageViewer';
 import InfiniteCarousel from './infiniteCarousel';
 import TechStackDetailIcons from './techStackDetailIcons';
+import ProjectImplementation from './projectImplementation';
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	const { getIcon } = useIcon();
@@ -214,10 +215,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 									)}
 
 								{/* 특별 구현 사항 */}
-								{project.specialImplementations &&
+								{(project.specialImplementations || project.implementation) &&
 									renderSection(
 										dictionary.projectDetail.special,
-										renderList(project.specialImplementations),
+										<div className="space-y-4">
+											{project.specialImplementations &&
+												renderList(project.specialImplementations)}
+											{project.implementation && (
+												<ProjectImplementation content={project.implementation} />
+											)}
+										</div>,
 									)}
 
 								{/* 프로젝트 이미지 */}

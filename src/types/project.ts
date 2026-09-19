@@ -11,6 +11,13 @@ export interface ProjectImage {
 	caption?: string;
 }
 
+export interface ProjectImplementation {
+	title: string;
+	summary: string;
+	sections: BaseProjectTask[];
+	demo: { label: string; path: string };
+}
+
 export interface ProjectData {
 	images: ProjectImage[];
 	subLinks: ProjectLink[];
@@ -35,6 +42,7 @@ export interface Project {
 	troubleshooting?: BaseProjectTask[];
 	performanceImprovements?: BaseProjectTask[];
 	specialImplementations?: BaseProjectTask[];
+	implementation?: ProjectImplementation;
 	projectData: ProjectData;
 }
 

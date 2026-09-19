@@ -1,4 +1,5 @@
 import { Project } from '@/types/project';
+import { playImplementation } from './playImplementation';
 
 export const projectsDetailData: Project[] = [
 	{
@@ -469,6 +470,7 @@ export const projectsDetailData: Project[] = [
 	},
 	{
 		id: 'jukrap-website',
+		implementation: playImplementation.ko,
 		title: 'Jukrap의 개인 사이트',
 		subtitle: 'Jukrap Website',
 		platform: ['Web'],

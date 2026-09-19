@@ -5,7 +5,7 @@ export const projectsDetailData: Project[] = [
 	{
 		id: 'ai-agent-playbook',
 		title: 'AI Agent Playbook',
-		subtitle: 'Personal AI agent harness',
+		subtitle: 'A harness for coding-agent context and skills',
 		platform: ['Tooling'],
 		duration: '2026.06 ~ Present',
 		links: [
@@ -31,79 +31,80 @@ export const projectsDetailData: Project[] = [
 			},
 		],
 		overview:
-			'AI 에이전트가 저장소를 다룰 때 필요한 작업 규칙, 스킬, 템플릿, 점검 명령을 재사용하기 위해 만든 개인용 개발 도구.',
-		techStack: ['JavaScript', 'Node.js', 'GitHub Actions'],
-		role: ['Tooling', 'Documentation'],
+			'AI 코딩 도구가 프로젝트 규칙과 작업 기록을 이어서 참고하도록 만든 하네스입니다. 기록 관리 CLI와 읽기 전용 MCP, 선택형 스킬 설치·복구 기능을 구현했습니다.',
+		techStack: ['JavaScript', 'Node.js', 'MCP SDK', 'Zod', 'GitHub Actions'],
+		role: ['CLI / MCP', 'Documentation'],
 		teamSize: 1,
 		tasks: [
 			{
-				title: 'CLI와 런타임 하네스 구성',
+				title: '프로젝트 기록과 여러 저장소 관리',
 				details: [
-					'npx 또는 전역 명령으로 실행할 수 있는 Node.js 기반 CLI를 구성했습니다.',
-					'초기화, 점검, 검색을 각각의 명령으로 나누고, 대상 프로젝트와 dry-run 결과를 먼저 확인할 수 있도록 했습니다.',
-					'프로젝트별 작업 규칙과 현재 상태를 `.ai-agent-playbook/` 형태로 정리할 수 있는 구조를 만들었습니다.',
+					'현재 목표와 다음 작업, 주제별 지식, 월별 작업 기록을 나눠 관리하는 Node.js CLI를 만들었습니다.',
+					'대화형 초기 설정에서 단일 프로젝트 또는 여러 저장소를 선택하고, 만들 파일과 설정을 확인한 뒤 적용하도록 했습니다.',
+					'등록한 저장소만 공통 기록을 사용하게 하고, 각 저장소에 있던 기록은 옮기거나 덮어쓰지 않고 따로 조회할 수 있게 했습니다.',
 				],
 			},
 			{
-				title: '스킬과 템플릿 체계 정리',
+				title: '읽기 전용 MCP와 긴 기록 조회',
 				details: [
-					'저장소 온보딩, UI 품질, 리뷰, Git, 레거시 유지보수처럼 반복되는 작업을 짧은 스킬 문서로 분리했습니다.',
-					'프로젝트 루트 규칙, 작업 메모리, 실행 기록, 계약 문서 템플릿을 별도 디렉터리로 정리했습니다.',
-					'영문 원본과 한국어 번역 문서를 분리해 공개 문서와 개인 사용 흐름을 함께 유지할 수 있게 했습니다.',
+					'상태 확인, 검색, 읽기, 검증을 위한 MCP 도구 4개를 제공해 코딩 도구에서 같은 기록을 조회할 수 있도록 했습니다.',
+					'긴 결과는 다음 조회 위치를 반환해 나눠 읽도록 했습니다. 조회 조건이나 원문이 바뀌면 이전 위치로 이어 읽지 못하게 하고, 검색 범위를 다 확인하지 못한 경우도 결과에 표시했습니다.',
 				],
 			},
 			{
-				title: 'MCP 기반 읽기 도구 구성',
+				title: '선택형 스킬 설치와 복구',
 				details: [
-					'AI 앱이 로컬 저장소의 컨텍스트와 검색·점검 결과를 읽을 수 있도록 MCP 도구를 구성했습니다.',
-					'기본 동작은 읽기 전용으로 두고, 파일을 쓰는 작업은 명령과 dry-run 확인을 거치도록 경계를 나누었습니다.',
-					'operator check/search/research 같은 점검 흐름을 CLI와 MCP 양쪽에서 활용할 수 있게 정리했습니다.',
+					'light, core, development, legacy 프로필과 개별 스킬 선택을 제공했습니다. 일반 설치와 기존 구성을 정리하는 프로필 전환은 별도 명령으로 나눴습니다.',
+					'설치 파일의 소유권과 해시를 확인해 사용자 수정본과 다른 도구의 파일을 보존하고, 적용 내역과 백업을 남겨 되돌릴 수 있게 했습니다.',
 				],
 			},
 		],
 		troubleshooting: [
 			{
-				title: '자동화보다 명시적인 실행 흐름을 우선',
+				title: '일부 설치가 실패했을 때 기존 구성 보존',
 				details: [
-					'에이전트가 저장소에 곧바로 쓰기 작업을 하는 구조 대신, 사용자가 명령을 실행하고 결과를 확인한 뒤 적용 여부를 고르는 흐름으로 설계했습니다.',
-					'설치, 스킬 복사, 프로젝트 playbook 초기화, MCP 등록을 자동으로 묶지 않고 각각 분리해 예측 가능한 사용 방식을 유지했습니다.',
+					'새 프로필로 전환하다 일부 설치가 실패하면 기존 스킬을 먼저 지워서는 안 됐습니다. 선택한 새 스킬 전체가 정상인지 확인한 뒤에만 기존 항목을 정리하도록 했습니다.',
+					'미리보기 이후 파일이 바뀌는 경우도 처리하기 위해 각 삭제 직전에 다시 확인했습니다. 충돌과 부분 실패, 적용 중 수정, 되돌리기를 테스트했습니다.',
+				],
+			},
+			{
+				title: '코딩 도구와 겹치는 실행 기능 정리',
+				details: [
+					'초기에는 실행기와 스케줄러까지 포함했지만, 코딩 도구가 이미 제공하는 기능과 역할이 겹쳤습니다. 1.0부터 프로젝트 기록과 필요한 작업 지침에 집중하도록 구조를 바꿨습니다.',
+					'패키지 설치, 스킬 설치, 프로젝트 초기 설정, MCP 연결을 따로 두고 사용자가 필요한 기능만 적용하도록 했습니다.',
 				],
 			},
 		],
 		specialImplementations: [
 			{
-				title: '공개 패키지와 문서화',
+				title: '선택적으로 사용하는 소스 검색과 원격 연동',
 				details: [
-					'npm 패키지와 GitHub 저장소로 공개해 `npx ai-agent-playbook` 형태로 바로 확인할 수 있게 했습니다.',
-					'처음 사용하는 사람이 실행 순서와 쓰기 여부를 파악할 수 있도록 Quick Start, Command Guide, 설치/삭제 문서를 함께 정리했습니다.',
+					'ast-grep 기반 코드 구조 검색은 선택 기능으로 분리했습니다. GitHub/Gitea 연동은 변경 계획을 미리 보여 주고 명시적으로 적용하도록 했습니다.',
+				],
+			},
+			{
+				title: '배포와 사용 안내',
+				details: [
+					'npm과 GitHub에 공개하고, 설치와 사용법부터 전환·복구 절차까지 한국어와 영어로 정리했습니다.',
+					'Windows와 Ubuntu CI에서 테스트와 타입 검사, 스킬·번역·문서 검사를 실행하도록 구성했습니다.',
 				],
 			},
 		],
 		projectData: {
 			images: [
 				{
+					src: '/images/ai-agent-playbook/workspace-1.3.png',
+					alt: '1.3.0 CLI의 저장소 등록과 기록 조회 결과 발췌',
+					caption: '1.3.0 / CLI output excerpt',
+				},
+				{
+					src: '/images/ai-agent-playbook/migration-1.3.png',
+					alt: '1.3.0 스킬 설치 미리보기와 프로필 전환 결과 발췌',
+					caption: '1.3.0 / CLI output excerpt',
+				},
+				{
 					src: '/images/ai-agent-playbook/logo-wide.png',
 					alt: 'AI Agent Playbook 로고',
-				},
-				{
-					src: '/images/ai-agent-playbook/npm-overview.png',
-					alt: 'AI Agent Playbook npm 패키지 소개',
-				},
-				{
-					src: '/images/ai-agent-playbook/quick-start.png',
-					alt: 'AI Agent Playbook 빠른 시작 문서',
-				},
-				{
-					src: '/images/ai-agent-playbook/command-guide.png',
-					alt: 'AI Agent Playbook 명령어 안내',
-				},
-				{
-					src: '/images/ai-agent-playbook/repository-map.png',
-					alt: 'AI Agent Playbook 저장소 구조 안내',
-				},
-				{
-					src: '/images/ai-agent-playbook/mcp-settings.png',
-					alt: 'AI Agent Playbook MCP 설정 화면',
 				},
 			],
 			subLinks: [
@@ -124,9 +125,6 @@ export const projectsDetailData: Project[] = [
 				},
 				{ type: 'other', url: '/', visible: false },
 			],
-			background: {
-				image: '/images/ai-agent-playbook/npm-overview.png',
-			},
 		},
 	},
 	{

@@ -11,7 +11,7 @@ import ProjectImplementation from './projectImplementation';
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	const { getIcon } = useIcon();
-	const { dictionary } = useLocale();
+	const { dictionary, locale } = useLocale();
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const [isViewerOpen, setIsViewerOpen] = useState(false);
 	const handleCloseClick = onClose;
@@ -101,7 +101,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 					{/* 메인 콘텐츠 */}
 					<div className="relative z-[1]">
 						{/* 헤더 섹션 */}
-						<div className="relative h-[260px] md:h-[300px] flex flex-col justify-end p-5 md:p-8">
+						<div className="relative min-h-[260px] md:min-h-[300px] flex flex-col justify-end p-5 pt-16 md:p-8 md:pt-20">
 							<div>
 								<h2 className="text-4xl font-bold text-foreground pb-0.5 break-keep">
 									{project.title}
@@ -188,7 +188,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 											</h4>
 											<p className="text-muted-foreground">
 												{project.teamSize}
-												{dictionary.projectDetail.teamSizeUnit}
+												{locale === 'en' && project.teamSize === 1
+													? ' person'
+													: dictionary.projectDetail.teamSizeUnit}
 											</p>
 										</div>
 									</div>,

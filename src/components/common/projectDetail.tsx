@@ -7,6 +7,7 @@ import { useLocale } from '@/contexts/localeContext';
 import ImageViewer from './imageViewer';
 import InfiniteCarousel from './infiniteCarousel';
 import TechStackDetailIcons from './techStackDetailIcons';
+import ProjectImplementation from './projectImplementation';
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 	const { getIcon } = useIcon();
@@ -169,6 +170,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 										<p className="text-foreground leading-relaxed">{project.overview}</p>
 										<TechStackDetailIcons techStack={project.techStack} />
 									</div>,
+								)}
+
+								{project.implementation && (
+									<ProjectImplementation content={project.implementation} />
 								)}
 
 								{/* 프로젝트 정보 */}

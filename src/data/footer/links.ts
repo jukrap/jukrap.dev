@@ -25,8 +25,8 @@ export const links: Link[] = [
 		type: 'url',
 	},
 	{
-		text: 'RSS feed',
-		url: '/rss.xml',
+		text: 'Play',
+		url: '/play',
 		type: 'url',
 	},
 ];

@@ -16,7 +16,7 @@ export default function ProjectImplementation({
 					<span className="block text-lg font-semibold text-foreground">
 						{content.title}
 					</span>
-					<span className="mt-2 block text-sm text-muted-foreground">
+					<span className="mt-2 ml-5 list-item list-disc list-outside text-sm text-muted-foreground">
 						{content.summary}
 					</span>
 				</span>
@@ -32,11 +32,11 @@ export default function ProjectImplementation({
 						<h4 className="mb-2 text-base font-semibold text-foreground">
 							{section.title}
 						</h4>
-						<div className="space-y-2 text-sm leading-7 text-muted-foreground">
+						<ul className="list-disc pl-5 space-y-2 text-sm leading-7 text-muted-foreground">
 							{section.details.map((paragraph) => (
-								<p key={paragraph}>{paragraph}</p>
+								<li key={paragraph}>{paragraph}</li>
 							))}
-						</div>
+						</ul>
 					</section>
 				))}
 				<a

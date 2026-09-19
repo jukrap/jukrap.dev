@@ -302,7 +302,7 @@ export function getPortfolioDocument(
 			},
 			{
 				id: 'education',
-				title: t('교육', 'Education'),
+				title: t('교육·활동', 'Education & activities'),
 				items: resume.education.map(({ title, period, detail, evidence }) => ({
 					title,
 					meta: period,
@@ -336,6 +336,7 @@ export function getPortfolioDocument(
 			{ source: 'profile', id: 'skills' },
 			{ source: 'profile', id: 'education-university' },
 			{ source: 'activity', id: 'programmers-devcourse-student' },
+			{ source: 'activity', id: 'programmers-devcourse-assistant-mentor' },
 			...resume.awards.flatMap(({ evidence }) => evidence ?? []),
 		],
 	});

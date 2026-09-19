@@ -58,7 +58,8 @@ export const ResumeDocument = ({
 }: ResumeDocumentProps) => {
 	const copy = getResumeDocument(locale);
 	const t = (ko: string, en: string) => (locale === 'ko' ? ko : en);
-	const [firstProject, ...remainingProjects] = copy.projects;
+	const firstPageProjects = copy.projects.slice(0, 2);
+	const remainingProjects = copy.projects.slice(2);
 
 	return (
 		<div className="private-document resume-document">
@@ -87,10 +88,12 @@ export const ResumeDocument = ({
 					</div>
 				</DocumentSection>
 
-				{firstProject ? (
+				{firstPageProjects.length ? (
 					<DocumentSection title={t('프로젝트', 'Projects')} compact>
 						<div className="resume-project-list">
-							<ResumeProjectItem project={firstProject} />
+							{firstPageProjects.map((project) => (
+								<ResumeProjectItem key={project.id} project={project} />
+							))}
 						</div>
 					</DocumentSection>
 				) : null}
@@ -125,7 +128,7 @@ export const ResumeDocument = ({
 				</DocumentSection>
 
 				<div className="resume-bottom-grid">
-					<DocumentSection title={t('교육', 'Education')} compact>
+					<DocumentSection title={t('교육·활동', 'Education & activities')} compact>
 						<ul className="private-document-simple-list">
 							{copy.education.map((item) => (
 								<li key={item.title + '-' + item.period}>

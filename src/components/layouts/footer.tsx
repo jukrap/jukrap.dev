@@ -56,9 +56,11 @@ const Footer: React.FC = () => {
 			className={`w-full pt-12 pb-6 md:pt-16 md:pb-8 px-4 md:px-6 bg-background ${styles.footer}`}
 		>
 			<div className="max-w-7xl mx-auto flex flex-col items-center gap-4 md:gap-6 no-select">
-				<p className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-center text-muted-foreground">
-					<span>Copyright © {currentYear} Ju-cheol Park</span>
-					<span>All Rights Reserved.</span>
+				<p className="text-sm text-center text-muted-foreground">
+					<span className="inline-block">
+						Copyright © {currentYear} Ju-cheol Park.
+					</span>{' '}
+					<span className="inline-block">All Rights Reserved.</span>
 				</p>
 				<div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-4">
 					{footerLinks.map((link) => (
@@ -91,16 +93,20 @@ const Footer: React.FC = () => {
 					}
 					onClick={() => setOpenedOn(open ? null : pathname)}
 				>
-					<span className={styles.peek} aria-hidden="true">
-						<Image
-							src="/images/doge-peek.webp"
-							alt=""
-							width={100}
-							height={130}
-							sizes="100px"
-						/>
+					<span className={styles.paper} aria-hidden="true">
+						<span className={styles.recess}>
+							<span className={styles.peek}>
+								<Image
+									src="/images/doge-peek.webp"
+									alt=""
+									width={100}
+									height={130}
+									sizes="100px"
+								/>
+							</span>
+						</span>
+						<span className={styles.fold} />
 					</span>
-					<span className={styles.fold} aria-hidden="true" />
 				</button>
 			)}
 		</footer>

@@ -41,7 +41,7 @@ export default function ProjectImplementation({
 				))}
 				<a
 					href={getLocalizedPath(content.demo.path, locale)}
-					className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+					className="relative inline-flex items-center gap-2 text-sm leading-6 font-semibold text-foreground underline decoration-border underline-offset-4 transition-colors before:absolute before:-inset-y-2.5 before:inset-x-0 hover:text-accent hover:decoration-accent focus-visible:text-accent focus-visible:decoration-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
 				>
 					{content.demo.label}
 					<ArrowUpRight size={16} aria-hidden="true" />

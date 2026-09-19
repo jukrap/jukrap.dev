@@ -50,8 +50,8 @@ export function getPrivateDocumentContact(): PrivateDocumentContact | null {
 		phone,
 		links: [
 			{
-				label: 'jukrap.vercel.app/ko/portfolio',
-				href: 'https://jukrap.vercel.app/ko/portfolio',
+				label: 'jukrap.vercel.app',
+				href: 'https://jukrap.vercel.app',
 			},
 			{ label: 'github.com/jukrap', href: 'https://github.com/jukrap' },
 		],

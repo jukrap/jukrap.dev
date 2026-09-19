@@ -172,10 +172,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 									</div>,
 								)}
 
-								{project.implementation && (
-									<ProjectImplementation content={project.implementation} />
-								)}
-
 								{/* 프로젝트 정보 */}
 								{renderSection(
 									dictionary.projectDetail.info,
@@ -219,10 +215,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 									)}
 
 								{/* 특별 구현 사항 */}
-								{project.specialImplementations &&
+								{(project.specialImplementations || project.implementation) &&
 									renderSection(
 										dictionary.projectDetail.special,
-										renderList(project.specialImplementations),
+										<div className="space-y-4">
+											{project.specialImplementations &&
+												renderList(project.specialImplementations)}
+											{project.implementation && (
+												<ProjectImplementation content={project.implementation} />
+											)}
+										</div>,
 									)}
 
 								{/* 프로젝트 이미지 */}

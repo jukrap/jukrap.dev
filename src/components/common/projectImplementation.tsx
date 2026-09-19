@@ -10,7 +10,7 @@ export default function ProjectImplementation({
 }) {
 	const { locale } = useLocale();
 	return (
-		<details className="group/implementation mx-0 md:mx-6 border-y border-border/60">
+		<details className="group/implementation border-t border-border/60">
 			<summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-5 [&::-webkit-details-marker]:hidden">
 				<span>
 					<span className="block text-lg font-semibold text-foreground">

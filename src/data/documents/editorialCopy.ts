@@ -36,7 +36,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			result:
 				'초기 JavaScript 엔트리 파일 2,405.50 kB → 616.59 kB, 약 74% 감소. 동일 빌드 기준의 산출물 크기이며 로딩 시간 측정치는 아닙니다.',
 			decision:
-				'공통 인증·API 초기화 코드까지 분리하는 방안도 검토했습니다. 초기 파일 크기는 더 줄었지만, 인증 초기화와 첫 조작의 로딩 처리가 복잡해져 적용하지 않았습니다. 최종적으로 페이지와 Excel 라이브러리에만 지연 로딩을 적용했습니다.',
+				'공통 인증·API 초기화 코드까지 분리하는 방안을 검토하기도 했었습니다. 초기 파일 크기는 더 줄었지만, 인증 초기화와 첫 조작의 로딩 처리가 복잡해져 적용하지 않았습니다. 최종적으로 페이지와 Excel 라이브러리에만 지연 로딩을 적용했습니다.',
 		},
 		'structured-editor-ui': {
 			summary: '개발 중이던 사이트의 차트 설정·데이터 연결·미리보기 기능 개발.',
@@ -81,8 +81,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 						'작업 대상·변경 내용·입력 오류의 원인을 관리자 화면에 표시하고 불필요한 기술 항목 축소.',
 				},
 			],
-			result:
-				'정산 저장 기능은 개발 환경에 반영. 작업 내용 중심으로 개편한 로그 화면은 관리자 사용 중.',
+			result: '',
 		},
 		'react-admin-state-migration': {
 			summary:
@@ -110,7 +109,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			summary:
 				'물류 운영 웹의 라벨 출력 요청을 처리하는 Android 앱. 네이티브 브리지와 Bluetooth 프린터 연동 담당.',
 			problem:
-				'웹에서 만든 출력 자료를 Android 장비 SDK에 전달해야 했습니다. 권한 요청과 장비 연결, 취소 동작도 화면에서 이어져야 했습니다.',
+				'웹에서 만든 출력 자료를 Android 장비 SDK에 전달해야 했을 뿐더러, 권한 요청과 장비 연결, 취소 동작까지 화면 내에서 연계되어야 했습니다.',
 			actions: [
 				{
 					title: '장비 선택과 출력',
@@ -200,8 +199,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 						'Showed affected records, changes, and input-error reasons in the administrator interface while removing unnecessary technical fields.',
 				},
 			],
-			result:
-				'Delivered settlement persistence to the development environment. Administrators use the revised action-oriented log screen.',
+			result: '',
 		},
 		'react-admin-state-migration': {
 			summary:
@@ -264,7 +262,7 @@ export const supportingDocumentCopy: Record<Locale, Record<string, string>> = {
 		'multi-role-hybrid-platform':
 			'회원 검색·수정·통합과 문의·첨부 기능 확장. Android의 파일 선택·이미지 미리보기 연동.',
 		'ai-kickoff-documentation-tool':
-			'저장소·업로드 자료의 요구사항 검토와 문서 작성을 단계별 화면으로 연결. 표 편집과 선택 시트·셀의 문맥을 전달하는 AI 수정 기능 개발.',
+			'요구사항 검토·표 편집·선택 시트와 셀의 AI 수정 화면 개발. AI 작업 실행·결과 저장·문서 내보내기를 처리하는 서버 API 구현.',
 	},
 	en: {
 		'field-terminal-android':
@@ -282,6 +280,6 @@ export const supportingDocumentCopy: Record<Locale, Record<string, string>> = {
 		'multi-role-hybrid-platform':
 			'Extended an existing solution with member search, editing, merging, inquiries, and attachments. Integrated file selection and image previews in the Android app.',
 		'ai-kickoff-documentation-tool':
-			'Connected requirement review and document drafting from repository or uploaded material through staged screens, with table editing and targeted AI revision requests.',
+			'Built requirement review, table editing and targeted AI revision screens, plus server APIs for running AI tasks, saving results and exporting documents.',
 	},
 };

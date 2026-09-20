@@ -168,7 +168,6 @@ export function getPortfolioDocument(
 									),
 								],
 							},
-							{ id: 'status', variant: 'note', body: [copy.result] },
 						]
 					: isLogistics
 						? [
@@ -176,16 +175,6 @@ export function getPortfolioDocument(
 									id: 'contribution',
 									title: t('업무 화면과 출력', 'Business interfaces and printing'),
 									items: [copy.actions[0], copy.actions[2]],
-								},
-								{
-									id: 'android-connection',
-									variant: 'note',
-									body: [
-										t(
-											'같은 프로젝트의 Android 앱에서는 웹의 출력 요청을 Bluetooth 프린터로 전달했습니다. 장비 연결과 권한 처리는 다음 사례에서 설명합니다.',
-											'The Android app for this project sends web print requests to Bluetooth printers. The following case covers device connections and permissions.',
-										),
-									],
 								},
 								{
 									id: 'loading',
@@ -201,12 +190,6 @@ export function getPortfolioDocument(
 									metrics: story.resultSections.find(
 										({ id }) => id === 'delivery-operations-web',
 									)!.impact,
-									body: [
-										t(
-											'동일 빌드 기준의 초기 엔트리 파일 크기입니다. 전체 다운로드량이나 로딩 시간의 감소율이 아닙니다.',
-											'These are initial entry-file sizes on the same build basis, not a reduction in total downloads or loading time.',
-										),
-									],
 								},
 								{
 									id: 'decision',
@@ -322,7 +305,10 @@ export function getPortfolioDocument(
 			{ label: t('기간', 'Period'), value: weather.period },
 			{
 				label: t('담당', 'Scope'),
-				value: t('웹·서버 기능 개발', 'Web and server feature development'),
+				value: t(
+					'프론트엔드·백엔드 기능 개발',
+					'Frontend and backend feature development',
+				),
 			},
 		],
 		technologies: weather.stack,
@@ -603,8 +589,8 @@ export function getPortfolioDocument(
 			variant: 'note',
 			body: [
 				t(
-					'이어서 생활정보·개인정보 보호 앱과 사내 문서화 도구, 그 밖의 회사 업무와 개인·팀 프로젝트를 소개합니다.',
-					'Following these cases: daily information and privacy apps, an internal documentation tool, further company work, and personal and team projects.',
+					'이어서 생활정보·개인정보 보호 앱과 사내 문서화 도구, 그 밖의 회사 업무와 개인·팀 프로젝트를 소개하겠습니다.',
+					'Next, I will introduce daily information and privacy apps, an internal documentation tool, further company work, and personal and team projects.',
 				),
 			],
 		},

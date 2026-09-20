@@ -130,8 +130,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			editorial: {
 				decision:
 					'공통 편집표에 키보드 조작과 초안 보존 기능을 넣었습니다. Excel 등록 전에는 서버에서 자료를 다시 검증하고 한 트랜잭션으로 저장했습니다. 현재 담당 관계와 과거 정산 정보는 따로 관리했습니다.',
-				outcome:
-					'정산 저장 기능은 개발 환경에 반영. 작업 내용 중심으로 개편한 로그 화면은 실제 관리자 업무에서 사용 중.',
+				outcome: '',
 			},
 			aboutSummary:
 				'차량·기사·운송료·정산을 관리하는 웹 전반과 주요 서버 API, 데이터 저장 기능을 개발했습니다. 공통 입력 화면과 정산 이력을 구현하고 관리자 작업 로그를 개편했습니다.',
@@ -160,7 +159,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'ai-kickoff-documentation-tool': {
 			summary:
-				'저장소·업로드 자료의 검토부터 요구사항·문서 작성까지 단계별 화면 개발. 표 편집과 선택한 시트·셀의 AI 수정 기능 구현.',
+				'자료 검토·문서 작성·표 편집과 선택한 시트·셀의 AI 수정 화면 개발. AI 작업 실행·결과 저장·문서 내보내기를 처리하는 서버 API 구현.',
 		},
 		'mobile-operations-platform': {
 			summary:
@@ -232,8 +231,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			editorial: {
 				decision:
 					'Built keyboard editing and draft preservation into shared tables. Used server revalidation and one transaction for Excel confirmation, separating current assignments from historical settlements.',
-				outcome:
-					'Delivered settlement persistence to the development environment. Administrators use the revised work-log screen.',
+				outcome: '',
 			},
 			aboutSummary:
 				'Built the administrator web interface, key server APIs and data persistence for vehicles, drivers, transport fees and settlement, including shared inputs, settlement history and revised work logs.',
@@ -264,7 +262,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'ai-kickoff-documentation-tool': {
 			summary:
-				'Built staged screens for reviewing repositories or uploaded material and drafting requirements and documents. Added table editing and targeted AI revisions for selected sheets and cells.',
+				'Built source review, document drafting, table editing and targeted AI revision screens, plus server APIs for running AI tasks, saving results and exporting documents.',
 		},
 		'mobile-operations-platform': {
 			summary:

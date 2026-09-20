@@ -322,12 +322,19 @@ export const WorkCaseDetail = ({
 					)}
 				</EditorialSection>
 
-				<EditorialSection title={labels.results}>
-					<p className="max-w-[42rem] text-base leading-8 text-foreground/85 break-keep">
-						{editorial.outcome}
-					</p>
-					<StoryResults story={story} />
-				</EditorialSection>
+				{editorial.outcome ||
+				story.resultSections.some(
+					(section) => getWorkMeasurements(section.impact).length > 0,
+				) ? (
+					<EditorialSection title={labels.results}>
+						{editorial.outcome ? (
+							<p className="max-w-[42rem] text-base leading-8 text-foreground/85 break-keep">
+								{editorial.outcome}
+							</p>
+						) : null}
+						<StoryResults story={story} />
+					</EditorialSection>
+				) : null}
 			</div>
 
 			<AdditionalEvidence story={story} labels={labels} />

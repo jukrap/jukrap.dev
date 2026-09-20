@@ -22,17 +22,14 @@ export function getPortfolioFeatureCases(
 			eyebrow: t('회사 업무 05', 'Company work 05'),
 			title: privacy.title,
 			summary: t(
-				'기존 Android 앱에 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능 추가. 외부 검사 API를 이용해 입력부터 결과 확인까지 구현.',
-				'Added email-breach lookup and deepfake image checks to an existing Android app, connecting user input to external inspection APIs and result screens.',
+				'기존 Android 앱에 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능 추가. 검사 화면·서버 API와 Android 이미지 선택을 연결해 입력부터 결과 확인까지 구현.',
+				'Added email-breach lookup and deepfake image checks to an existing Android app. Connected inspection screens, server calls to external APIs, and Android image selection from input through results.',
 			),
 			metadata: [
 				{ label: t('기간', 'Period'), value: privacy.period },
 				{
 					label: t('담당', 'Scope'),
-					value: t(
-						'검사 화면과 서버 API 개발, Android 이미지 선택 연동',
-						'Built inspection screens and server APIs, and integrated Android image selection',
-					),
+					value: t('웹·서버 기능 개발', 'Web and server feature development'),
 				},
 			],
 			technologies: privacy.stack,
@@ -103,10 +100,7 @@ export function getPortfolioFeatureCases(
 				{ label: t('기간', 'Period'), value: documentation.period },
 				{
 					label: t('담당', 'Scope'),
-					value: t(
-						'문서 작성·편집 화면과 서버 처리, 외부 AI 실행 연동 개발',
-						'Built document editing screens, server processing, and external AI execution integration',
-					),
+					value: t('웹·서버 개발', 'Web and server development'),
 				},
 			],
 			technologies: documentation.stack,

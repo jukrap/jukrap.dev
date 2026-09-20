@@ -2308,6 +2308,12 @@
 	font-size: 14px;
 	font-weight: 500;
 }
+@media (min-width: 48.001rem) {
+	.document-page .document-page-metadata-with-attribution {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		column-gap: 18px;
+	}
+}
 .document-page .document-page-technologies {
 	margin-top: 12px;
 	padding-top: 0;

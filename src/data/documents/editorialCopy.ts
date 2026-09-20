@@ -59,9 +59,9 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 		},
 		'settlement-operations-platform': {
 			summary:
-				'차량·기사 등 기준 정보와 운송료·청구·정산을 관리하는 업무 시스템. 관리자 웹 전반과 주요 API·DB 처리 개발.',
+				'차량·기사 등 기준 정보와 운송료·청구·정산을 관리하는 업무 시스템. ERP 웹 전반과 주요 API·DB 처리 개발.',
 			overviewDetail:
-				'관리자 웹 전반과 주요 서버 API·데이터 저장 기능 개발. 공통 편집표, Excel 일괄 등록과 관리자 작업 로그 구현.',
+				'ERP 웹 전반과 주요 서버 API·데이터 저장 기능 개발. 공통 편집표, Excel 일괄 등록과 관리자 작업 로그 구현.',
 			problem:
 				'여러 행을 편집하거나 Excel 자료를 등록할 때 입력 내용이 사라지거나 같은 자료가 중복 저장되는 일을 막아야 했습니다. 담당 관계가 바뀌어도 이미 확정한 정산 금액은 유지해야 했습니다.',
 			actions: [
@@ -178,9 +178,9 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 		},
 		'settlement-operations-platform': {
 			summary:
-				'A business system for vehicle and driver records, transport fees, billing, and settlement. Built the administrator web interface and key API and database operations.',
+				'A business system for vehicle and driver records, transport fees, billing, and settlement. Built the ERP web app and key API and database operations.',
 			overviewDetail:
-				'Built the administrator web app, key server APIs and data persistence, with shared editing tables, batch Excel imports and administrator work logs.',
+				'Built the ERP web app, key server APIs and data persistence, with shared editing tables, batch Excel imports and administrator work logs.',
 			problem:
 				'Multi-row edits and Excel imports needed to avoid lost input and duplicate writes. Changes to assignments also had to preserve finalized settlement amounts.',
 			actions: [
@@ -258,7 +258,7 @@ export const supportingDocumentCopy: Record<Locale, Record<string, string>> = {
 		'structured-editor-ui':
 			'개발 중이던 사이트의 차트 설정 패널·데이터 연결·미리보기 기능 개발.',
 		'mobile-operations-platform':
-			'지도·오프라인 저장·재전송 기능 유지보수. 앱 재실행 시 전송 대기 요청 복원.',
+			'지도 마커 선택·현재 위치·처리 후 지도 복귀 동작 수정. 오프라인 배달완료 저장, 앱 재실행 후 요청 복원과 통신 복구 시 재전송 구현.',
 		'legacy-support-web':
 			'Excel 업로드의 파일 분석·입력값 검사·통신 오류를 구분하는 안내 구현과 로컬 확인.',
 		'multi-role-hybrid-platform':
@@ -276,7 +276,7 @@ export const supportingDocumentCopy: Record<Locale, Record<string, string>> = {
 		'structured-editor-ui':
 			'Built chart settings panels, data connections, and previews as part of a website that was under development.',
 		'mobile-operations-platform':
-			'Maintained maps and offline save/retry flows, restoring queued requests after app restarts.',
+			'Updated map-marker selection, current location and return-to-map behavior. Implemented offline delivery-completion saves, request recovery after app restarts and retries after reconnection.',
 		'legacy-support-web':
 			'Implemented distinct messages for parsing, input, and network errors in Excel imports and checked them locally.',
 		'multi-role-hybrid-platform':

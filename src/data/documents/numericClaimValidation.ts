@@ -6,6 +6,7 @@ import { projectsData } from '@/data/projectsData';
 import { projectsDetailData } from '@/data/projectsDetailData';
 import { workCases } from '@/data/workCases';
 import { workStories } from '@/data/workStories';
+import { workContributionEvidence } from './workContributionEvidence';
 import type {
 	CareerBriefCopy,
 	DocumentContentItem,
@@ -22,6 +23,10 @@ import {
 const NUMERIC_VALUE_PATTERN = String.raw`\d[\d,]*(?:\.\d+)?`;
 const DATE_PATTERN = String.raw`(?:19|20)\d{2}[.-]\d{1,2}(?:[.-]\d{1,2})?`;
 const numericClaimPatterns = [
+	new RegExp(
+		String.raw`${NUMERIC_VALUE_PATTERN}\s*(?:만\s*줄|줄|(?:source\s+)?files?\b|lines?\b)`,
+		'giu',
+	),
 	new RegExp(
 		String.raw`Android\s*${NUMERIC_VALUE_PATTERN}\s*\/\s*API\s*${NUMERIC_VALUE_PATTERN}`,
 		'giu',
@@ -140,13 +145,23 @@ function evidenceSourceValues(
 ): string[] {
 	switch (ref.source) {
 		case 'work-story':
-			return collectSourceStrings(scopedWorkStoryEvidence(ref.id, workCaseIds));
+			return [
+				...collectSourceStrings(scopedWorkStoryEvidence(ref.id, workCaseIds)),
+				...collectSourceStrings(
+					workContributionEvidence[ref.id as keyof typeof workContributionEvidence],
+				),
+			];
 		case 'work-case': {
 			const record = workCases.ko.find(({ id }) => id === ref.id);
 			if (!record) {
 				throw new Error(`Unknown work-case evidence source: ${ref.id}`);
 			}
-			return collectSourceStrings(record);
+			return [
+				...collectSourceStrings(record),
+				...collectSourceStrings(
+					workContributionEvidence[ref.id as keyof typeof workContributionEvidence],
+				),
+			];
 		}
 		case 'project': {
 			const summary = projectsData.find(({ id }) => id === ref.id);

@@ -8,7 +8,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'settlement-operations-platform',
 			title: '업무 정산 ERP 플랫폼',
 			platform: 'Web / API',
-			area: '관리자 웹 전반과 주요 서버 API, 데이터 저장 기능 개발',
+			area: 'ERP 웹 전반과 주요 서버 API 개발, 기존 사용자 웹·모바일 앱 기능 확장',
 			period: '2026.07 ~ 2026.09',
 			role: '풀스택 개발',
 			workType: '신규 개발',
@@ -27,7 +27,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'차량·기사·운송료·청구·정산을 관리하는 웹 전반과 주요 서버 API, 데이터 저장 기능을 개발했습니다.',
 			summary:
-				'관리자 웹 전반에 공통 편집표와 Excel 등록 기능을 연결하고, 담당 관계가 바뀌어도 과거 정산 금액이 유지되도록 했습니다. 작업 로그는 관리자가 대상·변경 내용·입력 오류의 원인을 읽을 수 있도록 개편했습니다.',
+				'ERP 웹 전반에 공통 편집표와 Excel 등록 기능을 연결하고, 담당 관계가 바뀌어도 과거 정산 금액이 유지되도록 했습니다. 작업 로그는 관리자가 대상·변경 내용·입력 오류의 원인을 읽을 수 있도록 개편했습니다.',
 			problem:
 				'Excel 자료를 미리 본 뒤 수정하거나 다시 저장할 수 있어야 했습니다. 이때 일부 행만 등록되거나 같은 자료가 두 번 들어가면 안 됐습니다. 담당 관계 변경이 이미 확정된 정산 금액에 영향을 주지 않도록 이력 관리도 필요했습니다.',
 			thinking: [
@@ -132,9 +132,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'delivery-operations-web',
 			title: '물류 운영 웹',
 			platform: 'Web',
-			area: '조회·예약·Excel 등록 화면과 PC 라벨 출력 기능 개발',
+			area: '프론트엔드 전체 개발',
 			period: '2026.04 ~ 2026.06',
-			role: '웹 화면 개발과 API 연동',
+			role: '프론트엔드 전체 개발',
 			workType: '신규 개발',
 			stack: [
 				'React',
@@ -147,7 +147,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Vitest',
 			],
 			headline:
-				'조회·예약·Excel 등록과 라벨 출력으로 이어지는 업무 화면을 React와 TypeScript로 개발했습니다.',
+				'조회·예약·Excel 등록과 라벨 출력으로 이어지는 물류 웹의 React·TypeScript 프론트엔드 전체를 개발했습니다.',
 			summary:
 				'반복되는 표·입력 폼·모달을 공통화하고 API 응답을 화면과 출력 흐름에 연결했습니다. 페이지와 Excel 처리 코드의 지연 로딩으로 초기 JavaScript 엔트리 파일 크기를 약 74% 줄였습니다(빌드 산출물 기준).',
 			impact: [
@@ -192,7 +192,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'hybrid-life-info-platform',
 			title: '생활정보 앱',
 			platform: 'Android',
-			area: '날씨 화면과 공공 데이터 조회·캐시 기능 개발',
+			area: '웹·서버 기능 개발',
 			period: '2026.06 ~ 2026.07',
 			role: '기존 앱의 날씨 기능 개발',
 			workType: '기능 확장',
@@ -241,7 +241,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'ai-kickoff-documentation-tool',
 			title: 'AI 보조 프로젝트 문서화 웹',
 			platform: 'Tooling',
-			area: '문서 작성·편집 화면과 서버 처리, 외부 AI 실행 연동 개발',
+			area: '웹·서버 개발',
 			period: '2026.04',
 			role: '내부 도구 구축',
 			workType: '내부 도구 개발',
@@ -294,7 +294,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'mobile-output-bridge',
 			title: '모바일 출력 브릿지 앱',
 			platform: 'Android',
-			area: '웹의 출력 요청을 Android 앱과 Bluetooth 프린터에 연결',
+			area: 'Android 앱 개발',
 			period: '2026.04 ~ 2026.06',
 			role: 'Android 출력 앱 개발',
 			workType: '신규 개발',
@@ -497,7 +497,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'hybrid-security-boundary',
 			title: '개인정보 보호 앱',
 			platform: 'Android',
-			area: '검사 화면과 서버 API 개발, Android 이미지 선택 연동',
+			area: '웹·서버 기능 개발',
 			period: '2026.06',
 			role: '기존 앱의 이메일 유출·이미지 검사 기능 개발',
 			workType: '기능 확장',
@@ -539,9 +539,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'react-admin-state-migration',
 			title: '주식 업무 관리 웹',
 			platform: 'Web',
-			area: '조회·등록·수정 화면과 공통 테이블·필터·모달 개발',
+			area: '프론트엔드 전체 개발',
 			period: '2026.02 ~ 2026.03',
-			role: '웹 프론트엔드 전체 개발, 모의 API로 화면 동작 구현',
+			role: '프론트엔드 전체 개발',
 			workType: '프론트엔드 신규 구축',
 			stack: [
 				'React',
@@ -694,7 +694,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'settlement-operations-platform',
 			title: 'Settlement ERP Platform',
 			platform: 'Web / API',
-			area: 'Administrator web interface, key server APIs, and data persistence',
+			area:
+				'ERP web and key server APIs, plus feature extensions to existing user web and mobile apps',
 			period: '2026.07 ~ 2026.09',
 			role: 'Full-stack development',
 			workType: 'New development',
@@ -823,9 +824,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'delivery-operations-web',
 			title: 'Logistics Operations Web',
 			platform: 'Web',
-			area: 'Search, reservations, Excel imports, and PC label printing',
+			area: 'Complete frontend development',
 			period: '2026.04 ~ 2026.06',
-			role: 'Web interface development and API integration',
+			role: 'Complete frontend development',
 			workType: 'Build',
 			stack: [
 				'React',
@@ -838,7 +839,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Vitest',
 			],
 			headline:
-				'Built React and TypeScript screens covering lookup, booking, Excel imports and label printing.',
+				'Built the complete React and TypeScript frontend for logistics search, reservations, Excel imports and label printing.',
 			summary:
 				'Created shared tables, forms and modals and connected API responses to screen and print flows. Lazy-loaded pages and Excel code to reduce the initial JavaScript entry file size by about 74% (build output size).',
 			impact: [
@@ -883,7 +884,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'hybrid-life-info-platform',
 			title: 'Daily Information App',
 			platform: 'Android',
-			area: 'Weather interface, public-data retrieval, and caching',
+			area: 'Web and server feature development',
 			period: '2026.06 ~ 2026.07',
 			role: 'Weather feature development in an existing app',
 			workType: 'Feature extension',
@@ -933,8 +934,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'ai-kickoff-documentation-tool',
 			title: 'AI-assisted Project Documentation Web App',
 			platform: 'Tooling',
-			area:
-				'Document editing screens, server processing, and external AI integration',
+			area: 'Web and server development',
 			period: '2026.04',
 			role: 'Internal tool build',
 			workType: 'Internal tool',
@@ -987,7 +987,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'mobile-output-bridge',
 			title: 'Mobile Output Bridge App',
 			platform: 'Android',
-			area: 'Web print requests connected to Android and Bluetooth printers',
+			area: 'Android app development',
 			period: '2026.04 ~ 2026.06',
 			role: 'Android printing app development',
 			workType: 'Build',
@@ -1193,7 +1193,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'hybrid-security-boundary',
 			title: 'Privacy Check App',
 			platform: 'Android',
-			area: 'Inspection screens, server APIs, and Android image selection',
+			area: 'Web and server feature development',
 			period: '2026.06',
 			role: 'Email-breach and image-check features in an existing app',
 			workType: 'Feature extension',
@@ -1235,9 +1235,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'react-admin-state-migration',
 			title: 'Stock Operations Admin Web',
 			platform: 'Web',
-			area: 'Search and editing screens, shared tables, filters, and modals',
+			area: 'Complete frontend development',
 			period: '2026.02 ~ 2026.03',
-			role: 'Complete web frontend development using mock APIs',
+			role: 'Complete frontend development',
 			workType: 'New frontend build',
 			stack: [
 				'React',

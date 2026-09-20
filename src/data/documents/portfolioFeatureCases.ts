@@ -60,14 +60,14 @@ export function getPortfolioFeatureCases(
 						{
 							title: t('입력 검사와 미리보기', 'Input validation and preview'),
 							description: t(
-								'파일 형식·용량·해상도 검사와 선택한 이미지의 미리보기 구현',
+								'파일 형식·용량·해상도 검사와 선택한 이미지의 미리보기 구현.',
 								'Validated file type, size, and resolution, and displayed a preview of the selected image.',
 							),
 						},
 						{
 							title: t('Android 파일 선택 연결', 'Android file selection'),
 							description: t(
-								'WebView의 이미지·파일 선택 요청과 네이티브 선택 결과를 연결',
+								'WebView의 이미지·파일 선택 요청과 네이티브 선택 결과를 연결.',
 								'Connected image and file requests from the WebView to native selection results.',
 							),
 						},
@@ -134,14 +134,14 @@ export function getPortfolioFeatureCases(
 						{
 							title: t('시트별 문서 편집', 'Edit document sheets'),
 							description: t(
-								'요구사항·기능·화면 문서를 시트별 표로 표시하고, 편집한 데이터를 기준으로 문서 내보내기',
+								'요구사항·기능·화면 문서를 시트별 표로 표시하고, 편집한 데이터를 기준으로 문서 내보내기.',
 								'Displayed requirements, functions, and screens as editable sheets and exported documents from the edited data.',
 							),
 						},
 						{
 							title: t('선택한 내용의 AI 수정', 'Targeted AI revisions'),
 							description: t(
-								'선택한 시트·셀과 주변 내용을 함께 전달해 수정 대상과 유지할 문맥 구분',
+								'선택한 시트·셀과 주변 내용을 함께 전달해 수정 대상과 유지할 문맥 구분.',
 								'Sent the selected sheet and cells with surrounding content to distinguish revision targets from context to preserve.',
 							),
 						},

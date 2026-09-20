@@ -15,19 +15,6 @@ interface CompactWorkStoryProps {
 	labels: WorkLabels;
 }
 
-const DetailList = ({ items }: { items: string[] }) => (
-	<ul className="space-y-3 text-[0.9375rem] leading-7 text-foreground/80">
-		{items.map((item) => (
-			<li
-				key={item}
-				className="relative pl-4 before:absolute before:left-0 before:top-[0.7rem] before:h-1.5 before:w-1.5 before:rounded-full before:bg-accent"
-			>
-				{item}
-			</li>
-		))}
-	</ul>
-);
-
 export const CompactWorkStory = ({
 	story,
 	index,
@@ -131,63 +118,7 @@ export const CompactWorkStory = ({
 									))}
 								</div>
 							) : (
-								<>
-									<div className="space-y-2 pb-6">
-										<p className="font-semibold leading-7 text-foreground break-keep">
-											{story.headline}
-										</p>
-										<p className="text-[0.9375rem] leading-7 text-foreground/80 break-keep">
-											{story.summary}
-										</p>
-									</div>
-
-									<section className="grid gap-3 border-t border-border/45 py-6 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6">
-										<h4 className="work-section-label text-foreground">
-											{labels.problem}
-										</h4>
-										<p className="text-[0.9375rem] leading-7 text-foreground/80 break-keep">
-											{chapter.context}
-										</p>
-									</section>
-
-									{chapter.decisions.length > 0 && (
-										<section className="grid gap-3 border-t border-border/45 py-6 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6">
-											<h4 className="work-section-label text-foreground">
-												{labels.thinking}
-											</h4>
-											<DetailList items={chapter.decisions} />
-										</section>
-									)}
-
-									<div className="grid gap-8 border-t border-border/45 py-6 lg:grid-cols-2 lg:gap-10">
-										{chapter.execution.length > 0 && (
-											<section className="space-y-2">
-												<h4 className="work-section-label text-foreground">
-													{labels.solution}
-												</h4>
-												<DetailList items={chapter.execution} />
-											</section>
-										)}
-
-										{chapter.additionalEvidence.length > 0 && (
-											<section className="space-y-2">
-												<h4 className="work-section-label text-foreground">
-													{labels.process}
-												</h4>
-												<DetailList items={chapter.additionalEvidence} />
-											</section>
-										)}
-									</div>
-
-									{chapter.checks.length > 0 && (
-										<section className="grid gap-3 border-t border-border/45 pt-6 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6">
-											<h4 className="work-section-label text-foreground">
-												{labels.checks}
-											</h4>
-											<DetailList items={chapter.checks} />
-										</section>
-									)}
-								</>
+								<ChapterEvidence chapter={chapter} labels={labels} showTitle={false} />
 							)}
 						</div>
 					</details>

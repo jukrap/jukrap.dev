@@ -761,7 +761,7 @@
 	padding-top: 0;
 }
 
-.document-item + .document-item {
+#supporting-work .document-item + .document-item {
 	border-top: 1px solid hsl(var(--border) / 0.18);
 }
 
@@ -1299,7 +1299,6 @@
 .resume-project-item + .resume-project-item,
 .career-work-item + .career-work-item {
 	padding-top: 1.6rem;
-	border-top: 1px solid rgb(27 27 24 / 14%);
 }
 
 .resume-career-item > header,
@@ -1580,10 +1579,7 @@
 	}
 
 	#ai-kickoff-documentation-tool .document-evidence-item:nth-child(2),
-	#hybrid-life-info-platform .document-evidence-item:nth-child(2),
-	.document-page-closing
-		.document-section:first-child
-		.document-item:nth-child(2) {
+	#hybrid-life-info-platform .document-evidence-item:nth-child(2) {
 		padding-top: 0.85rem;
 		border-top: 1px solid hsl(var(--border) / 0.18);
 	}
@@ -2297,6 +2293,8 @@
 /* Recruiting documents: distinct roles, short implementations, evidence beside the text. */
 .document-page {
 	--doc-item-size: 16px;
+	--doc-divider-before: 24px;
+	--doc-divider-after: 12px;
 }
 .document-page .document-page-summary {
 	font-weight: 400;
@@ -2311,9 +2309,14 @@
 	font-weight: 500;
 }
 .document-page .document-page-technologies {
-	margin-top: 16px;
-	padding-top: 12px;
-	border-top: 1px solid hsl(var(--border) / 0.22);
+	margin-top: 12px;
+	padding-top: 0;
+	padding-bottom: var(--doc-divider-before);
+	border-top: 0;
+	border-bottom: 1px solid hsl(var(--doc-ink) / 0.18);
+}
+.document-page-introduction-with-technologies + .document-page-body {
+	margin-top: var(--doc-divider-after);
 }
 .document-page .document-section-group {
 	min-width: 0;
@@ -2334,9 +2337,8 @@
 	padding-top: 32px;
 }
 .document-page .document-flow {
-	margin-top: 8px;
-	padding-block: 16px;
-	border-block: 1px solid hsl(var(--border) / 0.24);
+	margin-top: 0;
+	padding-block: 0 12px;
 }
 .document-flow figcaption {
 	font-size: 13px;
@@ -2390,7 +2392,7 @@
 }
 .document-page-cover .document-cover-title {
 	margin: 0;
-	padding: 40px 0 24px;
+	padding: 40px 0 28px;
 }
 .document-page-cover .document-cover-title h1 {
 	font-size: 48px;
@@ -2405,8 +2407,9 @@
 .document-page-cover .document-cover-details {
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
-	padding-top: 20px;
+	gap: 20px;
+	padding-top: 0;
+	border-top: 0;
 }
 .document-page-cover .document-cover-details > dl {
 	display: grid;
@@ -2415,7 +2418,15 @@
 }
 .document-page-cover .document-cover-details > div {
 	display: grid;
-	gap: 28px;
+	gap: var(--doc-divider-before);
+}
+.document-page-cover
+	.document-section[aria-labelledby='cover-main-work-title'] {
+	padding-top: var(--doc-divider-after);
+	border-top: 1px solid hsl(var(--doc-ink) / 0.18);
+}
+.document-page-cover .document-section-note {
+	margin-top: -8px;
 }
 .document-page-cover .document-cover-details dd {
 	font-size: 14px;
@@ -2499,7 +2510,6 @@
 	.document-section-group:not(:first-child)
 	.document-section
 	.document-item:nth-child(2) {
-	border-top: 1px solid hsl(var(--border) / 0.18);
 	padding-top: 12px;
 }
 .document-page.resume-page .private-document-header {
@@ -2551,6 +2561,26 @@
 	grid-template-columns: 1.15fr 1fr;
 	gap: 24px;
 }
+
+/* A rule separates sections; headings stay attached to their own content. */
+.document-section-separated,
+.document-page > .private-document-section + .private-document-section,
+.document-page .career-company + .private-document-section {
+	padding-top: var(--doc-divider-after);
+	border-top: 1px solid hsl(var(--doc-ink) / 0.18);
+}
+.document-section-separated {
+	margin-top: calc(var(--doc-divider-before) - var(--doc-section-gap));
+}
+.document-page > .private-document-section + .private-document-section,
+.document-page .career-company + .private-document-section {
+	margin-top: var(--doc-divider-before);
+}
+.document-page.resume-page .resume-bottom-grid {
+	margin-top: var(--doc-divider-before);
+	padding-top: var(--doc-divider-after);
+	border-top: 1px solid hsl(var(--doc-ink) / 0.18);
+}
 .document-page.resume-page .resume-bottom-grid .private-document-section {
 	margin-top: 0;
 }
@@ -2564,6 +2594,8 @@
 	color: #666660;
 }
 .resume-project-links a {
+	max-width: 100%;
+	overflow-wrap: anywhere;
 	text-decoration: underline;
 }
 .document-page .career-work-actions {

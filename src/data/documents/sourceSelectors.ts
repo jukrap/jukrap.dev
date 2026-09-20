@@ -63,8 +63,9 @@ export function visibleProjectLinks(id: string) {
 	return getSimpleProject(id)
 		.links.filter(({ visible, type }) => visible && type !== 'detailView')
 		.map(({ type, url }) => ({
-			label:
-				type === 'github'
+			label: /^https:\/\/(?:www\.)?npmjs\.com\//.test(url)
+				? 'npm'
+				: type === 'github'
 					? 'GitHub'
 					: type === 'appleStore'
 						? 'App Store'

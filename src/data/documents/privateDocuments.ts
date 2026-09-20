@@ -54,23 +54,25 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				period: period(triphosCareerEvidence.period),
 				role: ko ? triphosCareerEvidence.role : 'Web & Mobile Developer',
 				summary: ko
-					? '업무용 웹 개발과 Android 연동'
+					? '업무용 웹 개발과 Android 연동.'
 					: 'Business web applications and Android integration',
 				highlights: [],
 				workItems: [
 					{
 						title: ko ? '업무 정산 ERP 플랫폼' : 'Settlement Operations Platform',
 						scope: ko
-							? '차량·기사·운송료·정산 관리 웹과 주요 API·DB 처리 개발'
-							: 'Administrator interfaces for vehicles, drivers, fees and settlement, plus key APIs and database operations',
+							? '차량·기사·운송료·정산을 관리하는 웹 전반 개발. 주요 서버 API와 데이터 저장 기능 구현.'
+							: 'Built the administrator web app for vehicles, drivers, fees and settlement, including key server APIs and data persistence.',
 						highlights: ko
 							? [
-									'키보드 조작과 저장 실패 시 입력값을 보존하는 공통 편집표 개발',
-									'Excel 오류 셀 표시·수정·재검사, 저장 오류 시 전체 롤백과 중복 요청 처리 구현',
+									'키보드 셀 이동·선택창 조작을 지원하고, 저장 실패 시 입력값을 보존하는 공통 편집표 개발.',
+									'Excel 오류 셀 표시·수정·재검사, 저장 오류 시 전체 롤백과 중복 요청 처리 구현.',
+									'작업 대상·변경 내용·입력 오류 원인을 기록하고, 관리자 로그 화면을 작업 내용 중심으로 개편.',
 								]
 							: [
 									'Built shared editing tables with keyboard controls and draft retention after failed saves.',
 									'Built Excel previews with invalid-cell correction, server revalidation, all-or-nothing saves, and repeat-request handling.',
+									'Added action targets, changes, and input-error reasons to logs; reorganized the administrator log screen around user actions.',
 								],
 					},
 					{
@@ -78,33 +80,67 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 							? '물류 운영 웹·출력 앱'
 							: 'Logistics Operations Web & Printing App',
 						scope: ko
-							? '조회·예약·Excel 등록 화면과 Android 라벨 출력 연동'
+							? '조회·예약·Excel 등록 화면과 Android 라벨 출력 연동.'
 							: 'Search, reservations, Excel imports, and Android label printing',
 						highlights: ko
 							? [
-									'페이지·Excel 코드 지연 로딩으로 초기 JavaScript 엔트리 파일 크기 약 74% 감소(빌드 산출물 기준)',
+									'표·입력 폼·모달을 공통화하고, 조회·예약·Excel 미리보기·출력 요청을 서버 API에 연결.',
+									'페이지·Excel 코드 지연 로딩으로 초기 JavaScript 엔트리 파일 크기 약 74% 감소(빌드 산출물 기준).',
+									'WebView의 출력 요청을 Android 브리지와 Bluetooth 프린터에 연결. 장비 선택·권한 요청·취소 처리 구현.',
 								]
 							: [
+									'Built shared tables, forms and modals; connected search, reservations, Excel previews and print requests to server APIs.',
 									'Reduced the initial JavaScript entry file by about 74% with on-demand page and Excel code loading (build output size).',
+									'Connected WebView print requests to an Android bridge and Bluetooth printers, handling device selection, permissions and cancellation.',
 								],
 					},
 					{
 						title: ko ? '주식 업무 관리 웹' : 'Stock Administration Web',
 						scope: ko
-							? 'MSW 모의 API 기반 React 프론트엔드 전체 구축'
+							? 'MSW 모의 API 기반 React 프론트엔드 전체 구축.'
 							: 'Complete React frontend built against MSW mock APIs',
 						highlights: ko
 							? [
-									'열 고정·너비 조절·재정렬을 지원하는 공통 테이블 개발. 조회 조건과 화면 조작 상태 분리',
+									'계좌·종목·주문 화면에 쓰는 테이블·필터·모달 공통화. 열 고정·너비 조절·재정렬 구현.',
+									'선택 중인 필터와 실제 조회 조건을 분리하고, 조회 버튼을 누를 때 TanStack Query에 조건 적용.',
 								]
 							: [
-									'Built shared tables with column pinning, resizing and reordering; separated query conditions from interaction state.',
+									'Built shared tables, filters and modals for account, stock and order screens, with column pinning, resizing and reordering.',
+									'Kept filter selections separate from applied query conditions; updated TanStack Query when the user submitted a search.',
+								],
+					},
+					{
+						title: ko ? '생활정보 앱' : 'Daily Information App',
+						scope: ko
+							? '기존 Android 앱에 공공 API 기반 날씨 화면과 서버 조회 기능 추가.'
+							: 'Added weather screens and server-side public API integration to an existing Android app.',
+						highlights: ko
+							? [
+									'지역·정보 종류별 서버 캐시와 갱신 주기 적용. 현재 날씨·핵심 예보를 먼저 표시하고 부가 정보는 응답 후 표시.',
+								]
+							: [
+									'Cached responses by region and data type with matching expiry periods. Displayed current weather and core forecasts first, then supplementary data as it arrived.',
+								],
+					},
+					{
+						title: ko ? '개인정보 보호 앱' : 'Privacy Protection App',
+						scope: ko
+							? '기존 Android 앱에 외부 API 기반 이메일 유출·딥페이크 검사 기능 추가.'
+							: 'Added email-breach and deepfake checks to an existing Android app using external APIs.',
+						highlights: ko
+							? [
+									'입력·검사 요청·결과 화면 개발. 이미지 미리보기와 Android 파일 선택 연동.',
+								]
+							: [
+									'Built input, inspection request and result screens, with image previews and Android file selection.',
 								],
 					},
 				],
 				evidence: [
 					{ source: 'profile', id: triphosCareerEvidence.id },
 					...evidence,
+					workStoryEvidence('hybrid-life-info-platform'),
+					workStoryEvidence('hybrid-security-boundary'),
 				],
 			},
 			{
@@ -114,8 +150,8 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				role: ko ? tisCareerEvidence.role : 'Planning and data automation support',
 				highlights: ko
 					? [
-							'Figma 기반 공장 에너지 관리 화면 기획, 데이터베이스 테이블 명세·ERD 작성',
-							'한국전력 기업별 파워플래너 분석과 에너지 데이터 수집용 Python 크롤러 작성',
+							'Figma 기반 공장 에너지 관리 화면 기획, 데이터베이스 테이블 명세·ERD 작성.',
+							'한국전력 기업별 파워플래너 분석과 에너지 데이터 수집용 Python 크롤러 작성.',
 						]
 					: [
 							'Planned factory energy management screens in Figma and documented database tables and an ERD.',
@@ -163,7 +199,7 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 					: 'Programmers Devcourse / Assistant Mentor',
 				period: '2024.05 ~ 2024.09',
 				detail: ko
-					? '개발 정보 공유, 데일리 스크럼 참여와 프로젝트 점검 지원'
+					? '개발 정보 공유, 데일리 스크럼 참여와 프로젝트 점검 지원.'
 					: 'Shared development resources and supported daily scrums and project reviews.',
 				evidence: [
 					{ source: 'activity', id: 'programmers-devcourse-assistant-mentor' },

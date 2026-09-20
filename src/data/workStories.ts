@@ -94,16 +94,16 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			area: '조회·예약·Excel 등록 화면과 PC·Android 라벨 출력 개발',
 			role: '물류 업무 웹과 출력 앱 개발',
 			headline:
-				'조회·예약·Excel 등록과 라벨 출력으로 이어지는 업무 화면을 React와 TypeScript로 개발했습니다.',
+				'조회·예약·Excel 등록부터 PC·Android 라벨 출력까지 이어지는 물류 업무 시스템.',
 			summary:
-				'반복되는 표·입력 폼·모달을 공통화하고 API 응답을 화면과 출력 흐름에 연결했습니다. 페이지와 Excel 처리 코드의 지연 로딩으로 초기 JavaScript 엔트리를 약 74% 줄였습니다.',
+				'반복되는 표·입력 폼·모달을 공통화하고 API 응답을 화면과 출력 흐름에 연결했습니다. 페이지와 Excel 처리 코드의 지연 로딩으로 초기 JavaScript 엔트리 파일 크기를 2,405.50 kB에서 616.59 kB로 약 74% 줄였습니다(빌드 산출물 기준).',
 			context:
-				'조회·예약·Excel 등록·출력 화면에서 공통 UI와 API 연동이 필요했습니다. 초기 화면에 필요하지 않은 페이지와 Excel 라이브러리까지 함께 포함되어 초기 JavaScript 엔트리가 커진 상태였습니다.',
+				'조회·예약·Excel 등록·출력 화면에서 공통 UI와 API 연동이 필요했습니다. 초기 화면에 필요하지 않은 페이지와 Excel 라이브러리까지 함께 포함되어 초기 JavaScript 엔트리 파일이 커진 상태였습니다.',
 			editorial: {
 				decision:
 					'표·폼·모달을 공통화하고 페이지와 Excel 코드를 필요한 시점에 불러오도록 했습니다. 인증과 공통 초기화 흐름은 유지했습니다.',
 				outcome:
-					'초기 JavaScript 엔트리를 2,405.50 kB에서 616.59 kB로 약 74% 줄였습니다. Android 앱에는 Bluetooth 출력 기능을 구현하고 실제 라벨이 출력되는지 확인했습니다.',
+					'코드 분리 후 페이지 이동·Excel 처리·PC 라벨 출력 동작 확인. Android 실기기의 Bluetooth 연결과 실제 라벨 출력 확인.',
 			},
 			resultSections: ['delivery-operations-web', 'mobile-output-bridge'].map(
 				(chapterId) => {
@@ -112,9 +112,11 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			),
 			aboutSummary:
-				'조회·예약·Excel·출력 화면을 React로 개발했습니다. 페이지와 Excel 코드를 분리해 초기 JavaScript 엔트리를 약 74% 줄였습니다.',
+				'조회·예약·Excel 등록 화면의 공통 UI와 API 연동, Android 라벨 출력 기능을 개발했습니다. 페이지와 Excel 코드를 분리해 초기 JavaScript 엔트리 파일 크기를 약 74% 줄였습니다(빌드 산출물 기준).',
 		},
 		'structured-editor-ui': {
+			summary:
+				'개발 중인 사이트의 차트 설정 패널·데이터 필드 연결·드래그 조작과 Chart.js 미리보기 기능 개발.',
 			editorial: {
 				decision:
 					'차트 종류에 맞는 옵션과 데이터 역할을 제공하고 설정 상태와 렌더러 생명주기를 분리했습니다.',
@@ -124,24 +126,28 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			aboutSummary: '차트 설정 패널과 데이터 연결, 미리보기 화면을 구현했습니다.',
 		},
 		'settlement-operations-platform': {
+			headline: '차량·기사 정보부터 운송료 청구·정산까지 관리하는 업무 시스템.',
 			editorial: {
 				decision:
 					'공통 편집표에 키보드 조작과 초안 보존 기능을 넣었습니다. Excel 등록 전에는 서버에서 자료를 다시 검증하고 한 트랜잭션으로 저장했습니다. 현재 담당 관계와 과거 정산 정보는 따로 관리했습니다.',
 				outcome:
-					'자료 입력과 정산 저장 기능을 개발 환경에 반영했습니다. Excel 일괄 등록은 실패 시 전체를 되돌리고, 일반 편집표는 행별 성공·실패를 표시합니다. 작업 내용 중심으로 개편한 로그 화면은 관리자가 사용하고 있습니다.',
+					'정산 저장 기능은 개발 환경에 반영. 작업 내용 중심으로 개편한 로그 화면은 실제 관리자 업무에서 사용 중.',
 			},
 			aboutSummary:
 				'차량·기사·운송료·정산을 관리하는 웹 전반과 주요 서버 API, 데이터 저장 기능을 개발했습니다. 공통 입력 화면과 정산 이력을 구현하고 관리자 작업 로그를 개편했습니다.',
 		},
 		'react-admin-state-migration': {
+			headline: '계좌·종목·주문 정보를 조회하고 등록·수정하는 주식 업무 관리 웹.',
+			context:
+				'여러 업무 화면에 목록·검색·입력 처리가 반복돼 공통 UI가 필요했습니다. 실제 백엔드에 연결하지 않고도 화면을 개발하고 동작을 확인할 수 있어야 했습니다.',
 			editorial: {
 				decision:
 					'컬럼 조작·필터·모달은 공통 컴포넌트로 만들고 화면별 컬럼과 동작은 따로 정의했습니다. MSW로 모의 응답을 구성해 실제 백엔드 연결 없이 화면을 개발했습니다.',
 				outcome:
-					'React 프론트엔드 전체를 구축하고 목록·검색·등록·수정 화면을 구현했습니다. 공통 테이블에서 컬럼 고정·리사이즈·재정렬을 제공하고 모의 응답으로 로딩과 빈 결과 등 화면 상태를 확인했습니다.',
+					'MSW 모의 응답을 사용하는 로컬 환경에서 컬럼 조작·스크롤·검색 모달과 로딩·빈 결과 등 화면 상태 확인.',
 			},
 			aboutSummary:
-				'React 프론트엔드 전체를 구축했습니다. MSW 모의 응답으로 화면을 개발하고 공통 테이블·필터·모달과 컬럼 조작을 구현했습니다.',
+				'MSW 모의 API로 계좌·종목·주문 화면의 React 프론트엔드 전체를 구축했습니다. 테이블·필터·모달을 공통화하고, 선택 중인 필터와 실제 조회 조건을 구분했습니다.',
 		},
 		'multi-role-hybrid-platform': {
 			role: '기존 솔루션의 웹·Android 기능 개발·개선',
@@ -150,15 +156,36 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			headline:
 				'기존 웹과 Android 앱의 회원 관리, 문의·첨부 기능을 개발하고 개선했습니다.',
 			summary:
-				'회원 검색·정보 수정·중복 회원 통합과 문의 기능을 개발했습니다. Android 앱에는 파일 선택과 이미지 미리보기를 연결했습니다.',
+				'회원 검색·수정·중복 통합과 문의·첨부 기능 개발. Android 파일 선택·이미지 미리보기 연동.',
 		},
-		'ai-kickoff-documentation-tool': {},
-		'mobile-operations-platform': {},
-		'legacy-support-web': {},
-		'hybrid-life-info-platform': {},
-		'legacy-mobile-compatibility': {},
-		'hybrid-security-boundary': {},
-		'field-terminal-android': {},
+		'ai-kickoff-documentation-tool': {
+			summary:
+				'저장소·업로드 자료의 검토부터 요구사항·문서 작성까지 단계별 화면 개발. 표 편집과 선택한 시트·셀의 AI 수정 기능 구현.',
+		},
+		'mobile-operations-platform': {
+			summary:
+				'지도 선택·화면 복귀 동작 수정과 오프라인 저장·재전송 보완. 앱 재실행 후 전송 대기 요청 복원.',
+		},
+		'legacy-support-web': {
+			summary:
+				'Excel 업로드의 파일 분석·입력 검증·통신 오류를 구분하는 안내 구현. 대량 등록의 반복 DB 조회 비용 조사와 개선안 제안.',
+		},
+		'hybrid-life-info-platform': {
+			summary:
+				'공공 데이터 API 기반 날씨·대기질·기상특보 기능 확장. 핵심 정보 우선 표시, 지역·정보별 서버 캐시와 동시 요청 통합 구현.',
+		},
+		'legacy-mobile-compatibility': {
+			summary:
+				'WebView 기반 Android 앱의 빌드 환경 업데이트와 OS별 권한·파일 접근·뒤로가기 처리 수정. 로그인·초기 동기화 문제 보완.',
+		},
+		'hybrid-security-boundary': {
+			summary:
+				'외부 API를 이용한 딥페이크 이미지·개인정보 유출 검사 기능 개발. 이미지·파일 선택부터 검사 요청·결과 표시와 Android WebView 연동까지 구현.',
+		},
+		'field-terminal-android': {
+			summary:
+				'기존 PDA 앱의 빌드 환경·저장소·업데이트 처리 정비. 입고 조회 조건과 수량 입력, QR·바코드 스캔 기능 개발.',
+		},
 	},
 	en: {
 		'delivery-output-flow': {
@@ -167,16 +194,16 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			area: 'Search, reservations, Excel imports, and PC/Android label printing',
 			role: 'Logistics web and printing app development',
 			headline:
-				'Built React and TypeScript screens covering lookup, booking, Excel imports and label printing.',
+				'A logistics system connecting search, reservations and Excel imports to PC and Android label printing.',
 			summary:
-				'Created shared tables, forms and modals and connected API responses to screen and print flows. Lazy-loaded pages and Excel code to reduce the initial JavaScript entry by about 74%.',
+				'Created shared tables, forms and modals and connected API responses to screen and print flows. Lazy-loaded pages and Excel code to reduce the initial JavaScript entry file size from 2,405.50 kB to 616.59 kB, about 74% (build output size).',
 			context:
 				'Lookup, booking, Excel imports and printing needed shared UI and API integration. Pages and spreadsheet libraries that were not needed at startup were included in a large initial JavaScript entry.',
 			editorial: {
 				decision:
 					'Built shared tables, forms and modals and loaded pages and Excel code on demand, keeping authentication and shared initialization intact.',
 				outcome:
-					'Reduced the initial JavaScript entry from 2,405.50 kB to 616.59 kB, about 74%. In the companion Android app, implemented Bluetooth connection and verified physical label printing.',
+					'Verified navigation, Excel processing and PC label printing after code splitting. Checked Bluetooth connection and physical label output on an Android device.',
 			},
 			resultSections: ['delivery-operations-web', 'mobile-output-bridge'].map(
 				(chapterId) => {
@@ -185,9 +212,11 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			),
 			aboutSummary:
-				'Built React screens for lookup, booking, Excel and printing. Split pages and Excel code to reduce the initial JavaScript entry by about 74%.',
+				'Built shared UI and API integration for search, reservations and Excel imports, plus Android label printing. Split pages and Excel code to reduce the initial JavaScript entry file size by about 74% (build output size).',
 		},
 		'structured-editor-ui': {
+			summary:
+				'Built chart settings, data-field connections, drag interactions and Chart.js previews within a website under development.',
 			editorial: {
 				decision:
 					'Exposed valid chart options and data roles and separated editing state from the renderer lifecycle.',
@@ -198,24 +227,30 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'Built chart settings panels, data connections and preview interfaces.',
 		},
 		'settlement-operations-platform': {
+			headline:
+				'A business system for vehicle and driver records, transport fees, billing and settlement.',
 			editorial: {
 				decision:
 					'Built keyboard editing and draft preservation into shared tables. Used server revalidation and one transaction for Excel confirmation, separating current assignments from historical settlements.',
 				outcome:
-					'Delivered data entry and settlement persistence to development. Excel imports roll back as a batch, while editing tables report success and failure per row. Administrators use the revised action-oriented log screen.',
+					'Delivered settlement persistence to the development environment. Administrators use the revised work-log screen.',
 			},
 			aboutSummary:
 				'Built the administrator web interface, key server APIs and data persistence for vehicles, drivers, transport fees and settlement, including shared inputs, settlement history and revised work logs.',
 		},
 		'react-admin-state-migration': {
+			headline:
+				'A web app for searching and editing account, stock and order records.',
+			context:
+				'Repeated list, search and input interfaces needed shared components. The screens also needed to be developed and checked without a real backend connection.',
 			editorial: {
 				decision:
 					'Built shared column controls, filters and modals with screen-specific columns and actions. Used MSW responses to develop the UI without a real backend connection.',
 				outcome:
-					'Built the complete React frontend, including list, search, create and edit screens. Added column pinning, resizing and reordering to shared tables and checked loading, empty and other UI states with mock responses.',
+					'Verified column controls, scrolling, search modals, loading and empty states locally with MSW mock responses.',
 			},
 			aboutSummary:
-				'Built the complete React frontend with MSW mock responses, implementing shared tables, filters, modals and column controls.',
+				'Built the complete React frontend for account, stock and order screens using MSW mock APIs. Created shared tables, filters and modals, keeping draft filters separate from applied query conditions.',
 		},
 		'multi-role-hybrid-platform': {
 			role: 'Web and Android feature development for an existing solution',
@@ -225,15 +260,36 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			headline:
 				'Developed and improved member management, inquiries and attachments across an existing web solution and Android app.',
 			summary:
-				'Built member search, editing, duplicate-member merging and inquiry features. Connected file selection and image previews in the Android app.',
+				'Built member search, editing, merging, inquiries and attachments, with Android file selection and image previews.',
 		},
-		'ai-kickoff-documentation-tool': {},
-		'mobile-operations-platform': {},
-		'legacy-support-web': {},
-		'hybrid-life-info-platform': {},
-		'legacy-mobile-compatibility': {},
-		'hybrid-security-boundary': {},
-		'field-terminal-android': {},
+		'ai-kickoff-documentation-tool': {
+			summary:
+				'Built staged screens for reviewing repositories or uploaded material and drafting requirements and documents. Added table editing and targeted AI revisions for selected sheets and cells.',
+		},
+		'mobile-operations-platform': {
+			summary:
+				'Updated map selection and return navigation, offline saves and retries. Restored queued requests after app restarts.',
+		},
+		'legacy-support-web': {
+			summary:
+				'Added distinct messages for parsing, input and network errors in Excel imports. Investigated repeated database queries in bulk imports and proposed changes.',
+		},
+		'hybrid-life-info-platform': {
+			summary:
+				'Extended weather, air quality and alerts with public-data APIs. Prioritized core information and built server caches and shared in-flight requests.',
+		},
+		'legacy-mobile-compatibility': {
+			summary:
+				'Updated a legacy WebView-based Android app for build tools and OS-specific permissions, file access and back navigation. Fixed login and initial synchronization issues.',
+		},
+		'hybrid-security-boundary': {
+			summary:
+				'Built deepfake image and personal-data breach checks using external APIs, from file selection to requests and results, including Android WebView integration.',
+		},
+		'field-terminal-android': {
+			summary:
+				'Updated an existing PDA app’s build, storage and update handling. Added receiving filters, quantity entry and QR/barcode scanning.',
+		},
 	},
 };
 

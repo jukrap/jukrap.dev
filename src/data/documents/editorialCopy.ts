@@ -13,30 +13,30 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			summary:
 				'조회·예약·Excel 등록·라벨 출력으로 이어지는 물류 업무 웹. React·TypeScript 화면 개발과 API 연동 담당.',
 			overviewDetail:
-				'페이지·Excel 코드 지연 로딩으로 초기 JavaScript 엔트리 파일 크기 약 74% 감소(빌드 산출물 기준).',
+				'조회·예약·Excel 등록 화면과 API 연동, Android 라벨 출력 기능 개발. 초기 JavaScript 엔트리 파일 크기 약 74% 감소(빌드 산출물 기준).',
 			problem:
 				'여러 업무 화면과 Excel 처리 코드가 초기 번들에 함께 포함돼, 첫 화면에서 쓰지 않는 코드까지 내려받고 있었습니다.',
 			actions: [
 				{
 					title: '업무 화면 공통화',
 					description:
-						'표·입력 폼·모달을 공통 컴포넌트로 구성하고 조회·예약·Excel 미리보기·출력 요청을 서버 API에 연결',
+						'표·입력 폼·모달을 공통 컴포넌트로 구성하고 조회·예약·Excel 미리보기·출력 요청을 서버 API에 연결.',
 				},
 				{
 					title: '페이지·Excel 코드 지연 로딩',
 					description:
-						'번들 분석으로 첫 화면에 불필요한 코드를 확인하고, 페이지와 Excel 라이브러리를 사용하는 시점에 로딩',
+						'번들 분석으로 첫 화면에 필요하지 않은 코드를 확인했습니다. 페이지와 Excel 라이브러리는 해당 화면이나 기능을 사용할 때 불러오도록 변경했습니다.',
 				},
 				{
 					title: '긴 주소의 라벨 출력',
 					description:
-						'PC 라벨의 글자 폭에 따라 주소를 줄바꿈하고, 마지막 줄에 남은 주소를 출력 폭에 맞춰 배치',
+						'PC 라벨의 글자 폭에 따라 주소를 줄바꿈하고, 마지막 줄에 남은 주소를 출력 폭에 맞춰 배치.',
 				},
 			],
 			result:
 				'초기 JavaScript 엔트리 파일 2,405.50 kB → 616.59 kB, 약 74% 감소. 동일 빌드 기준의 산출물 크기이며 로딩 시간 측정치는 아닙니다.',
 			decision:
-				'인증과 API 초기화 코드도 나눠 봤지만, 첫 조작 때 추가로 코드를 불러와야 해 적용하지 않았습니다. 페이지와 Excel 코드만 필요한 시점에 불러오도록 했습니다.',
+				'공통 인증·API 초기화 코드까지 분리하는 방안도 검토했습니다. 초기 파일 크기는 더 줄었지만, 인증 초기화와 첫 조작의 로딩 처리가 복잡해져 적용하지 않았습니다. 최종적으로 페이지와 Excel 라이브러리에만 지연 로딩을 적용했습니다.',
 		},
 		'structured-editor-ui': {
 			summary: '개발 중이던 사이트의 차트 설정·데이터 연결·미리보기 기능 개발.',
@@ -46,12 +46,12 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 				{
 					title: '차트 설정과 데이터 연결',
 					description:
-						'차트별 필드·옵션 패널 구성과 드래그로 연결한 데이터의 미리보기 반영',
+						'차트별 필드·옵션 패널 구성과 드래그로 연결한 데이터의 미리보기 반영.',
 				},
 				{
 					title: '미리보기 갱신',
 					description:
-						'설정·데이터 변경 시 불필요한 차트 재생성을 줄여 깜빡임과 스크롤 흔들림 완화',
+						'설정·데이터 변경 시 불필요한 차트 재생성을 줄여 깜빡임과 스크롤 흔들림 완화.',
 				},
 			],
 			result:
@@ -61,24 +61,24 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			summary:
 				'차량·기사 등 기준 정보와 운송료·청구·정산을 관리하는 업무 시스템. 관리자 웹 전반과 주요 API·DB 처리 개발.',
 			overviewDetail:
-				'관리자 웹·주요 API 개발. 공통 편집표와 Excel 등록, 정산 이력·작업 로그 구현.',
+				'관리자 웹 전반과 주요 서버 API·데이터 저장 기능 개발. 공통 편집표, Excel 일괄 등록과 관리자 작업 로그 구현.',
 			problem:
 				'여러 행을 편집하거나 Excel 자료를 등록할 때 입력 내용이 사라지거나 같은 자료가 중복 저장되는 일을 막아야 했습니다. 담당 관계가 바뀌어도 이미 확정한 정산 금액은 유지해야 했습니다.',
 			actions: [
 				{
 					title: '공통 편집표',
 					description:
-						'키보드 셀 이동·선택창 조작, 행별 저장 결과와 오류 표시. 저장에 실패한 행의 편집 내용 보존',
+						'키보드 셀 이동·선택창 조작, 행별 저장 결과와 오류 표시. 저장에 실패한 행의 편집 내용 보존.',
 				},
 				{
 					title: 'Excel 등록과 재시도',
 					description:
-						'Excel 등록의 오류 행·셀 표시와 수정·재검사 구현. 일괄 저장 오류 시 전체 롤백, 동일 요청 재수신 시 기존 결과 반환',
+						'Excel 등록의 오류 행·셀 표시와 수정·재검사 구현. 일괄 저장 오류 시 전체 롤백, 동일 요청 재수신 시 기존 결과 반환.',
 				},
 				{
 					title: '관리자 작업 로그',
 					description:
-						'작업 대상·변경 내용·입력 오류의 원인을 관리자 화면에 표시하고 불필요한 기술 항목 축소',
+						'작업 대상·변경 내용·입력 오류의 원인을 관리자 화면에 표시하고 불필요한 기술 항목 축소.',
 				},
 			],
 			result:
@@ -88,19 +88,19 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			summary:
 				'주식 업무의 조회·등록·수정 화면을 다루는 관리 웹. MSW 모의 API를 사용해 React 프론트엔드 전체 구축.',
 			overviewDetail:
-				'계좌·종목·주문 화면 구축. 열 고정·너비 조절·재정렬과 조회 조건·화면 상태 분리.',
+				'MSW 모의 API로 React 프론트엔드 전체 구축. 계좌·종목·주문 화면의 공통 테이블과 조회 상태 관리 구현.',
 			problem:
 				'목록, 검색, 상세, 등록·수정 화면에 비슷한 UI와 상태 처리가 반복돼, 이를 함께 쓸 수 있는 구조가 필요했습니다.',
 			actions: [
 				{
 					title: '테이블·필터·모달',
 					description:
-						'목록·검색·상세·등록·수정 화면의 공통 컴포넌트 개발. 컬럼 고정·너비 조절·재정렬 기능 구현',
+						'목록·검색·상세·등록·수정 화면의 공통 컴포넌트 개발. 컬럼 고정·너비 조절·재정렬 기능 구현.',
 				},
 				{
 					title: '데이터와 조작 상태',
 					description:
-						'주문내역의 선택 중인 필터와 조회에 적용한 조건을 분리. 같은 조건의 재조회는 첫 페이지부터 시작하고 더보기 요청의 중복 실행 방지',
+						'주문내역의 선택 중인 필터와 조회에 적용한 조건을 분리. 같은 조건의 재조회는 첫 페이지부터 시작하고 더보기 요청의 중복 실행 방지.',
 				},
 			],
 			result:
@@ -115,12 +115,12 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 				{
 					title: '장비 선택과 출력',
 					description:
-						'웹 출력 데이터를 네이티브 브리지로 전달하고 장비 선택·연결·라벨 출력까지 연동',
+						'웹 출력 데이터를 네이티브 브리지로 전달하고 장비 선택·연결·라벨 출력까지 연동.',
 				},
 				{
 					title: '권한과 취소 처리',
 					description:
-						'Android 16/API 36의 SDK 장비 탐색 호출을 추적해 취소 동작과 BLUETOOTH_SCAN, BLUETOOTH_CONNECT 권한 처리 보완',
+						'Android 16/API 36의 SDK 장비 탐색 호출을 추적해 취소 동작과 BLUETOOTH_SCAN, BLUETOOTH_CONNECT 권한 처리 보완.',
 				},
 			],
 			result: 'Android 실기기에서 Bluetooth 장비 연결과 실제 라벨 출력 확인.',
@@ -131,7 +131,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			summary:
 				'Built React and TypeScript interfaces spanning search, reservations, Excel imports, and label-print requests.',
 			overviewDetail:
-				'Loaded pages and Excel code on demand, reducing the initial JavaScript entry from 2,405.50 kB to 616.59 kB, about 74%.',
+				'Built search, reservation and Excel-import screens, API integration and Android label printing. Reduced the initial JavaScript entry file by about 74% (build output size).',
 			problem:
 				'The initial bundle included multiple pages and heavy Excel code that users did not need on their first screen.',
 			actions: [
@@ -154,7 +154,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			result:
 				'Initial JavaScript entry file: 2,405.50 kB → 616.59 kB, about 74% smaller. Comparison of build outputs, not measured loading time.',
 			decision:
-				'Tried splitting shared authentication and API initialization but did not adopt it because it added loading on the first interaction. Kept on-demand loading for pages and Excel code.',
+				'Also evaluated splitting shared authentication and API initialization code. This reduced the initial file size further, but complicated authentication initialization and loading on the first interaction, so I did not adopt it. Applied lazy loading only to pages and Excel libraries.',
 		},
 		'structured-editor-ui': {
 			summary:
@@ -180,7 +180,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			summary:
 				'A business system for vehicle and driver records, transport fees, billing, and settlement. Built the administrator web interface and key API and database operations.',
 			overviewDetail:
-				'Built administrator interfaces and key APIs, shared editing tables, Excel imports, settlement history, and work logs.',
+				'Built the administrator web app, key server APIs and data persistence, with shared editing tables, batch Excel imports and administrator work logs.',
 			problem:
 				'Multi-row edits and Excel imports needed to avoid lost input and duplicate writes. Changes to assignments also had to preserve finalized settlement amounts.',
 			actions: [
@@ -207,7 +207,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			summary:
 				'Built the complete React frontend for a stock administration web app using MSW mock APIs.',
 			overviewDetail:
-				'Created shared tables, filters and modals, with column pinning, resizing and reordering, and state handling for data queries and editing.',
+				'Built the complete React frontend using MSW mock APIs, with shared tables and query-state handling for account, stock and order screens.',
 			problem:
 				'List, search, detail, and editing screens needed consistent components and clearer ownership of state.',
 			actions: [

@@ -264,6 +264,13 @@ function contentItemVisibleValues(item: DocumentContentItem) {
 function sectionOwnVisibleValues(section: DocumentContentSection) {
 	return [
 		section.title,
+		...(section.flow
+			? [
+					section.flow.label,
+					section.flow.note,
+					...section.flow.steps.flatMap((step) => [step.title, step.detail]),
+				]
+			: []),
 		...(section.body ?? []),
 		...(section.metrics ?? []).flatMap(({ label, value, detail }) => [
 			label,
@@ -354,7 +361,14 @@ function validateResumeNumericClaims(resume: ResumeDocumentCopy) {
 			`Resume career ${index + 1} profile`,
 		);
 		assertNumericClaimsSupported(
-			career.highlights,
+			[
+				...career.highlights,
+				...(career.workItems ?? []).flatMap((work) => [
+					work.title,
+					work.scope,
+					...work.highlights,
+				]),
+			],
 			deliveryRefs.length > 0 ? deliveryRefs : profileRefs,
 			`Resume career ${index + 1} highlights`,
 		);
@@ -429,6 +443,7 @@ function validateCareerBriefNumericClaims(careerBrief: CareerBriefCopy) {
 				work.platform,
 				work.goal,
 				work.contribution,
+				...(work.implementations ?? []),
 				work.decision,
 				work.result,
 				...work.evidence,
@@ -470,7 +485,9 @@ export function validateRecruitingDocumentNumericClaims({
 	resume: ResumeDocumentCopy;
 	careerBrief: CareerBriefCopy;
 }) {
-	portfolio.slice(2).forEach(validatePortfolioPageNumericClaims);
+	portfolio
+		.filter(({ kind }) => kind !== 'cover')
+		.forEach(validatePortfolioPageNumericClaims);
 	validateResumeNumericClaims(resume);
 	validateCareerBriefNumericClaims(careerBrief);
 }

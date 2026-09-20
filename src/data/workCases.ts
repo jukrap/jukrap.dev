@@ -8,9 +8,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'settlement-operations-platform',
 			title: '업무 정산 ERP 플랫폼',
 			platform: 'Web / API',
-			area: '편집표·Excel 등록 / 청구·정산·이력 관리',
+			area: '관리자 웹 전반과 주요 서버 API, 데이터 저장 기능 개발',
 			period: '2026.07 ~ 2026.09',
-			role: '프론트엔드·API·DB 전반 구축',
+			role: '풀스택 개발',
 			workType: '신규 개발',
 			stack: [
 				'React',
@@ -25,9 +25,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Vitest',
 			],
 			headline:
-				'React 화면부터 Spring Boot API와 DB 처리까지 맡아, 자료 입력부터 정산까지 이어지는 기능을 구축했습니다.',
+				'차량·기사·운송료·청구·정산을 관리하는 웹 전반과 주요 서버 API, 데이터 저장 기능을 개발했습니다.',
 			summary:
-				'키보드로 셀을 이동하며 입력하는 공통 편집표를 만들고, 저장에 실패해도 초안이 남도록 했습니다. Excel 미리보기에서 수정·검증한 자료를 일괄 등록하고, 담당 관계가 바뀌어도 과거 정산 금액이 유지되도록 했습니다.',
+				'관리자 웹 전반에 공통 편집표와 Excel 등록 기능을 연결하고, 담당 관계가 바뀌어도 과거 정산 금액이 유지되도록 했습니다. 작업 로그는 관리자가 대상·변경 내용·입력 오류의 원인을 읽을 수 있도록 개편했습니다.',
 			problem:
 				'Excel 자료를 미리 본 뒤 수정하거나 다시 저장할 수 있어야 했습니다. 이때 일부 행만 등록되거나 같은 자료가 두 번 들어가면 안 됐습니다. 담당 관계 변경이 이미 확정된 정산 금액에 영향을 주지 않도록 이력 관리도 필요했습니다.',
 			thinking: [
@@ -38,12 +38,13 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			process: [
 				'메뉴 조회와 등록·수정 권한을 서버에서 검사하도록 했습니다.',
 				'원천 청구와 배분 정보를 한꺼번에 조회하고 월 마감에 필요한 자료를 미리 읽도록 바꿨습니다.',
-				'업무 변경과 로그인 결과를 감사 기록으로 남기고 허용된 관리자가 조회하는 기능을 구현했습니다.',
+				'업무 변경·로그인 결과를 관리자가 조회하도록 구현했습니다. 작업 대상·변경 내용·입력 오류를 표시하고 불필요한 기술 항목은 줄였습니다.',
 			],
 			solution: [
 				'인라인 편집, 선택창, 키보드 이동을 공통 표로 구현하고 저장에 실패해도 입력한 초안이 남도록 했습니다.',
 				'Excel 미리보기·수정·재검증·등록 화면과 API를 만들고 중복 등록과 일부 행만 저장되는 경우를 처리했습니다.',
 				'청구 금액을 정산에 배분하고, 담당 관계나 제원이 변경되어도 기존 정산 금액과 보험·점검의 등록 당시 정보를 유지하도록 했습니다.',
+				'차량 정보 저장 결과에 새 정보 생성·운행 상태 변경과 보험·공과금 등 연결 업무에 미치는 영향을 안내했습니다.',
 			],
 			impact: [
 				{
@@ -64,7 +65,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			checks: [
 				'격리 MariaDB에서 저장 실패 시 전체 취소와 동시 확정·재시도의 중복 등록 차단을 확인했습니다.',
-				'개발 DB에서 담당 관계 변경 후에도 과거 정산 금액이 유지되는지 확인했습니다. 이 사례의 반영 범위는 개발 환경입니다.',
+				'개발 DB에서 담당 관계 변경 후에도 과거 정산 금액이 유지되는지 확인했습니다. 정산 저장 기능의 반영 범위는 개발 환경이며, 작업 내용 중심으로 개편한 로그 화면은 관리자가 사용하고 있습니다.',
 			],
 		},
 		{
@@ -72,9 +73,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'mobile-operations-platform',
 			title: '택배 업무 앱',
 			platform: 'Web / Android',
-			area: '지도·업무 UI / 오프라인 복원',
+			area: '지도 화면과 오프라인 저장·재전송 기능 수정',
 			period: '2026.08',
-			role: '기존 웹·앱·API 유지보수',
+			role: '기존 웹·앱과 서버 기능 유지보수',
 			workType: '유지보수',
 			stack: [
 				'React',
@@ -131,9 +132,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'delivery-operations-web',
 			title: '물류 운영 웹',
 			platform: 'Web',
-			area: '업무 운영 / 성능',
+			area: '조회·예약·Excel 등록 화면과 PC 라벨 출력 기능 개발',
 			period: '2026.04 ~ 2026.06',
-			role: '신규 구축/안정화',
+			role: '웹 화면 개발과 API 연동',
 			workType: '신규 개발',
 			stack: [
 				'React',
@@ -179,6 +180,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'공통 표·입력 폼·모달 위에 예약 접수, 다건 처리, 주소록 선택, Excel 미리보기를 구현했습니다.',
 				'React.lazy로 페이지를 분리하고 Excel 라이브러리는 업로드·다운로드 실행 시점에 불러오도록 했습니다.',
 				'API의 예약 식별자와 다건 라벨 응답을 PC·모바일 출력에 필요한 데이터로 변환했습니다.',
+				'PC 라벨에서 긴 주소가 잘리지 않도록 글자 폭에 따라 줄을 나누고 마지막 줄의 남은 주소를 출력 폭에 맞춰 배치했습니다.',
 			],
 			checks: [
 				'수치는 동일한 빌드 기준으로 초기 JavaScript 엔트리의 크기를 비교한 값입니다.',
@@ -190,9 +192,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'hybrid-life-info-platform',
 			title: '생활정보 앱',
 			platform: 'Android',
-			area: '공공 데이터 API / 날씨·생활정보 / Android WebView',
+			area: '날씨 화면과 공공 데이터 조회·캐시 기능 개발',
 			period: '2026.06 ~ 2026.07',
-			role: '기능 확장 / 운영 반영',
+			role: '기존 앱의 날씨 기능 개발',
 			workType: '기능 확장',
 			stack: ['Spring MVC', 'JSP', 'jQuery', 'Java', 'Android'],
 			headline:
@@ -216,7 +218,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			thinking: [
 				'여러 공공 데이터 API의 응답을 서버에 캐시해 같은 데이터를 반복해서 요청하지 않도록 했습니다.',
 				'먼저 보여야 하는 핵심 정보와 늦게 채워져도 되는 보조 정보를 분리했습니다.',
-				'유효한 캐시와 만료된 캐시를 구분하고, 외부 API가 실패하면 허용한 범위에서 이전 값을 사용하도록 했습니다.',
+				'외부 API가 실패하면 허용한 범위에서 이전 값을 사용했습니다. 만료된 특보의 ‘없음’은 ‘확인 불가’로 구분하고, 이전 특보를 표시할 때는 최근 조회 기준임을 안내했습니다.',
 			],
 			process: [
 				'현재 날씨와 핵심 예보를 먼저 표시하고, 대기질·특보·일별 예보는 별도로 불러오도록 나눴습니다.',
@@ -239,15 +241,15 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'ai-kickoff-documentation-tool',
 			title: 'AI 보조 프로젝트 문서화 웹',
 			platform: 'Tooling',
-			area: 'AI API / 개발 생산성',
+			area: '문서 작성·편집 화면과 서버 처리, 외부 AI 실행 연동 개발',
 			period: '2026.04',
 			role: '내부 도구 구축',
 			workType: '내부 도구 개발',
 			stack: ['Node.js', 'TypeScript', 'React', 'AI API', 'xlsx', 'Vitest'],
 			headline:
-				'저장소 자료로 문서 초안을 만들고 표에서 검토·편집하는 AI 보조 도구를 개발했습니다.',
+				'저장소·업로드 자료에서 요구사항을 검토하고 문서를 작성하는 AI 보조 웹 도구를 개발했습니다.',
 			summary:
-				'저장소에서 수집한 자료를 먼저 확인한 뒤 AI가 만든 요구사항·기능·화면 문서를 표에서 편집하도록 했습니다. 검토한 내용은 유지하고 선택한 시트와 셀만 다시 작성할 수 있습니다.',
+				'저장소 분석과 신규 프로젝트 자료 업로드를 지원하고, 자료 정리·요구사항 후보·확인 질문·문서 작성으로 이어지는 화면을 만들었습니다. 문서는 표에서 검토·편집하며, AI 수정 요청에는 선택한 시트·셀과 주변 내용을 함께 전달합니다.',
 			impact: [
 				{
 					value: 'Scan → Preview',
@@ -273,7 +275,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'자동화는 초안 생성까지 맡기고 최종 검토와 보강은 사람이 확인할 수 있는 표 구조로 남겼습니다.',
 			],
 			process: [
-				'수집한 자료를 먼저 보여 주고 사용자가 문서 작성 방향을 확인할 수 있게 했습니다.',
+				'수집한 자료와 요구사항 후보를 먼저 확인하도록 했습니다. 선행 문서가 준비된 뒤 기능·화면 문서를 생성하도록 화면의 진입 조건을 구분했습니다.',
 				'생성한 문서를 시트별로 나눠 표에서 검토할 수 있게 했습니다.',
 				'선택한 시트와 셀, 주변 내용을 함께 전달해 필요한 부분만 다시 작성하도록 했습니다.',
 				'AI가 정리할 항목과 사용자가 결정할 항목을 구분하고, 근거 없이 임시 내용을 채워 넣지 않도록 했습니다.',
@@ -292,9 +294,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'mobile-output-bridge',
 			title: '모바일 출력 브릿지 앱',
 			platform: 'Android',
-			area: 'WebView / Android native module',
+			area: '웹의 출력 요청을 Android 앱과 Bluetooth 프린터에 연결',
 			period: '2026.04 ~ 2026.06',
-			role: '신규 구축/출력 연동',
+			role: 'Android 출력 앱 개발',
 			workType: '신규 개발',
 			stack: [
 				'Expo',
@@ -346,9 +348,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'legacy-mobile-compatibility',
 			title: '출고·재고 관리 레거시 앱',
 			platform: 'Android',
-			area: '빌드 체인 / OS 호환성 / WebView',
+			area: '빌드 환경과 OS별 권한·파일 접근·뒤로가기 처리 수정',
 			period: '2026.03',
-			role: '호환성 안정화/회귀 분리',
+			role: '기존 Android 앱의 버전 호환성 개선',
 			workType: '유지보수',
 			stack: ['Android Java', 'Gradle/AGP', 'RxJava', 'FileProvider'],
 			headline:
@@ -393,9 +395,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'field-terminal-android',
 			title: '물류 입출고 PDA 앱',
 			platform: 'Android',
-			area: 'Android 버전 대응 / 입고 화면 / 바코드 스캔',
+			area: '입고 화면과 수량 입력·바코드 스캔 개발, Android 버전 대응',
 			period: '2026.03 ~ 2026.04',
-			role: 'Android 호환성 개선 / 입고 기능 추가',
+			role: '기존 PDA 앱의 유지보수와 입고 기능 추가',
 			workType: '유지보수·기능 추가',
 			stack: ['Android Java', 'Gradle/AGP', 'Scanner SDK'],
 			headline:
@@ -440,7 +442,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'structured-editor-ui',
 			title: '차트 미리보기 페이지',
 			platform: 'Web',
-			area: '시각화 / 편집 UI',
+			area: '차트 설정과 데이터 연결, 미리보기 화면 개발',
 			period: '2026.03 ~ 2026.04',
 			role: '차트 설정·미리보기 기능 개발',
 			workType: '기능 개발',
@@ -495,9 +497,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'hybrid-security-boundary',
 			title: '개인정보 보호 앱',
 			platform: 'Android',
-			area: '딥페이크·개인정보 유출 검사 / 외부 API / 파일 입력',
+			area: '검사 화면과 서버 API 개발, Android 이미지 선택 연동',
 			period: '2026.06',
-			role: '외부 API 기반 검사 기능 / 이미지·파일 입력 구현',
+			role: '기존 앱의 이메일 유출·이미지 검사 기능 개발',
 			workType: '기능 확장',
 			stack: ['Android', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
@@ -525,6 +527,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'딥페이크 검사와 개인정보 유출 검사 API를 연동하고, 입력값을 검사 요청으로 보내 결과를 화면에 표시하도록 구현했습니다.',
 				'외부 API를 서버에서 호출하고 화면에는 필요한 결과와 상태만 반환하도록 했습니다.',
 				'이미지 입력 경로와 네이티브 파일 선택 결과를 WebView에 연결했습니다.',
+				'이미지를 다시 선택하면 이전 파일 읽기 결과를 무시해 새 미리보기를 덮지 않도록 했습니다.',
 			],
 			checks: [
 				'문서와 예시 설정에 실제 인증 정보가 포함되지 않았는지 확인했습니다.',
@@ -536,9 +539,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'react-admin-state-migration',
 			title: '주식 업무 관리 웹',
 			platform: 'Web',
-			area: '주식 업무 / 관리 화면',
+			area: '조회·등록·수정 화면과 공통 테이블·필터·모달 개발',
 			period: '2026.02 ~ 2026.03',
-			role: '프론트엔드 전체 구축 / MSW 모의 API',
+			role: '웹 프론트엔드 전체 개발, 모의 API로 화면 동작 구현',
 			workType: '프론트엔드 신규 구축',
 			stack: [
 				'React',
@@ -575,6 +578,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'컬럼 재정렬·고정·리사이즈와 행 선택 기능을 공통 테이블에 구현했습니다.',
 				'MSW로 목록과 상세 응답을 구성하며 로딩·빈 결과 등 화면 상태를 확인했습니다.',
 				'종목 검색 모달과 주문 목록에 다음 결과를 이어서 표시하는 화면을 구현했습니다.',
+				'주문내역에서는 선택 중인 필터와 조회에 적용한 조건을 분리했습니다. 같은 조건으로 다시 조회하면 첫 페이지부터 불러오고, 더보기 요청이 진행 중일 때는 중복 요청을 막았습니다.',
 			],
 			solution: [
 				'React와 TypeScript로 프론트엔드 전체를 구축하고 공통 테이블·필터·모달을 여러 화면에서 사용했습니다.',
@@ -589,7 +593,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'multi-role-hybrid-platform',
 			title: '회원·문의 관리 웹 및 앱 솔루션',
 			platform: 'Web / Android',
-			area: '회원·문의 / 개인정보·첨부',
+			area: '회원 관리와 문의·첨부 기능 개발, Android 파일 선택 연동',
 			period: '2026.09',
 			role: '레거시 웹·앱 기능 확장',
 			workType: '기능 확장 / 유지보수',
@@ -643,9 +647,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'legacy-support-web',
 			title: '물류 고객지원 레거시 웹',
 			platform: 'Web',
-			area: 'Excel / 오류 진단·성능 분석',
+			area: 'Excel 업로드 오류를 구분하는 안내와 처리 개선',
 			period: '2026.08',
-			role: '장애 조사 / 오류 처리 개선',
+			role: '기존 고객지원 웹의 오류 조사와 처리 개선',
 			workType: '유지보수',
 			stack: ['Java', 'Spring MVC', 'JSP', 'MyBatis', 'jQuery', 'Apache POI'],
 			headline:
@@ -690,9 +694,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'settlement-operations-platform',
 			title: 'Settlement ERP Platform',
 			platform: 'Web / API',
-			area: 'Editable tables and Excel imports / Billing and settlement history',
+			area: 'Administrator web interface, key server APIs, and data persistence',
 			period: '2026.07 ~ 2026.09',
-			role: 'Frontend, API and database development',
+			role: 'Full-stack development',
 			workType: 'New development',
 			stack: [
 				'React',
@@ -707,9 +711,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Vitest',
 			],
 			headline:
-				'Handled development across the React frontend, Spring Boot APIs and database processing, from data entry through settlement.',
+				'Built administrator web interfaces and key API and database operations for vehicle, driver, transport-fee, billing and settlement management.',
 			summary:
-				'Implemented shared tables with keyboard navigation and draft preservation after failed saves. Built Excel preview, editing, validation and batch import, retaining historical settlement amounts when assignments change.',
+				'Connected shared editing tables and Excel imports across the administrator web interface, retaining historical settlement amounts when assignments change. Revised work logs to show affected records, changes and input-error reasons.',
 			problem:
 				'Users needed to edit an Excel preview and retry a save without creating duplicates or saving only some rows. Changing an assignment also needed to leave previously approved settlements intact.',
 			thinking: [
@@ -726,6 +730,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Built shared tables with inline editing, selection dialogs and keyboard navigation, retaining drafts when a save fails.',
 				'Built Excel preview, editing, revalidation and import screens and APIs, including duplicate and partial-save handling.',
 				'Allocated billed amounts to settlements and retained historical amounts and the specifications originally recorded for insurance and inspections.',
+				'Added vehicle-save feedback for newly created records, operating-status changes and affected insurance or utility records.',
 			],
 			impact: [
 				{
@@ -748,7 +753,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			checks: [
 				'Verified rollback and duplicate prevention for concurrent confirmation and retries in isolated MariaDB.',
-				'Checked that historical settlement amounts remained unchanged after assignment changes in the development database. Deployment for this case was limited to development.',
+				'Checked that historical settlement amounts remained unchanged after assignment changes in the development database.',
+				'Administrators use the revised action-oriented log screen; settlement persistence remains a development-environment implementation.',
 			],
 		},
 		{
@@ -756,7 +762,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'mobile-operations-platform',
 			title: 'Parcel Delivery App',
 			platform: 'Web / Android',
-			area: 'Map workflows / Offline recovery',
+			area: 'Map interfaces, offline storage, and request retries',
 			period: '2026.08',
 			role: 'Maintenance of existing web, app and API features',
 			workType: 'Maintenance',
@@ -817,9 +823,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'delivery-operations-web',
 			title: 'Logistics Operations Web',
 			platform: 'Web',
-			area: 'Operations / Performance',
+			area: 'Search, reservations, Excel imports, and PC label printing',
 			period: '2026.04 ~ 2026.06',
-			role: 'Build and stabilization',
+			role: 'Web interface development and API integration',
 			workType: 'Build',
 			stack: [
 				'React',
@@ -865,6 +871,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Built booking, batch processing, address selection and Excel previews on shared tables, forms and modals.',
 				'Split pages with React.lazy and loaded spreadsheet libraries when import or export actions started.',
 				'Converted booking identifiers and multiple-label responses into data for desktop and mobile printing.',
+				'Wrapped long PC-label addresses by measured text width and fitted remaining text into the final line rather than cutting it off.',
 			],
 			checks: [
 				'These figures compare the size of the initial JavaScript entry on the same build basis.',
@@ -876,9 +883,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'hybrid-life-info-platform',
 			title: 'Daily Information App',
 			platform: 'Android',
-			area: 'Public-data APIs / Weather and daily information / Android WebView',
+			area: 'Weather interface, public-data retrieval, and caching',
 			period: '2026.06 ~ 2026.07',
-			role: 'Feature extension and production rollout',
+			role: 'Weather feature development in an existing app',
 			workType: 'Feature extension',
 			stack: ['Spring MVC', 'JSP', 'jQuery', 'Java', 'Android'],
 			headline:
@@ -903,6 +910,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Cached public-data API responses on the server to avoid repeatedly requesting the same data.',
 				'Separated immediately visible core information from secondary information that could load later.',
 				'Split fresh and stale cache so limited fallback could be shown when external APIs failed.',
+				'After a failed refresh, changed an expired no-alert result to unavailable; marked retained active alerts as results from the last successful lookup.',
 			],
 			process: [
 				'Loaded current weather and core forecasts first, then fetched air quality, alerts and daily forecasts separately.',
@@ -925,15 +933,16 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'ai-kickoff-documentation-tool',
 			title: 'AI-assisted Project Documentation Web App',
 			platform: 'Tooling',
-			area: 'AI API / developer productivity',
+			area:
+				'Document editing screens, server processing, and external AI integration',
 			period: '2026.04',
 			role: 'Internal tool build',
 			workType: 'Internal tool',
 			stack: ['Node.js', 'TypeScript', 'React', 'AI API', 'xlsx', 'Vitest'],
 			headline:
-				'Built an AI-assisted tool for drafting documents from repository material and reviewing them in editable tables.',
+				'Built an AI-assisted web tool for reviewing requirements and drafting documents from repository or uploaded material.',
 			summary:
-				'Let users review repository scan results before generating requirements, feature and screen documents. Drafts can be edited as tables, with selected sheets and cells rewritten while reviewed content is preserved.',
+				'Supported repository analysis and uploads for new projects, with screens for source review, requirement candidates, open questions and document drafting. Documents are editable tables; AI revision requests include the selected sheet or cells and surrounding context.',
 			impact: [
 				{
 					value: 'Scan → Preview',
@@ -959,7 +968,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Kept automation at draft generation while preserving human review through table-based editing.',
 			],
 			process: [
-				'Showed scan results as a preview before asking the user to rely on generated documents.',
+				'Let users review source material and requirement candidates first. Gated feature and screen-document generation in the UI on the readiness of prerequisite documents.',
 				'Split generated output into workbook sheets instead of leaving it as one long text block.',
 				'Scoped revisions to the selected sheet/cell context instead of regenerating the whole artifact.',
 				'Separated fields AI could organize from decisions reserved for the user and suppressed unsupported placeholders.',
@@ -978,9 +987,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'mobile-output-bridge',
 			title: 'Mobile Output Bridge App',
 			platform: 'Android',
-			area: 'WebView / Android native module',
+			area: 'Web print requests connected to Android and Bluetooth printers',
 			period: '2026.04 ~ 2026.06',
-			role: 'Build and output integration',
+			role: 'Android printing app development',
 			workType: 'Build',
 			stack: [
 				'Expo',
@@ -1033,9 +1042,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'legacy-mobile-compatibility',
 			title: 'Legacy Shipping and Inventory App',
 			platform: 'Android',
-			area: 'Build chain / OS compatibility / WebView',
+			area: 'Build setup, OS permissions, file access, and back navigation',
 			period: '2026.03',
-			role: 'Compatibility stabilization and regression isolation',
+			role: 'Android version compatibility updates for an existing app',
 			workType: 'Maintenance',
 			stack: ['Android Java', 'Gradle/AGP', 'RxJava', 'FileProvider'],
 			headline:
@@ -1082,9 +1091,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'field-terminal-android',
 			title: 'Logistics Receiving and Shipping PDA App',
 			platform: 'Android',
-			area: 'Android compatibility / Receiving screens / Barcode scanning',
+			area:
+				'Receiving screens, quantity entry, barcode scanning, and Android updates',
 			period: '2026.03 ~ 2026.04',
-			role: 'Android compatibility / Receiving features',
+			role: 'Maintenance and receiving features for an existing PDA app',
 			workType: 'Maintenance and feature additions',
 			stack: ['Android Java', 'Gradle/AGP', 'Scanner SDK'],
 			headline:
@@ -1128,7 +1138,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'structured-editor-ui',
 			title: 'Chart Preview Page',
 			platform: 'Web',
-			area: 'Visualization / editor UI',
+			area: 'Chart settings, data connections, and preview screens',
 			period: '2026.03 ~ 2026.04',
 			role: 'Chart settings and preview implementation',
 			workType: 'Feature development',
@@ -1183,9 +1193,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'hybrid-security-boundary',
 			title: 'Privacy Check App',
 			platform: 'Android',
-			area: 'Deepfake and data-leak checks / External APIs / File input',
+			area: 'Inspection screens, server APIs, and Android image selection',
 			period: '2026.06',
-			role: 'API-based inspection features / Image and file input',
+			role: 'Email-breach and image-check features in an existing app',
 			workType: 'Feature extension',
 			stack: ['Android', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
@@ -1213,6 +1223,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Integrated deepfake and personal-data leak inspection APIs, sending user input for inspection and displaying the results.',
 				'Called the external API on the server and returned only the results and states needed by the UI.',
 				'Connected image input paths and native file-picker results to the WebView.',
+				'Ignored stale file-read results after image reselection so they would not overwrite the new preview.',
 			],
 			checks: [
 				'Checked that real credential values were not present in docs or sample settings.',
@@ -1224,9 +1235,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'react-admin-state-migration',
 			title: 'Stock Operations Admin Web',
 			platform: 'Web',
-			area: 'Stock operations / admin screens',
+			area: 'Search and editing screens, shared tables, filters, and modals',
 			period: '2026.02 ~ 2026.03',
-			role: 'Complete frontend development / MSW mock API',
+			role: 'Complete web frontend development using mock APIs',
 			workType: 'New frontend build',
 			stack: [
 				'React',
@@ -1264,6 +1275,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Implemented column reordering, pinning, resizing and row selection in a shared table.',
 				'Used MSW list and detail responses to check loading, empty and other UI states.',
 				'Built stock-search modals and order lists that display subsequent result sets.',
+				'Kept draft filters separate from submitted conditions in order history. Repeated searches restarted from the first page, and load-more requests were guarded against overlap.',
 			],
 			solution: [
 				'Built the complete frontend with React and TypeScript, using shared tables, filters and modals across screens.',
@@ -1278,7 +1290,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'multi-role-hybrid-platform',
 			title: 'Member and Inquiry Management Web and App',
 			platform: 'Web / Android',
-			area: 'Member inquiries / Privacy and attachments',
+			area:
+				'Member management, inquiries, attachments, and Android file selection',
 			period: '2026.09',
 			role: 'Legacy web and app feature development',
 			workType: 'Feature development / Maintenance',
@@ -1332,7 +1345,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'legacy-support-web',
 			title: 'Legacy Logistics Customer Support Web',
 			platform: 'Web',
-			area: 'Excel / Error and performance diagnosis',
+			area: 'Excel import error handling and user messages',
 			period: '2026.08',
 			role: 'Incident investigation / Error handling',
 			workType: 'Maintenance',

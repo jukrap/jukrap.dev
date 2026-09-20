@@ -14,6 +14,36 @@ const supportingWorkStoryIds = [
 	'structured-editor-ui',
 ] as const;
 
+const portfolioProjectIds = [
+	'captain-donghae',
+	'sharebby',
+	'ai-agent-playbook',
+	'itzip',
+	'posture-teacher',
+] as const;
+const portfolioDetailedWorkStoryIds = [
+	'hybrid-life-info-platform',
+	'hybrid-security-boundary',
+	'ai-kickoff-documentation-tool',
+] as const;
+export const portfolioPageIds = [
+	'cover',
+	...featuredWorkStoryIds.flatMap((id) =>
+		id === 'delivery-output-flow' ? ['logistics-web', 'logistics-mobile'] : [id],
+	),
+	'weather-feature',
+	'hybrid-security-boundary',
+	'ai-kickoff-documentation-tool',
+	'supporting-work',
+	...portfolioProjectIds,
+	'closing',
+] as const;
+export function getPortfolioPageNumber(id: string) {
+	const index = portfolioPageIds.indexOf(id);
+	if (index < 0) throw new Error(`Unknown portfolio page: ${id}`);
+	return index + 1;
+}
+
 export const recruitingDocumentManifest = {
 	locale: 'ko',
 	role: '웹·모바일 개발자',
@@ -25,7 +55,7 @@ export const recruitingDocumentManifest = {
 				'주요 업무에서 개발한 기능과 개인 프로젝트의 화면·구현 내용을 소개합니다.',
 			slug: '/ko/portfolio',
 			visibility: 'public',
-			pageCount: featuredWorkStoryIds.length + 10,
+			pageCount: portfolioPageIds.length,
 			indexable: true,
 			showOnHome: true,
 		},
@@ -55,20 +85,15 @@ export const recruitingDocumentManifest = {
 	selection: {
 		featuredWorkStoryIds,
 		supportingWorkStoryIds,
+		portfolioDetailedWorkStoryIds,
 		portfolioSupportingWorkStoryIds: [
 			'multi-role-hybrid-platform',
 			'mobile-operations-platform',
-			'hybrid-life-info-platform',
 			'structured-editor-ui',
+			'field-terminal-android',
 			'legacy-mobile-compatibility',
 		],
-		portfolioProjectIds: [
-			'captain-donghae',
-			'sharebby',
-			'ai-agent-playbook',
-			'itzip',
-			'posture-teacher',
-		],
+		portfolioProjectIds,
 		resumeProjectIds: [
 			'captain-donghae',
 			'sharebby',

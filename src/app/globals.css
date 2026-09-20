@@ -1597,6 +1597,11 @@
 		grid-template-columns: 1fr;
 	}
 
+	.document-item-header .document-item-label {
+		flex-shrink: 0;
+		white-space: nowrap;
+	}
+
 	.document-page-closing .document-section:last-child .document-section-content {
 		grid-template-columns: 1fr;
 	}
@@ -2286,5 +2291,376 @@
 	}
 	#supporting-work .document-item:last-child {
 		padding-bottom: 0;
+	}
+}
+
+/* Recruiting documents: distinct roles, short implementations, evidence beside the text. */
+.document-page {
+	--doc-item-size: 16px;
+}
+.document-page .document-page-summary {
+	font-weight: 400;
+	word-break: keep-all;
+}
+.document-page .document-page-metadata {
+	grid-template-columns: 1fr 1.5fr;
+	gap: 12px 24px;
+}
+.document-page .document-page-metadata dd {
+	font-size: 14px;
+	font-weight: 500;
+}
+.document-page .document-page-technologies {
+	margin-top: 16px;
+	padding-top: 12px;
+	border-top: 1px solid hsl(var(--border) / 0.22);
+}
+.document-page .document-section-group {
+	min-width: 0;
+}
+.document-page .document-section-content {
+	gap: 12px;
+}
+.document-page .document-item-list {
+	gap: 0;
+}
+.document-page .document-item-description {
+	line-height: 1.65;
+}
+.document-page .document-item + .document-item {
+	padding-top: 14px;
+}
+.document-page .document-page-footer {
+	padding-top: 32px;
+}
+.document-page .document-flow {
+	margin-top: 8px;
+	padding-block: 16px;
+	border-block: 1px solid hsl(var(--border) / 0.24);
+}
+.document-flow figcaption {
+	font-size: 13px;
+	font-weight: 600;
+	margin-bottom: 14px;
+}
+.document-flow ol {
+	display: flex;
+	gap: 24px;
+	list-style: none;
+	padding: 0;
+}
+.document-flow li {
+	position: relative;
+	flex: 1;
+	min-width: 0;
+}
+.document-flow li + li::before {
+	content: '→';
+	position: absolute;
+	left: -21px;
+	top: 24px;
+	color: hsl(var(--muted-foreground));
+}
+.document-flow-number {
+	display: block;
+	color: hsl(var(--muted-foreground));
+	font-size: 12px;
+	margin-bottom: 5px;
+	font-variant-numeric: tabular-nums;
+}
+.document-flow strong {
+	display: block;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1.5;
+}
+.document-flow li p {
+	font-size: 14px;
+	margin-top: 4px;
+	color: hsl(var(--foreground) / 0.78);
+}
+.document-flow .document-flow-note {
+	margin-top: 16px;
+	font-size: 13px;
+	line-height: 1.6;
+	color: hsl(var(--foreground) / 0.78);
+}
+#react-admin-state-migration .document-flow li + li::before {
+	content: '';
+}
+.document-page-cover .document-cover-title {
+	margin: 0;
+	padding: 40px 0 24px;
+}
+.document-page-cover .document-cover-title h1 {
+	font-size: 48px;
+}
+.document-page-cover .document-cover-title > div {
+	margin-top: 20px;
+	font-size: 15px;
+	max-width: none;
+	font-weight: 400;
+	line-height: 1.65;
+}
+.document-page-cover .document-cover-details {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding-top: 20px;
+}
+.document-page-cover .document-cover-details > dl {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+.document-page-cover .document-cover-details > div {
+	display: grid;
+	gap: 28px;
+}
+.document-page-cover .document-cover-details dd {
+	font-size: 14px;
+	font-weight: 500;
+}
+.document-page-cover .document-section:first-child .document-link-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 20px;
+}
+.document-page-cover .document-section:first-child .document-link {
+	display: block;
+	font-size: 13px;
+}
+.document-page-cover .document-section:first-child .document-link > span {
+	display: none;
+}
+.document-page-cover .document-section:first-child .document-link small {
+	font-size: 13px;
+}
+.document-page-cover .document-item {
+	position: relative;
+	padding-left: 38px;
+}
+.document-page-cover .document-item-header .document-item-label {
+	position: absolute;
+	left: 0;
+	font-size: 13px;
+}
+.document-page-cover .document-item .document-link-list {
+	margin-top: 6px;
+}
+.document-page-cover .document-item .document-link {
+	font-size: 12px;
+}
+.document-page-cover .document-item .document-link small {
+	display: none;
+}
+.document-page-cover #experience-overview .document-item:last-child {
+	padding-bottom: 0;
+}
+.document-page-project .document-media-grid {
+	margin-top: 22px;
+	margin-bottom: 0;
+}
+.document-page-project .document-figure-frame {
+	max-height: 310px;
+}
+.document-page-project .document-figure-phone .document-figure-frame {
+	max-height: 300px;
+}
+.document-page-project .document-media-grid-multiple {
+	align-items: start;
+}
+.document-page-closing .document-section-grid {
+	grid-template-columns: 1fr 1fr;
+	align-items: start;
+}
+.document-page-closing .document-section-group:first-child,
+.document-page-closing .document-section-group:last-child {
+	grid-column: 1 / -1;
+}
+.document-page-closing
+	.document-section-group:not(:first-child)
+	.document-item-list {
+	grid-template-columns: 1fr;
+}
+.document-page-closing
+	.document-section-group:not(:first-child)
+	.document-section
+	.document-item {
+	padding-block: 12px;
+}
+.document-page-closing
+	.document-section-group:not(:first-child)
+	.document-section
+	.document-item:first-child {
+	padding-top: 0;
+}
+.document-page-closing
+	.document-section-group:not(:first-child)
+	.document-section
+	.document-item:nth-child(2) {
+	border-top: 1px solid hsl(var(--border) / 0.18);
+	padding-top: 12px;
+}
+.document-page.resume-page .private-document-header {
+	margin-bottom: 0;
+}
+.document-page.resume-page
+	.private-document-header
+	+ .private-document-section {
+	margin-top: 24px;
+}
+.resume-work-groups {
+	display: grid;
+	gap: 16px;
+	margin-top: 16px;
+}
+.resume-work-group h4 {
+	font-size: 15px;
+	line-height: 1.45;
+	font-weight: 600;
+}
+.resume-work-scope {
+	margin-top: 4px;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #555550;
+}
+.resume-work-group .private-document-bullets {
+	margin-top: 6px;
+	gap: 5px;
+}
+.document-page .private-document-bullets li::marker {
+	color: #77776f;
+}
+.document-page .resume-career-summary {
+	font-size: 14px;
+	color: #666660;
+}
+.document-page.resume-page .private-document-skills {
+	grid-template-columns: 1fr;
+	gap: 7px;
+}
+.document-page.resume-page .private-document-skills > div {
+	grid-template-columns: 130px 1fr;
+	align-items: baseline;
+	gap: 12px;
+}
+.document-page.resume-page .resume-bottom-grid {
+	margin-top: 24px;
+	grid-template-columns: 1.15fr 1fr;
+	gap: 24px;
+}
+.document-page.resume-page .resume-bottom-grid .private-document-section {
+	margin-top: 0;
+}
+.resume-project-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: 7px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #666660;
+}
+.resume-project-links a {
+	text-decoration: underline;
+}
+.document-page .career-work-actions {
+	margin-top: 12px;
+}
+.document-page .career-work-result {
+	margin-top: 12px;
+}
+.document-page .private-document-header h1 {
+	font-family: 'Paperlogy', sans-serif;
+}
+@media (max-width: 48rem) {
+	.document-page .document-page-metadata,
+	.document-page-cover .document-cover-details > dl,
+	.document-page-closing .document-section-grid,
+	.document-page.resume-page .resume-bottom-grid {
+		grid-template-columns: 1fr;
+	}
+	.document-page-cover .document-cover-title {
+		padding-top: 28px;
+	}
+	.document-page-cover .document-cover-title h1 {
+		font-size: 40px;
+	}
+	.document-page .document-flow ol {
+		flex-direction: column;
+		gap: 18px;
+	}
+	.document-flow li {
+		padding-left: 30px;
+	}
+	.document-flow-number {
+		position: absolute;
+		left: 0;
+		top: 2px;
+	}
+	.document-flow li + li::before {
+		display: none;
+	}
+	.document-page.resume-page .private-document-skills > div {
+		grid-template-columns: 1fr;
+		gap: 2px;
+	}
+	.document-page .resume-career-item > header,
+	.document-page .resume-project-item > header,
+	.document-page .career-work-item > header,
+	.document-page .career-supporting-item > header {
+		flex-wrap: wrap;
+		gap: 4px 16px;
+	}
+	.document-page .private-document-simple-list header {
+		flex-wrap: wrap;
+		gap: 2px 12px;
+	}
+	.document-page .document-page-footer {
+		padding-top: 28px;
+	}
+}
+.document-page-cover .document-cover-title > div {
+	word-break: keep-all;
+}
+.document-flow-parallel li + li::before {
+	content: none;
+}
+.document-page-cover .document-section-note .document-link small {
+	display: none;
+}
+.document-page,
+.document-cover-details[id] {
+	scroll-margin-top: 72px;
+}
+.document-page
+	:is(
+		.document-body-copy,
+		.document-item-description,
+		.private-document-bullets,
+		.resume-work-scope,
+		.resume-project-summary,
+		.career-work-context,
+		.career-work-result > p,
+		.career-supporting-item > p
+	) {
+	word-break: keep-all;
+	overflow-wrap: anywhere;
+}
+#logistics-web .document-evidence-list {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+}
+#logistics-web .document-evidence-item + .document-evidence-item {
+	padding-top: 0;
+	border-top: 0;
+}
+@media (max-width: 48rem) {
+	#logistics-web .document-evidence-list {
+		grid-template-columns: 1fr;
+		gap: 16px;
 	}
 }

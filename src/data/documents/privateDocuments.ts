@@ -6,13 +6,10 @@ import {
 	getProject,
 	workStoryEvidence,
 	projectEvidence,
+	visibleProjectLinks,
 } from './sourceSelectors';
 import { recruitingDocumentSkillGroups } from './documentSkills';
-import {
-	resumeProfile,
-	supportingDocumentCopy,
-	workDocumentCopy,
-} from './editorialCopy';
+import { supportingDocumentCopy, workDocumentCopy } from './editorialCopy';
 import { projectDocumentCopy } from './projectCopy';
 import {
 	triphosCareerEvidence,
@@ -45,7 +42,7 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 	return {
 		title: ko ? '이력서' : 'Resume',
 		role: manifest.role,
-		profile: resumeProfile[locale],
+		profile: '',
 		competencies: manifest.selection.featuredWorkStoryIds.map((id) => ({
 			title: getWorkStory(id, locale).title,
 			detail: copy[id].summary,
@@ -57,19 +54,54 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				period: period(triphosCareerEvidence.period),
 				role: ko ? triphosCareerEvidence.role : 'Web & Mobile Developer',
 				summary: ko
-					? '정산 ERP는 React 화면부터 Spring Boot API, DB 처리까지 전반을 개발했습니다. 물류 업무 화면을 만들고, 주식 업무 웹은 MSW 모의 API를 사용해 React 프론트엔드 전체를 구축했습니다.'
-					: 'Built the settlement ERP across React interfaces, Spring Boot APIs, and database processing. Developed logistics screens and the complete React frontend for stock administration using MSW mock APIs.',
-				highlights: ko
-					? [
-							'페이지와 Excel 코드를 필요할 때 불러오도록 바꿔 초기 JavaScript 엔트리 크기를 약 74% 줄였습니다(빌드 산출물 기준).',
-							'정산표의 키보드 이동과 입력 내용 보존, Excel 미리보기·저장 기능을 구현했습니다. 같은 자료가 중복 저장되거나 일부 자료만 저장되는 일을 막았습니다.',
-							'MSW 모의 API로 공통 테이블, 필터, 모달을 개발했습니다. 조회 데이터는 TanStack Query로 관리하고 화면 조작 상태와 분리했습니다.',
-						]
-					: [
-							'Reduced the initial JavaScript entry by about 74% through lazy-loaded pages and Excel code, measured by build output size.',
-							'Implemented keyboard navigation, retained drafts, and Excel preview/save flows in the ERP, preventing duplicate finalization and partial saves.',
-							'Built shared tables, filters, and modals with MSW mock APIs, separating query data managed by TanStack Query from UI state.',
-						],
+					? '업무용 웹 개발과 Android 연동'
+					: 'Business web applications and Android integration',
+				highlights: [],
+				workItems: [
+					{
+						title: ko ? '업무 정산 ERP 플랫폼' : 'Settlement Operations Platform',
+						scope: ko
+							? '차량·기사·운송료·정산 관리 웹과 주요 API·DB 처리 개발'
+							: 'Administrator interfaces for vehicles, drivers, fees and settlement, plus key APIs and database operations',
+						highlights: ko
+							? [
+									'키보드 조작과 저장 실패 시 입력값을 보존하는 공통 편집표 개발',
+									'Excel 오류 셀 표시·수정·재검사, 저장 오류 시 전체 롤백과 중복 요청 처리 구현',
+								]
+							: [
+									'Built shared editing tables with keyboard controls and draft retention after failed saves.',
+									'Built Excel previews with invalid-cell correction, server revalidation, all-or-nothing saves, and repeat-request handling.',
+								],
+					},
+					{
+						title: ko
+							? '물류 운영 웹·출력 앱'
+							: 'Logistics Operations Web & Printing App',
+						scope: ko
+							? '조회·예약·Excel 등록 화면과 Android 라벨 출력 연동'
+							: 'Search, reservations, Excel imports, and Android label printing',
+						highlights: ko
+							? [
+									'페이지·Excel 코드 지연 로딩으로 초기 JavaScript 엔트리 파일 크기 약 74% 감소(빌드 산출물 기준)',
+								]
+							: [
+									'Reduced the initial JavaScript entry file by about 74% with on-demand page and Excel code loading (build output size).',
+								],
+					},
+					{
+						title: ko ? '주식 업무 관리 웹' : 'Stock Administration Web',
+						scope: ko
+							? 'MSW 모의 API 기반 React 프론트엔드 전체 구축'
+							: 'Complete React frontend built against MSW mock APIs',
+						highlights: ko
+							? [
+									'열 고정·너비 조절·재정렬을 지원하는 공통 테이블 개발. 조회 조건과 화면 조작 상태 분리',
+								]
+							: [
+									'Built shared tables with column pinning, resizing and reordering; separated query conditions from interaction state.',
+								],
+					},
+				],
 				evidence: [
 					{ source: 'profile', id: triphosCareerEvidence.id },
 					...evidence,
@@ -81,7 +113,10 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				officialTitle: ko ? tisCareerEvidence.officialTitle : 'University Intern',
 				role: ko ? tisCareerEvidence.role : 'Planning and data automation support',
 				highlights: ko
-					? [...tisCareerEvidence.highlights]
+					? [
+							'Figma 기반 공장 에너지 관리 화면 기획, 데이터베이스 테이블 명세·ERD 작성',
+							'한국전력 기업별 파워플래너 분석과 에너지 데이터 수집용 Python 크롤러 작성',
+						]
 					: [
 							'Planned factory energy management screens in Figma and documented database tables and an ERD.',
 							'Analyzed the KEPCO Power Planner and wrote a Python crawler to collect energy data.',
@@ -100,6 +135,7 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				summary: text.summary,
 				highlights: [text.actions[0].description],
 				technologies: project.techStack,
+				links: visibleProjectLinks(id),
 				evidence: [projectEvidence(id)],
 			};
 		}),
@@ -180,13 +216,16 @@ export function getCareerBriefDocument(locale: Locale): CareerBriefCopy {
 				title: story.title,
 				period: story.period,
 				platform: story.platform,
-				goal: copy.summary,
+				goal:
+					resume.careers[0].workItems?.find((item) => item.title === story.title)
+						?.scope ?? copy.summary,
 				contribution: copy.actions[0].description,
+				implementations: copy.actions.map((action) => action.description),
 				decision: copy.actions
 					.slice(1)
 					.map(({ description }) => description)
 					.join(' '),
-				result: copy.result,
+				result: id === 'react-admin-state-migration' ? '' : copy.result,
 				evidence: [],
 				technologies: story.stack,
 				evidenceRefs: [workStoryEvidence(id)],

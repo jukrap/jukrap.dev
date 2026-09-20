@@ -17,9 +17,7 @@ export function PortfolioDocument({
 		<article
 			lang={locale}
 			aria-label={
-				locale === 'ko'
-					? '박주철 프론트엔드 포트폴리오'
-					: 'Ju-cheol Park frontend portfolio'
+				locale === 'ko' ? '박주철 포트폴리오' : 'Ju-cheol Park portfolio'
 			}
 			className="document-pages document-page-stack mx-auto w-full bg-muted/30 print:bg-white"
 		>

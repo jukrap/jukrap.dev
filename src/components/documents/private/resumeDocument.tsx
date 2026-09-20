@@ -29,10 +29,22 @@ const ResumeCareerItem = ({ career }: { career: ResumeCareer }) => (
 			</div>
 			<time className="tabular-nums">{career.period}</time>
 		</header>
-		{career.summary ? (
+		{career.summary && !career.workItems?.length ? (
 			<p className="resume-career-summary">{career.summary}</p>
 		) : null}
-		<DocumentBulletList items={career.highlights} />
+		{career.workItems?.length ? (
+			<div className="resume-work-groups">
+				{career.workItems.map((work) => (
+					<section key={work.title} className="resume-work-group">
+						<h4>{work.title}</h4>
+						<p className="resume-work-scope">{work.scope}</p>
+						<DocumentBulletList items={work.highlights} />
+					</section>
+				))}
+			</div>
+		) : (
+			<DocumentBulletList items={career.highlights} />
+		)}
 	</article>
 );
 
@@ -49,6 +61,15 @@ const ResumeProjectItem = ({ project }: { project: ResumeProject }) => (
 		{project.highlights?.length ? (
 			<DocumentBulletList items={project.highlights.slice(0, 1)} />
 		) : null}
+		{project.links?.length ? (
+			<div className="resume-project-links">
+				{project.links.map((link) => (
+					<a key={link.href} href={link.href}>
+						{link.label}
+					</a>
+				))}
+			</div>
+		) : null}
 	</article>
 );
 
@@ -58,8 +79,7 @@ export const ResumeDocument = ({
 }: ResumeDocumentProps) => {
 	const copy = getResumeDocument(locale);
 	const t = (ko: string, en: string) => (locale === 'ko' ? ko : en);
-	const firstPageProjects = copy.projects.slice(0, 2);
-	const remainingProjects = copy.projects.slice(2);
+	const remainingProjects = copy.projects;
 
 	return (
 		<div className="private-document resume-document">
@@ -75,8 +95,6 @@ export const ResumeDocument = ({
 					role={copy.role}
 				/>
 
-				<p className="resume-profile">{copy.profile}</p>
-
 				<DocumentSection title={t('경력', 'Experience')}>
 					<div className="resume-career-list">
 						{copy.careers.map((career) => (
@@ -88,15 +106,9 @@ export const ResumeDocument = ({
 					</div>
 				</DocumentSection>
 
-				{firstPageProjects.length ? (
-					<DocumentSection title={t('프로젝트', 'Projects')} compact>
-						<div className="resume-project-list">
-							{firstPageProjects.map((project) => (
-								<ResumeProjectItem key={project.id} project={project} />
-							))}
-						</div>
-					</DocumentSection>
-				) : null}
+				<DocumentSection title={t('기술', 'Skills')} compact>
+					<DocumentSkillGroups groups={copy.skillGroups} compact />
+				</DocumentSection>
 			</PrivateDocumentPage>
 
 			<PrivateDocumentPage
@@ -112,19 +124,12 @@ export const ResumeDocument = ({
 					compact
 				/>
 
-				<DocumentSection
-					title={t('프로젝트 (계속)', 'Projects (continued)')}
-					compact
-				>
+				<DocumentSection title={t('프로젝트', 'Projects')} compact>
 					<div className="resume-project-list">
 						{remainingProjects.map((project) => (
 							<ResumeProjectItem key={project.id} project={project} />
 						))}
 					</div>
-				</DocumentSection>
-
-				<DocumentSection title={t('기술', 'Skills')} compact>
-					<DocumentSkillGroups groups={copy.skillGroups} compact />
 				</DocumentSection>
 
 				<div className="resume-bottom-grid">

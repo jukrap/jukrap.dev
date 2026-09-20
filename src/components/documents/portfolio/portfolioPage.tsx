@@ -96,7 +96,7 @@ function CoverPage({
 				{page.summary ? <div>{page.summary}</div> : null}
 			</div>
 
-			<div className="document-cover-details">
+			<div className="document-cover-details" id={page.aliases?.[0]}>
 				<dl>
 					{page.metadata?.map((item) => (
 						<div key={item.label + '-' + item.value}>
@@ -112,11 +112,11 @@ function CoverPage({
 							section={section}
 							locale={locale}
 							pageId={page.id}
-							compact
 						/>
 					))}
 				</div>
 			</div>
+			<DocumentPageFooter pageNumber={page.pageNumber} />
 		</>
 	);
 }
@@ -133,32 +133,35 @@ function StandardPage({
 
 	return (
 		<>
+			{page.aliases?.map((alias) => (
+				<span key={alias} id={alias} aria-hidden="true" />
+			))}
 			<DocumentPageHeader page={page} locale={locale} />
 			<PageIntroduction page={page} locale={locale} />
 
 			<div className="document-page-body">
-				{images.length > 0 ? (
-					<div
-						className={joinClasses(
-							'document-media-grid',
-							images.length > 1 && 'document-media-grid-multiple',
-						)}
-					>
-						{images.map((image) => (
-							<PortfolioFigure key={image.src} image={image} />
-						))}
-					</div>
-				) : null}
-
 				<div className="document-section-grid">
 					{page.sections.map((section) => (
-						<PortfolioSectionBlock
-							key={section.id}
-							section={section}
-							locale={locale}
-							pageId={page.id}
-							compact={isCompactWork}
-						/>
+						<div className="document-section-group" key={section.id}>
+							<PortfolioSectionBlock
+								section={section}
+								locale={locale}
+								pageId={page.id}
+								compact={isCompactWork}
+							/>
+							{section.id === 'contribution' && images.length > 0 ? (
+								<div
+									className={joinClasses(
+										'document-media-grid',
+										images.length > 1 && 'document-media-grid-multiple',
+									)}
+								>
+									{images.map((image) => (
+										<PortfolioFigure key={image.src} image={image} />
+									))}
+								</div>
+							) : null}
+						</div>
 					))}
 				</div>
 			</div>

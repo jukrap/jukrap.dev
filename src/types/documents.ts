@@ -46,9 +46,17 @@ export interface DocumentContentItem {
 	evidence?: readonly DocumentEvidenceRef[];
 }
 
+export interface DocumentFlow {
+	kind?: 'sequence' | 'parallel';
+	label: string;
+	steps: readonly { title: string; detail: string }[];
+	note?: string;
+}
+
 export interface DocumentContentSection {
 	id: string;
 	variant?: 'default' | 'note';
+	flow?: DocumentFlow;
 	title?: string;
 	body?: readonly string[];
 	items?: readonly DocumentContentItem[];
@@ -74,6 +82,7 @@ export interface PortfolioPageImage {
 }
 
 export interface PortfolioPageDefinition {
+	aliases?: readonly string[];
 	id: string;
 	pageNumber: number;
 	kind: PortfolioPageKind;
@@ -106,6 +115,11 @@ export interface ResumeCompetency {
 }
 
 export interface ResumeCareer {
+	workItems?: readonly {
+		title: string;
+		scope: string;
+		highlights: readonly string[];
+	}[];
 	company: string;
 	period: string;
 	officialTitle?: string;
@@ -116,6 +130,7 @@ export interface ResumeCareer {
 }
 
 export interface ResumeProject {
+	links?: readonly DocumentLink[];
 	id: string;
 	title: string;
 	period: string;
@@ -168,6 +183,7 @@ export interface CareerBriefCompany {
 }
 
 export interface CareerBriefFeaturedWork {
+	implementations?: readonly string[];
 	id: string;
 	title: string;
 	period: string;
@@ -224,6 +240,7 @@ export interface RecruitingDocumentManifest {
 		featuredWorkStoryIds: readonly string[];
 		supportingWorkStoryIds: readonly string[];
 		portfolioSupportingWorkStoryIds: readonly string[];
+		portfolioDetailedWorkStoryIds: readonly string[];
 		portfolioProjectIds: readonly string[];
 		resumeProjectIds: readonly string[];
 	};

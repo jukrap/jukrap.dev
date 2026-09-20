@@ -39,14 +39,18 @@ const CareerBriefWork = ({
 			<h4 className="document-heading-label">
 				{locale === 'ko' ? '담당 구현' : 'Implementation'}
 			</h4>
-			<DocumentBulletList items={[work.contribution, work.decision]} />
+			<DocumentBulletList
+				items={work.implementations ?? [work.contribution, work.decision]}
+			/>
 		</div>
-		<div className="career-work-result">
-			<h4 className="document-heading-label">
-				{locale === 'ko' ? '결과' : 'Outcome'}
-			</h4>
-			<p>{work.result}</p>
-		</div>
+		{work.result ? (
+			<div className="career-work-result">
+				<h4 className="document-heading-label">
+					{locale === 'ko' ? '결과' : 'Outcome'}
+				</h4>
+				<p>{work.result}</p>
+			</div>
+		) : null}
 	</article>
 );
 

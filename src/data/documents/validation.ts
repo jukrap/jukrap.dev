@@ -1,3 +1,4 @@
+import { portfolioPageIds, getPortfolioPageNumber } from './manifest';
 import { activities } from '@/data/about/activities';
 import { awards } from '@/data/about/awards';
 import { projectsData } from '@/data/projectsData';
@@ -29,7 +30,7 @@ const EXPECTED_DOCUMENTS = [
 		id: 'portfolio',
 		slug: '/ko/portfolio',
 		visibility: 'public',
-		pageCount: 13,
+		pageCount: portfolioPageIds.length,
 		indexable: true,
 		showOnHome: true,
 	},
@@ -69,40 +70,50 @@ const EXPECTED_RESUME_PROJECT_IDS = [
 	'ai-agent-playbook',
 ] as const;
 
-const EXPECTED_FEATURED_PAGES = [
+const EXPECTED_WORK_CASE_PAGES = [
 	{
-		pageNumber: 3,
+		pageNumber: getPortfolioPageNumber('settlement-operations-platform'),
 		id: 'settlement-operations-platform',
 		storyIds: ['settlement-operations-platform'],
 		caseIds: [],
 	},
 	{
-		pageNumber: 4,
+		pageNumber: getPortfolioPageNumber('logistics-web'),
 		id: 'logistics-web',
 		storyIds: ['delivery-output-flow'],
 		caseIds: ['delivery-operations-web'],
 	},
 	{
-		pageNumber: 5,
+		pageNumber: getPortfolioPageNumber('logistics-mobile'),
 		id: 'logistics-mobile',
 		storyIds: ['delivery-output-flow'],
 		caseIds: ['mobile-output-bridge'],
 	},
 	{
-		pageNumber: 6,
+		pageNumber: getPortfolioPageNumber('react-admin-state-migration'),
 		id: 'react-admin-state-migration',
 		storyIds: ['react-admin-state-migration'],
 		caseIds: [],
 	},
+	{
+		pageNumber: getPortfolioPageNumber('weather-feature'),
+		id: 'weather-feature',
+		storyIds: ['hybrid-life-info-platform'],
+		caseIds: ['hybrid-life-info-platform'],
+	},
+	...['hybrid-security-boundary', 'ai-kickoff-documentation-tool'].map((id) => ({
+		pageNumber: getPortfolioPageNumber(id),
+		id,
+		storyIds: [id],
+		caseIds: [id],
+	})),
 ] as const;
 
-const EXPECTED_PROJECT_PAGES = EXPECTED_PORTFOLIO_PROJECT_IDS.map(
-	(id, index) => ({
-		pageNumber: index + EXPECTED_FEATURED_PAGES.length + 4,
-		id,
-		projectIds: [id],
-	}),
-);
+const EXPECTED_PROJECT_PAGES = EXPECTED_PORTFOLIO_PROJECT_IDS.map((id) => ({
+	pageNumber: getPortfolioPageNumber(id),
+	id,
+	projectIds: [id],
+}));
 
 function assertUnique(values: readonly string[], label: string) {
 	const duplicates = values.filter(
@@ -226,7 +237,7 @@ function validatePageMetrics(
 	locale: 'ko' | 'en',
 ) {
 	const actualMetrics = page.sections.flatMap(({ metrics }) => metrics ?? []);
-	if (page.kind !== 'case' && actualMetrics.length === 0) {
+	if (actualMetrics.length === 0 && page.id !== 'logistics-web') {
 		return;
 	}
 
@@ -366,15 +377,17 @@ export function validateRecruitingDocumentData({
 
 	if (
 		portfolio.length !== portfolioDefinition.pageCount ||
-		portfolioDefinition.pageCount !==
-			manifest.selection.featuredWorkStoryIds.length +
-				manifest.selection.portfolioProjectIds.length +
-				5
+		portfolioDefinition.pageCount !== portfolioPageIds.length
 	) {
 		throw new Error(
 			'Portfolio page count must match its selected cases and projects.',
 		);
 	}
+	assertSameOrder(
+		portfolio.map(({ id }) => id),
+		portfolioPageIds,
+		'Portfolio page order',
+	);
 	assertUnique(
 		portfolio.map(({ id }) => id),
 		'Portfolio page IDs',
@@ -415,6 +428,7 @@ export function validateRecruitingDocumentData({
 		.map(({ id }) => id);
 	const portfolioSupportingIds =
 		manifest.selection.portfolioSupportingWorkStoryIds;
+	const portfolioDetailedIds = manifest.selection.portfolioDetailedWorkStoryIds;
 	assertSameOrder(
 		manifest.selection.featuredWorkStoryIds,
 		featuredIds,
@@ -424,6 +438,7 @@ export function validateRecruitingDocumentData({
 		[
 			...manifest.selection.supportingWorkStoryIds,
 			...portfolioSupportingIds,
+			...portfolioDetailedIds,
 		].some((id) => !supportingIds.includes(id))
 	) {
 		throw new Error(
@@ -438,17 +453,22 @@ export function validateRecruitingDocumentData({
 		'Recruiting work story selection',
 	);
 	assertUnique(
-		[...manifest.selection.featuredWorkStoryIds, ...portfolioSupportingIds],
+		[
+			...manifest.selection.featuredWorkStoryIds,
+			...portfolioDetailedIds,
+			...portfolioSupportingIds,
+		],
 		'Portfolio work story selection',
 	);
 
 	if (
 		manifest.selection.featuredWorkStoryIds.length !== 3 ||
 		manifest.selection.supportingWorkStoryIds.length !== 5 ||
-		portfolioSupportingIds.length !== 5
+		portfolioSupportingIds.length !== 5 ||
+		portfolioDetailedIds.length !== 3
 	) {
 		throw new Error(
-			'Recruiting documents must keep three featured and five supporting stories.',
+			'Recruiting documents must keep three featured stories; the portfolio adds three detailed and five summarized stories.',
 		);
 	}
 
@@ -507,7 +527,7 @@ export function validateRecruitingDocumentData({
 		'Career brief supporting work order',
 	);
 
-	EXPECTED_FEATURED_PAGES.forEach(({ pageNumber, id, storyIds, caseIds }) => {
+	EXPECTED_WORK_CASE_PAGES.forEach(({ pageNumber, id, storyIds, caseIds }) => {
 		const page = getPage(portfolio, pageNumber, id, 'case');
 		assertPageEvidence(
 			page,
@@ -525,7 +545,7 @@ export function validateRecruitingDocumentData({
 
 	const supportingPage = getPage(
 		portfolio,
-		manifest.selection.featuredWorkStoryIds.length + 4,
+		getPortfolioPageNumber('supporting-work'),
 		'supporting-work',
 		'compact-work',
 	);
@@ -585,7 +605,11 @@ export function validateRecruitingDocumentData({
 	);
 	assertSameOrder(
 		portfolioWorkStoryIds,
-		[...manifest.selection.featuredWorkStoryIds, ...portfolioSupportingIds],
+		[
+			...manifest.selection.featuredWorkStoryIds,
+			...portfolioDetailedIds,
+			...portfolioSupportingIds,
+		],
 		'Portfolio work story evidence',
 	);
 	const portfolioProjectIds = uniqueInOrder(

@@ -1,6 +1,5 @@
 import type { Locale } from '@/types/locale';
 import type { PortfolioPageImage } from '@/types/documents';
-
 interface ProjectDocumentCopy {
 	title: string;
 	role: string;
@@ -10,7 +9,6 @@ interface ProjectDocumentCopy {
 	result: string;
 	images: PortfolioPageImage[];
 }
-
 export const projectDocumentCopy: Record<
 	Locale,
 	Record<string, ProjectDocumentCopy>
@@ -19,32 +17,30 @@ export const projectDocumentCopy: Record<
 		'captain-donghae': {
 			title: 'C. Donghae',
 			role: '3명 팀 / 프론트엔드 개발',
-			summary:
-				'동해선 이용객이 실시간 교통과 주변 정보를 한 지도에서 볼 수 있는 웹 서비스를 만들었습니다.',
+			summary: '동해선 실시간 교통과 주변 정보를 지도에서 조회하는 웹 서비스.',
 			problem:
 				'72시간 안에 열차·날씨·주변 장소처럼 출처가 다른 정보를 지도 한 화면에 모으고 모바일 조작도 구현해야 했습니다.',
 			actions: [
 				{
 					title: '지도와 데이터 연결',
 					description:
-						'백엔드 개발자 2명과 협업하며 Swagger 문서를 기준으로 API를 연동하고 Google Maps 기반 주요 화면을 구현했습니다.',
+						'백엔드 Swagger 문서를 기준으로 API 연동, Google Maps 기반 교통·주변 정보 화면 구현',
 				},
 				{
 					title: '모바일 지도 조작',
-					description:
-						'지도 위의 바텀 시트를 드래그 거리와 속도에 따라 펼치거나 접을 수 있도록 구현했습니다.',
+					description: '드래그 거리·속도에 따라 펼치고 접는 모바일 바텀 시트 구현',
 				},
 			],
-			result: 'DIVE 2024에서 부산테크노파크원장상(발제사 3등)을 받았습니다.',
+			result: 'DIVE 2024 부산테크노파크원장상 수상(발제사 3등).',
 			images: [
 				{
-					src: '/images/captain-donghae/image1.png',
-					alt: '동해선장 지도 메인 화면',
+					src: '/images/captain-donghae/image10.png',
+					alt: '동해선장 지도와 장소 선택',
 					layout: 'split',
 				},
 				{
-					src: '/images/captain-donghae/image3.png',
-					alt: '동해선장 바텀 시트',
+					src: '/images/captain-donghae/image7.png',
+					alt: '동해선장 주변 장소 목록',
 					layout: 'split',
 				},
 			],
@@ -53,32 +49,32 @@ export const projectDocumentCopy: Record<
 			title: 'ShareBBy',
 			role: 'React Native와 Firebase 개발',
 			summary:
-				'취미 활동을 공유하고 함께할 사람을 찾는 앱에서 Android 지원과 커뮤니티 기능을 개발했습니다.',
+				'취미 활동을 공유하고 함께할 사람을 찾는 앱. Android 지원과 커뮤니티 기능 담당.',
 			problem:
 				'iOS에 맞춰 만든 화면을 Android에서도 사용할 수 있도록 고쳐야 했습니다. 게시글 이미지를 바꿔도 이전 이미지가 보이는 캐시 문제도 있었습니다.',
 			actions: [
 				{
 					title: '커뮤니티 기능',
 					description:
-						'게시글·댓글 작성과 수정, 위치 필터, 정렬, 당겨서 새로고침과 무한 스크롤을 구현했습니다.',
+						'게시글·댓글 작성과 수정, 위치 필터·정렬, 당겨서 새로고침·무한 스크롤 구현',
 				},
 				{
 					title: '데이터와 이미지 처리',
 					description:
-						'Firebase 데이터의 관계를 ERD로 정리했습니다. 이미지 캐시 문제는 재현 후 유지보수가 이어지는 다른 라이브러리로 교체했습니다.',
+						'Firebase 데이터 관계를 ERD로 정리. 게시글 이미지 변경 후 이전 이미지가 남는 문제를 재현하고 이미지 라이브러리 교체',
 				},
 			],
 			result:
-				'Android 화면과 커뮤니티 기능을 구현했습니다. 팀 앱은 2024년 App Store에 배포됐습니다.',
+				'팀 앱의 2024년 App Store 배포. 본인 담당은 Android 화면과 커뮤니티 기능 개발.',
 			images: [
 				{
-					src: '/images/sharebby/image1.png',
-					alt: 'ShareBBy 앱 화면',
+					src: '/images/sharebby/image10.png',
+					alt: 'ShareBBy 게시글 목록',
 					layout: 'phone',
 				},
 				{
-					src: '/images/sharebby/image6.png',
-					alt: 'ShareBBy 커뮤니티 화면',
+					src: '/images/sharebby/image15.png',
+					alt: 'ShareBBy 게시글 편집 화면',
 					layout: 'phone',
 				},
 			],
@@ -87,46 +83,46 @@ export const projectDocumentCopy: Record<
 			title: 'AI Agent Playbook',
 			role: '1인 개발',
 			summary:
-				'AI 코딩 도구가 프로젝트 규칙과 작업 기록을 이어서 참고하도록 하네스를 만들었습니다. 필요한 스킬을 선택해 설치하고, 기존 파일을 보존하며 전환·복구할 수 있습니다.',
+				'AI 코딩 도구가 프로젝트 규칙과 작업 기록을 이어서 참고하도록 만든 하네스. 스킬 선택 설치와 기존 파일을 보존하는 전환·복구 기능 제공.',
 			problem:
 				'여러 저장소를 오가며 작업할 때 공통 기록과 저장소별 기록을 구분해야 했습니다. 스킬을 업데이트하면서 사용자가 수정한 파일을 덮어쓰거나, 설치 실패로 기존 구성을 잃지 않도록 해야 했습니다.',
 			actions: [
 				{
 					title: '공유 기록과 읽기 전용 MCP',
 					description:
-						'등록한 저장소의 기록을 CLI와 MCP로 조회하도록 구현했습니다. 긴 결과는 나눠 읽고, 원문이 바뀌면 이전 조회를 이어 가지 않도록 했습니다.',
+						'등록한 저장소의 기록을 CLI·읽기 전용 MCP로 조회. 긴 결과를 나눠 읽고, 원문 변경 시 이전 조회의 이어 읽기 중단',
 				},
 				{
 					title: '사용자 수정본 보존과 설치 복구',
 					description:
-						'소유권과 해시로 파일 변경을 확인하고 백업·복구 기록을 남겼습니다. 프로필 전환은 새 스킬 전체를 확인한 뒤에만 기존 항목을 정리하며, 삭제 직전에도 다시 검사합니다.',
+						'소유권·해시 기반 파일 변경 확인과 백업·복구 기록. 새 스킬 검증 후 기존 항목 정리, 삭제 직전 수정 여부 재검사',
 				},
 			],
 			result:
-				'npm과 GitHub에 공개하고, 설치와 사용법을 한국어와 영어로 정리했습니다. 설치 충돌·부분 실패·복구와 조회 범위·이어 읽기를 테스트하고 Windows·Ubuntu CI를 구성했습니다.',
+				'npm·GitHub 공개, 한국어·영어 설치 및 사용 문서 작성. 충돌·부분 실패·복구 테스트와 Windows·Ubuntu CI 구성.',
 			images: [],
 		},
 		itzip: {
 			title: 'Itzip',
 			role: '프론트엔드 팀장 / DevOps',
 			summary:
-				'15명 팀에서 블로그와 Markdown 편집 화면을 개발하고, 테스트와 배포 후 오류 모니터링을 도입했습니다.',
+				'15명 팀의 개발자 커뮤니티 프로젝트. 프론트엔드 팀장으로 블로그·Markdown 편집 화면과 테스트·배포 후 오류 모니터링 담당.',
 			problem:
 				'편집 화면을 개발하면서 팀원들이 컴포넌트의 동작과 배포 후 오류를 함께 확인할 수 있어야 했습니다.',
 			actions: [
 				{
 					title: 'Markdown 편집과 미리보기',
 					description:
-						'실시간 미리보기와 프로젝트 전용 Markdown 문법을 구현하고 무거운 컴포넌트는 dynamic import로 분리했습니다.',
+						'실시간 미리보기·프로젝트 전용 Markdown 문법 구현, 무거운 컴포넌트의 dynamic import 적용',
 				},
 				{
 					title: '테스트와 오류 관측',
 					description:
-						'Jest로 주요 동작을 점검하고 Storybook에 컴포넌트를 모았습니다. 배포 뒤 오류는 Sentry에서 확인하도록 구성했습니다.',
+						'Jest 단위 테스트, Storybook 컴포넌트 문서와 Sentry 배포 후 오류 모니터링 도입',
 				},
 			],
 			result:
-				'블로그와 편집 화면을 구현하고, 단위 테스트와 컴포넌트 문서, 배포 후 오류 확인 방법을 팀 개발 과정에 적용했습니다.',
+				'개발한 화면과 컴포넌트의 동작을 팀에서 확인할 수 있도록 테스트·문서·오류 관측 도구 연결.',
 			images: [
 				{
 					src: '/images/itzip/image6.png',
@@ -140,19 +136,19 @@ export const projectDocumentCopy: Record<
 			title: 'Posture Teacher',
 			role: '2명 팀 / Android 개발',
 			summary:
-				'카메라에 잡힌 신체 지점으로 자세를 판별하고 운동 시간을 기록하는 Android 앱입니다.',
+				'카메라의 신체 지점을 분석해 자세와 운동 시간을 기록하는 Android 앱.',
 			problem:
 				'카메라 프레임을 계속 분석해도 화면 조작이 멈추지 않아야 했습니다. MediaPipe를 Android 앱에서 사용할 수 있게 빌드하는 작업도 필요했습니다.',
 			actions: [
 				{
 					title: 'MediaPipe 통합과 자세 판별',
 					description:
-						'Ubuntu에서 MediaPipe AAR를 빌드해 앱에 통합하고 신체 지점의 각도와 길이로 자세와 유지 시간을 계산했습니다.',
+						'Ubuntu에서 MediaPipe AAR를 빌드해 Android 앱에 통합. 신체 지점의 각도·길이로 자세와 유지 시간 계산',
 				},
 				{
 					title: '프레임 분석 분리',
 					description:
-						'프레임 분석을 별도 스레드에서 실행해 분석 중에도 화면을 조작할 수 있도록 했습니다.',
+						'별도 스레드에서 프레임 분석을 실행해 분석 중에도 화면 조작 유지',
 				},
 			],
 			result:
@@ -191,12 +187,12 @@ export const projectDocumentCopy: Record<
 				'Won the Busan Technopark President Award at DIVE 2024, placing third in the challenge track.',
 			images: [
 				{
-					src: '/images/captain-donghae/image1.png',
+					src: '/images/captain-donghae/image10.png',
 					alt: 'Captain Donghae map screen',
 					layout: 'split',
 				},
 				{
-					src: '/images/captain-donghae/image3.png',
+					src: '/images/captain-donghae/image7.png',
 					alt: 'Captain Donghae bottom sheet',
 					layout: 'split',
 				},
@@ -225,13 +221,13 @@ export const projectDocumentCopy: Record<
 				'Delivered Android screens and community features. The team released the app on the App Store in 2024.',
 			images: [
 				{
-					src: '/images/sharebby/image1.png',
-					alt: 'ShareBBy app screen',
+					src: '/images/sharebby/image10.png',
+					alt: 'ShareBBy post feed',
 					layout: 'phone',
 				},
 				{
-					src: '/images/sharebby/image6.png',
-					alt: 'ShareBBy community screen',
+					src: '/images/sharebby/image15.png',
+					alt: 'ShareBBy post editor',
 					layout: 'phone',
 				},
 			],

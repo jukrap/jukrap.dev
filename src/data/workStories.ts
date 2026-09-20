@@ -91,8 +91,8 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		'delivery-output-flow': {
 			title: '물류 운영 웹·출력 앱',
 			platform: 'Web / Android',
-			area: '업무 UI / 번들 최적화 / Android 출력',
-			role: '신규 구축/출력 연동',
+			area: '조회·예약·Excel 등록 화면과 PC·Android 라벨 출력 개발',
+			role: '물류 업무 웹과 출력 앱 개발',
 			headline:
 				'조회·예약·Excel 등록과 라벨 출력으로 이어지는 업무 화면을 React와 TypeScript로 개발했습니다.',
 			summary:
@@ -128,10 +128,10 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'공통 편집표에 키보드 조작과 초안 보존 기능을 넣었습니다. Excel 등록 전에는 서버에서 자료를 다시 검증하고 한 트랜잭션으로 저장했습니다. 현재 담당 관계와 과거 정산 정보는 따로 관리했습니다.',
 				outcome:
-					'자료 입력부터 검토·확정까지의 기능을 개발 환경에 반영했습니다. 저장 중 실패하면 전체를 되돌리고, 다시 요청해도 중복 등록되지 않도록 했습니다. 담당 관계를 변경한 뒤에도 과거 정산 금액이 유지되는지 확인했습니다.',
+					'자료 입력과 정산 저장 기능을 개발 환경에 반영했습니다. Excel 일괄 등록은 실패 시 전체를 되돌리고, 일반 편집표는 행별 성공·실패를 표시합니다. 작업 내용 중심으로 개편한 로그 화면은 관리자가 사용하고 있습니다.',
 			},
 			aboutSummary:
-				'React 화면부터 Spring Boot API와 DB 처리까지 전반적인 구축을 맡았습니다. 공통 편집표와 Excel 대량등록, 정산 이력 보존을 구현했습니다.',
+				'차량·기사·운송료·정산을 관리하는 웹 전반과 주요 서버 API, 데이터 저장 기능을 개발했습니다. 공통 입력 화면과 정산 이력을 구현하고 관리자 작업 로그를 개편했습니다.',
 		},
 		'react-admin-state-migration': {
 			editorial: {
@@ -146,7 +146,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		'multi-role-hybrid-platform': {
 			role: '기존 솔루션의 웹·Android 기능 개발·개선',
 			workType: '솔루션 기능 확장·개선',
-			area: '회원 관리 / 문의·답변·첨부',
+			area: '회원 관리와 문의·첨부 기능 개발, Android 파일 선택 연동',
 			headline:
 				'기존 웹과 Android 앱의 회원 관리, 문의·첨부 기능을 개발하고 개선했습니다.',
 			summary:
@@ -164,8 +164,8 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		'delivery-output-flow': {
 			title: 'Logistics Operations Web and Printing App',
 			platform: 'Web / Android',
-			area: 'Business UI / Bundle optimization / Android printing',
-			role: 'New build and output integration',
+			area: 'Search, reservations, Excel imports, and PC/Android label printing',
+			role: 'Logistics web and printing app development',
 			headline:
 				'Built React and TypeScript screens covering lookup, booking, Excel imports and label printing.',
 			summary:
@@ -202,10 +202,10 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'Built keyboard editing and draft preservation into shared tables. Used server revalidation and one transaction for Excel confirmation, separating current assignments from historical settlements.',
 				outcome:
-					'Delivered the input, review and confirmation flow to development. Verified batch rollback, duplicate prevention on retry and retained settlement amounts after assignment changes.',
+					'Delivered data entry and settlement persistence to development. Excel imports roll back as a batch, while editing tables report success and failure per row. Administrators use the revised action-oriented log screen.',
 			},
 			aboutSummary:
-				'Handled development across the React frontend, Spring Boot APIs and database processing, including shared editing tables, Excel imports and settlement history.',
+				'Built the administrator web interface, key server APIs and data persistence for vehicles, drivers, transport fees and settlement, including shared inputs, settlement history and revised work logs.',
 		},
 		'react-admin-state-migration': {
 			editorial: {
@@ -220,7 +220,8 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		'multi-role-hybrid-platform': {
 			role: 'Web and Android feature development for an existing solution',
 			workType: 'Solution feature development and improvements',
-			area: 'Member management / Inquiries, replies and attachments',
+			area:
+				'Member management, inquiries, attachments, and Android file selection',
 			headline:
 				'Developed and improved member management, inquiries and attachments across an existing web solution and Android app.',
 			summary:

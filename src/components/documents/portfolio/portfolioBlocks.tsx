@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 import type {
 	DocumentContentItem,
+	DocumentFlow,
 	DocumentContentSection,
 	DocumentLink,
 	DocumentMetric,
@@ -101,7 +102,11 @@ function DocumentLinkItem({
 				) : null}
 			</span>
 			{compact ? null : (
-				<small>{link.href.replace(/^(?:https?:\/\/|mailto:)/, '')}</small>
+				<small>
+					{link.href.startsWith('#')
+						? ''
+						: link.href.replace(/^(?:https?:\/\/|mailto:)/, '')}
+				</small>
 			)}
 		</a>
 	);
@@ -226,6 +231,32 @@ function ContentItems({
 	);
 }
 
+function FlowDiagram({ flow }: { flow: DocumentFlow }) {
+	return (
+		<figure
+			className={joinClasses(
+				'document-flow',
+				flow.kind === 'parallel' && 'document-flow-parallel',
+			)}
+			aria-label={flow.label}
+		>
+			<figcaption>{flow.label}</figcaption>
+			<ol>
+				{flow.steps.map((step, index) => (
+					<li key={step.title}>
+						<span className="document-flow-number" aria-hidden="true">
+							{flow.kind === 'parallel' ? '—' : String(index + 1).padStart(2, '0')}
+						</span>
+						<strong>{step.title}</strong>
+						<p>{step.detail}</p>
+					</li>
+				))}
+			</ol>
+			{flow.note ? <p className="document-flow-note">{flow.note}</p> : null}
+		</figure>
+	);
+}
+
 export function PortfolioSectionBlock({
 	section,
 	pageId,
@@ -259,6 +290,7 @@ export function PortfolioSectionBlock({
 						{paragraph}
 					</p>
 				))}
+				{section.flow ? <FlowDiagram flow={section.flow} /> : null}
 				{section.metrics?.length ? <MetricList metrics={section.metrics} /> : null}
 				{section.items?.length ? (
 					<ContentItems items={section.items} compact={compact} locale={locale} />

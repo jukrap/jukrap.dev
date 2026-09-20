@@ -91,7 +91,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		'delivery-output-flow': {
 			title: '물류 운영 웹·출력 앱',
 			platform: 'Web / Android',
-			area: '조회·예약·Excel 등록 화면과 PC·Android 라벨 출력 개발',
+			area: '프론트엔드 전체 개발·Android 출력 앱 개발',
 			role: '물류 업무 웹과 출력 앱 개발',
 			headline:
 				'조회·예약·Excel 등록부터 PC·Android 라벨 출력까지 이어지는 물류 업무 시스템.',
@@ -112,7 +112,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			),
 			aboutSummary:
-				'조회·예약·Excel 등록 화면의 공통 UI와 API 연동, Android 라벨 출력 기능을 개발했습니다. 페이지와 Excel 코드를 분리해 초기 JavaScript 엔트리 파일 크기를 약 74% 줄였습니다(빌드 산출물 기준).',
+				'물류 웹의 프론트엔드 전체와 Android 라벨 출력 기능을 개발했습니다. 공통 UI를 만들고 조회·예약·Excel 등록·출력 기능을 서버 API에 연결했습니다. 페이지와 Excel 코드를 분리해 초기 JavaScript 엔트리 파일 크기를 약 74% 줄였습니다(빌드 산출물 기준).',
 		},
 		'structured-editor-ui': {
 			summary:
@@ -164,7 +164,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'mobile-operations-platform': {
 			summary:
-				'지도 선택·화면 복귀 동작 수정과 오프라인 저장·재전송 보완. 앱 재실행 후 전송 대기 요청 복원.',
+				'지도 마커 선택·현재 위치·처리 후 지도 복귀 동작 수정. 오프라인 배달완료 저장, 앱 재실행 후 요청 복원과 통신 복구 시 재전송 구현.',
 		},
 		'legacy-support-web': {
 			summary:
@@ -191,7 +191,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		'delivery-output-flow': {
 			title: 'Logistics Operations Web and Printing App',
 			platform: 'Web / Android',
-			area: 'Search, reservations, Excel imports, and PC/Android label printing',
+			area: 'Complete frontend and Android printing app development',
 			role: 'Logistics web and printing app development',
 			headline:
 				'A logistics system connecting search, reservations and Excel imports to PC and Android label printing.',
@@ -212,7 +212,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			),
 			aboutSummary:
-				'Built shared UI and API integration for search, reservations and Excel imports, plus Android label printing. Split pages and Excel code to reduce the initial JavaScript entry file size by about 74% (build output size).',
+				'Built the complete logistics frontend and Android label-printing features, using shared UI and server API integration for search, reservations, Excel imports and printing. Split pages and Excel code to reduce the initial JavaScript entry file size by about 74% (build output size).',
 		},
 		'structured-editor-ui': {
 			summary:
@@ -268,7 +268,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'mobile-operations-platform': {
 			summary:
-				'Updated map selection and return navigation, offline saves and retries. Restored queued requests after app restarts.',
+				'Updated map-marker selection, current location and return-to-map behavior. Implemented offline delivery-completion saves, request recovery after app restarts and retries after reconnection.',
 		},
 		'legacy-support-web': {
 			summary:

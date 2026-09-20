@@ -7,6 +7,7 @@ import { getRecruitingDocumentManifest, portfolioPageIds } from './manifest';
 import { getPortfolioFeatureCases } from './portfolioFeatureCases';
 import { getResumeDocument, getDocumentSkillGroups } from './privateDocuments';
 import { portfolioPublicEmails } from './publicContact';
+import { workContributionEvidence } from './workContributionEvidence';
 import {
 	getProject,
 	getWorkStory,
@@ -94,6 +95,10 @@ export function getPortfolioDocument(
 			const chapter = isLogistics
 				? story.chapters.find(({ id }) => id === 'delivery-operations-web')!
 				: undefined;
+			const contribution =
+				workContributionEvidence[
+					(chapter?.id ?? story.id) as keyof typeof workContributionEvidence
+				];
 			return {
 				id: isLogistics ? 'logistics-web' : story.id,
 				aliases: isErp ? ['settlement-saving'] : undefined,
@@ -103,10 +108,15 @@ export function getPortfolioDocument(
 				title: chapter?.title ?? story.title,
 				summary: isErp
 					? t(
-							'차량·기사 등 기준 정보와 운송료·청구·정산을 관리하는 업무 시스템. 관리자 웹 전반과 주요 서버 API, 데이터 저장 기능 개발.',
-							'A business system for vehicle and driver records, transport fees, billing, and settlement. Built the administrator web interface, key server APIs, and data persistence.',
+							'차량·기사 등 기준 정보와 운송료·청구·정산을 관리하는 업무 시스템. ERP 웹 전반과 주요 서버 API 개발, 기존 사용자 웹·모바일 앱의 기능 확장.',
+							'A business system for vehicle and driver records, transport fees, billing, and settlement. Built the ERP web app and key server APIs, and extended the existing user-facing web and mobile apps.',
 						)
-					: copy.summary,
+					: isLogistics
+						? t(
+								'조회·예약·Excel 등록·라벨 출력으로 이어지는 물류 업무 웹. React·TypeScript로 프론트엔드 전체를 개발하고, 서버 API와 PC 라벨 출력을 연동.',
+								'A logistics web app for search, reservations, Excel imports, and label printing. Built the complete frontend with React and TypeScript, including server API integration and PC label printing.',
+							)
+						: copy.summary,
 				metadata: [
 					{ label: t('기간', 'Period'), value: chapter?.period ?? story.period },
 					{
@@ -114,15 +124,12 @@ export function getPortfolioDocument(
 						value: isErp
 							? t('풀스택 개발', 'Full-stack development')
 							: isLogistics
-								? t(
-										'조회·예약·Excel 등록 화면과 PC 라벨 출력 기능 개발',
-										'Built search, reservation, Excel import, and PC label-printing features',
-									)
-								: t(
-										'웹 프론트엔드 전체 개발, 모의 API로 화면 동작 구현',
-										'Built the complete web frontend using mock APIs for screen interactions',
-									),
+								? t('프론트엔드 전체 개발', 'Complete frontend development')
+								: t('프론트엔드 전체 개발', 'Complete frontend development'),
 					},
+					...(contribution
+						? [{ ...contribution.copy[locale], kind: 'attribution' as const }]
+						: []),
 				],
 				technologies: chapter?.stack ?? story.stack,
 				sections: isErp
@@ -241,10 +248,11 @@ export function getPortfolioDocument(
 			{ label: t('기간', 'Period'), value: mobile.period },
 			{
 				label: t('담당', 'Scope'),
-				value: t(
-					'웹의 출력 요청을 Android 앱과 Bluetooth 프린터에 연결',
-					'Connected web print requests to the Android app and Bluetooth printers',
-				),
+				value: t('Android 앱 개발', 'Android app development'),
+			},
+			{
+				...workContributionEvidence['mobile-output-bridge'].copy[locale],
+				kind: 'attribution',
 			},
 		],
 		technologies: mobile.stack,
@@ -314,10 +322,7 @@ export function getPortfolioDocument(
 			{ label: t('기간', 'Period'), value: weather.period },
 			{
 				label: t('담당', 'Scope'),
-				value: t(
-					'날씨 화면과 공공 데이터 조회·캐시 기능 개발',
-					'Built the weather interface, public-data retrieval, and caching',
-				),
+				value: t('웹·서버 기능 개발', 'Web and server feature development'),
 			},
 		],
 		technologies: weather.stack,

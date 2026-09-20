@@ -291,7 +291,9 @@ export const WorkCaseDetail = ({
 						</dt>
 						<dd className="text-sm leading-6 break-keep">
 							<p className="font-medium text-foreground/85">{story.role}</p>
-							<p className="mt-1 text-foreground/70">{story.area}</p>
+							{story.area !== story.role ? (
+								<p className="mt-1 text-foreground/70">{story.area}</p>
+							) : null}
 						</dd>
 					</div>
 					<div className="grid gap-2 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-8">

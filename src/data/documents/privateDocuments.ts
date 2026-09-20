@@ -253,8 +253,17 @@ export function getCareerBriefDocument(locale: Locale): CareerBriefCopy {
 				period: story.period,
 				platform: story.platform,
 				goal:
-					resume.careers[0].workItems?.find((item) => item.title === story.title)
-						?.scope ?? copy.summary,
+					id === 'settlement-operations-platform'
+						? ko
+							? 'ERP 웹 전반과 주요 서버 API·데이터 저장 기능 개발. 기존 사용자 웹·모바일 앱의 기능 확장.'
+							: 'Built the ERP web app, key server APIs and data persistence, and extended the existing user-facing web and mobile apps.'
+						: id === 'delivery-output-flow'
+							? ko
+								? '물류 웹 프론트엔드 전체와 Android 출력 앱 개발. 조회·예약·Excel 등록·PC 라벨 출력 및 Bluetooth 프린터 연동.'
+								: 'Built the complete logistics frontend and Android printing app, covering search, reservations, Excel imports, PC label printing and Bluetooth printer integration.'
+							: (resume.careers[0].workItems?.find(
+									(item) => item.title === story.title,
+								)?.scope ?? copy.summary),
 				contribution: copy.actions[0].description,
 				implementations: copy.actions.map((action) => action.description),
 				decision: copy.actions

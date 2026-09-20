@@ -21,6 +21,7 @@ export interface DocumentEvidenceRef {
 export interface DocumentMetadataItem {
 	label: string;
 	value: string;
+	kind?: 'attribution';
 }
 
 export interface DocumentLink {

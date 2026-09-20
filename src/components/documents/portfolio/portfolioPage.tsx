@@ -57,7 +57,13 @@ function PageIntroduction({
 				<p className="document-page-summary">{page.summary}</p>
 			) : null}
 			{page.metadata?.length ? (
-				<dl className="document-page-metadata">
+				<dl
+					className={joinClasses(
+						'document-page-metadata',
+						page.metadata.some(({ kind }) => kind === 'attribution') &&
+							'document-page-metadata-with-attribution',
+					)}
+				>
 					{page.metadata.map((item) => (
 						<div key={item.label + '-' + item.value}>
 							<dt>{item.label}</dt>

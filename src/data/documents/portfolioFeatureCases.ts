@@ -29,7 +29,10 @@ export function getPortfolioFeatureCases(
 				{ label: t('기간', 'Period'), value: privacy.period },
 				{
 					label: t('담당', 'Scope'),
-					value: t('웹·서버 기능 개발', 'Web and server feature development'),
+					value: t(
+						'프론트엔드·백엔드 기능 개발',
+						'Frontend and backend feature development',
+					),
 				},
 			],
 			technologies: privacy.stack,
@@ -100,7 +103,7 @@ export function getPortfolioFeatureCases(
 				{ label: t('기간', 'Period'), value: documentation.period },
 				{
 					label: t('담당', 'Scope'),
-					value: t('웹·서버 개발', 'Web and server development'),
+					value: t('프론트엔드·백엔드 개발', 'Frontend and backend development'),
 				},
 			],
 			technologies: documentation.stack,

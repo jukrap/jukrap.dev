@@ -38,13 +38,13 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			process: [
 				'메뉴 조회와 등록·수정 권한을 서버에서 검사하도록 했습니다.',
 				'원천 청구와 배분 정보를 한꺼번에 조회하고 월 마감에 필요한 자료를 미리 읽도록 바꿨습니다.',
-				'업무 변경·로그인 결과를 관리자가 조회하도록 구현했습니다. 작업 대상·변경 내용·입력 오류를 표시하고 불필요한 기술 항목은 줄였습니다.',
 			],
 			solution: [
-				'인라인 편집, 선택창, 키보드 이동을 공통 표로 구현하고 저장에 실패해도 입력한 초안이 남도록 했습니다.',
-				'Excel 미리보기·수정·재검증·등록 화면과 API를 만들고 중복 등록과 일부 행만 저장되는 경우를 처리했습니다.',
-				'청구 금액을 정산에 배분하고, 담당 관계나 제원이 변경되어도 기존 정산 금액과 보험·점검의 등록 당시 정보를 유지하도록 했습니다.',
-				'차량 정보 저장 결과에 새 정보 생성·운행 상태 변경과 보험·공과금 등 연결 업무에 미치는 영향을 안내했습니다.',
+				'인라인 편집·선택창·키보드 이동을 지원하는 공통 표 구현. 저장 실패 시 입력 초안 보존.',
+				'Excel 미리보기·수정·재검증·등록 화면과 API 개발. 중복 등록과 일부 행만 저장되는 경우 처리.',
+				'청구 금액의 정산 배분 구현. 담당 관계나 제원 변경 시에도 기존 정산 금액과 보험·점검의 등록 당시 정보 유지.',
+				'차량 정보 저장 후 새 정보 생성·운행 상태 변경과 보험·공과금 등 연결 업무에 미치는 영향 안내.',
+				'업무 변경·로그인 결과의 관리자 조회 구현. 작업 대상·변경 내용·입력 오류 중심으로 로그 화면을 개편하고 불필요한 기술 항목 축소.',
 			],
 			impact: [
 				{
@@ -102,9 +102,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'앱 재실행 뒤 사용자 식별과 대기열을 복원한 다음 전송을 시작하고, 기존 로그인 세션을 위한 식별 정보 복원도 보완했습니다.',
 			],
 			solution: [
-				'관계 목록과 확정 요청·선택 사진을 브리지 저장소에 보존하고 저장 작업을 직렬화했습니다.',
-				'서버 완료 내역과 대기 요청을 대조하며 충돌·업무 오류·사진 복원 실패는 수동 확인 대상으로 남겼습니다.',
-				'지도 선택과 처리 화면의 복귀, 네이티브 위치 지원 확인, 웹·서버의 수령인·선택 첨부 입력 규칙을 연결했습니다.',
+				'관계 목록·확정 요청·선택 사진의 브리지 저장소 보존과 저장 작업 직렬화.',
+				'서버 완료 내역과 대기 요청 대조. 충돌·업무 오류·사진 복원 실패는 수동 확인 대상으로 분류.',
+				'지도 선택 후 처리 화면에서 복귀하는 동작과 네이티브 위치 지원 확인 구현. 웹·서버의 수령인·선택 첨부 입력 규칙 연결.',
 			],
 			impact: [
 				{
@@ -149,7 +149,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'조회·예약·Excel 등록과 라벨 출력으로 이어지는 업무 화면을 React와 TypeScript로 개발했습니다.',
 			summary:
-				'반복되는 표·입력 폼·모달을 공통화하고 API 응답을 화면과 출력 흐름에 연결했습니다. 페이지와 Excel 처리 코드의 지연 로딩으로 초기 JavaScript 엔트리를 약 74% 줄였습니다.',
+				'반복되는 표·입력 폼·모달을 공통화하고 API 응답을 화면과 출력 흐름에 연결했습니다. 페이지와 Excel 처리 코드의 지연 로딩으로 초기 JavaScript 엔트리 파일 크기를 약 74% 줄였습니다(빌드 산출물 기준).',
 			impact: [
 				{
 					presentation: 'measurement',
@@ -165,7 +165,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				},
 			],
 			problem:
-				'조회·예약·Excel 등록·출력 화면에서 공통 UI와 API 연동이 필요했습니다. 초기 화면에 필요하지 않은 페이지와 Excel 라이브러리까지 함께 포함되어 초기 JavaScript 엔트리가 커진 상태였습니다.',
+				'조회·예약·Excel 등록·출력 화면에서 공통 UI와 API 연동이 필요했습니다. 초기 화면에 필요하지 않은 페이지와 Excel 라이브러리까지 함께 포함되어 초기 JavaScript 엔트리 파일이 커진 상태였습니다.',
 			thinking: [
 				'조회 데이터, 입력 상태, 출력 요청을 분리하고 표·폼·모달은 공통 컴포넌트로 구성했습니다.',
 				'번들 분석으로 큰 의존성을 찾고 페이지와 Excel 라이브러리를 필요한 시점에 불러오도록 했습니다.',
@@ -174,16 +174,16 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			process: [
 				'모의 데이터와 실제 API 연결을 분리해 로딩·빈 결과·오류 상태를 구현했습니다.',
 				'여러 라벨 번호가 생기는 예약을 목록과 모달에 표시하고 API 응답을 미리보기·출력 요청으로 변환했습니다.',
-				'공통 인증·초기화 코드까지 분리하는 실험은 초기화 흐름과 첫 조작의 로딩 경계가 늘어나 채택하지 않았습니다. 페이지와 Excel 코드 분리만 유지했습니다.',
+				'공통 인증·API 초기화 코드까지 분리하는 방안도 검토했습니다. 초기 파일 크기는 더 줄었지만, 인증 초기화와 첫 조작의 로딩 처리가 복잡해져 적용하지 않았습니다. 최종적으로 페이지와 Excel 라이브러리에만 지연 로딩을 적용했습니다.',
 			],
 			solution: [
-				'공통 표·입력 폼·모달 위에 예약 접수, 다건 처리, 주소록 선택, Excel 미리보기를 구현했습니다.',
-				'React.lazy로 페이지를 분리하고 Excel 라이브러리는 업로드·다운로드 실행 시점에 불러오도록 했습니다.',
-				'API의 예약 식별자와 다건 라벨 응답을 PC·모바일 출력에 필요한 데이터로 변환했습니다.',
-				'PC 라벨에서 긴 주소가 잘리지 않도록 글자 폭에 따라 줄을 나누고 마지막 줄의 남은 주소를 출력 폭에 맞춰 배치했습니다.',
+				'공통 표·입력 폼·모달을 사용한 예약 접수, 다건 처리, 주소록 선택과 Excel 미리보기 구현.',
+				'React.lazy로 페이지 코드 분리. Excel 라이브러리는 업로드·다운로드 실행 시점에 로드.',
+				'API의 예약 식별자와 다건 라벨 응답을 PC·모바일 출력용 데이터로 변환.',
+				'PC 라벨의 글자 폭에 따른 주소 줄바꿈과 마지막 줄에 남은 주소의 출력 폭 조정.',
 			],
 			checks: [
-				'수치는 동일한 빌드 기준으로 초기 JavaScript 엔트리의 크기를 비교한 값입니다.',
+				'수치는 동일한 빌드 기준으로 초기 JavaScript 엔트리 파일 크기를 비교한 값입니다. 전체 다운로드량이나 실행 속도를 측정한 수치는 아닙니다.',
 				'페이지 이동, 데이터 조회, Excel 처리와 PC 라벨 출력이 지연 로딩 이후에도 이어지는지 확인했습니다.',
 			],
 		},
@@ -227,10 +227,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'캐시는 단일 Tomcat의 JVM 메모리 범위에 적용했습니다.',
 			],
 			solution: [
-				'대기질·중기예보·기상특보 API를 연동하고 특보는 모달에서 확인할 수 있도록 구현했습니다.',
-				'기준 데이터를 서버에 캐시하고, 갱신할 때는 임시 저장과 검증을 거친 뒤 교체하도록 했습니다.',
-				'Android WebView에서는 네이티브 위치 조회를 우선 사용하고, 실패하면 저장된 위치나 브라우저 위치 조회를 사용하도록 했습니다.',
-				'날씨 외에는 일기 에디터와 Android 카메라·앨범 선택 흐름, 생활동선 지도의 거리·마커 표시도 개선했습니다.',
+				'대기질·중기예보·기상특보 API 연동과 특보 확인 모달 구현.',
+				'기준 데이터의 서버 캐시 구현. 갱신 데이터는 임시 저장·검증 후 기존 캐시와 교체.',
+				'Android WebView의 네이티브 위치 조회 연결. 실패 시 저장된 위치나 브라우저 위치 조회 사용.',
+				'일기 에디터와 Android 카메라·앨범 선택 동작 수정. 생활동선 지도의 거리·마커 표시 보완.',
 			],
 			checks: [
 				'최초 조회, 캐시 재사용과 외부 API 실패 시 이전 값 표시를 확인하고 운영 환경에 반영했습니다.',
@@ -281,9 +281,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'AI가 정리할 항목과 사용자가 결정할 항목을 구분하고, 근거 없이 임시 내용을 채워 넣지 않도록 했습니다.',
 			],
 			solution: [
-				'자료 스캔, 생성 미리보기, 표 편집과 내보내기를 하나의 흐름으로 연결했습니다.',
-				'요구사항, 기능 정의서, 화면 설계서를 표에서 검토할 수 있게 했습니다.',
-				'수정할 시트·셀과 유지할 내용을 함께 전달하는 부분 재작성 기능을 만들었습니다.',
+				'자료 스캔부터 생성 미리보기, 표 편집과 내보내기까지 이어지는 화면 구현.',
+				'요구사항·기능 정의서·화면 설계서를 표에서 검토하는 기능 구현.',
+				'수정할 시트·셀과 유지할 내용을 함께 전달하는 부분 재작성 기능 개발.',
 			],
 			checks: [
 				'선택한 시트·셀을 다시 작성할 때 다른 내용이 유지되고 일부 생성 실패 뒤에도 성공한 문서를 사용할 수 있는지 확인했습니다.',
@@ -335,9 +335,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Android 16/API 36에서 SDK 내부 장비 탐색 호출까지 따라가 취소 흐름과 BLUETOOTH_SCAN, BLUETOOTH_CONNECT 권한을 보완했습니다.',
 			],
 			solution: [
-				'WebView 브리지와 Android 네이티브 모듈의 요청·응답 처리를 구현했습니다.',
-				'출력 데이터 변환, 장비 상태 확인, 실패 안내를 단계별로 나눴습니다.',
-				'모바일 브라우저의 대체 동작과 앱 WebView의 출력 경로를 구분했습니다.',
+				'WebView 브리지와 Android 네이티브 모듈의 요청·응답 처리 구현.',
+				'출력 데이터 변환, 장비 상태 확인과 실패 안내를 단계별로 분리.',
+				'모바일 브라우저의 대체 동작과 앱 WebView의 출력 경로 구분.',
 			],
 			checks: [
 				'Android 16 / API 36 실기기에서 권한 요청, Bluetooth 연결과 실물 라벨 출력을 확인했습니다.',
@@ -382,9 +382,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'브리지의 빈 응답과 오류, 비동기 작업 종료, 로그인·초기 동기화 실패를 나눠 원인을 찾았습니다.',
 			],
 			solution: [
-				'기존 support 라이브러리를 전면 교체하지 않고도 앱을 컴파일할 수 있도록 수정했습니다.',
-				'최신 뒤로가기 API 참조와 OS별 파일·권한 처리를 헬퍼 안으로 옮겼습니다.',
-				'WebView 브리지 응답과 비동기 오류 형식을 통일하고, 장비나 외부 기능이 실패해도 앱 전체가 종료되지 않도록 대체 처리를 마련했습니다.',
+				'기존 support 라이브러리를 유지하면서 앱을 컴파일할 수 있도록 빌드 오류 수정.',
+				'최신 뒤로가기 API 참조와 OS별 파일·권한 처리를 공통 헬퍼로 분리.',
+				'WebView 브리지 응답과 비동기 오류 형식 통일. 장비·외부 기능 실패 시 앱 전체 종료를 막는 대체 처리 구현.',
 			],
 			checks: [
 				'빌드와 권한·파일·브리지 처리를 점검하고, 여러 구형 OS 실기기에서도 동작을 확인했습니다.',
@@ -427,9 +427,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'로그인, 초기 데이터, 스캔 입력 흐름을 별도 단계로 확인했습니다.',
 			],
 			solution: [
-				'운영 서명이 없어도 개발 빌드가 막히지 않도록 조건을 분리했습니다.',
-				'업데이트 파일을 앱 전용 저장소에 두고 버전 확인, 다운로드, 설치 흐름을 정리했습니다.',
-				'입고 화면에 조회 조건과 수량 입력 모달을 추가하고 스캔에 따른 수량 계산을 연결했습니다.',
+				'운영 서명 유무에 따른 빌드 조건 분리. 서명 없이도 개발 빌드가 가능하도록 수정.',
+				'업데이트 파일의 앱 전용 저장소 사용과 버전 확인·다운로드·설치 처리 정비.',
+				'입고 화면의 조회 조건·수량 입력 모달 추가와 스캔 결과에 따른 수량 계산 연동.',
 			],
 			checks: [
 				'개발/운영 빌드 경로와 주요 진입 흐름을 확인했습니다.',
@@ -485,8 +485,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'WebGL/GLSL 프래그먼트 셰이더와 OGL로 편집 화면의 배경 모드를 구현했습니다.',
 			],
 			solution: [
-				'6개 영역의 설정 패널과 Chart.js 미리보기를 연결했습니다.',
-				'혼합 차트의 불필요한 재생성 조건을 줄여 미리보기 깜빡임과 스크롤 흔들림을 완화했습니다.',
+				'6개 영역의 설정 패널과 Chart.js 미리보기 연결.',
+				'혼합 차트의 불필요한 재생성 조건을 줄여 미리보기 깜빡임과 스크롤 흔들림 완화.',
 			],
 			checks: [
 				'차트 종류·옵션 변경, 패널 접기, 필드 드래그와 도움말 표시를 확인했습니다.',
@@ -524,10 +524,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'WebView의 파일 선택은 입력 경로별로 에뮬레이터와 실기기에서 확인했습니다.',
 			],
 			solution: [
-				'딥페이크 검사와 개인정보 유출 검사 API를 연동하고, 입력값을 검사 요청으로 보내 결과를 화면에 표시하도록 구현했습니다.',
-				'외부 API를 서버에서 호출하고 화면에는 필요한 결과와 상태만 반환하도록 했습니다.',
-				'이미지 입력 경로와 네이티브 파일 선택 결과를 WebView에 연결했습니다.',
-				'이미지를 다시 선택하면 이전 파일 읽기 결과를 무시해 새 미리보기를 덮지 않도록 했습니다.',
+				'딥페이크·개인정보 유출 검사 API 연동. 사용자 입력을 검사 요청으로 보내고 결과를 화면에 표시하는 기능 구현.',
+				'외부 API의 서버 호출과 화면에 필요한 결과·상태 반환 처리.',
+				'이미지 입력과 네이티브 파일 선택 결과의 WebView 연동.',
+				'이미지 재선택 시 이전 파일 읽기 결과가 새 미리보기를 덮지 않도록 처리.',
 			],
 			checks: [
 				'문서와 예시 설정에 실제 인증 정보가 포함되지 않았는지 확인했습니다.',
@@ -581,8 +581,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'주문내역에서는 선택 중인 필터와 조회에 적용한 조건을 분리했습니다. 같은 조건으로 다시 조회하면 첫 페이지부터 불러오고, 더보기 요청이 진행 중일 때는 중복 요청을 막았습니다.',
 			],
 			solution: [
-				'React와 TypeScript로 프론트엔드 전체를 구축하고 공통 테이블·필터·모달을 여러 화면에서 사용했습니다.',
-				'MSW로 개발용 응답을 구성해 화면 데이터와 사용자 조작 상태를 다뤘습니다.',
+				'React·TypeScript 프론트엔드 전체 구축과 여러 화면에서 쓰는 공통 테이블·필터·모달 개발.',
+				'MSW 모의 API로 조회·입력 동작 구현. 선택 중인 필터와 실제 조회 조건을 분리하고 조회 버튼을 누를 때 TanStack Query에 조건 적용.',
 			],
 			checks: [
 				'MSW 모의 응답을 사용하는 로컬 환경에서 컬럼 조작, 스크롤, 검색 모달과 화면 상태를 확인했습니다.',
@@ -621,9 +621,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Android 파일 선택의 취소·재선택과 작성 중 뒤로가기 처리를 연결했습니다.',
 			],
 			solution: [
-				'본인 정보의 선택 필드만 변경하고 중복 후보·권한·저장 후 재조회 결과를 검사했습니다.',
-				'회원 문의와 완료 답변의 이미지 미리보기에 기존 첨부 권한을 공유했습니다.',
-				'Android WebView에 파일 선택 결과를 연결하고 플랫폼별 지원 범위를 구분했습니다.',
+				'본인 정보의 선택 필드 수정과 중복 후보·권한·저장 후 재조회 결과 검사.',
+				'회원 문의·완료 답변의 이미지 미리보기에 기존 첨부 권한 적용.',
+				'Android WebView의 파일 선택 결과 연결과 플랫폼별 지원 범위 구분.',
 			],
 			impact: [
 				{
@@ -667,8 +667,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'행마다 반복되는 중복 검사 쿼리와 인덱스 전체 스캔을 확인했습니다. 입력 제한과 일괄 조회를 개선안으로 제안했습니다.',
 			],
 			solution: [
-				'파일 분석과 등록 단계에서 HTTP 오류, 입력 검증 실패, 시간 초과, 취소와 응답 해석 오류를 구분하고 경과 시간을 기록했습니다.',
-				'안전한 서버 메시지만 이스케이프해 표시하고 나머지는 오류 유형별 안내로 바꿨습니다.',
+				'파일 분석·등록 단계의 HTTP 오류, 입력 검증 실패, 시간 초과, 취소와 응답 해석 오류 구분. 경과 시간 기록.',
+				'안전한 서버 메시지의 이스케이프 처리와 오류 유형별 안내 표시.',
 			],
 			impact: [
 				{
@@ -724,13 +724,13 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			process: [
 				'Added server-side checks for menu access and create/update permissions.',
 				'Fetched charges and allocations in batches and preloaded records needed for monthly closing.',
-				'Implemented audit records for business changes and login results, with lookup restricted to authorized administrators.',
 			],
 			solution: [
 				'Built shared tables with inline editing, selection dialogs and keyboard navigation, retaining drafts when a save fails.',
 				'Built Excel preview, editing, revalidation and import screens and APIs, including duplicate and partial-save handling.',
 				'Allocated billed amounts to settlements and retained historical amounts and the specifications originally recorded for insurance and inspections.',
 				'Added vehicle-save feedback for newly created records, operating-status changes and affected insurance or utility records.',
+				'Built authorized administrator lookup for business changes and login results. Reorganized logs around affected records, changes and input-error reasons, removing unnecessary technical fields.',
 			],
 			impact: [
 				{
@@ -840,7 +840,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'Built React and TypeScript screens covering lookup, booking, Excel imports and label printing.',
 			summary:
-				'Created shared tables, forms and modals and connected API responses to screen and print flows. Lazy-loaded pages and Excel code to reduce the initial JavaScript entry by about 74%.',
+				'Created shared tables, forms and modals and connected API responses to screen and print flows. Lazy-loaded pages and Excel code to reduce the initial JavaScript entry file size by about 74% (build output size).',
 			impact: [
 				{
 					presentation: 'measurement',
@@ -865,7 +865,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			process: [
 				'Separated mock data from API integration to implement loading, empty and error states.',
 				'Displayed multiple label numbers in lists and modals and converted API responses into preview and print requests.',
-				'Did not adopt the experiment that also split shared authentication and initialization code: it added initialization and first-interaction loading boundaries. Kept page and Excel-code splitting.',
+				'Also evaluated splitting shared authentication and API initialization code. This reduced the initial file size further, but complicated authentication initialization and loading on the first interaction, so I did not adopt it. Applied lazy loading only to pages and Excel libraries.',
 			],
 			solution: [
 				'Built booking, batch processing, address selection and Excel previews on shared tables, forms and modals.',
@@ -874,7 +874,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Wrapped long PC-label addresses by measured text width and fitted remaining text into the final line rather than cutting it off.',
 			],
 			checks: [
-				'These figures compare the size of the initial JavaScript entry on the same build basis.',
+				'These figures compare initial JavaScript entry-file sizes on the same build basis, not total downloads or runtime speed.',
 				'Checked navigation, fetching, Excel processing and desktop label printing after introducing lazy loading.',
 			],
 		},
@@ -1279,7 +1279,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			solution: [
 				'Built the complete frontend with React and TypeScript, using shared tables, filters and modals across screens.',
-				'Supplied development responses with MSW to implement data display and interaction state.',
+				'Implemented queries and input interactions with MSW mock APIs. Kept draft filters separate from applied query conditions and updated TanStack Query when the user submitted a search.',
 			],
 			checks: [
 				'Checked column controls, scrolling, search modals and UI states locally with MSW mock responses.',

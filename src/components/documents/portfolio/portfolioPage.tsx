@@ -44,7 +44,13 @@ function PageIntroduction({
 	locale: Locale;
 }) {
 	return (
-		<div className="document-page-introduction">
+		<div
+			className={joinClasses(
+				'document-page-introduction',
+				Boolean(page.technologies?.length) &&
+					'document-page-introduction-with-technologies',
+			)}
+		>
 			<p className="document-page-eyebrow">{page.eyebrow}</p>
 			<h2>{page.title}</h2>
 			{page.summary ? (
@@ -141,8 +147,17 @@ function StandardPage({
 
 			<div className="document-page-body">
 				<div className="document-section-grid">
-					{page.sections.map((section) => (
-						<div className="document-section-group" key={section.id}>
+					{page.sections.map((section, index) => (
+						<div
+							className={joinClasses(
+								'document-section-group',
+								index > 0 &&
+									Boolean(section.title) &&
+									section.variant !== 'note' &&
+									'document-section-separated',
+							)}
+							key={section.id}
+						>
 							<PortfolioSectionBlock
 								section={section}
 								locale={locale}

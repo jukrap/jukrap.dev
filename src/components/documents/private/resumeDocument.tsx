@@ -65,7 +65,7 @@ const ResumeProjectItem = ({ project }: { project: ResumeProject }) => (
 			<div className="resume-project-links">
 				{project.links.map((link) => (
 					<a key={link.href} href={link.href}>
-						{link.label}
+						{link.href.replace(/^https?:\/\/(?:www\.)?/, '')}
 					</a>
 				))}
 			</div>
@@ -95,6 +95,10 @@ export const ResumeDocument = ({
 					role={copy.role}
 				/>
 
+				<DocumentSection title={t('기술', 'Skills')} compact>
+					<DocumentSkillGroups groups={copy.skillGroups} compact />
+				</DocumentSection>
+
 				<DocumentSection title={t('경력', 'Experience')}>
 					<div className="resume-career-list">
 						{copy.careers.map((career) => (
@@ -104,10 +108,6 @@ export const ResumeDocument = ({
 							/>
 						))}
 					</div>
-				</DocumentSection>
-
-				<DocumentSection title={t('기술', 'Skills')} compact>
-					<DocumentSkillGroups groups={copy.skillGroups} compact />
 				</DocumentSection>
 			</PrivateDocumentPage>
 

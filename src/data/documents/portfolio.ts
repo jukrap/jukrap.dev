@@ -129,12 +129,18 @@ export function getPortfolioDocument(
 					? [
 							{
 								id: 'contribution',
-								title: t('업무 입력 화면', 'Business data entry'),
+								title: t(
+									'화면 입력부터 일괄 저장까지',
+									'From data entry to batch saves',
+								),
 								items: copy.actions.slice(0, 2),
 							},
 							{
 								id: 'history',
-								title: t('변경 이력과 연결 업무', 'History and related records'),
+								title: t(
+									'기준 정보 변경과 정산 이력',
+									'Record changes and settlement history',
+								),
 								body: [
 									t(
 										'현재 담당 관계와 과거 거래 정보를 구분해 확정된 정산 금액을 유지했습니다. 차량 정보 저장 결과에는 새 정보 생성·운행 상태 변경과 보험·공과금 등 연결 업무에 미치는 영향을 안내했습니다.',
@@ -144,7 +150,10 @@ export function getPortfolioDocument(
 							},
 							{
 								id: 'logs',
-								title: t('관리자가 읽는 작업 로그', 'Work logs for administrators'),
+								title: t(
+									'작업 내용과 오류를 확인하는 로그',
+									'Logs showing actions and errors',
+								),
 								body: [
 									t(
 										'초기 로그는 여러 정보를 남겼지만, 기술 항목이 많아 문제가 생긴 과정을 따라가기 불편했습니다. 작업 대상과 변경 내용, 입력 오류의 원인을 화면에 표시하고 불필요한 기술 항목은 줄였습니다.',
@@ -160,6 +169,16 @@ export function getPortfolioDocument(
 									id: 'contribution',
 									title: t('업무 화면과 출력', 'Business interfaces and printing'),
 									items: [copy.actions[0], copy.actions[2]],
+								},
+								{
+									id: 'android-connection',
+									variant: 'note',
+									body: [
+										t(
+											'같은 프로젝트의 Android 앱에서는 웹의 출력 요청을 Bluetooth 프린터로 전달했습니다. 장비 연결과 권한 처리는 다음 사례에서 설명합니다.',
+											'The Android app for this project sends web print requests to Bluetooth printers. The following case covers device connections and permissions.',
+										),
+									],
 								},
 								{
 									id: 'loading',
@@ -320,14 +339,14 @@ export function getPortfolioDocument(
 					{
 						title: t('조회한 지역의 정보 재사용', 'Reuse data for requested regions'),
 						description: t(
-							'서버에 지역·정보 종류별 응답을 캐시하고, 정보별 갱신 주기에 맞춰 재사용',
+							'서버에 지역·정보 종류별 응답을 캐시하고, 정보별 갱신 주기에 맞춰 재사용.',
 							'Cached responses by region and data type, with expiry periods matched to each type.',
 						),
 					},
 					{
 						title: t('동시에 들어온 요청 묶기', 'Share in-flight requests'),
 						description: t(
-							'같은 캐시 키의 조회가 진행 중이면 해당 결과를 함께 사용해 외부 API 중복 호출 방지',
+							'같은 캐시 키의 조회가 진행 중이면 해당 결과를 함께 사용해 외부 API 중복 호출 방지.',
 							'Reused an in-flight result for the same cache key rather than issuing another external API call.',
 						),
 					},
@@ -517,8 +536,10 @@ export function getPortfolioDocument(
 			id: 'table',
 			title: t('함께 쓰는 테이블·필터·모달', 'Shared tables, filters, and modals'),
 			body: [
-				workDocumentCopy[locale]['react-admin-state-migration'].actions[0]
-					.description,
+				t(
+					'계좌·종목·주문 화면에 반복되는 목록·검색·상세·등록·수정 UI를 공통 컴포넌트로 구성했습니다. 테이블에는 열 고정·너비 조절·재정렬을 넣고, MSW 모의 API로 조회와 입력 동작을 구현했습니다.',
+					'Built shared list, search, detail and editing components for account, stock and order screens. Added column pinning, resizing and reordering to tables, and implemented queries and input interactions with MSW mock APIs.',
+				),
 			],
 		},
 		{
@@ -538,14 +559,14 @@ export function getPortfolioDocument(
 				{
 					title: t('같은 조건으로 다시 조회', 'Search again with the same filters'),
 					description: t(
-						'기존 조회를 초기화해 첫 페이지부터 다시 불러오도록 처리',
+						'기존 조회를 초기화해 첫 페이지부터 다시 불러오도록 처리.',
 						'Reset the existing query to reload from the first page.',
 					),
 				},
 				{
 					title: t('더보기 요청 중복 방지', 'Guard load-more requests'),
 					description: t(
-						'다음 페이지가 없거나 이미 요청 중일 때 추가 요청을 보내지 않도록 처리',
+						'다음 페이지가 없거나 이미 요청 중일 때 추가 요청을 보내지 않도록 처리.',
 						'Skipped additional requests when no next page remained or a request was already in progress.',
 					),
 				},

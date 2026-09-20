@@ -9,10 +9,10 @@ export const projectsData: SimpleProject[] = [
 		introduction: 'AI 코딩 도구의 프로젝트 기록과 스킬을 관리하는 하네스.',
 		description: [
 			'1인 개발',
-			'단일 프로젝트와 여러 저장소의 기록을 관리하는 CLI',
-			'읽기 전용 MCP와 긴 기록의 나누어 읽기',
-			'사용자 수정본 보존, 스킬 전환과 복구',
-			'npm 배포와 한영 사용 문서',
+			'단일 프로젝트와 여러 저장소의 기록을 관리하는 CLI.',
+			'읽기 전용 MCP와 긴 기록의 나누어 읽기.',
+			'사용자 수정본 보존, 스킬 전환과 복구.',
+			'npm 배포와 한영 사용 문서.',
 		],
 		techStack: 'JavaScript, Node.js, MCP SDK, Zod, GitHub Actions',
 		links: [
@@ -39,10 +39,10 @@ export const projectsData: SimpleProject[] = [
 		introduction: '동해선 이용객을 위한 실시간 종합 가이드 서비스.',
 		description: [
 			'프론트엔드 개발',
-			'구글 맵스 기반 지도 서비스 개발',
-			'실시간 역 혼잡도, 날씨, 맛집 정보, 추천 코스 등 제공',
-			'드래그 가능한 모달 UI/UX 구현',
-			'DIVE 2024 부산테크노파크원장상(발제사 3등) 수상',
+			'구글 맵스 기반 지도 서비스 개발.',
+			'실시간 역 혼잡도, 날씨, 맛집 정보, 추천 코스 등 제공.',
+			'드래그 가능한 모달 UI/UX 구현.',
+			'DIVE 2024 부산테크노파크원장상(발제사 3등) 수상.',
 		],
 		techStack:
 			'TypeScript, React, Next.js, Tailwind CSS, Google Maps Platform, Storybook',
@@ -66,8 +66,8 @@ export const projectsData: SimpleProject[] = [
 		introduction: '개발자 취업 준비생을 위한 취업 준비 웹서비스.',
 		description: [
 			'프론트엔드 개발 & DevOps',
-			'블로그 기능 개발',
-			'단위 테스트 작성과 실행 중 오류 모니터링',
+			'블로그 기능 개발.',
+			'단위 테스트 작성과 실행 중 오류 모니터링.',
 		],
 		techStack:
 			'TypeScript, React, Next.js, Tailwind CSS, Jotai, Jest, Storybook, Sentry, AWS, Jenkins, Docker',
@@ -91,10 +91,10 @@ export const projectsData: SimpleProject[] = [
 		introduction: '업무 경험과 개인 프로젝트, 지원 문서를 정리한 개인 웹사이트.',
 		description: [
 			'1인 개발',
-			'React 19와 Next.js 16 App Router 기반으로 개발',
-			'한국어·영어 콘텐츠와 경력 문서의 웹·인쇄 화면 구성',
-			'테마 전환, 프로젝트 상세와 이미지 확대 보기 구현',
-			'홈 영상의 재생 제어와 정적 이미지 대체 처리',
+			'React 19와 Next.js 16 App Router 기반으로 개발.',
+			'한국어·영어 콘텐츠와 경력 문서의 웹·PDF 제공.',
+			'테마 전환, 프로젝트 상세와 이미지 확대 보기 구현.',
+			'홈 영상의 재생 제어와 정적 이미지 대체 처리.',
 		],
 		techStack:
 			'TypeScript, React, Next.js, Tailwind CSS, Framer Motion, Zustand, Sharp',
@@ -118,11 +118,11 @@ export const projectsData: SimpleProject[] = [
 		introduction: '취미 활동을 공유하고 모임에 참여할 수 있는 크로스 플랫폼 앱.',
 		description: [
 			'프론트엔드 & 백엔드 개발',
-			'커뮤니티 기능 전체 개발 담당',
-			'재사용 가능한 토스트 및 모달 컴포넌트 제작',
-			'이미지 크기 조정과 캐싱 적용',
-			'Pull to Refresh와 Infinite Scroll 적용',
-			'데이터베이스 설계',
+			'커뮤니티 기능 전체 개발 담당.',
+			'재사용 가능한 토스트 및 모달 컴포넌트 제작.',
+			'이미지 크기 조정과 캐싱 적용.',
+			'Pull to Refresh와 Infinite Scroll 적용.',
+			'데이터베이스 설계.',
 		],
 		techStack: 'JavaScript, React Native, Firebase, Realtime Database',
 		links: [
@@ -149,9 +149,9 @@ export const projectsData: SimpleProject[] = [
 		introduction: '앉은 자세와 운동 자세를 감지하고 측정 결과를 보여주는 앱.',
 		description: [
 			'팀장, 안드로이드 개발',
-			'자세 감지 기반의 착석 및 운동 자세 판별 페이지 담당',
-			'MediaPipe 빌드와 자세 감지 기능 구현',
-			'멀티 스레드로 자세 감지 처리 분리',
+			'자세 감지 기반의 착석 및 운동 자세 판별 페이지 담당.',
+			'MediaPipe 빌드와 자세 감지 기능 구현.',
+			'멀티 스레드로 자세 감지 처리 분리.',
 		],
 		techStack: 'Java, Android Jetpack, MediaPipe, SQLite',
 		links: [
@@ -178,8 +178,8 @@ export const projectsData: SimpleProject[] = [
 		introduction: '목소리로 독서 여부를 감지하는 앱.',
 		description: [
 			'1인 개발',
-			'오프라인 시 Android의 내장 Speech-to-Text 사용',
-			'온라인 시 Google Cloud Platform의 Speech-to-Text 사용',
+			'오프라인 시 Android의 내장 Speech-to-Text 사용.',
+			'온라인 시 Google Cloud Platform의 Speech-to-Text 사용.',
 		],
 		techStack: 'Java, Jetpack, Material, SQLite, Google Cloud Platform',
 		links: [
@@ -202,8 +202,8 @@ export const projectsData: SimpleProject[] = [
 		introduction: '미궁을 탈출하는 1인칭 슈팅 게임.',
 		description: [
 			'1인 개발',
-			'유니티 엔진의 에셋 스토어 활용',
-			'싱글톤 패턴을 기반으로 개발',
+			'유니티 엔진의 에셋 스토어 활용.',
+			'싱글톤 패턴을 기반으로 개발.',
 		],
 		techStack: 'C#, Unity',
 		links: [
@@ -226,8 +226,8 @@ export const projectsData: SimpleProject[] = [
 		introduction: '얼굴 움직임으로 집중 여부를 감지하고 기록하는 타이머 앱.',
 		description: [
 			'팀장, 안드로이드 개발',
-			'안면 감지 기반의 집중력 판별 페이지 담당',
-			'MediaPipe 빌드와 안면 감지 기능 구현',
+			'안면 감지 기반의 집중력 판별 페이지 담당.',
+			'MediaPipe 빌드와 안면 감지 기능 구현.',
 		],
 		techStack: 'Java, Jetpack, MediaPipe, SQLite',
 		links: [
@@ -250,10 +250,10 @@ export const projectsData: SimpleProject[] = [
 		introduction: '다양한 ESD의 핫딜 데이터를 모아서 제공하는 웹서비스.',
 		description: [
 			'팀장, 프론트엔드 및 백엔드 개발',
-			'메인 페이지와 상세 페이지 전체 개발',
-			'재사용 가능한 상품 정보 컴포넌트 제작',
-			'Express와 Firebase 기반의 백엔드 작업',
-			'경남소프트웨어경진대회 최우수상 수상',
+			'메인 페이지와 상세 페이지 전체 개발.',
+			'재사용 가능한 상품 정보 컴포넌트 제작.',
+			'Express와 Firebase 기반의 백엔드 작업.',
+			'경남소프트웨어경진대회 최우수상 수상.',
 		],
 		techStack: 'JavaScript, React, Node.js, Express, Firebase, Puppeteer',
 		links: [

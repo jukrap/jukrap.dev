@@ -24,11 +24,11 @@ export const projectDocumentCopy: Record<
 				{
 					title: '지도와 데이터 연결',
 					description:
-						'백엔드 Swagger 문서를 기준으로 API 연동, Google Maps 기반 교통·주변 정보 화면 구현',
+						'백엔드 Swagger 문서를 기준으로 API 연동, Google Maps 기반 교통·주변 정보 화면 구현.',
 				},
 				{
 					title: '모바일 지도 조작',
-					description: '드래그 거리·속도에 따라 펼치고 접는 모바일 바텀 시트 구현',
+					description: '드래그 거리·속도에 따라 펼치고 접는 모바일 바텀 시트 구현.',
 				},
 			],
 			result: 'DIVE 2024 부산테크노파크원장상 수상(발제사 3등).',
@@ -47,7 +47,7 @@ export const projectDocumentCopy: Record<
 		},
 		sharebby: {
 			title: 'ShareBBy',
-			role: 'React Native와 Firebase 개발',
+			role: 'React Native 앱 개발·Firebase 연동',
 			summary:
 				'취미 활동을 공유하고 함께할 사람을 찾는 앱. Android 지원과 커뮤니티 기능 담당.',
 			problem:
@@ -56,12 +56,12 @@ export const projectDocumentCopy: Record<
 				{
 					title: '커뮤니티 기능',
 					description:
-						'게시글·댓글 작성과 수정, 위치 필터·정렬, 당겨서 새로고침·무한 스크롤 구현',
+						'게시글·댓글 작성과 수정, 위치 필터·정렬, 당겨서 새로고침·무한 스크롤 구현.',
 				},
 				{
 					title: '데이터와 이미지 처리',
 					description:
-						'Firebase 데이터 관계를 ERD로 정리. 게시글 이미지 변경 후 이전 이미지가 남는 문제를 재현하고 이미지 라이브러리 교체',
+						'Firebase 데이터 관계를 ERD로 정리. 게시글 이미지 변경 후 이전 이미지가 남는 문제를 재현하고 이미지 라이브러리 교체.',
 				},
 			],
 			result:
@@ -90,12 +90,12 @@ export const projectDocumentCopy: Record<
 				{
 					title: '공유 기록과 읽기 전용 MCP',
 					description:
-						'등록한 저장소의 기록을 CLI·읽기 전용 MCP로 조회. 긴 결과를 나눠 읽고, 원문 변경 시 이전 조회의 이어 읽기 중단',
+						'등록한 저장소의 기록을 CLI·읽기 전용 MCP로 조회. 긴 결과를 나눠 읽고, 원문 변경 시 이전 조회의 이어 읽기 중단.',
 				},
 				{
 					title: '사용자 수정본 보존과 설치 복구',
 					description:
-						'소유권·해시 기반 파일 변경 확인과 백업·복구 기록. 새 스킬 검증 후 기존 항목 정리, 삭제 직전 수정 여부 재검사',
+						'소유권·해시 기반 파일 변경 확인과 백업·복구 기록. 새 스킬 검증 후 기존 항목 정리, 삭제 직전 수정 여부 재검사.',
 				},
 			],
 			result:
@@ -113,12 +113,12 @@ export const projectDocumentCopy: Record<
 				{
 					title: 'Markdown 편집과 미리보기',
 					description:
-						'실시간 미리보기·프로젝트 전용 Markdown 문법 구현, 무거운 컴포넌트의 dynamic import 적용',
+						'실시간 미리보기·프로젝트 전용 Markdown 문법 구현, 무거운 컴포넌트의 dynamic import 적용.',
 				},
 				{
 					title: '테스트와 오류 관측',
 					description:
-						'Jest 단위 테스트, Storybook 컴포넌트 문서와 Sentry 배포 후 오류 모니터링 도입',
+						'Jest 단위 테스트, Storybook 컴포넌트 문서와 Sentry 배포 후 오류 모니터링 도입.',
 				},
 			],
 			result:
@@ -143,12 +143,12 @@ export const projectDocumentCopy: Record<
 				{
 					title: 'MediaPipe 통합과 자세 판별',
 					description:
-						'Ubuntu에서 MediaPipe AAR를 빌드해 Android 앱에 통합. 신체 지점의 각도·길이로 자세와 유지 시간 계산',
+						'Ubuntu에서 MediaPipe AAR를 빌드해 Android 앱에 통합. 신체 지점의 각도·길이로 자세와 유지 시간 계산.',
 				},
 				{
 					title: '프레임 분석 분리',
 					description:
-						'별도 스레드에서 프레임 분석을 실행해 분석 중에도 화면 조작 유지',
+						'별도 스레드에서 프레임 분석을 실행해 분석 중에도 화면 조작 유지.',
 				},
 			],
 			result:
@@ -200,7 +200,7 @@ export const projectDocumentCopy: Record<
 		},
 		sharebby: {
 			title: 'ShareBBy',
-			role: 'React Native and Firebase development',
+			role: 'React Native app development and Firebase integration',
 			summary:
 				'Developed Android support and community features for an app that helps people share hobbies and find companions.',
 			problem:

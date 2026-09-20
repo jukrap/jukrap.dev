@@ -63,8 +63,12 @@ const TechnologyEnvironment = ({ story }: { story: ProfessionalStory }) => {
 	);
 };
 
-const ChapterBoundaries = ({ chapters }: { chapters: WorkStoryChapter[] }) => (
-	<div className="mt-6 space-y-5">
+const ChapterImplementations = ({
+	chapters,
+}: {
+	chapters: WorkStoryChapter[];
+}) => (
+	<div className="space-y-5">
 		{chapters.map((chapter) => (
 			<section
 				key={chapter.id}
@@ -80,9 +84,9 @@ const ChapterBoundaries = ({ chapters }: { chapters: WorkStoryChapter[] }) => (
 					<h5 className="text-base font-bold text-foreground break-keep">
 						{chapter.title}
 					</h5>
-					<p className="mt-1 text-[0.9375rem] leading-7 text-foreground/75 break-keep">
-						{chapter.execution[0]}
-					</p>
+					<div className="mt-3">
+						<EvidenceList items={chapter.execution} />
+					</div>
 				</div>
 			</section>
 		))}
@@ -139,10 +143,16 @@ export const ChapterEvidence = ({
 	chapter,
 	labels,
 	showTitle,
+	showContext = true,
+	showImplementation = true,
+	showMeasurements = true,
 }: {
 	chapter: WorkStoryChapter;
 	labels: WorkLabels;
 	showTitle: boolean;
+	showContext?: boolean;
+	showImplementation?: boolean;
+	showMeasurements?: boolean;
 }) => (
 	<section className="border-t-2 border-foreground/20 pt-10 first:border-t-0 first:pt-0">
 		{showTitle && (
@@ -163,28 +173,40 @@ export const ChapterEvidence = ({
 		)}
 
 		<div>
-			<DetailRow title={labels.problem}>
-				<p className="text-[0.9375rem] leading-7 text-foreground/80 break-keep">
-					{chapter.context}
-				</p>
-			</DetailRow>
+			{showContext && chapter.context && (
+				<DetailRow title={labels.problem}>
+					<p className="text-[0.9375rem] leading-7 text-foreground/80 break-keep">
+						{chapter.context}
+					</p>
+				</DetailRow>
+			)}
 
 			<DetailRow title={labels.thinking}>
 				<EvidenceList items={chapter.decisions} />
 			</DetailRow>
 
-			<div className="grid gap-8 border-t border-border/45 py-6 lg:grid-cols-2 lg:gap-10">
-				<section className="space-y-3">
-					<h6 className="work-section-label text-foreground">{labels.solution}</h6>
-					<EvidenceList items={chapter.execution} />
-				</section>
-				<section className="space-y-3">
-					<h6 className="work-section-label text-foreground">{labels.process}</h6>
+			{showImplementation ? (
+				<div className="grid gap-8 border-t border-border/45 py-6 lg:grid-cols-2 lg:gap-10">
+					{chapter.execution.length > 0 && (
+						<section className="space-y-3">
+							<h6 className="work-section-label text-foreground">{labels.solution}</h6>
+							<EvidenceList items={chapter.execution} />
+						</section>
+					)}
+					{chapter.additionalEvidence.length > 0 && (
+						<section className="space-y-3">
+							<h6 className="work-section-label text-foreground">{labels.process}</h6>
+							<EvidenceList items={chapter.additionalEvidence} />
+						</section>
+					)}
+				</div>
+			) : chapter.additionalEvidence.length > 0 ? (
+				<DetailRow title={labels.process}>
 					<EvidenceList items={chapter.additionalEvidence} />
-				</section>
-			</div>
+				</DetailRow>
+			) : null}
 
-			{getWorkMeasurements(chapter.impact).length > 0 && (
+			{showMeasurements && getWorkMeasurements(chapter.impact).length > 0 && (
 				<DetailRow title={labels.impact}>
 					<WorkEvidenceList items={getWorkMeasurements(chapter.impact)} />
 				</DetailRow>
@@ -214,16 +236,16 @@ const AdditionalEvidence = ({
 			/>
 		</summary>
 		<div className="border-t border-border/45 bg-secondary/20 px-4 py-8 sm:px-6">
-			<p className="text-base leading-7 text-foreground/80 break-keep">
-				{story.summary}
-			</p>
-			<div className="mt-8 space-y-12">
+			<div className="space-y-12">
 				{story.chapters.map((chapter) => (
 					<ChapterEvidence
 						key={chapter.id}
 						chapter={chapter}
 						labels={labels}
 						showTitle={story.chapters.length > 1}
+						showContext={story.chapters.length > 1}
+						showImplementation={false}
+						showMeasurements={false}
 					/>
 				))}
 			</div>
@@ -291,11 +313,10 @@ export const WorkCaseDetail = ({
 				</EditorialSection>
 
 				<EditorialSection title={labels.decisions}>
-					<p className="max-w-[42rem] text-base leading-8 text-foreground/85 break-keep">
-						{editorial.decision}
-					</p>
-					{story.chapters.length > 1 && (
-						<ChapterBoundaries chapters={story.chapters} />
+					{story.chapters.length > 1 ? (
+						<ChapterImplementations chapters={story.chapters} />
+					) : (
+						<EvidenceList items={story.chapters[0].execution} />
 					)}
 				</EditorialSection>
 

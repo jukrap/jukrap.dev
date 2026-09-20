@@ -39,10 +39,10 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 		introduction: 'A real-time guide service for Donghae Line passengers.',
 		description: [
 			'Frontend development',
-			'Google Maps-based map service development',
-			'Real-time station congestion, weather, restaurants, and route recommendations',
-			'Draggable modal UI/UX implementation',
-			'Won the Busan Technopark President Award (3rd place in the challenge track) at DIVE 2024',
+			'Google Maps-based map service development.',
+			'Real-time station congestion, weather, restaurants, and route recommendations.',
+			'Draggable modal UI/UX implementation.',
+			'Won the Busan Technopark President Award (3rd place in the challenge track) at DIVE 2024.',
 		],
 	},
 	itzip: {
@@ -51,8 +51,8 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A comprehensive job-preparation web service for aspiring developers.',
 		description: [
 			'Frontend development and DevOps',
-			'Blog feature development',
-			'Test-based development and error monitoring',
+			'Blog feature development.',
+			'Test-based development and error monitoring.',
 		],
 	},
 	'jukrap-website': {
@@ -61,10 +61,10 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A personal website for work experience, projects, and career documents.',
 		description: [
 			'Solo development',
-			'Built with React 19 and the Next.js 16 App Router',
-			'Korean and English content with web and print layouts for career documents',
-			'Theme switching, project details, and an image viewer',
-			'Home video playback controls with a still-image fallback',
+			'Built with React 19 and the Next.js 16 App Router.',
+			'Korean and English content with web documents and downloadable PDFs.',
+			'Theme switching, project details, and an image viewer.',
+			'Home video playback controls with a still-image fallback.',
 		],
 	},
 	'ai-agent-playbook': {
@@ -73,10 +73,10 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A harness for managing project records and skills across AI coding tools.',
 		description: [
 			'Solo development',
-			'CLI for records in single projects and multi-repository workspaces',
-			'Read-only MCP with paginated record access',
-			'User-edit preservation, skill migration and recovery',
-			'npm distribution and English/Korean guides',
+			'CLI for records in single projects and multi-repository workspaces.',
+			'Read-only MCP with paginated record access.',
+			'User-edit preservation, skill migration and recovery.',
+			'npm distribution and English/Korean guides.',
 		],
 	},
 	sharebby: {
@@ -85,11 +85,11 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A cross-platform app for sharing and joining hobby activities.',
 		description: [
 			'Frontend and backend development',
-			'Owned the full community feature area',
-			'Built reusable toast and modal components',
-			'Improved image resizing and caching',
-			'Applied pull-to-refresh and infinite scroll',
-			'Designed the database structure',
+			'Owned the full community feature area.',
+			'Built reusable toast and modal components.',
+			'Improved image resizing and caching.',
+			'Applied pull-to-refresh and infinite scroll.',
+			'Designed the database structure.',
 		],
 	},
 	'posture-teacher': {
@@ -98,9 +98,9 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'An app that detects sitting and exercise posture and displays the results.',
 		description: [
 			'Team lead and Android developer',
-			'Owned sitting and exercise posture detection pages',
-			'Built posture detection and MediaPipe extraction features',
-			'Multi-threading and optimization',
+			'Owned sitting and exercise posture detection pages.',
+			'Built posture detection and MediaPipe extraction features.',
+			'Multi-threading and optimization.',
 		],
 	},
 	chatterbox: {
@@ -108,8 +108,8 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 		introduction: 'A voice-based app that recognizes reading aloud.',
 		description: [
 			'Solo development',
-			'Used Android built-in Speech-to-Text while offline',
-			'Used Google Cloud Platform Speech-to-Text while online',
+			'Used Android built-in Speech-to-Text while offline.',
+			'Used Google Cloud Platform Speech-to-Text while online.',
 		],
 	},
 	'labyrinth-escape-game': {
@@ -118,8 +118,8 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A first-person shooter game where the player escapes a labyrinth.',
 		description: [
 			'Solo development',
-			'Used Unity Asset Store resources',
-			'Developed around a singleton pattern',
+			'Used Unity Asset Store resources.',
+			'Developed around a singleton pattern.',
 		],
 	},
 	mytime: {
@@ -128,8 +128,8 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A timer app that detects and records focus using facial movement.',
 		description: [
 			'Team lead and Android developer',
-			'Owned face-detection-based focus determination pages',
-			'Built face detection and MediaPipe extraction features',
+			'Owned face-detection-based focus determination pages.',
+			'Built face detection and MediaPipe extraction features.',
 		],
 	},
 	'esd-hotdeal': {
@@ -137,10 +137,10 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 		introduction: 'A web service that aggregates hot-deal data from many ESDs.',
 		description: [
 			'Team lead, frontend, and backend development',
-			'Owned the main page and detail page work',
-			'Built reusable product information components',
-			'Backend work with Express and Firebase',
-			'Won the top prize at the Gyeongnam Software Competition',
+			'Owned the main page and detail page work.',
+			'Built reusable product information components.',
+			'Backend work with Express and Firebase.',
+			'Won the top prize at the Gyeongnam Software Competition.',
 		],
 	},
 };
@@ -330,7 +330,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Built Home, About, Work, and Projects pages with React 19 and the Next.js 16 App Router.',
 					'Kept Korean and English content separate and connected both to shared components and localized routes.',
-					'Managed work cases and career documents as data, with layouts for reading on the web and printing.',
+					'Managed work cases and career documents as shared data, generating PDFs that match the web layout and offering direct downloads.',
 				],
 			},
 			{

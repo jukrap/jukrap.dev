@@ -8,17 +8,17 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			about: {
 				title: 'About | Ju-cheol Park',
 				description:
-					'About Ju-cheol Park, a frontend developer working with React and TypeScript',
+					'웹·모바일 개발자 박주철의 경력, 개발 경험과 기술을 소개합니다.',
 			},
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'React·TypeScript 업무 화면, 차트 편집, 성능 개선과 API 연동 경험을 정리한 프론트엔드 개발자 박주철의 Work 페이지',
+					'박주철이 개발한 업무용 웹·모바일 기능의 구현 과정과 기술적 판단, 확인한 결과를 정리했습니다.',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
 				description:
-					'Web, mobile and developer-tool projects by frontend developer Ju-cheol Park',
+					'박주철의 웹·모바일·개발 도구 프로젝트와 구현 내용을 소개합니다.',
 			},
 		},
 		navigation: {
@@ -38,7 +38,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		alerts: {
 			aiAgentPlaybook:
-				'🤖 잠깐! 제가 만든 *[ai-agent-playbook]*:__https://github.com/jukrap/ai-agent-playbook__을 한 번 보고 가실 수 있을까요? 개인적으로 쓰는 AI 에이전트 스킬과 AGENTS.md 템플릿을 모아둔 저장소예요.',
+				'🤖 제가 만든 *[AI Agent Playbook]*:__https://github.com/jukrap/ai-agent-playbook__도 둘러보세요. AI 코딩 도구에서 프로젝트 기록과 스킬을 관리하는 도구예요.',
 			close: '알림 닫기',
 		},
 		home: {
@@ -119,7 +119,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		projects: {
 			title: 'Projects',
 			description:
-				'웹, 모바일, 개발 도구 중심의 개인 프로젝트를 정리했습니다. 각 프로젝트를 클릭하면 상세 내용을 확인하실 수 있습니다.',
+				'직접 만들거나 팀으로 참여한 웹·모바일·개발 도구 프로젝트입니다. 프로젝트를 선택하면 맡은 일과 구현 내용을 볼 수 있습니다.',
 			platforms: {
 				All: 'All',
 				Web: 'Web',
@@ -152,25 +152,26 @@ export const dictionaries: Localized<LocaleDictionary> = {
 	en: {
 		metadata: {
 			home: {
-				title: 'Ju-cheol Park | Frontend Developer',
+				title: 'Ju-cheol Park | Web & Mobile Developer',
 				description:
-					'Frontend developer building React and TypeScript interfaces, with API and mobile integrations.',
+					'Web and mobile developer building React and TypeScript interfaces, server APIs and mobile integrations.',
 				icons: {
 					icon: '/favicon.ico',
 				},
 			},
 			about: {
 				title: 'About | Ju-cheol Park',
-				description: 'About Ju-cheol Park, Frontend Developer',
+				description:
+					'Experience and skills of Ju-cheol Park, a web and mobile developer.',
 			},
 			work: {
 				title: 'Work | Ju-cheol Park',
 				description:
-					'React and TypeScript interfaces, chart editing, performance improvements and API integrations by frontend developer Ju-cheol Park.',
+					'Web and mobile work by Ju-cheol Park, with implementation details, technical decisions and verified results.',
 			},
 			projects: {
 				title: 'Projects | Ju-cheol Park',
-				description: 'Projects by Ju-cheol Park, Frontend Developer',
+				description: 'Web, mobile and developer-tool projects by Ju-cheol Park.',
 			},
 		},
 		navigation: {
@@ -190,7 +191,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		},
 		alerts: {
 			aiAgentPlaybook:
-				'🤖 One quick ask: could you take a look at my *[ai-agent-playbook]*:__https://github.com/jukrap/ai-agent-playbook__? It collects my personal AI agent skills and AGENTS.md templates.',
+				'🤖 Explore *[AI Agent Playbook]*:__https://github.com/jukrap/ai-agent-playbook__, a tool I built to manage project records and skills across AI coding tools.',
 			close: 'Close alert',
 		},
 		home: {
@@ -230,8 +231,8 @@ export const dictionaries: Localized<LocaleDictionary> = {
 				period: '2026.02 ~ Present',
 				role: 'Web & Mobile Developer',
 				details: [
-					'Developing React and TypeScript business interfaces, shared components and UI state flows.',
-					'Built logistics, chart editing, settlement and administration interfaces, with Spring Boot APIs and Android integrations where needed. Also improving existing web and mobile apps.',
+					'Built React and TypeScript business interfaces, shared components and UI state handling.',
+					'Developed logistics, chart editing, settlement and administration screens, along with Spring Boot APIs and Android integrations. Extended and maintained existing web and mobile apps.',
 				],
 			},
 			workSummary: {
@@ -272,7 +273,7 @@ export const dictionaries: Localized<LocaleDictionary> = {
 		projects: {
 			title: 'Projects',
 			description:
-				'I have organized personal projects across web, mobile, and developer tooling. Select a project to view its details.',
+				'Web, mobile and developer-tool projects I built independently or with a team. Select a project to see my role and implementation details.',
 			platforms: {
 				All: 'All',
 				Web: 'Web',

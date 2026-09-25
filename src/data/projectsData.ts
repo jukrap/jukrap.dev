@@ -63,7 +63,8 @@ export const projectsData: SimpleProject[] = [
 		title: 'Itzip',
 		duration: '2024.07 ~ 2025.06',
 		major: true,
-		introduction: '개발자 취업 준비생을 위한 취업 준비 웹서비스.',
+		introduction:
+			'개발자 취업 준비생에게 블로그·테스트·구인 정보를 제공하는 웹서비스.',
 		description: [
 			'프론트엔드 개발 & DevOps',
 			'블로그 기능 개발.',
@@ -117,7 +118,7 @@ export const projectsData: SimpleProject[] = [
 		duration: '2024.04 ~ 2024.06',
 		introduction: '취미 활동을 공유하고 모임에 참여할 수 있는 크로스 플랫폼 앱.',
 		description: [
-			'프론트엔드 & 백엔드 개발',
+			'React Native 앱 개발·Firebase 연동',
 			'커뮤니티 기능 전체 개발 담당.',
 			'재사용 가능한 토스트 및 모달 컴포넌트 제작.',
 			'이미지 크기 조정과 캐싱 적용.',

@@ -48,7 +48,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 	itzip: {
 		title: 'Itzip',
 		introduction:
-			'A comprehensive job-preparation web service for aspiring developers.',
+			'A web service with blogs, tests and job listings for aspiring developers.',
 		description: [
 			'Frontend development and DevOps',
 			'Blog feature development.',
@@ -84,7 +84,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 		introduction:
 			'A cross-platform app for sharing and joining hobby activities.',
 		description: [
-			'Frontend and backend development',
+			'React Native app development and Firebase integration',
 			'Owned the full community feature area.',
 			'Built reusable toast and modal components.',
 			'Improved image resizing and caching.',
@@ -190,15 +190,15 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Resolved Next.js API routing path errors',
 				details: [
 					'A 404 error occurred when integrating an external Weather API because API route paths did not match in the Next.js App Router.',
-					'Adjusted the route.ts location, naming, and folder structure to match Next.js 13 App Router conventions and improved request parameter handling.',
-					'Strengthened error handling and logging so similar issues could be debugged faster later.',
+					'Corrected the route.ts location, name and folder structure for the Next.js 13 App Router, and updated request parameter handling.',
+					'Added error handling and logs to help identify the cause of failures.',
 				],
 			},
 			{
-				title: 'Selected and implemented map service APIs',
+				title: 'Compared and selected map APIs',
 				details: [
 					'Compared web capabilities across domestic and global map APIs, including Kakao Maps, Naver Maps, T Map, and Google Maps.',
-					'Evaluated support for transit APIs, directions APIs, and custom styling, then selected Google Maps Platform as the best fit.',
+					'Selected Google Maps Platform based on support for transit directions, routing and custom map styling.',
 					'Connected Maps JavaScript API, Directions API, Places API, and Static Maps API to map display, directions, and place search.',
 				],
 			},
@@ -214,10 +214,10 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				],
 			},
 			{
-				title: 'Built an efficient team collaboration system',
+				title: 'Team collaboration and deployment',
 				details: [
-					'Set up communication practices for a team with one frontend developer and two backend developers.',
-					'Used Discord for three weekly meetings and Notion for planning documentation to manage the project systematically.',
+					'Worked in a team of one frontend developer and two backend developers.',
+					'Met three times a week on Discord and documented plans in Notion.',
 					'Configured an automated deployment environment with GitHub Actions, AWS, and Docker.',
 				],
 			},
@@ -247,10 +247,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			},
 			{
 				title: 'Developed the site information footer',
-				details: [
-					'Designed and implemented the website footer component.',
-					'Included additional site-related information in the footer.',
-				],
+				details: ['Designed and implemented the website footer component.'],
 			},
 			{
 				title: 'Improved code quality',
@@ -287,8 +284,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Code splitting with dynamic imports',
 				details: [
-					'Loaded components inside posts dynamically with Next.js dynamic imports.',
-					'Separated components inside posts from the initial code and loaded them when needed.',
+					'Used Next.js dynamic imports to separate post components from the initial code and load them when needed.',
 				],
 			},
 		],
@@ -296,7 +292,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Scalable typography system',
 				details: [
-					'Extended Tailwind CSS to build a consistent typography system across the project.',
+					'Defined shared typography styles in Tailwind CSS and applied them across screens.',
 					'Developed responsive font scaling logic so font sizes could adjust by screen size.',
 				],
 			},
@@ -308,11 +304,11 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				],
 			},
 			{
-				title: 'Efficient team collaboration system',
+				title: 'Frontend team coordination',
 				details: [
 					'Served as frontend team lead in a 15-person team with five frontend developers, five backend developers, and five designers.',
 					'Documented tasks in Notion and shared progress and decisions through Discord and Slack.',
-					'Shared project status through weekly meetings and continuously improved code quality.',
+					'Reviewed progress in weekly meetings.',
 					'Worked with designers and backend developers using Figma designs and Swagger API specifications.',
 				],
 			},
@@ -772,11 +768,11 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: ['Won the top prize at the Gyeongnam Software Competition.'],
 			},
 			{
-				title: 'Efficient collaboration system',
+				title: 'Scheduling and task allocation',
 				details: [
 					'Set weekly sprints to define short-term goals and respond quickly through fast feedback cycles.',
 					'Used stand-up meetings to share progress and identify blockers early.',
-					'Completed the project successfully through structured schedule management and efficient task distribution, even after the team was reduced to two people.',
+					'Adjusted the schedule and task allocation to finish the project after the team was reduced to two people.',
 				],
 			},
 		],
@@ -792,17 +788,17 @@ const coreValuesEn = [
 	{
 		title: 'I build interfaces around the way people work.',
 		content:
-			'I have built business web applications with React and TypeScript, covering search, reservations, Excel imports and label printing. I made shared components for recurring tables and forms and connected API data to screens and printing. I handle failed saves and retries so users do not lose their input.',
+			'I built search, reservation, Excel import and label-printing features with React and TypeScript. I created shared tables and forms and connected API responses to screen displays and printing.',
 	},
 	{
 		title: 'I separate server data from editing state in the UI.',
 		content:
-			'I used TanStack Query to manage data fetching and list refreshes after saves, keeping selected items and modal visibility separate. In the settlement ERP, I also separated saved values from editing drafts so users retained their input after a failed save.',
+			'In the logistics and stock administration apps, I used TanStack Query for data fetching and list refreshes after saves, keeping selected items and modal visibility separate. In the settlement ERP, I separated saved values from editing drafts so users retained their input after failed saves and retries.',
 	},
 	{
 		title: 'I look beyond the interface to the systems it connects to.',
 		content:
-			'I have also developed Spring Boot APIs and integrated Android printing. For Bluetooth printing, I checked WebView requests, Android permissions and device SDK calls, then verified physical label output. When an issue appears in the interface, I examine API responses and native behavior as well to find its cause.',
+			'I also developed Spring Boot APIs and integrated Android printing. For Bluetooth printing, I checked WebView requests, Android permissions and device SDK calls in order, then verified label output on a physical device.',
 	},
 ];
 

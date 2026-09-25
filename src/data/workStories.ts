@@ -111,12 +111,11 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					return { chapterId, impact: record.impact, checks: record.checks };
 				},
 			),
-			aboutSummary:
-				'물류 웹의 프론트엔드 전체와 Android 라벨 출력 기능을 개발했습니다. 공통 UI를 만들고 조회·예약·Excel 등록·출력 기능을 서버 API에 연결했습니다. 페이지와 Excel 코드를 분리해 초기 JavaScript 엔트리 파일 크기를 약 74% 줄였습니다(빌드 산출물 기준).',
+			aboutSummary: '조회·예약·Excel 등록과 PC·Android 라벨 출력을 구현했습니다.',
 		},
 		'structured-editor-ui': {
 			summary:
-				'개발 중인 사이트의 차트 설정 패널·데이터 필드 연결·드래그 조작과 Chart.js 미리보기 기능 개발.',
+				'개발 중이던 사이트에서 차트 설정 패널과 Chart.js 미리보기를 구현했습니다. 데이터 필드 연결과 드래그 조작도 구현했습니다.',
 			editorial: {
 				decision:
 					'차트 종류에 맞는 옵션과 데이터 역할을 제공하고 설정 상태와 렌더러 생명주기를 분리했습니다.',
@@ -133,7 +132,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				outcome: '',
 			},
 			aboutSummary:
-				'차량·기사·운송료·정산을 관리하는 웹 전반과 주요 서버 API, 데이터 저장 기능을 개발했습니다. 공통 입력 화면과 정산 이력을 구현하고 관리자 작업 로그를 개편했습니다.',
+				'공통 편집표·Excel 등록·정산 이력을 구현하고 관리자 작업 로그를 개편했습니다.',
 		},
 		'react-admin-state-migration': {
 			headline: '계좌·종목·주문 정보를 조회하고 등록·수정하는 주식 업무 관리 웹.',
@@ -146,7 +145,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'MSW 모의 응답을 사용하는 로컬 환경에서 컬럼 조작·스크롤·검색 모달과 로딩·빈 결과 등 화면 상태 확인.',
 			},
 			aboutSummary:
-				'MSW 모의 API로 계좌·종목·주문 화면의 React 프론트엔드 전체를 구축했습니다. 테이블·필터·모달을 공통화하고, 선택 중인 필터와 실제 조회 조건을 구분했습니다.',
+				'공통 테이블·필터·모달을 만들고 MSW로 화면 동작을 확인했습니다.',
 		},
 		'multi-role-hybrid-platform': {
 			role: '기존 솔루션의 웹·Android 기능 개발·개선',
@@ -155,35 +154,35 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			headline:
 				'기존 웹과 Android 앱의 회원 관리, 문의·첨부 기능을 개발하고 개선했습니다.',
 			summary:
-				'회원 검색·수정·중복 통합과 문의·첨부 기능 개발. Android 파일 선택·이미지 미리보기 연동.',
+				'회원 검색·수정·중복 통합과 문의·첨부 기능을 개발했습니다. Android 파일 선택과 이미지 미리보기도 연결했습니다.',
 		},
 		'ai-kickoff-documentation-tool': {
 			summary:
-				'자료 검토·문서 작성·표 편집과 선택한 시트·셀의 AI 수정 화면 개발. AI 작업 실행·결과 저장·문서 내보내기를 처리하는 서버 API 구현.',
+				'자료 검토부터 문서 작성·표 편집까지 이어지는 화면과 서버 API를 개발했습니다. 선택한 시트·셀의 AI 수정, 작업 실행과 결과 저장, 문서 내보내기를 구현했습니다.',
 		},
 		'mobile-operations-platform': {
 			summary:
-				'지도 마커 선택·현재 위치·처리 후 지도 복귀 동작 수정. 오프라인 배달완료 저장, 앱 재실행 후 요청 복원과 통신 복구 시 재전송 구현.',
+				'지도 마커 선택·현재 위치 조회·업무 처리 후 지도 복귀 동작을 수정했습니다. 오프라인에서 배달 완료 내용을 저장하고, 앱 재실행 후 요청을 복원해 통신이 연결되면 다시 전송하도록 했습니다.',
 		},
 		'legacy-support-web': {
 			summary:
-				'Excel 업로드의 파일 분석·입력 검증·통신 오류를 구분하는 안내 구현. 대량 등록의 반복 DB 조회 비용 조사와 개선안 제안.',
+				'Excel 업로드 중 파일 분석·입력 검증·통신 오류를 구분해 안내하도록 했습니다. 대량 등록에서 반복되는 DB 조회 비용을 조사하고 개선안을 제안했습니다.',
 		},
 		'hybrid-life-info-platform': {
 			summary:
-				'공공 데이터 API 기반 날씨·대기질·기상특보 기능 확장. 핵심 정보 우선 표시, 지역·정보별 서버 캐시와 동시 요청 통합 구현.',
+				'공공 데이터 API를 연동해 날씨·대기질·기상특보 기능을 확장했습니다. 핵심 정보를 먼저 표시하고, 지역·정보별 서버 캐시와 같은 데이터의 동시 요청 통합을 구현했습니다.',
 		},
 		'legacy-mobile-compatibility': {
 			summary:
-				'WebView 기반 Android 앱의 빌드 환경 업데이트와 OS별 권한·파일 접근·뒤로가기 처리 수정. 로그인·초기 동기화 문제 보완.',
+				'WebView 기반 Android 앱의 빌드 환경을 업데이트했습니다. OS별 권한·파일 접근·뒤로가기 처리를 수정하고 로그인·초기 동기화 문제를 보완했습니다.',
 		},
 		'hybrid-security-boundary': {
 			summary:
-				'외부 API를 이용한 딥페이크 이미지·개인정보 유출 검사 기능 개발. 이미지·파일 선택부터 검사 요청·결과 표시와 Android WebView 연동까지 구현.',
+				'외부 API를 이용한 딥페이크 이미지·개인정보 유출 검사 기능을 개발했습니다. 이미지·파일 선택, 검사 요청과 결과 표시를 구현하고 Android WebView에 연결했습니다.',
 		},
 		'field-terminal-android': {
 			summary:
-				'기존 PDA 앱의 빌드 환경·저장소·업데이트 처리 정비. 입고 조회 조건과 수량 입력, QR·바코드 스캔 기능 개발.',
+				'기존 PDA 앱의 빌드 환경과 저장소·업데이트 처리를 정비했습니다. 입고 조회 조건과 수량 입력, QR·바코드 스캔 기능을 개발했습니다.',
 		},
 	},
 	en: {
@@ -211,7 +210,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			),
 			aboutSummary:
-				'Built the complete logistics frontend and Android label-printing features, using shared UI and server API integration for search, reservations, Excel imports and printing. Split pages and Excel code to reduce the initial JavaScript entry file size by about 74% (build output size).',
+				'Built search, reservations, Excel imports and PC/Android label printing.',
 		},
 		'structured-editor-ui': {
 			summary:
@@ -234,7 +233,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				outcome: '',
 			},
 			aboutSummary:
-				'Built the administrator web interface, key server APIs and data persistence for vehicles, drivers, transport fees and settlement, including shared inputs, settlement history and revised work logs.',
+				'Built shared editing tables, Excel imports and settlement history, and revised administrator work logs.',
 		},
 		'react-admin-state-migration': {
 			headline:
@@ -248,7 +247,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'Verified column controls, scrolling, search modals, loading and empty states locally with MSW mock responses.',
 			},
 			aboutSummary:
-				'Built the complete React frontend for account, stock and order screens using MSW mock APIs. Created shared tables, filters and modals, keeping draft filters separate from applied query conditions.',
+				'Built shared tables, filters and modals, and checked screen behavior with MSW mock APIs.',
 		},
 		'multi-role-hybrid-platform': {
 			role: 'Web and Android feature development for an existing solution',

@@ -10,6 +10,12 @@ import type {
 
 export const workStoryDefinitions = [
 	{
+		id: 'ai-document-analysis',
+		tier: 'featured',
+		caseIds: ['ai-document-analysis'],
+		includeInAbout: true,
+	},
+	{
 		id: 'delivery-output-flow',
 		tier: 'featured',
 		caseIds: ['delivery-operations-web', 'mobile-output-bridge'],
@@ -88,6 +94,16 @@ type WorkStoryCopies = Record<WorkStoryId, WorkStoryCopy>;
 
 const storyCopies: Localized<WorkStoryCopies> = {
 	ko: {
+		'ai-document-analysis': {
+			editorial: {
+				decision:
+					'문맥·인용·답변 완전성을 따로 검증하고, Ragas 판정은 입력 예산에 맞춘 배치와 짧은 ID로 처리했습니다. 반복 토큰 계산을 제거하고 평가는 답변 제공 후 비동기로 실행했습니다.',
+				outcome:
+					'고정 응답 시험의 로컬 처리 중앙값을 2,969ms → 672ms로 줄였습니다. 실제 장문 답변의 25개 주장을 5개 묶음으로 평가했고, 답변은 Ragas 평가가 끝나기 전에 먼저 제공하도록 분리했습니다.',
+			},
+			aboutSummary:
+				'AI 분석 플랫폼을 풀스택으로 개발했습니다. 문맥 검색·Ragas 장문 평가·복합 답변을 보완하고 프로파일링으로 반복 계산 비용을 줄였습니다.',
+		},
 		'delivery-output-flow': {
 			title: '물류 운영 웹·출력 앱',
 			platform: 'Web / Android',
@@ -186,6 +202,16 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 	},
 	en: {
+		'ai-document-analysis': {
+			editorial: {
+				decision:
+					'Validated context, quotations and answer coverage separately. Batched Ragas verdicts within the input budget using short IDs, removed repeated token counting, and evaluated asynchronously after returning answers.',
+				outcome:
+					'Reduced median local processing from 2,969ms → 672ms with fixed model responses. Evaluated 25 claims in 5 batches in a live long-answer case and returned answers before Ragas evaluation completed.',
+			},
+			aboutSummary:
+				'Owned full-stack development of an AI analysis platform, improving retrieval context, Ragas evaluation and compound answers while reducing repeated computation through profiling.',
+		},
 		'delivery-output-flow': {
 			title: 'Logistics Operations Web and Printing App',
 			platform: 'Web / Android',
@@ -291,6 +317,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 };
 
 const expectedWorkstreams: readonly WorkstreamId[] = [
+	'AI01',
 	'WS01',
 	'WS02',
 	'WS03',
@@ -319,8 +346,8 @@ function assertUnique(values: readonly string[], label: string) {
 }
 
 function validateWorkData() {
-	if (workStoryDefinitions.length !== 12) {
-		throw new Error('Work story manifest must contain exactly twelve stories.');
+	if (workStoryDefinitions.length !== 13) {
+		throw new Error('Work story manifest must contain exactly thirteen stories.');
 	}
 
 	assertUnique(
@@ -340,7 +367,7 @@ function validateWorkData() {
 
 		if (records.length !== expectedWorkstreams.length) {
 			throw new Error(
-				`${locale} work records must contain exactly thirteen public cases.`,
+				`${locale} work records must contain exactly fourteen public cases.`,
 			);
 		}
 
@@ -441,11 +468,11 @@ function validateWorkData() {
 		({ tier }) => tier === 'featured',
 	);
 	if (
-		featuredStories.length !== 3 ||
+		featuredStories.length !== 4 ||
 		aboutStories.length !== featuredStories.length ||
 		aboutStories.some((story, index) => story.id !== featuredStories[index].id)
 	) {
-		throw new Error('About must contain exactly three featured work stories.');
+		throw new Error('About must contain exactly four featured work stories.');
 	}
 }
 

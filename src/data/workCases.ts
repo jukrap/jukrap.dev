@@ -4,6 +4,87 @@ import type { WorkCaseRecord } from '@/types/work';
 export const workCases: Localized<WorkCaseRecord[]> = {
 	ko: [
 		{
+			workstreamId: 'AI01',
+			id: 'ai-document-analysis',
+			title: 'AI 기반 문서·데이터 분석 플랫폼',
+			platform: 'Web / AI',
+			area: '풀스택 개발 · AI 품질 개선',
+			period: '2026.09 ~ 현재',
+			role: '풀스택 개발',
+			workType: '신규 개발 · 진행 중',
+			stack: [
+				'React',
+				'TypeScript',
+				'Tailwind CSS',
+				'Vite',
+				'TanStack Query',
+				'Zustand',
+				'Python',
+				'Django',
+				'MariaDB',
+				'SQLGlot',
+				'Gemma 4',
+				'Ragas',
+				'tokenizers',
+				'Vitest',
+			],
+			headline:
+				'풀스택 개발을 맡아 Gemma 4 기반 분석 플랫폼을 구축하고, 문맥 검색·답변 검증·Ragas 평가와 처리 성능을 개선했습니다.',
+			summary:
+				'문서 등록부터 검색·분석·출처 확인까지 구현했습니다. 실제 실패 사례를 재현하며 검색 문맥 누락, 장문 평가의 입력 한도 초과, 복합 답변의 원문 대체 문제를 수정하고, 프로파일링으로 반복 토큰 계산 비용을 줄였습니다.',
+			problem:
+				'검색어가 없는 다음 문단의 조건·예외가 후보에서 빠지고, 모델이 인용 문장을 바꾸거나 일부 항목만 답하는 문제가 있었습니다. 장문 평가는 근거·주장·응답 스키마가 입력 한도를 넘었고, 표 병합 과정의 반복 토큰 계산은 모델 호출 전 처리까지 지연시켰습니다.',
+			thinking: [
+				'검색된 문장만 전달하지 않고 인접 문단과 같은 문서의 명시적 절·표 참조를 함께 확보했습니다. 실제 메시지와 응답 스키마를 토크나이저로 계산하고, 다중 문서는 파일별 근거와 미검토 범위를 유지했습니다.',
+				'인용이 원문과 일치하는지, 근거가 주장을 지지하는지, 질문의 각 항목에 답했는지를 따로 검증했습니다. 한 점수로 답변의 정확성과 완전성을 대신하지 않도록 했습니다.',
+				'Ragas 평가에서 모델이 원문 주장을 다시 출력하게 하지 않고 짧은 ID로 판정하도록 바꿨습니다. ID를 원래 주장에 복원하고 누락·중복·잘못된 판정을 거부했습니다.',
+				'모델 응답을 고정한 측정으로 애플리케이션 처리 비용을 분리했습니다. 정상 경로의 모델 호출 수와 최종 입력 한도 검사는 유지하면서 반복 계산을 제거했습니다.',
+				'답변을 먼저 제공하고 평가는 별도 작업으로 처리했습니다. 진행 중인 질문이 있으면 평가가 양보하고, 평가 실패가 이미 생성된 답변의 실패로 이어지지 않도록 분리했습니다.',
+			],
+			process: [
+				'React·TypeScript 화면, Django API, MariaDB 저장·조회, 문서 처리와 Gemma 4 연동을 구현했습니다. 생성 SQL의 선택 범위, 표의 항목·수치·단위·행별 출처를 검증했습니다.',
+				'공식 토크나이저를 입력 예산 계산에 연결하고 모델·설정을 요청별로 고정했습니다. 문장 경계를 보존해 나누며, 최종 합성에서 빠진 근거는 검토 완료로 처리하지 않았습니다.',
+				'Ragas Faithfulness의 주장 추출·점수 계산을 활용하되 판정 입출력 계약과 배치를 조정했습니다. 평가 전용 프로세스·의존성을 분리하고, 본문·근거·설정 변경 시 이전 평가를 무효화했습니다.',
+				'실제 모델 응답, 저장된 실패 응답 재생, 모의 응답 회귀를 구분했습니다. 자료별 개선을 공통 경로에 무리하게 적용하지 않고 일반 문서와 미디어의 회귀를 따로 확인했습니다.',
+			],
+			solution: [
+				'긴 문서는 검색 위치의 앞뒤 문맥과 참조 구간을 연결하고, 부족한 근거만 추가 검토했습니다. 예산 안의 다중 문서는 한 요청으로 묶고 최종 합성에도 원문과 검증된 인용을 다시 전달했습니다.',
+				'장문 답변의 주장을 입력 예산에 맞춰 나누고 statement ID로 판정을 받았습니다. 모든 주장이 한 번씩 유효하게 판정됐을 때만 전체 지지 주장 수로 점수를 계산했습니다.',
+				'복합 질문을 표 요청으로 오판하던 조건을 수정하고, 요청 항목별 설명과 근거 번호를 받도록 했습니다. 프로그램이 원문을 직접 복원해 인용 변형을 막고, 답한 항목을 보존하면서 미확인 항목만 따로 표시했습니다.',
+				'표 병합 중 반복 토큰 계산을 제거하고 같은 요청의 페이지 분석을 재사용했습니다. 평가는 답변 저장 후 비동기로 실행하며 일반 질문에 양보하도록 구성했습니다.',
+				'미디어 질문은 지지·반박·판단 불가를 구분하고 인접 대사를 보충해 과도한 유보와 주어 누락을 보완했습니다. 문서 페이지·대사 구간을 직접 확인하는 화면과 분석 입력·선택 상태 보존도 구현했습니다.',
+			],
+			impact: [
+				{
+					presentation: 'measurement',
+					value: '2,969ms → 672ms',
+					label: '문서 분석의 로컬 처리 중앙값',
+					detail:
+						'모델 응답 고정·준비 실행 후 각 20회 측정. 반복 토큰 계산 제거, 모델·네트워크 지연 제외',
+				},
+				{
+					presentation: 'measurement',
+					value: '25개 주장 · 5개 판정 묶음',
+					label: '입력 한도 내 장문 평가 완료',
+					detail:
+						'실제 Gemma 4·등록 문서 사례. 최대 입력 8,164토큰으로 8,192토큰 한도 준수',
+				},
+				{
+					presentation: 'measurement',
+					value: '답변 후 비동기 평가',
+					label: '답변과 품질 평가의 대기 분리',
+					detail:
+						'Ragas 평가 완료를 기다리지 않고 답변을 먼저 제공. 새 질문 처리 중에는 후속 평가 요청을 보류',
+				},
+			],
+			checks: [
+				'모델 응답을 고정하고 준비 실행 후 전후 각 20회 측정했습니다. 문서 분석은 2,969ms → 672ms, 지정 문서 검색은 485ms → 312ms였고 정상 경로의 모델 호출 수는 유지했습니다. 전체 AI 응답 시간의 단축률은 아닙니다.',
+				'실제 장문 답변의 25개 주장·5개 판정 묶음을 최대 입력 8,164토큰, 총 6회 평가 전송으로 완료했습니다. 모의 응답으로 ID 누락·중복·타입 오류 거부와 원문 복원도 확인했습니다.',
+				'실제 실행에서 답변이 평가 완료 전에 표시되는 것을 확인했습니다. 일반 질문이 진행 중일 때 후속 평가 요청을 보류하고, 완료한 평가 단계는 재사용하도록 검증했습니다.',
+				'자료별 실제 질문과 원문을 대조하고 인용·단위·항목 불일치, 근거 없는 질문, 장문 한도와 기존 이력을 회귀 검사했습니다. 브라우저에서는 근거 이동·미디어 재생·중첩 모달 복귀와 입력 보존을 확인했습니다.',
+			],
+		},
+		{
 			workstreamId: 'WS13',
 			id: 'settlement-operations-platform',
 			title: '업무 정산 ERP 플랫폼',
@@ -689,6 +770,87 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		},
 	],
 	en: [
+		{
+			workstreamId: 'AI01',
+			id: 'ai-document-analysis',
+			title: 'AI Document and Data Analysis Platform',
+			platform: 'Web / AI',
+			area: 'Full-stack development · AI quality',
+			period: '2026.09 ~ Present',
+			role: 'Full-stack development',
+			workType: 'New development · In progress',
+			stack: [
+				'React',
+				'TypeScript',
+				'Tailwind CSS',
+				'Vite',
+				'TanStack Query',
+				'Zustand',
+				'Python',
+				'Django',
+				'MariaDB',
+				'SQLGlot',
+				'Gemma 4',
+				'Ragas',
+				'tokenizers',
+				'Vitest',
+			],
+			headline:
+				'Handled full-stack development of a Gemma 4 analysis platform, improving retrieval context, answer validation, Ragas evaluation and processing performance.',
+			summary:
+				'Built the workflow from document upload through search, analysis and source inspection. Reproduced failures in context retrieval, long-answer evaluation and compound answers, then profiled and reduced repeated token-counting costs.',
+			problem:
+				'Keyword-based candidates missed conditions and exceptions in adjacent paragraphs. The model altered quotations or answered only part of a request. Evidence, claims and schemas exceeded evaluation input limits, while repeated token counting during table merging delayed local processing.',
+			thinking: [
+				'Included adjacent paragraphs and explicit section or table references from the same document. Budgeted actual messages and schemas with a tokenizer, retaining per-document evidence and unreviewed ranges.',
+				'Checked quotation fidelity, support for claims and coverage of requested items separately. A single score could not establish both correctness and completeness.',
+				'Changed Ragas verdicts to use short IDs instead of asking the model to repeat claims. Restored each original claim by ID and rejected missing, duplicate or invalid verdicts.',
+				'Used fixed model responses to isolate application processing costs. Removed repeated computation while retaining normal-path model-call counts and final input-limit checks.',
+				'Returned answers before evaluation and let evaluation yield to active questions. Isolated evaluation failures from already completed answers.',
+			],
+			process: [
+				'Implemented React and TypeScript interfaces, Django APIs, MariaDB persistence and queries, document processing and Gemma 4 integration. Validated SQL scope and table items, values, units and row-level sources.',
+				'Integrated official tokenizers into input budgeting and pinned model settings per request. Split at sentence boundaries and marked evidence dropped during final synthesis as unreviewed.',
+				'Used Ragas Faithfulness claim extraction and scoring with adapted verdict contracts and batching. Isolated evaluation processes and dependencies, invalidating stale scores when answers, sources or settings changed.',
+				'Separated live-model checks, replay of saved failures and mocked regression tests. Tested document and media paths separately instead of applying every specialized rule globally.',
+			],
+			solution: [
+				'Connected retrieved passages to adjacent context and references, reviewing only missing evidence again. Combined documents when they fit the budget and supplied original passages and validated quotations to final synthesis.',
+				'Batched long-answer claims to fit the input budget and received verdicts by statement ID. Calculated the overall supported-claim ratio only after every claim had exactly one valid verdict.',
+				'Fixed compound prose requests being classified as table requests. Required item-level answers and evidence IDs, restored quotations directly from source text, and retained supported explanations while marking unresolved items.',
+				'Removed repeated token counting during table merging and reused page analysis within a request. Ran evaluation asynchronously after saving answers, yielding to foreground questions.',
+				'Distinguished support, contradiction and uncertainty in media questions and included adjacent cues to address excessive abstention and missing subjects. Also built source-page and playback navigation with retained analysis input and selections.',
+			],
+			impact: [
+				{
+					presentation: 'measurement',
+					value: '2,969ms → 672ms',
+					label: 'Median local document-analysis time',
+					detail:
+						'Fixed model responses; 20 runs per condition after warm-up. Removed repeated token counting; excludes model and network latency',
+				},
+				{
+					presentation: 'measurement',
+					value: '25 claims · 5 verdict batches',
+					label: 'Long-answer evaluation within budget',
+					detail:
+						'One live Gemma 4 case using a registered document; peak input 8,164 tokens within the 8,192-token limit',
+				},
+				{
+					presentation: 'measurement',
+					value: 'Answer first, evaluate asynchronously',
+					label: 'Separate answer delivery from evaluation',
+					detail:
+						'Return answers without waiting for Ragas; defer subsequent evaluation requests while a foreground question is active',
+				},
+			],
+			checks: [
+				'With fixed model responses and 20 runs per condition after warm-up, document-analysis processing changed from 2,969ms → 672ms and selected-document search from 485ms → 312ms. Normal-path model-call counts stayed unchanged. These are not end-to-end AI latency reductions.',
+				'Completed a live long-answer evaluation with 25 claims in 5 verdict batches, peak input of 8,164 tokens and 6 evaluation requests. Mocked tests also covered missing, duplicate and mistyped IDs and exact claim restoration.',
+				'Verified that live answers appeared before evaluation completed. Subsequent evaluation requests were deferred during foreground questions, with completed evaluation stages reused.',
+				'Compared live answers with sources and tested quotation, unit and item mismatches, unsupported questions, long-input limits and prior records. Browser checks covered source navigation, media playback, nested modals and retained input.',
+			],
+		},
 		{
 			workstreamId: 'WS13',
 			id: 'settlement-operations-platform',

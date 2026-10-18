@@ -53,8 +53,8 @@ export function getPortfolioDocument(
 			title: t('박주철', 'Ju-cheol Park'),
 			aliases: ['experience-overview'],
 			summary: t(
-				'정산 ERP, 물류 운영, 주식 업무 관리 웹의 화면 개발과 API·Android 연동 경험.',
-				'Web applications and Android integration, with selected work in settlement, logistics, and stock administration.',
+				'AI 문서 분석 플랫폼과 정산 ERP의 풀스택 개발, 물류·주식 업무 웹과 Android 연동 경험.',
+				'Full-stack AI document analysis and settlement platforms, with web applications and Android integration for business workflows.',
 			),
 			metadata: [
 				{
@@ -90,6 +90,7 @@ export function getPortfolioDocument(
 		},
 		...featured.map((story, index): PortfolioPageDefinition => {
 			const copy = workDocumentCopy[locale][story.id];
+			const isAi = story.id === 'ai-document-analysis';
 			const isErp = story.id === 'settlement-operations-platform';
 			const isLogistics = story.id === 'delivery-output-flow';
 			const chapter = isLogistics
@@ -121,89 +122,105 @@ export function getPortfolioDocument(
 					{ label: t('기간', 'Period'), value: chapter?.period ?? story.period },
 					{
 						label: t('담당', 'Scope'),
-						value: isErp
-							? t('풀스택 개발', 'Full-stack development')
-							: isLogistics
-								? t('프론트엔드 전체 개발', 'Complete frontend development')
-								: t('프론트엔드 전체 개발', 'Complete frontend development'),
+						value:
+							isErp || isAi
+								? t('풀스택 개발', 'Full-stack development')
+								: isLogistics
+									? t('프론트엔드 전체 개발', 'Complete frontend development')
+									: t('프론트엔드 전체 개발', 'Complete frontend development'),
 					},
 					...(contribution
 						? [{ ...contribution.copy[locale], kind: 'attribution' as const }]
 						: []),
 				],
 				technologies: chapter?.stack ?? story.stack,
-				sections: isErp
+				sections: isAi
 					? [
+							{ id: 'problem', title: t('배경', 'Context'), body: [copy.problem] },
 							{
 								id: 'contribution',
-								title: t(
-									'화면 입력부터 일괄 저장까지',
-									'From data entry to batch saves',
-								),
-								items: copy.actions.slice(0, 2),
+								title: t('담당 구현', 'Implementation'),
+								items: copy.actions,
 							},
 							{
-								id: 'history',
-								title: t(
-									'기준 정보 변경과 정산 이력',
-									'Record changes and settlement history',
-								),
-								body: [
-									t(
-										'현재 담당 관계와 과거 거래 정보를 구분해 확정된 정산 금액을 유지했습니다. 차량 정보 저장 결과에는 새 정보 생성·운행 상태 변경과 보험·공과금 등 연결 업무에 미치는 영향을 안내했습니다.',
-										'Separated current assignments from historical transactions to retain finalized settlement amounts. Vehicle save feedback identifies newly created records, operating-status changes, and affected insurance or utility records.',
-									),
-								],
-							},
-							{
-								id: 'logs',
-								title: t(
-									'작업 내용과 오류를 확인하는 로그',
-									'Logs showing actions and errors',
-								),
-								body: [
-									t(
-										'초기 로그는 여러 정보를 남겼지만, 기술 항목이 많아 문제가 생긴 과정을 따라가기 불편했습니다. 작업 대상과 변경 내용, 입력 오류의 원인을 화면에 표시하고 불필요한 기술 항목은 줄였습니다.',
-										'The initial logs captured many details, but technical fields made it difficult to follow what had happened. I surfaced affected records, changes, and input-error reasons, and removed unnecessary technical fields.',
-									),
-								],
+								id: 'result',
+								title: t('결과', 'Outcome'),
+								body: [copy.result],
+								metrics: story.impact,
 							},
 						]
-					: isLogistics
+					: isErp
 						? [
 								{
 									id: 'contribution',
-									title: t('업무 화면과 출력', 'Business interfaces and printing'),
-									items: [copy.actions[0], copy.actions[2]],
-								},
-								{
-									id: 'loading',
 									title: t(
-										'첫 화면에 필요한 코드만 로딩',
-										'Load only the code needed on entry',
+										'화면 입력부터 일괄 저장까지',
+										'From data entry to batch saves',
 									),
-									body: [copy.problem, copy.actions[1].description],
+									items: copy.actions.slice(0, 2),
 								},
 								{
-									id: 'result',
-									title: t('번들 크기 변화', 'Bundle size change'),
-									metrics: story.resultSections.find(
-										({ id }) => id === 'delivery-operations-web',
-									)!.impact,
+									id: 'history',
+									title: t(
+										'기준 정보 변경과 정산 이력',
+										'Record changes and settlement history',
+									),
+									body: [
+										t(
+											'현재 담당 관계와 과거 거래 정보를 구분해 확정된 정산 금액을 유지했습니다. 차량 정보 저장 결과에는 새 정보 생성·운행 상태 변경과 보험·공과금 등 연결 업무에 미치는 영향을 안내했습니다.',
+											'Separated current assignments from historical transactions to retain finalized settlement amounts. Vehicle save feedback identifies newly created records, operating-status changes, and affected insurance or utility records.',
+										),
+									],
 								},
 								{
-									id: 'decision',
-									title: t('코드 분리 범위', 'Scope of code splitting'),
-									body: [copy.decision!],
+									id: 'logs',
+									title: t(
+										'작업 내용과 오류를 확인하는 로그',
+										'Logs showing actions and errors',
+									),
+									body: [
+										t(
+											'초기 로그는 여러 정보를 남겼지만, 기술 항목이 많아 문제가 생긴 과정을 따라가기 불편했습니다. 작업 대상과 변경 내용, 입력 오류의 원인을 화면에 표시하고 불필요한 기술 항목은 줄였습니다.',
+											'The initial logs captured many details, but technical fields made it difficult to follow what had happened. I surfaced affected records, changes, and input-error reasons, and removed unnecessary technical fields.',
+										),
+									],
 								},
 							]
-						: [
-								{
-									id: 'contribution',
-									title: t('담당 구현', 'Implementation'),
-									items: copy.actions,
-								},
-							],
+						: isLogistics
+							? [
+									{
+										id: 'contribution',
+										title: t('업무 화면과 출력', 'Business interfaces and printing'),
+										items: [copy.actions[0], copy.actions[2]],
+									},
+									{
+										id: 'loading',
+										title: t(
+											'첫 화면에 필요한 코드만 로딩',
+											'Load only the code needed on entry',
+										),
+										body: [copy.problem, copy.actions[1].description],
+									},
+									{
+										id: 'result',
+										title: t('번들 크기 변화', 'Bundle size change'),
+										metrics: story.resultSections.find(
+											({ id }) => id === 'delivery-operations-web',
+										)!.impact,
+									},
+									{
+										id: 'decision',
+										title: t('코드 분리 범위', 'Scope of code splitting'),
+										body: [copy.decision!],
+									},
+								]
+							: [
+									{
+										id: 'contribution',
+										title: t('담당 구현', 'Implementation'),
+										items: copy.actions,
+									},
+								],
 				evidence: [
 					workStoryEvidence(story.id),
 					...(chapter ? [workCaseEvidence(chapter.id)] : []),

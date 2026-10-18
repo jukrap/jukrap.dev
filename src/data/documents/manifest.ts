@@ -2,6 +2,7 @@ import type { RecruitingDocumentManifest } from '@/types/documents';
 import type { Locale } from '@/types/locale';
 
 const featuredWorkStoryIds = [
+	'ai-document-analysis',
 	'settlement-operations-platform',
 	'delivery-output-flow',
 	'react-admin-state-migration',

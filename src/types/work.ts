@@ -1,4 +1,5 @@
 export type WorkstreamId =
+	| 'AI01'
 	| 'WS01'
 	| 'WS02'
 	| 'WS03'

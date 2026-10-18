@@ -72,6 +72,12 @@ const EXPECTED_RESUME_PROJECT_IDS = [
 
 const EXPECTED_WORK_CASE_PAGES = [
 	{
+		pageNumber: getPortfolioPageNumber('ai-document-analysis'),
+		id: 'ai-document-analysis',
+		storyIds: ['ai-document-analysis'],
+		caseIds: [],
+	},
+	{
 		pageNumber: getPortfolioPageNumber('settlement-operations-platform'),
 		id: 'settlement-operations-platform',
 		storyIds: ['settlement-operations-platform'],
@@ -462,13 +468,13 @@ export function validateRecruitingDocumentData({
 	);
 
 	if (
-		manifest.selection.featuredWorkStoryIds.length !== 3 ||
+		manifest.selection.featuredWorkStoryIds.length !== 4 ||
 		manifest.selection.supportingWorkStoryIds.length !== 5 ||
 		portfolioSupportingIds.length !== 5 ||
 		portfolioDetailedIds.length !== 3
 	) {
 		throw new Error(
-			'Recruiting documents must keep three featured stories; the portfolio adds three detailed and five summarized stories.',
+			'Recruiting documents must keep four featured stories; the portfolio adds three detailed and five summarized stories.',
 		);
 	}
 

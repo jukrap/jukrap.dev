@@ -6,11 +6,11 @@ import type { DocumentSkillGroup } from '@/types/documents';
 export const recruitingDocumentSkillGroups = [
 	{
 		label: '언어',
-		items: ['TypeScript', 'JavaScript', 'Java'],
+		items: ['TypeScript', 'JavaScript', 'Java', 'Python'],
 	},
 	{
 		label: '웹',
-		items: ['React', 'Next.js', 'Vite', 'TanStack Query', 'Zustand'],
+		items: ['React', 'Next.js', 'Vite', 'TanStack Query', 'Zustand', 'Django'],
 	},
 	{
 		label: '모바일·하이브리드',
@@ -18,7 +18,7 @@ export const recruitingDocumentSkillGroups = [
 	},
 	{
 		label: '테스트·관측',
-		items: ['Vitest', 'MSW', 'Storybook', 'Sentry'],
+		items: ['Vitest', 'MSW', 'Storybook', 'Sentry', 'Ragas'],
 	},
 	{
 		label: '도구와 데이터',

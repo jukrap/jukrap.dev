@@ -59,6 +59,23 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				highlights: [],
 				workItems: [
 					{
+						title: ko
+							? 'AI 기반 문서·데이터 분석 플랫폼'
+							: 'AI Document and Data Analysis Platform',
+						scope: ko
+							? '풀스택 개발. 문서 등록·검색·분석·출처 확인과 Gemma 4 연동 구현.'
+							: 'Full-stack development, from document upload and search to analysis, source inspection and Gemma 4 integration.',
+						highlights: ko
+							? [
+									'Ragas 장문 평가를 배치·ID 검증으로 보완하고, 답변을 먼저 제공한 뒤 비동기로 평가하도록 분리.',
+									'반복 토큰 계산을 제거해 로컬 처리 중앙값 2,969ms → 672ms로 단축(모델 응답 고정, 준비 실행 후 각 20회).',
+								]
+							: [
+									'Added batched Ragas evaluation with ID validation, returning answers before asynchronous evaluation.',
+									'Removed repeated token counting, reducing median local processing from 2,969ms → 672ms (fixed model responses, 20 runs per condition after warm-up).',
+								],
+					},
+					{
 						title: ko ? '업무 정산 ERP 플랫폼' : 'Settlement Operations Platform',
 						scope: ko
 							? '차량·기사·운송료·정산을 관리하는 웹 전반 개발. 주요 서버 API와 데이터 저장 기능 구현.'
@@ -270,7 +287,10 @@ export function getCareerBriefDocument(locale: Locale): CareerBriefCopy {
 					.slice(1)
 					.map(({ description }) => description)
 					.join(' '),
-				result: id === 'react-admin-state-migration' ? '' : copy.result,
+				result:
+					id === 'react-admin-state-migration'
+						? ''
+						: (copy.briefResult ?? copy.result),
 				evidence: [],
 				technologies: story.stack,
 				evidenceRefs: [workStoryEvidence(id)],

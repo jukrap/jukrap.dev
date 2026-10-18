@@ -5,10 +5,47 @@ interface CaseCopy {
 	problem: string;
 	actions: { title: string; description: string }[];
 	result: string;
+	briefResult?: string;
 	decision?: string;
 }
 export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 	ko: {
+		'ai-document-analysis': {
+			summary:
+				'Gemma 4 기반 문서·데이터 분석 플랫폼의 풀스택 개발을 맡고, 검색 문맥·답변 검증·Ragas 평가와 처리 성능을 개선했습니다.',
+			overviewDetail:
+				'실패 사례를 재현해 장문 평가와 복합 답변을 보완했습니다. 반복 토큰 계산을 제거해 고정 응답 시험의 로컬 처리 중앙값을 2,969ms → 672ms로 줄였습니다.',
+			problem:
+				'검색어 주변의 조건·예외가 빠지고, 복합 질문의 일부에 답할 수 있어도 결과 전체가 원문으로 대체됐습니다. 장문 Ragas 평가는 입력 한도와 판정 형식 오류로 중단됐고, 반복 토큰 계산이 로컬 처리의 병목이 됐습니다.',
+			actions: [
+				{
+					title: '문맥을 보존하는 검색·검토',
+					description:
+						'인접 문단과 같은 문서의 절·표 참조를 확보하고, 토크나이저로 메시지·응답 스키마의 예산을 계산했습니다. 문서별 부족한 근거만 추가 검토하고 최종 합성에도 원문과 인용을 유지했습니다.',
+				},
+				{
+					title: 'Ragas 장문 평가와 판정 검증',
+					description:
+						'주장을 입력 예산에 맞춰 배치로 나누고 짧은 ID로 판정을 받았습니다. 모델이 주장을 바꾸거나 중복·누락하지 못하도록 검증한 뒤 원문에 복원하고, 전체 주장의 지지 비율을 계산했습니다.',
+				},
+				{
+					title: '복합 답변과 인용 복구',
+					description:
+						'서술 요청을 표로 오판하던 조건을 수정하고 요청 항목별 설명과 근거 번호를 받도록 했습니다. 인용은 프로그램이 원문에서 복원하고, 확인된 설명은 남기며 없는 항목만 미확인으로 표시했습니다.',
+				},
+				{
+					title: '프로파일링과 비동기 평가',
+					description:
+						'표 병합의 반복 토큰 계산을 제거하고 같은 요청의 페이지 분석을 재사용했습니다. 답변을 먼저 제공한 뒤 별도 작업에서 평가하고, 일반 질문이 실행되면 평가가 양보하도록 구성했습니다.',
+				},
+			],
+			decision:
+				'실제 모델 검증과 고정 응답 성능 측정을 분리했습니다. 문맥 누락·출력 형식·로컬 계산 비용을 각각 추적하고, 인용·수치 검증을 느슨하게 만들지 않으면서 실패 원인을 수정했습니다.',
+			result:
+				'입력 한도에 막히던 장문 평가를 실제 모델에서 완료했습니다. 답변 제공과 Ragas 평가를 분리해 평가가 끝나기 전에도 답변을 확인할 수 있고, 새 질문이 들어오면 후속 평가 요청을 보류하도록 했습니다.',
+			briefResult:
+				'고정 응답·각 20회 측정에서 로컬 처리 중앙값을 2,969ms → 672ms로 줄였습니다. 실제 장문 답변의 25개 주장을 5개 묶음으로 평가했고, Ragas 평가를 기다리지 않고 답변을 먼저 제공하도록 처리 흐름을 분리했습니다.',
+		},
 		'delivery-output-flow': {
 			summary:
 				'조회·예약·Excel 등록·라벨 출력으로 이어지는 물류 업무 웹. React·TypeScript 화면 개발과 API 연동 담당.',
@@ -126,6 +163,42 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 		},
 	},
 	en: {
+		'ai-document-analysis': {
+			summary:
+				'Owned full-stack development of a Gemma 4 document and data analysis platform, improving retrieval context, answer validation, Ragas evaluation and processing performance.',
+			overviewDetail:
+				'Reproduced long-evaluation and compound-answer failures. Removing repeated token counting reduced median local processing from 2,969ms → 672ms with fixed model responses.',
+			problem:
+				'Retrieval missed adjacent conditions and exceptions, and partially answerable compound requests fell back to source text. Ragas evaluation hit input limits or invalid verdicts, while repeated token counting created a local bottleneck.',
+			actions: [
+				{
+					title: 'Retrieval that retains context',
+					description:
+						'Included adjacent paragraphs and same-document section and table references. Budgeted messages and schemas with a tokenizer, reviewed missing evidence selectively, and retained source passages and quotations through final synthesis.',
+				},
+				{
+					title: 'Ragas batching and verdict validation',
+					description:
+						'Split claims into batches that fit the input budget and requested verdicts by short ID. Rejected altered, duplicate or missing claims, restored original text, and calculated support across all claims.',
+				},
+				{
+					title: 'Compound answers and quotation recovery',
+					description:
+						'Fixed prose requests being mistaken for table requests. Required item-level explanations and evidence IDs, copied quotations directly from source text, and retained supported answers while marking unresolved items.',
+				},
+				{
+					title: 'Profiling and asynchronous evaluation',
+					description:
+						'Removed repeated token counting during table merging and reused page analysis within each request. Returned answers before evaluation and scheduled evaluation separately, yielding to active questions.',
+				},
+			],
+			decision:
+				'Separated live-model validation from fixed-response performance tests. Traced context loss, output-format failures and local computation independently, fixing their causes while retaining quotation and numeric checks.',
+			result:
+				'Completed long-answer evaluation within the input limit using the live model. Returned answers before Ragas evaluation finished and deferred subsequent evaluation requests while foreground questions were active.',
+			briefResult:
+				'Reduced median local processing from 2,969ms → 672ms with fixed responses and 20 runs per condition. Evaluated 25 claims in 5 batches in a live case and returned answers without waiting for Ragas evaluation.',
+		},
 		'delivery-output-flow': {
 			summary:
 				'Built React and TypeScript interfaces spanning search, reservations, Excel imports, and label-print requests.',

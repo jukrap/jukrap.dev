@@ -97,12 +97,12 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		'ai-document-analysis': {
 			editorial: {
 				decision:
-					'문맥·인용·답변 완전성을 따로 검증하고, Ragas 판정은 입력 예산에 맞춘 배치와 짧은 ID로 처리했습니다. 반복 토큰 계산을 제거하고 평가는 답변 제공 후 비동기로 실행했습니다.',
+					'검색된 문장의 앞뒤 문맥을 함께 전달하고, 답변의 근거와 질문별 응답 여부를 각각 검증했습니다. 긴 답변은 나누어 평가하고, 반복 계산을 줄여 애플리케이션 처리 시간을 단축했습니다.',
 				outcome:
-					'고정 응답 시험의 로컬 처리 중앙값을 2,969ms → 672ms로 줄였습니다. 실제 장문 답변의 25개 주장을 5개 묶음으로 평가했고, 답변은 Ragas 평가가 끝나기 전에 먼저 제공하도록 분리했습니다.',
+					'입력 한도를 넘어서 중단되던 긴 답변의 평가를 완료할 수 있게 됐습니다. 반복 계산을 줄여 문서 분석 시간을 단축했고, 사용자가 품질 평가가 끝나기 전에도 답변을 확인할 수 있게 했습니다.',
 			},
 			aboutSummary:
-				'AI 분석 플랫폼을 풀스택으로 개발했습니다. 문맥 검색·Ragas 장문 평가·복합 답변을 보완하고 프로파일링으로 반복 계산 비용을 줄였습니다.',
+				'문서 검색과 질문 응답을 제공하는 AI 플랫폼을 풀스택으로 개발했습니다. 답변의 근거를 찾는 과정과 Ragas 평가 기능을 개선하고, 반복 계산으로 생기던 지연을 줄였습니다.',
 		},
 		'delivery-output-flow': {
 			title: '물류 운영 웹·출력 앱',
@@ -205,12 +205,12 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		'ai-document-analysis': {
 			editorial: {
 				decision:
-					'Validated context, quotations and answer coverage separately. Batched Ragas verdicts within the input budget using short IDs, removed repeated token counting, and evaluated asynchronously after returning answers.',
+					'Retrieved surrounding context and checked supporting evidence and question coverage separately. Evaluated long answers in batches and reduced application processing time by removing repeated calculations.',
 				outcome:
-					'Reduced median local processing from 2,969ms → 672ms with fixed model responses. Evaluated 25 claims in 5 batches in a live long-answer case and returned answers before Ragas evaluation completed.',
+					'Completed long-answer evaluations that had previously exceeded the input limit. Reduced document-analysis time by removing repeated calculations, and let users read answers before quality evaluation finished.',
 			},
 			aboutSummary:
-				'Owned full-stack development of an AI analysis platform, improving retrieval context, Ragas evaluation and compound answers while reducing repeated computation through profiling.',
+				'Built a full-stack AI platform for document search and question answering. Improved evidence retrieval and Ragas evaluation, and reduced delays caused by repeated computation.',
 		},
 		'delivery-output-flow': {
 			title: 'Logistics Operations Web and Printing App',

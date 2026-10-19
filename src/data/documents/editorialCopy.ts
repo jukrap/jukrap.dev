@@ -12,39 +12,44 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 	ko: {
 		'ai-document-analysis': {
 			summary:
-				'Gemma 4 기반 문서·데이터 분석 플랫폼의 풀스택 개발을 맡고, 검색 문맥·답변 검증·Ragas 평가와 처리 성능을 개선했습니다.',
+				'문서 검색과 질문 응답을 제공하는 Gemma 4 기반 플랫폼의 풀스택 개발을 맡았습니다. 검색 결과에 앞뒤 문맥을 추가하고, 답변 검증과 Ragas 평가 기능을 개선했습니다.',
 			overviewDetail:
-				'실패 사례를 재현해 장문 평가와 복합 답변을 보완했습니다. 반복 토큰 계산을 제거해 고정 응답 시험의 로컬 처리 중앙값을 2,969ms → 672ms로 줄였습니다.',
+				'문서 검색과 답변 평가 기능을 개발했습니다. 반복 계산을 제거해 문서 분석 처리 시간의 중앙값을 2,969ms → 672ms로 줄였습니다(모델 응답을 고정한 시험 기준).',
 			problem:
-				'검색어 주변의 조건·예외가 빠지고, 복합 질문의 일부에 답할 수 있어도 결과 전체가 원문으로 대체됐습니다. 장문 Ragas 평가는 입력 한도와 판정 형식 오류로 중단됐고, 반복 토큰 계산이 로컬 처리의 병목이 됐습니다.',
+				'검색된 문장만 전달하면 앞뒤 문단의 조건이나 예외가 빠졌습니다. 여러 항목을 묻는 질문에서는 설명 대신 원문만 표시되기도 했습니다. 긴 답변은 모델의 입력 한도 때문에 평가가 중단됐고, 반복적인 토큰 수 계산은 문서 분석을 지연시켰습니다.',
 			actions: [
 				{
-					title: '문맥을 보존하는 검색·검토',
+					title: '앞뒤 문맥을 함께 찾는 검색',
 					description:
-						'인접 문단과 같은 문서의 절·표 참조를 확보하고, 토크나이저로 메시지·응답 스키마의 예산을 계산했습니다. 문서별 부족한 근거만 추가 검토하고 최종 합성에도 원문과 인용을 유지했습니다.',
+						'검색된 문장의 앞뒤 문단과 참조된 표를 함께 찾도록 했습니다. 최종 답변을 만들 때도 원문과 출처를 전달해, 조건이나 예외가 빠지지 않도록 했습니다.',
 				},
 				{
-					title: 'Ragas 장문 평가와 판정 검증',
+					title: '긴 답변을 나누어 평가',
 					description:
-						'주장을 입력 예산에 맞춰 배치로 나누고 짧은 ID로 판정을 받았습니다. 모델이 주장을 바꾸거나 중복·누락하지 못하도록 검증한 뒤 원문에 복원하고, 전체 주장의 지지 비율을 계산했습니다.',
+						'Ragas로 답변의 내용이 문서에 근거하고 있는지 평가했습니다. 긴 답변은 검증할 내용을 여러 묶음으로 나누어 처리하고, 항목별 ID를 대조해 평가 결과가 빠지거나 중복되지 않았는지 확인했습니다.',
 				},
 				{
-					title: '복합 답변과 인용 복구',
+					title: '질문 항목별로 답변하고 원문을 그대로 인용',
 					description:
-						'서술 요청을 표로 오판하던 조건을 수정하고 요청 항목별 설명과 근거 번호를 받도록 했습니다. 인용은 프로그램이 원문에서 복원하고, 확인된 설명은 남기며 없는 항목만 미확인으로 표시했습니다.',
+						'설명을 요청한 질문을 표 생성 요청으로 잘못 분류하던 조건을 고쳤습니다. 항목별 답변과 근거 번호를 받아 확인된 답변은 유지하고, 인용문은 해당 원문에서 직접 가져오도록 했습니다.',
 				},
 				{
-					title: '프로파일링과 비동기 평가',
+					title: '반복 계산을 줄인 문서 분석',
 					description:
-						'표 병합의 반복 토큰 계산을 제거하고 같은 요청의 페이지 분석을 재사용했습니다. 답변을 먼저 제공한 뒤 별도 작업에서 평가하고, 일반 질문이 실행되면 평가가 양보하도록 구성했습니다.',
+						'표를 합칠 때 같은 텍스트의 토큰 수를 반복해서 계산하던 코드를 수정하고, 같은 요청 안에서 이미 분석한 페이지의 결과를 재사용했습니다.',
+				},
+				{
+					title: '답변을 먼저 보여 주고 평가는 별도로 실행',
+					description:
+						'답변 저장 후 Ragas 평가를 비동기 작업으로 실행했습니다. 사용자의 새 질문을 처리하는 동안에는 다음 평가 요청을 잠시 미루도록 했습니다.',
 				},
 			],
 			decision:
-				'실제 모델 검증과 고정 응답 성능 측정을 분리했습니다. 문맥 누락·출력 형식·로컬 계산 비용을 각각 추적하고, 인용·수치 검증을 느슨하게 만들지 않으면서 실패 원인을 수정했습니다.',
+				'실제 모델을 호출하는 시험에서는 답변과 근거를 대조했습니다. 처리 속도를 비교할 때는 모델 응답을 고정해 애플리케이션 내부에서 생기는 지연을 따로 측정했습니다.',
 			result:
-				'입력 한도에 막히던 장문 평가를 실제 모델에서 완료했습니다. 답변 제공과 Ragas 평가를 분리해 평가가 끝나기 전에도 답변을 확인할 수 있고, 새 질문이 들어오면 후속 평가 요청을 보류하도록 했습니다.',
+				'입력 한도를 넘어서 중단되던 긴 답변의 평가를 완료할 수 있게 됐습니다. 반복 계산을 줄여 문서 분석 시간을 단축했고, 사용자가 품질 평가가 끝나기 전에도 답변을 확인할 수 있게 했습니다.',
 			briefResult:
-				'고정 응답·각 20회 측정에서 로컬 처리 중앙값을 2,969ms → 672ms로 줄였습니다. 실제 장문 답변의 25개 주장을 5개 묶음으로 평가했고, Ragas 평가를 기다리지 않고 답변을 먼저 제공하도록 처리 흐름을 분리했습니다.',
+				'같은 모델 응답을 사용하는 시험에서 문서 분석 처리 시간의 중앙값이 2,969ms → 672ms로 줄었습니다(준비 실행 후 각 20회 측정). 실제 긴 답변의 25개 항목을 5개 묶음으로 평가했고, 평가가 끝나기 전에도 답변을 보여 주도록 했습니다.',
 		},
 		'delivery-output-flow': {
 			summary:
@@ -165,39 +170,44 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 	en: {
 		'ai-document-analysis': {
 			summary:
-				'Owned full-stack development of a Gemma 4 document and data analysis platform, improving retrieval context, answer validation, Ragas evaluation and processing performance.',
+				'Owned full-stack development of a Gemma 4 platform for document search and question answering. Improved retrieval of surrounding context, answer validation and Ragas evaluation.',
 			overviewDetail:
-				'Reproduced long-evaluation and compound-answer failures. Removing repeated token counting reduced median local processing from 2,969ms → 672ms with fixed model responses.',
+				'Built document search and answer evaluation. Removing repeated calculations reduced median document-analysis processing from 2,969ms → 672ms in a test with fixed model responses.',
 			problem:
-				'Retrieval missed adjacent conditions and exceptions, and partially answerable compound requests fell back to source text. Ragas evaluation hit input limits or invalid verdicts, while repeated token counting created a local bottleneck.',
+				'Matched passages lacked conditions and exceptions from nearby paragraphs. Questions with several parts sometimes returned only source text. Long-answer evaluation exceeded the model input limit, while repeated token counting slowed document analysis.',
 			actions: [
 				{
-					title: 'Retrieval that retains context',
+					title: 'Retrieve the surrounding context',
 					description:
-						'Included adjacent paragraphs and same-document section and table references. Budgeted messages and schemas with a tokenizer, reviewed missing evidence selectively, and retained source passages and quotations through final synthesis.',
+						'Included nearby paragraphs and referenced tables with each search result. Supplied original text and sources during final answer generation to retain relevant conditions and exceptions.',
 				},
 				{
-					title: 'Ragas batching and verdict validation',
+					title: 'Evaluate long answers in batches',
 					description:
-						'Split claims into batches that fit the input budget and requested verdicts by short ID. Rejected altered, duplicate or missing claims, restored original text, and calculated support across all claims.',
+						'Used Ragas to check whether the answer was supported by the document. Split long answers into batches that fit the model input limit and checked item IDs for missing or duplicate evaluation results.',
 				},
 				{
-					title: 'Compound answers and quotation recovery',
+					title: 'Answer each part and preserve source quotations',
 					description:
-						'Fixed prose requests being mistaken for table requests. Required item-level explanations and evidence IDs, copied quotations directly from source text, and retained supported answers while marking unresolved items.',
+						'Fixed explanation requests being misclassified as table requests. Collected item-level answers and evidence IDs, retained supported answers and copied quotations directly from the source.',
 				},
 				{
-					title: 'Profiling and asynchronous evaluation',
+					title: 'Remove repeated calculations',
 					description:
-						'Removed repeated token counting during table merging and reused page analysis within each request. Returned answers before evaluation and scheduled evaluation separately, yielding to active questions.',
+						'Removed repeated token counting during table merging and reused the results of pages already analyzed within the same request.',
+				},
+				{
+					title: 'Show the answer before evaluation finishes',
+					description:
+						'Ran Ragas evaluation asynchronously after saving the answer. Deferred the next evaluation request while a new user question was being processed.',
 				},
 			],
 			decision:
-				'Separated live-model validation from fixed-response performance tests. Traced context loss, output-format failures and local computation independently, fixing their causes while retaining quotation and numeric checks.',
+				'Used live-model tests to compare answers with their evidence. Used fixed model responses in performance tests to measure delays inside the application separately.',
 			result:
-				'Completed long-answer evaluation within the input limit using the live model. Returned answers before Ragas evaluation finished and deferred subsequent evaluation requests while foreground questions were active.',
+				'Completed long-answer evaluations that had previously exceeded the input limit. Reduced document-analysis time by removing repeated calculations, and let users read answers before quality evaluation finished.',
 			briefResult:
-				'Reduced median local processing from 2,969ms → 672ms with fixed responses and 20 runs per condition. Evaluated 25 claims in 5 batches in a live case and returned answers without waiting for Ragas evaluation.',
+				'Median document-analysis processing fell from 2,969ms → 672ms with fixed model responses and 20 runs per condition after warm-up. Evaluated 25 items from a live long answer in 5 batches and displayed the answer before evaluation finished.',
 		},
 		'delivery-output-flow': {
 			summary:

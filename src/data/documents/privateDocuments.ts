@@ -63,16 +63,16 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 							? 'AI 기반 문서·데이터 분석 플랫폼'
 							: 'AI Document and Data Analysis Platform',
 						scope: ko
-							? '풀스택 개발. 문서 등록·검색·분석·출처 확인과 Gemma 4 연동 구현.'
-							: 'Full-stack development, from document upload and search to analysis, source inspection and Gemma 4 integration.',
+							? '풀스택 개발을 맡아 Gemma 4를 연동하고, 문서 등록부터 검색·분석·출처 확인까지 이어지는 기능을 구현했습니다.'
+							: 'Owned full-stack development of document upload, search, analysis and source inspection, including Gemma 4 integration.',
 						highlights: ko
 							? [
-									'Ragas 장문 평가를 배치·ID 검증으로 보완하고, 답변을 먼저 제공한 뒤 비동기로 평가하도록 분리.',
-									'반복 토큰 계산을 제거해 로컬 처리 중앙값 2,969ms → 672ms로 단축(모델 응답 고정, 준비 실행 후 각 20회).',
+									'긴 답변을 나누어 Ragas로 평가하고, 항목별 ID를 대조해 평가 누락을 확인했습니다. 사용자가 평가가 끝나기 전에도 답변을 볼 수 있도록 했습니다.',
+									'반복 계산을 제거해 문서 분석 처리 시간의 중앙값을 2,969ms → 672ms로 줄였습니다(모델 응답 고정, 준비 실행 후 각 20회 측정).',
 								]
 							: [
-									'Added batched Ragas evaluation with ID validation, returning answers before asynchronous evaluation.',
-									'Removed repeated token counting, reducing median local processing from 2,969ms → 672ms (fixed model responses, 20 runs per condition after warm-up).',
+									'Evaluated long answers in batches with Ragas and checked item IDs for missing results. Let users read answers before evaluation finished.',
+									'Removed repeated calculations, reducing median document-analysis processing from 2,969ms → 672ms (fixed model responses, 20 runs per condition after warm-up).',
 								],
 					},
 					{

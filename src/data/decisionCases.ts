@@ -10,7 +10,7 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 				{
 					title: '평가 대상은 고정하고, 모델의 판정 결과를 검증',
 					decision:
-						'Ragas로 평가할 문장을 서버에서 확정하고 모델에는 문장 ID별 판정만 요청했습니다. 긴 입력은 여러 묶음으로 나누고, 원문 인용·근거 일치·답변의 설명 범위를 각각 확인하도록 구성했습니다.',
+						'Ragas 평가에서는 검증할 문장을 서버에서 고정하고, 모델이 반환한 평가 결과를 문장 ID로 대조하도록 구성했습니다. 긴 입력은 여러 묶음으로 나누고, 원문 인용·근거 일치·답변의 설명 범위를 각각 확인하도록 구성했습니다.',
 					verification:
 						'실제 문서 답변에서 추출한 25개 주장을 5개 묶음으로 나누어 끝까지 평가했습니다. ID 누락·중복과 잘못된 응답 형식을 검사해, 형식이 깨진 판정이 정상 결과로 저장되지 않도록 확인했습니다.',
 				},
@@ -144,7 +144,7 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 				{
 					title: 'Fix the evaluation targets and validate the verdicts',
 					decision:
-						'Fixed the statements for Ragas evaluation on the server and requested only verdicts by statement ID. Batched long inputs and checked quotations, supporting evidence, and answer coverage separately.',
+						'Fixed the target statements on the server for Ragas evaluation and matched the returned evaluation results by statement ID. Batched long inputs and checked quotations, supporting evidence, and answer coverage separately.',
 					verification:
 						'Completed evaluation of 25 claims extracted from an answer about a real document in five batches. Checks reject missing or duplicate IDs and invalid response types before malformed verdicts can be stored as valid results.',
 				},

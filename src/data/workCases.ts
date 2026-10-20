@@ -37,7 +37,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			thinking: [
 				'검색어가 들어 있는 문장뿐 아니라 그 내용을 이해하는 데 필요한 앞뒤 문단과 참조된 표도 함께 전달하기로 했습니다. 여러 문서를 분석할 때도 각 근거가 어느 문서에서 나왔는지 추적할 수 있도록 했습니다.',
 				'원문을 정확히 인용했는지, 답변이 문서에 근거하고 있는지, 질문의 각 항목에 답했는지는 서로 다른 문제였습니다. 한 가지 점수로 판단하지 않고 각각 확인하도록 검증 과정을 나눴습니다.',
-				'평가 모델이 검증 대상 문장을 다시 쓰는 과정에서 내용을 바꾸는 문제가 있었습니다. 각 항목에 ID를 붙이고, 모델은 해당 ID에 대한 판정만 반환하도록 바꿨습니다.',
+				'평가 모델이 검증 대상 문장을 다시 쓰는 과정에서 내용을 바꾸는 문제가 있었습니다. 각 항목에 ID를 붙여 평가 대상 문장을 고정하고, 반환된 평가 결과를 원문 항목과 대조하도록 구성했습니다.',
 				'모델의 응답 속도와 애플리케이션 내부의 처리 시간을 구분해야 병목을 찾을 수 있었습니다. 같은 모델 응답을 사용하는 시험을 구성해 반복 계산에 걸리는 시간을 비교했습니다.',
 				'사용자가 이미 생성된 답변을 보기 위해 품질 평가까지 기다릴 필요는 없었습니다. 답변을 먼저 보여 주고 평가는 별도로 실행하되, 새 질문이 들어오면 다음 평가 요청을 잠시 미루도록 했습니다.',
 			],
@@ -884,7 +884,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			thinking: [
 				'A passage needed the surrounding paragraphs and referenced tables to be understood correctly. I included that context and kept track of which document supplied each piece of evidence.',
 				'An exact quotation, an answer supported by the document and a response covering every part of the question are different checks. I tested them separately instead of treating one score as proof of all three.',
-				'The evaluation model sometimes changed the statements it was asked to repeat. I assigned an ID to each item and asked the model to return only the verdict for that ID.',
+				'The evaluation model sometimes changed the statements it was asked to repeat. I assigned an ID to each fixed target statement and matched the returned evaluation results to the original items.',
 				'To locate application bottlenecks, I needed to separate local processing from model response time. I used fixed model responses and compared the time spent on repeated calculations.',
 				'Users did not need to wait for quality evaluation to read an answer that was already complete. I returned the answer first and evaluated it separately, deferring the next evaluation request while a new question was being processed.',
 			],

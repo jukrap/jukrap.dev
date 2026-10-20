@@ -3,6 +3,7 @@
 import ScrollReveal from '@/components/common/scrollReveal';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useThemeStore } from '@/store/useThemeStore';
 import { ProjectLink, SimpleProject, Project } from '@/types/project';
 import { useIcon } from '@/hook/useIcon';
@@ -34,6 +35,7 @@ const SideProjectsSection: React.FC = () => {
 	const isDarkMode = useThemeStore((state) => state.isDarkMode);
 	const {
 		dictionary,
+		locale,
 		data: { projects, projectDetails },
 	} = useLocale();
 	const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -65,8 +67,8 @@ const SideProjectsSection: React.FC = () => {
 			<div className="w-full flex flex-col gap-6">
 				{projects
 					.filter((project) => project.major)
-					.map((project, index) => (
-						<div key={index} className="about-entry">
+					.map((project) => (
+						<div key={project.id} className="about-entry">
 							{/* 프로젝트 제목 및 기간 */}
 							<div className="flex flex-col items-start gap-0.5">
 								<button
@@ -129,6 +131,16 @@ const SideProjectsSection: React.FC = () => {
 								<p className="font-light text-xs md:text-sm leading-relaxed tracking-tight text-left text-muted-foreground py-1">
 									{project.techStack}
 								</p>
+								{project.id === 'ai-agent-playbook' ? (
+									<Link
+										href={`/${locale}/portfolio#ai-agent-playbook`}
+										className="inline-flex py-1 text-sm font-medium text-foreground underline decoration-accent/70 underline-offset-4 transition-colors hover:text-accent focus-visible:text-accent"
+									>
+										{locale === 'ko'
+											? '설계 판단과 검증 과정'
+											: 'Read the design decisions and checks'}
+									</Link>
+								) : null}
 							</div>
 						</div>
 					))}

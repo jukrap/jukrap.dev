@@ -1,3 +1,4 @@
+import { decisionCases } from '@/data/decisionCases';
 import type { Locale } from '@/types/locale';
 import type { PortfolioPageImage } from '@/types/documents';
 interface ProjectDocumentCopy {
@@ -86,22 +87,12 @@ export const projectDocumentCopy: Record<
 			role: '1인 개발',
 			summary:
 				'AI 코딩 도구가 작업 세션이 바뀌어도 프로젝트 규칙과 이전 기록을 참고하도록 만든 개발 도구입니다. 필요한 스킬을 골라 설치하고, 기존 파일을 보존하면서 구성을 바꾸거나 복구할 수 있습니다.',
-			problem:
-				'여러 저장소를 오가며 작업할 때 공통 기록과 저장소별 기록을 구분해야 했습니다. 스킬을 업데이트하면서 사용자가 수정한 파일을 덮어쓰거나, 설치 실패로 기존 구성을 잃지 않도록 해야 했습니다.',
-			actions: [
-				{
-					title: '공유 기록과 읽기 전용 MCP',
-					description:
-						'등록한 저장소의 기록을 CLI와 읽기 전용 MCP로 검색·조회하도록 구현했습니다. 긴 결과는 나누어 읽게 하되, 도중에 원문이 바뀌면 이전 내용과 새 내용이 섞이지 않도록 이어 읽기를 중단했습니다.',
-				},
-				{
-					title: '사용자 수정본 보존과 설치 복구',
-					description:
-						'도구가 설치한 파일인지와 설치 후 내용이 바뀌었는지를 확인해 사용자 수정본을 보존했습니다. 새 스킬이 모두 정상인지 확인한 뒤 기존 항목을 정리하고, 삭제 직전에도 변경 여부를 다시 검사했습니다. 백업과 적용 기록을 남겨 이전 구성으로 되돌릴 수 있도록 했습니다.',
-				},
-			],
-			result:
-				'npm과 GitHub에 공개하고 한국어·영어 설치 및 사용 문서를 작성했습니다. 설치 충돌, 일부 설치 실패와 복구를 테스트했으며 Windows·Ubuntu CI에서 검증하도록 구성했습니다.',
+			problem: decisionCases.ko['ai-agent-playbook'].context,
+			actions: decisionCases.ko['ai-agent-playbook'].points.map((point) => ({
+				title: point.title,
+				description: `${point.decision} ${point.verification}`,
+			})),
+			result: decisionCases.ko['ai-agent-playbook'].outcome,
 			images: [],
 		},
 		itzip: {
@@ -239,22 +230,12 @@ export const projectDocumentCopy: Record<
 			role: 'Solo developer',
 			summary:
 				'Built a tool that helps AI coding tools refer to project rules and work history across sessions. Users can select skills to install, change the setup and recover it while preserving existing files.',
-			problem:
-				'Working across repositories required shared records to remain distinct from local history. Updating skills also had to preserve user edits and avoid losing a working setup after a failed installation.',
-			actions: [
-				{
-					title: 'Shared records and read-only MCP',
-					description:
-						'Implemented search and read access to registered repositories’ records through a CLI and read-only MCP. Split long results into pages and stopped continuation if the source changed, so old and new content would not be mixed.',
-				},
-				{
-					title: 'Preserving edits and recovering installations',
-					description:
-						'Checked which files the tool installed and whether they had changed to preserve user edits. Required all replacement skills to be valid before removing old entries, and rechecked for changes immediately before deletion. Kept backups and application records to restore the previous setup.',
-				},
-			],
-			result:
-				'Published on npm and GitHub, with installation and usage documented in English and Korean. Tested installation conflicts, partial failures, recovery, query scope and continuation, and configured Windows/Ubuntu CI.',
+			problem: decisionCases.en['ai-agent-playbook'].context,
+			actions: decisionCases.en['ai-agent-playbook'].points.map((point) => ({
+				title: point.title,
+				description: `${point.decision} ${point.verification}`,
+			})),
+			result: decisionCases.en['ai-agent-playbook'].outcome,
 			images: [],
 		},
 		itzip: {

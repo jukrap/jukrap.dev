@@ -1,3 +1,4 @@
+import type { DecisionPoint } from './decisions';
 import type { Locale } from '@/types/locale';
 
 export type RecruitingDocumentId = 'portfolio' | 'resume' | 'career-brief';
@@ -184,6 +185,7 @@ export interface CareerBriefCompany {
 }
 
 export interface CareerBriefFeaturedWork {
+	decisionPoints?: readonly DecisionPoint[];
 	implementations?: readonly string[];
 	id: string;
 	title: string;

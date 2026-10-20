@@ -5,9 +5,9 @@ const featuredWorkStoryIds = [
 	'ai-document-analysis',
 	'settlement-operations-platform',
 	'delivery-output-flow',
-	'react-admin-state-migration',
 ] as const;
 const supportingWorkStoryIds = [
+	'react-admin-state-migration',
 	'multi-role-hybrid-platform',
 	'mobile-operations-platform',
 	'legacy-support-web',
@@ -16,13 +16,14 @@ const supportingWorkStoryIds = [
 ] as const;
 
 const portfolioProjectIds = [
+	'ai-agent-playbook',
 	'captain-donghae',
 	'sharebby',
-	'ai-agent-playbook',
 	'itzip',
 	'posture-teacher',
 ] as const;
 const portfolioDetailedWorkStoryIds = [
+	'react-admin-state-migration',
 	'hybrid-life-info-platform',
 	'hybrid-security-boundary',
 	'ai-kickoff-documentation-tool',
@@ -36,11 +37,13 @@ export const portfolioPageIds = [
 				? [id, 'erp-mobile-workflow']
 				: [id],
 	),
+	'ai-agent-playbook',
+	'react-admin-state-migration',
 	'weather-feature',
 	'hybrid-security-boundary',
 	'ai-kickoff-documentation-tool',
 	'supporting-work',
-	...portfolioProjectIds,
+	...portfolioProjectIds.filter((id) => id !== 'ai-agent-playbook'),
 	'closing',
 ] as const;
 export function getPortfolioPageNumber(id: string) {
@@ -57,7 +60,7 @@ export const recruitingDocumentManifest = {
 			id: 'portfolio',
 			title: '포트폴리오',
 			description:
-				'주요 업무에서 개발한 기능과 개인 프로젝트의 화면·구현 내용을 소개합니다.',
+				'주요 업무와 개인 프로젝트에서 내린 판단, 검증 과정과 결과를 소개합니다.',
 			slug: '/ko/portfolio',
 			visibility: 'public',
 			pageCount: portfolioPageIds.length,
@@ -100,10 +103,10 @@ export const recruitingDocumentManifest = {
 		],
 		portfolioProjectIds,
 		resumeProjectIds: [
+			'ai-agent-playbook',
 			'captain-donghae',
 			'sharebby',
 			'posture-teacher',
-			'ai-agent-playbook',
 		],
 	},
 } as const satisfies RecruitingDocumentManifest;

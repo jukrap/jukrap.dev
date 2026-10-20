@@ -1,3 +1,4 @@
+import { decisionCases } from '@/data/decisionCases';
 import type { CareerBriefCopy, ResumeDocumentCopy } from '@/types/documents';
 import type { Locale } from '@/types/locale';
 import { getRecruitingDocumentManifest } from './manifest';
@@ -67,12 +68,12 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 							: 'Owned full-stack development of document upload, search, analysis and source inspection, including Gemma 4 integration.',
 						highlights: ko
 							? [
-									'긴 답변을 나누어 Ragas로 평가하고, 항목별 ID를 대조해 평가 누락을 확인했습니다. 사용자가 평가가 끝나기 전에도 답변을 볼 수 있도록 했습니다.',
-									'반복 계산을 제거해 문서 분석 처리 시간의 중앙값을 2,969ms → 672ms로 줄였습니다(모델 응답 고정, 준비 실행 후 각 20회 측정).',
+									'Ragas 평가 모델이 검증할 문장을 바꾸지 않도록 평가 대상을 고정하고 ID별 판정만 요청했습니다. 25개 주장을 5개 묶음으로 평가하고 누락·중복 ID를 검사했습니다.',
+									'모델 지연과 내부 병목을 구분하려고 모델 응답을 고정해 측정했습니다. 반복 계산을 줄인 뒤 내부 처리 중앙값이 2,969ms → 672ms로 감소했습니다(워밍업 후 각각 20회).',
 								]
 							: [
-									'Evaluated long answers in batches with Ragas and checked item IDs for missing results. Let users read answers before evaluation finished.',
-									'Removed repeated calculations, reducing median document-analysis processing from 2,969ms → 672ms (fixed model responses, 20 runs per condition after warm-up).',
+									'Fixed evaluation targets so the Ragas evaluator could not rewrite them, requesting verdicts by ID. Evaluated 25 claims in five batches and checked missing and duplicate IDs.',
+									'Used fixed model responses to separate application overhead from model latency. Removing repeated computation reduced median internal processing from 2,969ms → 672ms (20 runs per condition after warmup).',
 								],
 					},
 					{
@@ -82,16 +83,16 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 							: 'Owned full-stack development of the ERP and connected Flutter mobile work app, excluding the chat system.',
 						highlights: ko
 							? [
-									'동시 수정 시 서버 버전을 확인하고 사용자 입력을 보존했습니다. 처음 값·최신 값·입력값을 비교해 선택한 내용을 다시 저장하도록 구현했습니다.',
-									'Excel 오류 셀 수정·재검사, 일괄 저장의 전체 취소와 중복 요청 처리를 구현했습니다. 현재 정보가 바뀌어도 확정된 정산 이력은 보존했습니다.',
-									'모바일 알림의 버전과 삭제 상태를 관리해 늦게 도착한 이전 알림이 최신 내용을 덮지 않도록 했습니다. 읽음 저장의 DB 교착은 단일 UPSERT로 수정했습니다.',
-									'Flutter 앱의 알림·상세 이동을 연결하고, 로그인 토큰 대신 짧은 유효기간의 서명 주소로 문서를 다운로드하도록 구현했습니다.',
+									'다른 사람의 수정과 사용자의 입력을 모두 지키기 위해 충돌 시 비교 후 다시 저장하도록 설계했습니다. 개발 환경에서 선행 API 수정·409 응답·재저장 후 DB와 변경 이력을 대조했습니다.',
+									'Excel 검증 데이터를 서버에 보관하고 저장 직전에 다시 확인했습니다. 격리한 MariaDB에서 실패·재요청·동시 저장을 재현해 전체 취소와 중복 요청 처리를 점검했습니다.',
+									'알림 내용과 읽음 상태를 분리하고, DB에서 재현한 읽음 저장 교착을 단일 UPSERT로 해결했습니다. 동시 요청과 순서가 뒤바뀐 알림을 검증했습니다.',
+									'로그인 토큰 대신 짧게 유효한 서명 URL로 PDF를 전달했습니다. 브라우저에서 내려받은 PDF의 해시를 원본과 비교하고, 네이티브 브리지에 전달되는 값을 확인했습니다.',
 								]
 							: [
-									'Checked server versions on concurrent edits and retained user input. Compared original, latest and entered values before explicitly saving selected changes.',
-									'Built Excel cell correction, revalidation, batch rollback and repeat-request handling, while preserving finalized settlements when current records changed.',
-									'Tracked mobile notification versions and deletions so delayed events could not overwrite current content. Replaced receipt writes with a single UPSERT to resolve database deadlocks.',
-									'Connected notifications and detail navigation in Flutter and issued short-lived signed document URLs instead of passing login tokens to the download feature.',
+									'Designed conflict comparison and a separate save to preserve both server updates and user drafts. In development, checked a preceding API update, the 409 response, and the resolved save against the database and history.',
+									'Kept Excel validation data on the server and rechecked it before saving. Tested failures, retries and concurrent saves in isolated MariaDB to verify rollback and duplicate-request handling.',
+									'Separated notification content from receipts and replaced receipt writes with a single UPSERT after reproducing a database deadlock. Tested concurrent requests and out-of-order notifications.',
+									'Delivered PDFs through short-lived signed URLs without passing login tokens. Compared browser-download hashes with originals and checked the values sent to the native bridge.',
 								],
 					},
 					{
@@ -103,12 +104,12 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 							: 'Built the complete logistics web frontend and Android printing app.',
 						highlights: ko
 							? [
-									'표·입력 폼·모달을 공통화하고 조회·예약·Excel 미리보기·출력 요청을 서버 API에 연결했습니다.',
+									'추가 분리의 효과와 초기화 복잡도를 비교해 페이지·Excel 코드만 지연 로딩하고 인증·API 초기화의 추가 분리는 보류했습니다.',
 									'페이지·Excel 코드를 필요한 시점에 불러오도록 바꿔 초기 JavaScript 파일 크기를 약 74% 줄였습니다(2026.05 빌드 산출물 기준).',
 									'WebView의 출력 요청을 Android 브리지와 Bluetooth 프린터에 연결했습니다. SDK 내부 호출을 추적해 권한 오류를 해결하고 실제 라벨 출력을 확인했습니다.',
 								]
 							: [
-									'Built shared tables, forms and modals; connected search, reservations, Excel previews and print requests to server APIs.',
+									'Weighed size savings against initialization complexity: split screens and Excel code, but deferred further splitting of authentication/API setup.',
 									'Reduced the initial JavaScript entry file by about 74% with on-demand page and Excel code loading (build output size).',
 									'Connected WebView print requests to an Android bridge and Bluetooth printers. Traced SDK calls to fix missing permissions and verified physical label output.',
 								],
@@ -158,6 +159,7 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				evidence: [
 					{ source: 'profile', id: triphosCareerEvidence.id },
 					...evidence,
+					workStoryEvidence('react-admin-state-migration'),
 					workStoryEvidence('hybrid-life-info-platform'),
 					workStoryEvidence('hybrid-security-boundary'),
 				],
@@ -188,7 +190,18 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				period: period(project.duration),
 				role: text.role,
 				summary: text.summary,
-				highlights: [text.actions[0].description],
+				highlights:
+					id === 'ai-agent-playbook'
+						? ko
+							? [
+									'기존 AI 코딩 도구와 겹치는 실행기·스케줄러를 제외하고 기록·스킬 관리에 집중했습니다. CLI와 MCP의 조회 범위 및 설치 경로를 Windows·Ubuntu CI에서 검증했습니다.',
+									'파일의 소유 정보와 해시로 사용자 수정본을 보존하고, 백업·적용 기록으로 복구하도록 설계했습니다. 설치 일부 실패·파일 충돌·검사 후 수정·복원 시나리오를 테스트했습니다.',
+								]
+							: [
+									'Removed runner and scheduler features that overlapped with existing AI coding tools, focusing on records and skills. Verified CLI/MCP query scope and installation paths in Windows/Ubuntu CI.',
+									'Used file ownership and hashes to preserve user edits, with backups and application records for recovery. Tested partial installation failures, conflicts, changes after inspection, and restoration.',
+								]
+						: [text.actions[0].description],
 				technologies: project.techStack,
 				links: visibleProjectLinks(id),
 				evidence: [projectEvidence(id)],
@@ -283,6 +296,19 @@ export function getCareerBriefDocument(locale: Locale): CareerBriefCopy {
 							: (resume.careers[0].workItems?.find(
 									(item) => item.title === story.title,
 								)?.scope ?? copy.summary),
+
+				decisionPoints:
+					id === 'settlement-operations-platform'
+						? [
+								decisionCases[locale][id].points[0],
+								decisionCases[locale]['erp-mobile-workflow'].points[0],
+							]
+						: id === 'delivery-output-flow'
+							? [
+									decisionCases[locale]['delivery-operations-web'].points[0],
+									decisionCases[locale]['mobile-output-bridge'].points[0],
+								]
+							: decisionCases[locale][id].points,
 				contribution: copy.actions[0].description,
 				implementations:
 					id === 'settlement-operations-platform'
@@ -314,7 +340,9 @@ export function getCareerBriefDocument(locale: Locale): CareerBriefCopy {
 				id,
 				title: story.title,
 				period: story.period,
-				decision: supportingDocumentCopy[locale][id],
+				decision:
+					supportingDocumentCopy[locale][id] ??
+					workDocumentCopy[locale][id].overviewDetail!,
 				result: '',
 				evidenceRef: workStoryEvidence(id),
 			};

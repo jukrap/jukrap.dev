@@ -30,7 +30,11 @@ const portfolioDetailedWorkStoryIds = [
 export const portfolioPageIds = [
 	'cover',
 	...featuredWorkStoryIds.flatMap((id) =>
-		id === 'delivery-output-flow' ? ['logistics-web', 'logistics-mobile'] : [id],
+		id === 'delivery-output-flow'
+			? ['logistics-web', 'logistics-mobile']
+			: id === 'settlement-operations-platform'
+				? [id, 'erp-mobile-workflow']
+				: [id],
 	),
 	'weather-feature',
 	'hybrid-security-boundary',

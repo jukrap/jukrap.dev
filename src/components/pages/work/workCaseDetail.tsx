@@ -65,14 +65,16 @@ const TechnologyEnvironment = ({ story }: { story: ProfessionalStory }) => {
 
 const ChapterImplementations = ({
 	chapters,
+	storyId,
 }: {
 	chapters: WorkStoryChapter[];
+	storyId: string;
 }) => (
 	<div className="space-y-5">
 		{chapters.map((chapter) => (
 			<section
 				key={chapter.id}
-				id={chapter.id}
+				id={chapter.id === storyId ? undefined : chapter.id}
 				tabIndex={-1}
 				className="scroll-mt-32 md:scroll-mt-40 xl:scroll-mt-32 grid gap-2 border-l border-border/60 pl-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-6"
 			>
@@ -316,7 +318,7 @@ export const WorkCaseDetail = ({
 
 				<EditorialSection title={labels.decisions}>
 					{story.chapters.length > 1 ? (
-						<ChapterImplementations chapters={story.chapters} />
+						<ChapterImplementations chapters={story.chapters} storyId={story.id} />
 					) : (
 						<EvidenceList items={story.chapters[0].execution} />
 					)}

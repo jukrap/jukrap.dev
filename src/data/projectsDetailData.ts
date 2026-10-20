@@ -31,7 +31,7 @@ export const projectsDetailData: Project[] = [
 			},
 		],
 		overview:
-			'AI 코딩 도구가 프로젝트 규칙과 작업 기록을 이어서 참고하도록 만든 하네스입니다. 기록 관리 CLI와 읽기 전용 MCP, 선택형 스킬 설치·복구 기능을 구현했습니다.',
+			'AI 코딩 도구가 작업 세션이 바뀌어도 프로젝트 규칙과 이전 기록을 참고하도록 만든 개발 도구입니다. 기록 관리 CLI와 읽기 전용 MCP를 만들고, 필요한 스킬을 골라 설치하거나 이전 구성으로 복구하는 기능을 구현했습니다.',
 		techStack: ['JavaScript', 'Node.js', 'MCP SDK', 'Zod', 'GitHub Actions'],
 		role: ['CLI / MCP', 'Documentation'],
 		teamSize: 1,
@@ -48,14 +48,14 @@ export const projectsDetailData: Project[] = [
 				title: '읽기 전용 MCP와 긴 기록 조회',
 				details: [
 					'상태 확인·검색·읽기·검증용 MCP 도구 4개 구현. 코딩 도구에서 같은 프로젝트 기록 조회.',
-					'긴 조회 결과의 나누어 읽기 구현. 조회 조건·원문 변경 시 이어 읽기 중단과 검색 범위 미확인 상태 표시.',
+					'긴 조회 결과를 나누어 읽도록 구현했습니다. 도중에 조회 조건이나 원문이 바뀌면 이어 읽기를 중단하고, 검색 범위를 모두 확인하지 못한 경우에는 그 상태를 결과에 표시했습니다.',
 				],
 			},
 			{
 				title: '선택형 스킬 설치와 복구',
 				details: [
 					'light, core, development, legacy 프로필과 개별 스킬 선택 지원. 일반 설치와 기존 구성을 정리하는 프로필 전환 명령 분리.',
-					'소유권·해시 확인으로 사용자 수정본과 다른 도구의 파일 보존. 적용 내역·백업 기록과 되돌리기 구현.',
+					'도구가 관리하는 파일인지와 설치 이후 수정됐는지를 해시로 확인해 사용자 수정본과 다른 도구의 파일을 보존했습니다. 적용 내역과 백업을 남겨 이전 구성으로 되돌릴 수 있도록 했습니다.',
 				],
 			},
 		],
@@ -195,7 +195,7 @@ export const projectsDetailData: Project[] = [
 				title: '인터랙티브 모달 컴포넌트 구현',
 				details: [
 					'react-spring·use-gesture를 이용한 바텀 시트 애니메이션과 드래그 조작 구현.',
-					'드래그 거리·속도에 따른 바텀 시트 위치 조정(10%, 30%, 60%, 85%, 92%).',
+					'드래그한 거리와 속도에 따라 바텀 시트가 미리 정한 다섯 위치(10%, 30%, 60%, 85%, 92%)에 멈추도록 구현했습니다.',
 					'바텀 시트의 스크롤·드래그 상태 처리.',
 				],
 			},
@@ -232,7 +232,7 @@ export const projectsDetailData: Project[] = [
 				title: '팀 협업과 배포',
 				details: [
 					'프론트엔드 1명과 백엔드 2명이 함께 작업했습니다.',
-					'Discord에서 주 3회 회의를 진행하고 Notion에 기획 내용을 정리했습니다.',
+					'Discord에서 진행 상황을 공유하고 Notion에 기획 내용을 정리했습니다.',
 					'GitHub Actions·AWS·Docker로 자동 배포 환경을 구성했습니다.',
 				],
 			},
@@ -386,10 +386,10 @@ export const projectsDetailData: Project[] = [
 		],
 		troubleshooting: [
 			{
-				title: '블로그 글 조회수 중복 카운트 방지',
+				title: '조회수 집계에 최소 체류 시간 적용',
 				details: [
-					'같은 사용자가 짧은 시간에 글을 반복 조회하면 조회수가 중복 집계되는 문제가 있었습니다.',
-					'페이지에 10초 이상 머문 경우에만 조회수가 증가하도록 바꿨습니다.',
+					'글을 잠깐 열거나 반복해서 다시 여는 동작까지 조회수에 반영되는 문제가 있었습니다.',
+					'페이지에 10초 이상 머문 경우에만 조회수를 올리도록 집계 조건을 바꿨습니다.',
 				],
 			},
 		],
@@ -505,8 +505,8 @@ export const projectsDetailData: Project[] = [
 				title: '다국어 페이지와 경력 콘텐츠 구성',
 				details: [
 					'React 19·Next.js 16 App Router 기반 Home·About·Work·Projects 페이지 개발.',
-					'한국어·영어 콘텐츠 분리와 공통 컴포넌트 연결. 언어별 경로 구성.',
-					'업무 사례·지원 문서를 공통 데이터로 관리. 웹 문서와 같은 디자인의 PDF 생성·직접 다운로드 구현.',
+					'한국어와 영어 콘텐츠를 나누어 관리하고 공통 컴포넌트로 표시했습니다. 각 언어에 맞는 경로를 구성했습니다.',
+					'업무 사례와 지원 문서의 기간·역할·기술 정보를 연결해 관리했습니다. 웹 문서와 같은 디자인의 PDF를 생성하고 직접 내려받도록 구현했습니다.',
 				],
 			},
 			{
@@ -625,15 +625,21 @@ export const projectsDetailData: Project[] = [
 		],
 		overview: '취미 활동을 공유하고 모임에 참여할 수 있는 크로스플랫폼 앱.',
 		techStack: ['JavaScript', 'React Native', 'Firebase', 'Faster Image'],
-		role: ['Frontend', 'Backend', 'Presentation'],
+		role: [
+			'React Native App Development',
+			'Firebase Integration',
+			'Presentation',
+		],
 		teamSize: 5,
 		tasks: [
 			{
-				title: '안드로이드 작업',
-				details: ['iOS 기준으로 개발된 화면의 Android 대응.'],
+				title: '기존 화면의 Android 대응',
+				details: [
+					'iOS 기준으로 개발된 화면을 Android에서도 사용할 수 있도록 수정했습니다.',
+				],
 			},
 			{
-				title: '데이터베이스 관련',
+				title: 'Firebase 저장 구조 설계',
 				details: ['ERD를 이용한 데이터 관계 정리와 Firebase 저장 구조 설계.'],
 			},
 			{
@@ -653,7 +659,7 @@ export const projectsDetailData: Project[] = [
 				title: '이미지 캐싱 이슈 해결',
 				details: [
 					'리액트 네이티브 기본 이미지 컴포넌트를 사용하면서 트래픽이 많이 발생하고 이미지가 느리게 로딩되는 문제를 확인했습니다.',
-					'fast-image 라이브러리 적용을 시도했으나, 업데이트 중단 이슈로 인해 faster-image 라이브러리를 대안으로 적용했습니다.',
+					'당시 fast-image의 유지보수 상태를 확인한 뒤 faster-image를 대안으로 적용했습니다.',
 					'이미지 로딩에 faster-image의 캐시를 적용했습니다.',
 				],
 			},
@@ -667,9 +673,9 @@ export const projectsDetailData: Project[] = [
 				],
 			},
 			{
-				title: '게시판 및 댓글 성능 개선',
+				title: '목록 새로고침과 추가 조회',
 				details: [
-					'Pull to Refresh로 목록을 새로고침하고 Infinite Scroll로 다음 데이터를 불러오도록 구현했습니다.',
+					'목록을 당기면 새로고침하고, 아래로 스크롤하면 다음 게시글과 댓글을 불러오도록 구현했습니다.',
 				],
 			},
 		],
@@ -677,7 +683,7 @@ export const projectsDetailData: Project[] = [
 			{
 				title: 'Firebase를 활용한 실시간 기능 구현',
 				details: [
-					'Firebase의 실시간 데이터베이스를 활용하여 실시간 댓글, 좋아요, 다중 이미지 등의 기능을 구현했습니다.',
+					'Firebase Realtime Database를 연결해 댓글과 좋아요 변경 사항을 화면에 반영했습니다. 게시글에 여러 이미지를 첨부하는 기능도 구현했습니다.',
 				],
 			},
 			{
@@ -890,7 +896,7 @@ export const projectsDetailData: Project[] = [
 		title: '수다쟁이',
 		subtitle: 'Chatterbox',
 		platform: ['Mobile'],
-		duration: '2022.11 ~ 2022.12',
+		duration: '2022.09 ~ 2022.12',
 		links: [
 			{
 				type: 'github',
@@ -926,7 +932,7 @@ export const projectsDetailData: Project[] = [
 				title: '서적 선택 및 읽기 기능 구현',
 				details: [
 					'읽을 책과 지문 선택 기능 구현.',
-					'STT로 인식한 음성과 제시된 책 구절을 비교하는 읽기 판별 기능 개발.',
+					'음성 인식(STT) 결과를 앱에 제시한 책 구절과 비교해, 지문을 맞게 읽었는지 알려주는 기능을 구현했습니다.',
 					'책 한 권을 끝까지 읽는 화면 구성과 독서 완료 시간 기록.',
 				],
 			},
@@ -941,10 +947,9 @@ export const projectsDetailData: Project[] = [
 		],
 		troubleshooting: [
 			{
-				title: '안드로이드 버전 관리 및 레거시 요소 적용',
+				title: '음성 인식 라이브러리의 Android 연동',
 				details: [
-					'Google Cloud Platform을 안드로이드 환경에 적용하는 과정에서 안드로이드 버전 관리 방법을 익혔습니다.',
-					'빌드 설정을 수정해 기존 라이브러리를 적용했습니다.',
+					'Google Cloud Platform의 음성 인식 라이브러리를 Android 앱에 연결하면서 빌드 설정을 조정했습니다.',
 				],
 			},
 		],
@@ -1019,7 +1024,7 @@ export const projectsDetailData: Project[] = [
 		teamSize: 1,
 		tasks: [
 			{
-				title: '게임 시스템 및 컨텐츠 개발',
+				title: '게임 시스템 및 콘텐츠 개발',
 				details: [
 					'1인칭 슈팅·체력·점수 시스템 구현.',
 					'컷씬·적 AI·아이템·엔딩 등 게임 콘텐츠 개발.',
@@ -1028,13 +1033,6 @@ export const projectsDetailData: Project[] = [
 			},
 		],
 		troubleshooting: [
-			{
-				title: '프리팹 관련 문제 해결',
-				details: [
-					'프리팹을 다루는 과정에서 리소스가 손실되는 문제가 있었습니다.',
-					'프리팹의 사용 방법을 확인하고 이후 작업에 적용했습니다.',
-				],
-			},
 			{
 				title: '사운드 및 애니메이션 오류 수정',
 				details: [
@@ -1047,9 +1045,7 @@ export const projectsDetailData: Project[] = [
 			{
 				title: '싱글톤 패턴 학습 및 적용',
 				details: [
-					'개발 중 싱글톤 패턴의 필요성을 인지하고 학습했습니다.',
-					'싱글톤 패턴으로 게임 데이터와 핵심 기능을 관리했습니다.',
-					'여러 곳에서 같은 데이터와 기능을 사용하도록 해 중복 코드를 줄였습니다.',
+					'게임 데이터와 핵심 기능을 여러 객체가 함께 사용하도록 싱글톤으로 관리해 중복 코드를 줄였습니다.',
 				],
 			},
 		],
@@ -1137,7 +1133,7 @@ export const projectsDetailData: Project[] = [
 				title: '집중력 감지 기능 구현',
 				details: [
 					'MediaPipe 기반 눈동자·얼굴 움직임 감지 기능 개발.',
-					'감지 데이터를 이용한 집중 여부 판별 알고리즘 구현.',
+					'감지한 눈동자와 얼굴의 움직임을 기준으로 집중 여부를 판별하는 알고리즘 구현.',
 					'집중력 감지 강도를 조절하는 설정 기능 추가.',
 					'감지한 집중 상태에 따른 경고·안내 메시지 표시.',
 				],
@@ -1177,11 +1173,10 @@ export const projectsDetailData: Project[] = [
 		],
 		specialImplementations: [
 			{
-				title: '애자일 방법론 기반의 팀 협업 및 프로젝트 관리',
+				title: '팀 작업과 변경 이력 관리',
 				details: [
 					'깃허브로 팀의 코드와 변경 이력을 관리했습니다.',
 					'팀원들과 프로젝트 목표를 정하고 각자 맡은 작업의 진행 상황을 주기적으로 점검했습니다.',
-					'작업을 점검하고 조정하는 과정에 애자일 방법론을 일부 적용했습니다.',
 				],
 			},
 		],
@@ -1243,7 +1238,7 @@ export const projectsDetailData: Project[] = [
 			{ type: 'url', url: '/', visible: false },
 		],
 		overview:
-			'여러 ESD에서 제공하는 할인, 무료 소프트웨어 목록을 정리해서 알려주는 웹서비스.',
+			'여러 디지털 소프트웨어 판매처(ESD)의 할인·무료 배포 정보를 모아 보여주는 웹서비스.',
 		techStack: [
 			'JavaScript',
 			'React',
@@ -1279,15 +1274,6 @@ export const projectsDetailData: Project[] = [
 					'styled-components 기반 공통 상품 정보 컴포넌트 개발.',
 					'각 ESD 사이트로 연결되는 상품 링크 구현.',
 					'여러 페이지에서 같은 상품 정보 컴포넌트 재사용.',
-				],
-			},
-		],
-		troubleshooting: [
-			{
-				title: '정적 웹 호스팅 문제 해결',
-				details: [
-					'초기에 React SPA를 GitHub Pages로 배포하면서 문제가 발생했습니다.',
-					'배포 환경을 다른 호스팅 서비스로 옮겼습니다.',
 				],
 			},
 		],

@@ -93,9 +93,11 @@ export function getPortfolioDocument(
 			const isAi = story.id === 'ai-document-analysis';
 			const isErp = story.id === 'settlement-operations-platform';
 			const isLogistics = story.id === 'delivery-output-flow';
-			const chapter = isLogistics
-				? story.chapters.find(({ id }) => id === 'delivery-operations-web')!
-				: undefined;
+			const chapter = isErp
+				? story.chapters.find(({ id }) => id === 'settlement-operations-platform')!
+				: isLogistics
+					? story.chapters.find(({ id }) => id === 'delivery-operations-web')!
+					: undefined;
 			const contribution =
 				workContributionEvidence[
 					(chapter?.id ?? story.id) as keyof typeof workContributionEvidence
@@ -107,17 +109,7 @@ export function getPortfolioDocument(
 				kind: 'case',
 				eyebrow: `${t('회사 업무', 'Company work')} ${String(index + 1).padStart(2, '0')}${isLogistics ? ' / Web' : ''}`,
 				title: chapter?.title ?? story.title,
-				summary: isErp
-					? t(
-							'차량·기사 등 기준 정보와 운송료·청구·정산을 관리하는 업무 시스템. ERP 웹 전반과 주요 서버 API 개발, 기존 사용자 웹·모바일 앱의 기능 확장.',
-							'A business system for vehicle and driver records, transport fees, billing, and settlement. Built the ERP web app and key server APIs, and extended the existing user-facing web and mobile apps.',
-						)
-					: isLogistics
-						? t(
-								'조회·예약·Excel 등록·라벨 출력으로 이어지는 물류 업무 웹. React·TypeScript로 프론트엔드 전체를 개발하고, 서버 API와 PC 라벨 출력을 연동.',
-								'A logistics web app for search, reservations, Excel imports, and label printing. Built the complete frontend with React and TypeScript, including server API integration and PC label printing.',
-							)
-						: copy.summary,
+				summary: copy.summary,
 				metadata: [
 					{ label: t('기간', 'Period'), value: chapter?.period ?? story.period },
 					{
@@ -151,40 +143,13 @@ export function getPortfolioDocument(
 						]
 					: isErp
 						? [
+								{ id: 'problem', title: t('배경', 'Context'), body: [copy.problem] },
 								{
 									id: 'contribution',
-									title: t(
-										'화면 입력부터 일괄 저장까지',
-										'From data entry to batch saves',
-									),
-									items: copy.actions.slice(0, 2),
+									title: t('담당 구현', 'Implementation'),
+									items: copy.actions,
 								},
-								{
-									id: 'history',
-									title: t(
-										'기준 정보 변경과 정산 이력',
-										'Record changes and settlement history',
-									),
-									body: [
-										t(
-											'현재 담당 관계와 과거 거래 정보를 구분해 확정된 정산 금액을 유지했습니다. 차량 정보 저장 결과에는 새 정보 생성·운행 상태 변경과 보험·공과금 등 연결 업무에 미치는 영향을 안내했습니다.',
-											'Separated current assignments from historical transactions to retain finalized settlement amounts. Vehicle save feedback identifies newly created records, operating-status changes, and affected insurance or utility records.',
-										),
-									],
-								},
-								{
-									id: 'logs',
-									title: t(
-										'작업 내용과 오류를 확인하는 로그',
-										'Logs showing actions and errors',
-									),
-									body: [
-										t(
-											'초기 로그는 여러 정보를 남겼지만, 기술 항목이 많아 문제가 생긴 과정을 따라가기 불편했습니다. 작업 대상과 변경 내용, 입력 오류의 원인을 화면에 표시하고 불필요한 기술 항목은 줄였습니다.',
-											'The initial logs captured many details, but technical fields made it difficult to follow what had happened. I surfaced affected records, changes, and input-error reasons, and removed unnecessary technical fields.',
-										),
-									],
-								},
+								{ id: 'result', title: t('결과', 'Outcome'), body: [copy.result] },
 							]
 						: isLogistics
 							? [
@@ -220,6 +185,7 @@ export function getPortfolioDocument(
 										title: t('담당 구현', 'Implementation'),
 										items: copy.actions,
 									},
+									{ id: 'result', title: t('결과', 'Outcome'), body: [copy.result] },
 								],
 				evidence: [
 					workStoryEvidence(story.id),
@@ -228,6 +194,43 @@ export function getPortfolioDocument(
 			};
 		}),
 	];
+	const erp = getWorkStory('settlement-operations-platform', locale);
+	const erpMobile = erp.chapters.find(({ id }) => id === 'erp-mobile-workflow')!;
+	const erpMobileCopy = workDocumentCopy[locale][erpMobile.id];
+	pages.push({
+		id: erpMobile.id,
+		pageNumber: 0,
+		kind: 'case',
+		eyebrow: `${t('회사 업무', 'Company work')} ${String(featured.findIndex(({ id }) => id === erp.id) + 1).padStart(2, '0')} / Mobile`,
+		title: erpMobile.title,
+		summary: erpMobileCopy.summary,
+		metadata: [
+			{ label: t('기간', 'Period'), value: erpMobile.period },
+			{
+				label: t('담당', 'Scope'),
+				value: t(
+					'풀스택 개발 · 채팅 시스템 제외',
+					'Full-stack development · excluding the chat system',
+				),
+			},
+		],
+		technologies: erpMobile.stack,
+		sections: [
+			{
+				id: 'problem',
+				title: t('배경', 'Context'),
+				body: [erpMobileCopy.problem],
+			},
+			{
+				id: 'contribution',
+				title: t('담당 구현', 'Implementation'),
+				items: erpMobileCopy.actions,
+			},
+			{ id: 'result', title: t('결과', 'Outcome'), body: [erpMobileCopy.result] },
+		],
+		evidence: [workStoryEvidence(erp.id), workCaseEvidence(erpMobile.id)],
+	});
+
 	const logistics = getWorkStory('delivery-output-flow', locale);
 	const mobile = logistics.chapters.find(
 		({ id }) => id === 'mobile-output-bridge',
@@ -312,10 +315,10 @@ export function getPortfolioDocument(
 		id: 'weather-feature',
 		pageNumber: pages.length + 1,
 		kind: 'case',
-		eyebrow: t('회사 업무 04', 'Company work 04'),
+		eyebrow: `${t('회사 업무', 'Company work')} ${String(featured.length + 1).padStart(2, '0')}`,
 		title: t('생활정보 앱의 날씨 기능', 'Weather in a Daily Information App'),
 		summary: t(
-			'기존 Android 앱에 공공 데이터 기반 날씨 기능 추가. WebView 화면과 서버의 API 연동·캐시 처리 담당.',
+			'기존 Android 앱에 공공 데이터 기반 날씨 기능을 추가했습니다. WebView 화면과 서버의 API 연동·캐시 처리를 맡았습니다.',
 			'Added public-data weather features to an existing Android app, implementing the WebView interface, server-side API integration, and caching.',
 		),
 		metadata: [
@@ -347,14 +350,14 @@ export function getPortfolioDocument(
 					{
 						title: t('조회한 지역의 정보 재사용', 'Reuse data for requested regions'),
 						description: t(
-							'서버에 지역·정보 종류별 응답을 캐시하고, 정보별 갱신 주기에 맞춰 재사용.',
+							'같은 지역의 정보를 반복해서 요청하지 않도록 서버 응답을 지역과 정보 종류별로 캐시했습니다. 각 정보의 갱신 주기에 맞춰 보관 시간을 정했습니다.',
 							'Cached responses by region and data type, with expiry periods matched to each type.',
 						),
 					},
 					{
 						title: t('동시에 들어온 요청 묶기', 'Share in-flight requests'),
 						description: t(
-							'같은 캐시 키의 조회가 진행 중이면 해당 결과를 함께 사용해 외부 API 중복 호출 방지.',
+							'같은 지역·정보를 조회하는 요청이 동시에 들어오면 진행 중인 요청의 결과를 함께 사용하도록 했습니다. 외부 API에 같은 요청을 중복해서 보내지 않도록 처리했습니다.',
 							'Reused an in-flight result for the same cache key rather than issuing another external API call.',
 						),
 					},

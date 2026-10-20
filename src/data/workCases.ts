@@ -89,7 +89,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			id: 'settlement-operations-platform',
 			title: '업무 정산 ERP 플랫폼',
 			platform: 'Web / API',
-			area: 'ERP 웹 전반과 주요 서버 API 개발, 기존 사용자 웹·모바일 앱 기능 확장',
+			area: 'ERP 웹 전반과 주요 서버 API·데이터 저장 기능 개발',
 			period: '2026.07 ~ 2026.09',
 			role: '풀스택 개발',
 			workType: '신규 개발',
@@ -106,47 +106,125 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Vitest',
 			],
 			headline:
-				'차량·기사·운송료·청구·정산을 관리하는 웹 전반과 주요 서버 API, 데이터 저장 기능을 개발했습니다.',
+				'차량·기사 정보와 운송료·청구·정산을 관리하는 ERP 웹과 주요 서버 API를 개발했습니다.',
 			summary:
-				'ERP 웹 전반에 공통 편집표와 Excel 등록 기능을 연결하고, 담당 관계가 바뀌어도 과거 정산 금액이 유지되도록 했습니다. 작업 로그는 관리자가 대상·변경 내용·입력 오류의 원인을 읽을 수 있도록 개편했습니다.',
+				'여러 행을 편집하는 공통 표와 Excel 일괄 등록을 구현했습니다. 저장에 실패하거나 다른 사람의 수정과 충돌해도 입력을 잃지 않도록 했고, 현재 배정 정보가 바뀌더라도 확정된 정산 금액은 유지하도록 처리했습니다.',
 			problem:
-				'Excel 자료를 미리 본 뒤 수정하거나 다시 저장할 수 있어야 했습니다. 이때 일부 행만 등록되거나 같은 자료가 두 번 들어가면 안 됐습니다. 담당 관계 변경이 이미 확정된 정산 금액에 영향을 주지 않도록 이력 관리도 필요했습니다.',
+				'담당자가 표나 Excel에서 입력한 내용을 저장할 때 일부 행만 등록되거나 같은 자료가 두 번 들어가는 일을 막아야 했습니다. 다른 사람이 먼저 수정한 내용을 오래된 화면에서 덮어쓰지 않으면서, 사용자가 입력한 내용도 보존해야 했습니다. 차량·기사 배정이나 청구 원본이 바뀐 뒤에도 과거 정산을 그대로 조회할 수 있어야 했습니다.',
 			thinking: [
-				'미리보기에서 확인한 전체 자료를 서버에 보관했습니다. 확정할 때 권한과 참조 정보가 바뀌었는지 다시 검사해 화면에서 확인한 자료와 다른 값이 저장되지 않도록 했습니다.',
-				'대량 등록은 하나의 트랜잭션으로 처리했습니다. 저장 중 실패하면 전체를 되돌리고, 같은 요청을 다시 보내면 처음 저장한 결과를 반환하도록 했습니다.',
-				'현재 담당 관계와 거래 당시의 정산 대상을 별도로 저장했습니다. 어느 대상에 배분할지 불분명한 금액은 자동 처리하지 않고 정산 마감을 막았습니다.',
+				'Excel 미리보기에서 검사한 전체 자료를 서버에 보관하고, 최종 저장 직전에 권한과 연결 자료의 변경 여부를 다시 확인하도록 했습니다. 저장 도중 오류가 나면 전체를 취소하고, 같은 요청이 다시 도착하면 기존 결과를 반환하도록 했습니다.',
+				'다른 사용자가 먼저 저장한 자료는 조회 당시 버전과 현재 버전을 비교해 오래된 요청을 거절했습니다. 화면에는 입력값을 남기고, 처음 읽은 값과 최신 값, 입력값을 비교해 반영할 내용을 선택한 뒤 별도로 저장하게 했습니다.',
+				'현재 배정 정보와 거래 당시의 대상·금액을 나눠 저장했습니다. 대출·보험 원본을 고치면 작성 중이거나 반려된 청구에 변경을 반영하고, 이미 승인했거나 정산에 반영한 금액은 다음 내역에서 조정하도록 했습니다.',
 			],
 			process: [
-				'메뉴 조회와 등록·수정 권한을 서버에서 검사하도록 했습니다.',
-				'원천 청구와 배분 정보를 한꺼번에 조회하고 월 마감에 필요한 자료를 미리 읽도록 바꿨습니다.',
+				'동일한 자료에 별도 요청으로 먼저 변경을 저장한 뒤, 오래된 화면의 저장이 거절되는 상황을 재현했습니다. 서버의 버전 검사와 화면의 입력 보존을 함께 보완하고, 비교하는 동안 추가 변경이 생겼을 때도 다시 충돌을 확인하도록 했습니다.',
+				'격리된 MariaDB에서 일괄 저장 실패와 같은 요청의 재전송을 검사했습니다. 대표 업무는 브라우저 조작 결과를 API 응답, DB의 저장값, 작업 로그와 함께 대조했습니다.',
+				'대출 분류처럼 계산 조건을 바꾸지 않는 항목을 수정할 때는 기존 상환표를 유지하도록 했습니다. 불필요한 조회와 재계산을 줄인 뒤 같은 초기 데이터로 변경 전후의 동작과 처리 시간을 비교했습니다.',
 			],
 			solution: [
-				'인라인 편집·선택창·키보드 이동을 지원하는 공통 표 구현. 저장 실패 시 입력 초안 보존.',
-				'Excel 미리보기·수정·재검증·등록 화면과 API 개발. 중복 등록과 일부 행만 저장되는 경우 처리.',
-				'청구 금액의 정산 배분 구현. 담당 관계나 제원 변경 시에도 기존 정산 금액과 보험·점검의 등록 당시 정보 유지.',
-				'차량 정보 저장 후 새 정보 생성·운행 상태 변경과 보험·공과금 등 연결 업무에 미치는 영향 안내.',
-				'업무 변경·로그인 결과의 관리자 조회 구현. 작업 대상·변경 내용·입력 오류 중심으로 로그 화면을 개편하고 불필요한 기술 항목 축소.',
+				'키보드 셀 이동과 선택창 입력을 지원하는 공통 편집표를 만들고, 저장에 실패한 행의 입력값을 보존했습니다.',
+				'Excel 미리보기에서 오류 행과 셀을 찾아 수정하고 서버 검사를 다시 받을 수 있도록 했습니다. 최종 저장은 한 트랜잭션으로 처리해 부분 저장을 막고, 같은 요청을 다시 받으면 기존 결과를 반환하도록 했습니다.',
+				'동시 수정으로 저장이 거절되면 최신 자료와 입력값을 비교할 수 있도록 했습니다. 비교 결과를 선택하는 것과 실제 저장을 분리해 사용자의 확인 없이 자료가 바뀌지 않도록 했습니다.',
+				'차량·기사의 현재 배정 정보와 거래 당시 정보를 분리하고, 원본 정정이 확정된 정산 금액을 덮어쓰지 않도록 처리했습니다.',
+				'관리자가 작업 대상과 변경 내용, 저장 실패 원인을 확인할 수 있도록 로그 화면을 정리했습니다.',
 			],
 			impact: [
 				{
-					value: '입력 초안 보존',
-					label: '공통 편집표',
-					detail: '인라인 편집·선택창·키보드 이동과 저장 실패 처리',
+					value: '입력을 보존한 채 재저장',
+					label: '동시 수정 처리',
+					detail:
+						'오래된 저장을 거절한 뒤 최신 자료와 입력값을 비교하고, 반영할 내용을 선택해 다시 저장할 수 있도록 했습니다.',
 				},
 				{
 					value: '중복·부분 등록 방지',
-					label: 'Excel 대량등록',
-					detail: '실패 시 전체 취소, 같은 요청의 재시도에는 기존 결과 반환',
+					label: 'Excel 일괄 저장',
+					detail:
+						'저장 오류가 나면 전체 행을 취소하고, 같은 요청을 다시 보내면 이미 저장한 결과를 반환하도록 했습니다.',
 				},
 				{
-					value: '정산 이력 유지',
-					label: '담당 관계 변경',
-					detail: '현재 관계와 거래 당시의 정산 대상·금액을 분리',
+					value: '확정된 정산 이력 보존',
+					label: '배정·원본 정보 변경',
+					detail:
+						'현재 배정과 원본 자료를 수정해도 이미 확정한 정산의 대상과 금액은 유지하도록 했습니다.',
 				},
 			],
 			checks: [
-				'격리된 MariaDB에서 저장 실패 시 전체가 취소되는지 확인했습니다. 동시에 확정하거나 같은 요청을 다시 보내도 중복 등록되지 않는지 점검했습니다.',
-				'개발 DB에서 담당 관계를 바꾼 뒤에도 과거 정산 금액이 유지되는지 확인했습니다. 정산 저장 기능은 개발 환경에 반영했고, 개편한 작업 로그 화면은 관리자가 사용하고 있습니다.',
+				'격리된 MariaDB에서 저장 중 실패하면 전체가 취소되고, 동시에 확정하거나 같은 요청을 반복해도 중복 등록되지 않는지 확인했습니다.',
+				'개발 환경에서 다른 사용자가 먼저 수정한 뒤 오래된 화면의 저장이 거절되는지 확인했습니다. 입력값이 남아 있는 상태에서 최신 내용과 비교하고 다시 저장한 결과를 브라우저·API·DB로 대조했습니다.',
+				'개발 DB에서 배정 관계가 바뀐 뒤에도 과거 정산 금액이 유지되는지 확인했습니다. 정산 저장 기능은 개발 환경에 반영했으며, 개편한 작업 로그 화면은 관리자가 사용하고 있습니다.',
+			],
+		},
+		{
+			workstreamId: 'WS16',
+			id: 'erp-mobile-workflow',
+			title: 'ERP 연계 모바일 업무 앱',
+			platform: 'Web / API / Android',
+			area:
+				'채팅 시스템을 제외한 업무 화면·서버 API·Flutter Android 연계 기능 개발',
+			period: '2026.07 ~ 2026.09',
+			role: '풀스택 개발',
+			workType: '기능 개발·연계',
+			stack: [
+				'React',
+				'TypeScript',
+				'TanStack Query',
+				'TanStack Router',
+				'Spring Boot',
+				'MariaDB',
+				'Flutter',
+				'Dart',
+				'Firebase Cloud Messaging',
+			],
+			headline:
+				'ERP의 업무 알림과 문서, 문의 처리 결과를 Android 앱에서 확인할 수 있도록 연결했습니다.',
+			summary:
+				'기존 앱의 채팅 시스템을 제외한 업무 화면과 서버 API, Flutter Android 연계 기능을 개발했습니다. 알림 변경 요청의 순서가 뒤바뀌어도 최신 내용을 유지하도록 했고, 읽음 기록의 동시 저장 오류와 PDF 다운로드, 문의의 중복 완료 문제를 해결했습니다.',
+			problem:
+				'ERP에서 내용을 수정하거나 삭제한 뒤에도 모바일에 예전 알림이 남을 수 있었습니다. 동시에 들어오는 읽음 저장 요청은 DB 잠금 충돌로 실패했고, 웹에서 만든 파일 주소는 Android 다운로드 기능에서 그대로 사용할 수 없었습니다. 이미 완료한 문의를 뒤늦게 도착한 요청이 덮어쓰는 문제도 막아야 했습니다.',
+			thinking: [
+				'알림의 업무 내용과 사용자의 읽음 상태를 별도로 관리했습니다. 원본 버전과 삭제 여부를 확인해 최신 변경만 반영하고, 내용을 수정해도 읽음 기록은 유지하도록 했습니다.',
+				'읽음 기록을 먼저 갱신한 뒤 없으면 등록하던 처리를 단일 UPSERT로 바꿨습니다. 같은 요청이 반복돼도 최초 표시 시각과 읽은 시각은 바뀌지 않도록 했습니다.',
+				'PDF 다운로드에는 짧은 시간 동안 유효한 파일 전용 서명 주소를 사용했습니다. 주소를 발급할 때뿐 아니라 파일을 내려받을 때도 현재 계정과 문서의 접근 권한을 확인하도록 했습니다.',
+				'문의 완료 요청은 조회 당시 버전과 현재 처리 상태를 확인하도록 했습니다. 이미 처리된 문의는 구체적인 사유로 거절하고, 화면에는 저장하지 못한 입력을 남겼습니다.',
+			],
+			process: [
+				'알림 변경이 역순으로 도착하거나 같은 요청이 재전송되는 경우를 검사했습니다. 삭제 후 예전 생성 요청이 도착해도 알림이 다시 생기지 않고, 열려 있는 상세 화면에도 변경이 반영되는지 확인했습니다.',
+				'격리된 MariaDB에서 읽음 저장의 기존 잠금 충돌을 재현했습니다. 등록과 갱신을 하나의 DB 연산으로 바꾼 뒤 동시 요청의 저장 결과와 최초 시각 보존을 다시 검사했습니다.',
+				'브라우저에서 내려받은 PDF를 원본 파일과 대조하고, Android 다운로드로 전달하는 주소와 요청값을 검사했습니다.',
+				'로컬 화면에서 모바일 문의 접수, 관리자 완료, 모바일의 처리 결과 확인을 이어서 검수했습니다. Android 에뮬레이터에서는 시스템 알림 수신과 알림을 눌렀을 때의 화면 이동을 확인했습니다.',
+			],
+			solution: [
+				'알림의 버전과 삭제 상태를 확인해 최신 수정만 반영하고, 삭제된 알림이 늦은 요청으로 다시 나타나는 경우를 막았습니다. 기존 읽음 상태를 유지하면서 목록과 열린 상세 화면을 갱신했습니다.',
+				'표시·읽음 기록을 단일 UPSERT로 저장하도록 바꿔 동시 요청의 잠금 충돌을 해결했습니다. 계정과 알림별로 기록을 구분하고 최초 시각을 보존했습니다.',
+				'파일 전용 서명 주소로 PDF 다운로드를 연결하고, 실제 요청에서 서명·만료 시간·현재 접근 권한을 다시 검사했습니다. 이미지는 미리보기로 제공했습니다.',
+				'문의의 버전과 완료 상태를 검사해 중복 완료를 거절했습니다. 접수·완료 이력을 ERP에 전달할 때도 같은 이벤트가 중복 기록되지 않도록 했습니다.',
+				'Flutter의 알림 수신과 WebView 화면 이동을 연결해, 시스템 알림을 누르면 해당 업무 내용을 확인할 수 있도록 했습니다.',
+			],
+			impact: [
+				{
+					value: '알림의 최신 상태 유지',
+					label: '수정·삭제와 재전송',
+					detail:
+						'변경 요청이 역순으로 도착하거나 반복돼도 예전 내용이 최신 내용을 덮거나 삭제한 알림이 다시 생기지 않도록 했습니다.',
+				},
+				{
+					value: '읽음 기록의 동시 저장 오류 해결',
+					label: 'MariaDB 저장 처리',
+					detail:
+						'등록과 갱신을 한 번의 DB 연산으로 처리하고, 요청이 반복돼도 최초 표시·읽음 시각을 유지했습니다.',
+				},
+				{
+					value: '문서와 문의를 앱에 연결',
+					label: 'ERP와 모바일의 업무 연계',
+					detail:
+						'접근 권한을 확인하는 PDF 다운로드와 문의 처리 결과 조회를 구현하고, 이미 완료한 문의의 결과가 덮어써지지 않도록 했습니다.',
+				},
+			],
+			checks: [
+				'격리된 MariaDB에서 기존 읽음 저장 실패를 재현한 뒤, 동시에 들어오는 표시·읽음 요청이 저장되고 최초 시각이 유지되는지 확인했습니다. 알림 수정·삭제의 역순 전달과 재전송도 검사했습니다.',
+				'Chrome에서 내려받은 PDF가 원본과 같은 파일인지 해시로 대조하고, Android 다운로드 요청으로 전달되는 주소와 값을 검사했습니다.',
+				'로컬 브라우저에서 문의 접수부터 관리자 완료와 모바일 상태 확인까지 검수했습니다. 뒤늦은 완료 요청은 기존 결과를 바꾸지 않았고, 같은 이력을 다시 보내도 ERP에 중복 기록되지 않았습니다.',
+				'관련 기능을 개발 환경에 반영했습니다. Android 에뮬레이터에서는 실제 시스템 알림을 받고, 알림을 눌러 관련 목록과 본문으로 이동하는 동작을 확인했습니다.',
 			],
 		},
 		{
@@ -175,17 +253,17 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			thinking: [
 				'사용자가 확정한 처리 내용을 앱 저장소에 먼저 기록한 뒤 전송하도록 했습니다.',
 				'대기 요청이 현재 로그인한 사용자의 것인지 확인하고, 이미 서버에 반영된 결과를 확인한 뒤 재전송하도록 했습니다.',
-				'지도 선택과 처리 후 복귀 상태를 구분하고, 새 네이티브 기능은 지원 여부를 확인한 셸에서만 호출했습니다.',
+				'지도에서 업무를 선택했을 때와 처리를 마치고 돌아왔을 때의 상태를 나눴습니다. 새 위치 기능은 설치된 앱이 지원하는지 먼저 확인한 뒤 호출했습니다.',
 			],
 			process: [
 				'필터가 바뀌어도 지도 그룹 번호를 유지하고 선택한 업무 처리 뒤 기존 지도 위치로 돌아오도록 연결했습니다.',
-				'현재 위치의 권한·서비스 비활성·시간 초과를 나눴으며, 구형 셸은 기존 웹 위치 경로를 유지했습니다.',
-				'앱 재실행 뒤 사용자 식별과 대기열을 복원한 다음 전송을 시작하고, 기존 로그인 세션을 위한 식별 정보 복원도 보완했습니다.',
+				'현재 위치를 찾지 못했을 때는 권한 거부, 위치 서비스 비활성, 시간 초과를 구분했습니다. 새 위치 기능을 지원하지 않는 앱은 기존 웹 위치 조회 방식을 사용했습니다.',
+				'앱을 다시 실행하면 로그인 사용자와 전송 대기 요청을 복원한 뒤 전송을 시작했습니다. 기존 로그인 세션에서도 요청의 소유자를 확인할 수 있도록 사용자 정보 복원을 보완했습니다.',
 			],
 			solution: [
-				'관계 목록·확정 요청·선택 사진의 브리지 저장소 보존과 저장 작업 직렬화.',
-				'서버 완료 내역과 대기 요청 대조. 충돌·업무 오류·사진 복원 실패는 수동 확인 대상으로 분류.',
-				'지도 선택 후 처리 화면에서 복귀하는 동작과 네이티브 위치 지원 확인 구현. 웹·서버의 수령인·선택 첨부 입력 규칙 연결.',
+				'오프라인에서도 업무에 필요한 목록을 사용할 수 있도록 앱 저장소에 보관했습니다. 배달 완료 요청과 선택한 사진은 순서대로 저장하고, 저장이 끝난 뒤 서버로 전송했습니다.',
+				'재전송 전에 서버의 완료 내역과 대기 요청을 대조했습니다. 처리 결과가 충돌하거나 업무 오류가 있는 요청, 사진을 복원하지 못한 요청은 사용자가 확인하도록 남겼습니다.',
+				'업무 처리 후 이전 지도 위치로 돌아가도록 하고, 앱의 위치 기능 지원 여부를 확인하도록 했습니다. 수령인과 선택 첨부파일의 입력 규칙도 웹과 서버에서 맞췄습니다.',
 			],
 			impact: [
 				{
@@ -230,41 +308,42 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'조회·예약·Excel 등록과 라벨 출력으로 이어지는 물류 웹의 React·TypeScript 프론트엔드 전체를 개발했습니다.',
 			summary:
-				'반복되는 표·입력 폼·모달을 공통화하고 API 응답을 화면과 출력 흐름에 연결했습니다. 페이지와 Excel 처리 코드의 지연 로딩으로 초기 JavaScript 엔트리 파일 크기를 약 74% 줄였습니다(빌드 산출물 기준).',
+				'조회·예약·Excel 등록 화면을 개발하고, 서버가 반환한 예약·라벨 데이터를 미리보기와 출력에 연결했습니다. 페이지와 Excel 처리 코드를 필요한 시점에 불러오도록 바꿔 초기 JavaScript 파일 크기를 약 74% 줄였습니다. 실제 PC 출력물을 확인하며 긴 주소의 잘림과 겹침도 보정했습니다.',
 			impact: [
 				{
 					presentation: 'measurement',
-					value: '2,405.50 → 616.59 kB',
-					label: '초기 JavaScript 엔트리',
-					detail: '동일 빌드 기준 약 74% 감소',
+					value: '2,405.50 → 616.60 kB',
+					label: '초기 JavaScript 파일 크기',
+					detail: '2026.05 빌드 산출물 기준 약 74% 감소',
 				},
 				{
 					presentation: 'measurement',
 					value: '815.10 → 204.38 kB',
 					label: 'gzip 압축 크기',
-					detail: '동일 초기 엔트리 기준 약 75% 감소',
+					detail: '초기 JavaScript 파일의 압축 크기 약 75% 감소',
 				},
 			],
 			problem:
-				'조회·예약·Excel 등록·출력 화면에서 공통 UI와 API 연동이 필요했습니다. 초기 화면에 필요하지 않은 페이지와 Excel 라이브러리까지 함께 포함되어 초기 JavaScript 엔트리 파일이 커진 상태였습니다.',
+				'여러 업무 화면에 표·입력 폼·모달이 반복돼 함께 사용할 구조가 필요했습니다. 첫 화면에서 쓰지 않는 페이지와 Excel 라이브러리까지 한 번에 불러와 초기 JavaScript 파일이 커졌고, 화면 미리보기가 정상이어도 실제 라벨에서는 긴 주소가 잘리거나 겹쳤습니다.',
 			thinking: [
 				'조회 데이터, 입력 상태, 출력 요청을 분리하고 표·폼·모달은 공통 컴포넌트로 구성했습니다.',
-				'번들 분석으로 큰 의존성을 찾고 페이지와 Excel 라이브러리를 필요한 시점에 불러오도록 했습니다.',
-				'PC 브라우저 출력과 모바일 WebView의 네이티브 출력은 실행 환경에 맞게 나눴습니다.',
+				'번들 분석으로 첫 화면에서 필요하지 않은 코드의 비중을 확인하고, 페이지 진입과 Excel 기능 실행 시점에 맞춰 나눠 불러오도록 했습니다.',
+				'웹에서 보내는 출력 데이터는 통일하고, PC의 로컬 프린터 프로그램과 Android 앱의 Bluetooth 출력은 각각의 연결 방식에 맞춰 처리했습니다.',
 			],
 			process: [
 				'모의 데이터와 실제 API 연결을 분리해 로딩·빈 결과·오류 상태를 구현했습니다.',
-				'여러 라벨 번호가 생기는 예약을 목록과 모달에 표시하고 API 응답을 미리보기·출력 요청으로 변환했습니다.',
-				'공통 인증·API 초기화 코드까지 분리하는 방안도 검토했습니다. 초기 파일 크기는 더 줄었지만 인증 초기화와 첫 조작의 로딩 처리가 복잡해져, 페이지와 Excel 라이브러리에만 지연 로딩을 적용했습니다.',
+				'예약 한 건에 여러 라벨 번호가 배정되는 응답을 목록과 모달에 표시하고, 미리보기와 출력 요청에 사용할 데이터로 변환했습니다.',
+				'인증과 API 초기화 코드까지 추가로 분리하면 파일은 더 작아졌지만, 첫 API 요청의 초기화 순서를 보장하기 어려워지고 첫 조작마다 로딩 처리가 늘어났습니다. 안정성과 유지보수 비용을 고려해 페이지와 Excel 코드 분리까지만 적용했습니다.',
+				'실물 라벨에서 주소가 잘리거나 겹치는 위치를 확인한 뒤 줄바꿈, 글자 크기와 줄 간격을 조정했습니다.',
 			],
 			solution: [
-				'공통 표·입력 폼·모달을 사용한 예약 접수, 다건 처리, 주소록 선택과 Excel 미리보기 구현.',
-				'React.lazy로 페이지 코드 분리. Excel 라이브러리는 업로드·다운로드 실행 시점에 로드.',
-				'API의 예약 식별자와 다건 라벨 응답을 PC·모바일 출력용 데이터로 변환.',
-				'PC 라벨의 글자 폭에 따른 주소 줄바꿈과 마지막 줄에 남은 주소의 출력 폭 조정.',
+				'공통 표·입력 폼·모달을 사용해 예약 접수, 다건 처리, 주소록 선택과 Excel 미리보기를 구현했습니다.',
+				'React.lazy로 페이지 코드를 분리하고, Excel 라이브러리는 업로드·다운로드를 실행할 때 불러오도록 변경했습니다.',
+				'예약 식별자와 여러 라벨의 API 응답을 PC·Android 출력용 데이터로 변환하고, 출력할 항목과 프린터 연결 상태를 확인하도록 했습니다.',
+				'PC 라벨의 긴 주소는 글자 폭에 맞춰 줄바꿈하고 글자 크기와 줄 간격을 조정했습니다. 화면에 표시하는 운송장 번호의 형식을 바꿔도 바코드 데이터는 원래 값을 유지했습니다.',
 			],
 			checks: [
-				'수치는 동일한 빌드 기준으로 초기 JavaScript 엔트리 파일 크기를 비교한 값입니다. 전체 다운로드량이나 실행 속도를 측정한 수치는 아닙니다.',
+				'2026.05 빌드 산출물에서 초기 JavaScript 파일과 gzip 압축 파일의 크기를 비교했습니다.',
 				'페이지 이동, 데이터 조회, Excel 처리와 PC 라벨 출력이 지연 로딩 이후에도 이어지는지 확인했습니다.',
 			],
 		},
@@ -308,10 +387,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'캐시는 단일 Tomcat의 JVM 메모리 범위에 적용했습니다.',
 			],
 			solution: [
-				'대기질·중기예보·기상특보 API 연동과 특보 확인 모달 구현.',
-				'기준 데이터의 서버 캐시 구현. 갱신 데이터는 임시 저장·검증 후 기존 캐시와 교체.',
-				'Android WebView의 네이티브 위치 조회 연결. 실패 시 저장된 위치나 브라우저 위치 조회 사용.',
-				'일기 에디터와 Android 카메라·앨범 선택 동작 수정. 생활동선 지도의 거리·마커 표시 보완.',
+				'대기질·중기예보·기상특보 API를 연동하고, 특보 내용을 확인하는 모달을 구현했습니다.',
+				'기준 데이터를 서버에 캐시했습니다. 갱신한 자료는 임시로 보관하며 필수값을 검사한 뒤 기존 캐시와 교체했습니다.',
+				'Android WebView에서 앱의 위치 조회 기능을 사용할 수 있도록 연결했습니다. 조회에 실패하면 저장된 위치나 브라우저 위치 조회를 사용했습니다.',
+				'일기 에디터와 Android 카메라·앨범 선택 동작을 수정하고, 생활동선 지도의 거리·마커 표시를 보완했습니다.',
 			],
 			checks: [
 				'최초 조회, 캐시 재사용과 외부 API 실패 시 이전 값 표시를 확인하고 운영 환경에 반영했습니다.',
@@ -333,19 +412,19 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'저장소 분석과 신규 프로젝트 자료 업로드를 지원하는 화면을 만들었습니다. 자료 정리, 요구사항 후보와 확인 질문 검토, 문서 작성 순서로 구성했습니다. 문서는 표에서 편집하고, AI 수정 요청에는 선택한 시트·셀과 주변 내용을 함께 전달하도록 했습니다.',
 			impact: [
 				{
-					value: 'Scan → Preview',
-					label: '생성 입력 흐름',
-					detail: '규칙 기반 스캔 결과를 바탕으로 AI 초안 생성',
+					value: '자료 확인 후 초안 생성',
+					label: '문서 작성 순서',
+					detail: '수집한 자료를 검토한 뒤 AI로 문서 초안 작성',
 				},
 				{
-					value: 'xlsx workbook',
-					label: '검수 산출물',
-					detail: '요구사항/기능/화면 단위를 표로 검토',
+					value: '표에서 검토·편집',
+					label: '문서 편집',
+					detail: '요구사항·기능 정의서·화면 설계서를 시트별 표로 검토',
 				},
 				{
-					value: 'Selected cell revision',
-					label: '부분 보강',
-					detail: '선택 시트와 셀 기준으로 재작성 범위 축소',
+					value: '선택한 부분만 수정',
+					label: 'AI 수정 요청',
+					detail: '수정할 시트·셀과 유지할 주변 내용을 함께 전달',
 				},
 			],
 			problem:
@@ -362,9 +441,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'AI가 정리할 항목과 사용자가 결정할 항목을 구분하고, 근거 없이 임시 내용을 채워 넣지 않도록 했습니다.',
 			],
 			solution: [
-				'자료 스캔부터 생성 미리보기, 표 편집과 내보내기까지 이어지는 화면 구현.',
-				'요구사항·기능 정의서·화면 설계서를 표에서 검토하는 기능 구현.',
-				'수정할 시트·셀과 유지할 내용을 함께 전달하는 부분 재작성 기능 개발.',
+				'저장소와 업로드 자료의 수집부터 생성 미리보기, 표 편집과 내보내기까지 이어지는 화면과 서버 API를 개발했습니다.',
+				'요구사항·기능 정의서·화면 설계서를 시트별 표에서 검토하고 수정할 수 있도록 했습니다. 내보내기 파일에도 수정한 내용을 반영했습니다.',
+				'수정할 시트·셀과 주변 내용을 AI에 함께 전달했습니다. 수정할 범위와 유지할 내용을 구분해 문서 전체를 다시 생성하지 않고 선택한 부분을 고칠 수 있도록 했습니다.',
 			],
 			checks: [
 				'선택한 시트·셀을 다시 작성할 때 다른 내용이 유지되고 일부 생성 실패 뒤에도 성공한 문서를 사용할 수 있는지 확인했습니다.',
@@ -389,14 +468,14 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Bluetooth',
 			],
 			headline:
-				'WebView와 Android 네이티브 모듈을 연결해 운영 웹에서 모바일 라벨을 출력하도록 했습니다.',
+				'물류 운영 웹의 라벨 출력 요청을 Android 네이티브 모듈과 Bluetooth 프린터에 연결하는 앱을 개발했습니다.',
 			summary:
-				'업무 화면은 WebView로 제공하고 장비와 직접 연결하는 출력 기능은 Android 네이티브 모듈에 구현했습니다.',
+				'업무 화면은 WebView로 제공하고 프린터 선택·연결·출력은 앱에서 처리하도록 구현했습니다. 장비는 선택되지만 연결되지 않는 문제를 실기기 로그와 SDK 내부 호출까지 추적해 필요한 Bluetooth 권한을 보완했습니다.',
 			impact: [
 				{
-					value: 'WebView → native',
-					label: '출력 요청 경계',
-					detail: '웹에서 전달한 데이터와 장비 출력 명령을 분리',
+					value: '웹 요청에서 장비 출력까지',
+					label: 'WebView·네이티브 연동',
+					detail: '출력 데이터를 변환하고 장비 선택·연결·출력을 처리',
 				},
 				{
 					value: '실기기 확인',
@@ -405,20 +484,21 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				},
 			],
 			problem:
-				'웹의 출력 요청을 Android 앱을 거쳐 Bluetooth 프린터에 전달해야 했습니다. 출력이 실패하면 WebView 요청, Android 권한, 네이티브 모듈과 장비 상태를 단계별로 확인해야 원인을 찾을 수 있었습니다.',
+				'웹의 출력 요청을 Android 프린터 SDK에 전달하고, 사용자가 프린터를 선택한 뒤 권한 요청·연결·출력을 진행할 수 있어야 했습니다. 실제 기기에서는 프린터가 목록에 표시되고 선택도 되지만 연결 단계에서 실패하는 문제가 있었습니다.',
 			thinking: [
 				'업무 화면은 웹에 두고 장비와 직접 연결하는 출력 기능은 네이티브 모듈로 분리했습니다.',
-				'WebView 브리지의 요청과 네이티브 응답 형식을 정의했습니다.',
+				'웹 요청, 앱 권한, SDK 연결, 실제 출력 단계를 나눠 오류가 발생한 위치를 확인했습니다.',
+				'SDK가 명령을 받았다는 응답과 종이에 인쇄가 끝났다는 의미가 섞이지 않도록 완료 안내를 출력 요청 전송으로 정리했습니다.',
 			],
 			process: [
-				'웹에서 받은 데이터를 네이티브 모듈의 출력 형식으로 변환했습니다.',
-				'Bluetooth 권한, 장비 탐색, 연결 상태, 출력 명령을 단계별로 확인했습니다.',
-				'Android 16/API 36에서 SDK 내부 장비 탐색 호출까지 따라가 취소 흐름과 BLUETOOTH_SCAN, BLUETOOTH_CONNECT 권한을 보완했습니다.',
+				'웹에서 받은 라벨 데이터를 네이티브 모듈의 출력 형식으로 변환하고, 운송장 번호가 없는 항목은 출력 대상에서 제외했습니다.',
+				'Android 16 실기기 로그를 따라가 SDK가 연결 직전에 장비 탐색을 취소하는 API를 호출한다는 점을 확인했습니다. 이 호출에도 탐색 권한이 필요해 BLUETOOTH_SCAN과 BLUETOOTH_CONNECT를 함께 요청하도록 수정했습니다.',
+				'권한과 Bluetooth 연결을 확인한 뒤 실제 라벨을 출력해 수정 결과를 점검했습니다.',
 			],
 			solution: [
-				'WebView 브리지와 Android 네이티브 모듈의 요청·응답 처리 구현.',
-				'출력 데이터 변환, 장비 상태 확인과 실패 안내를 단계별로 분리.',
-				'모바일 브라우저의 대체 동작과 앱 WebView의 출력 경로 구분.',
+				'WebView 브리지와 Android 네이티브 모듈 사이의 출력 요청·응답 처리를 구현했습니다.',
+				'출력할 항목과 프린터를 앱에서 확인하고, 권한 요청·장비 연결·출력 중 발생한 오류를 안내하도록 했습니다.',
+				'진단 화면에서 권한, 페어링된 장비, SDK 초기화와 연결 상태, 테스트 출력을 각각 확인할 수 있도록 구성했습니다.',
 			],
 			checks: [
 				'Android 16 / API 36 실기기에서 권한 요청, Bluetooth 연결과 실물 라벨 출력을 확인했습니다.',
@@ -440,12 +520,12 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'정적 웹을 WebView로 사용하는 기존 Android 업무 앱의 빌드 환경을 업데이트했습니다. Android 버전 변화에 맞춰 권한·파일 접근·뒤로가기 동작을 수정하고, 로그인과 초기 동기화 문제를 개선했습니다.',
 			impact: [
 				{
-					value: '빌드 기준선 복구',
+					value: '개발 환경에서 빌드 복구',
 					label: 'Gradle/AGP/JDK/SDK',
 					detail: '빌드 도구 변경과 target SDK·런타임 동작 변경을 분리',
 				},
 				{
-					value: '호환성 경계',
+					value: 'OS별 처리 분리',
 					label: 'OS별 분기',
 					detail: '권한, 파일 URI, 뒤로가기 API, 서비스 호출을 공통 헬퍼로 분리',
 				},
@@ -463,9 +543,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'브리지의 빈 응답과 오류, 비동기 작업 종료, 로그인·초기 동기화 실패를 나눠 원인을 찾았습니다.',
 			],
 			solution: [
-				'기존 support 라이브러리를 유지하면서 앱을 컴파일할 수 있도록 빌드 오류 수정.',
-				'최신 뒤로가기 API 참조와 OS별 파일·권한 처리를 공통 헬퍼로 분리.',
-				'WebView 브리지 응답과 비동기 오류 형식 통일. 장비·외부 기능 실패 시 앱 전체 종료를 막는 대체 처리 구현.',
+				'기존 support 라이브러리를 유지하면서도 앱을 컴파일할 수 있도록 빌드 오류를 수정했습니다.',
+				'최신 Android API를 직접 참조해 구형 OS에서 앱이 시작되지 않을 수 있는 부분을 분리했습니다. 파일 접근과 권한 확인도 공통 함수로 모아 화면마다 같은 버전 검사를 반복하지 않도록 했습니다.',
+				'웹 화면과 Android 사이에 주고받는 응답과 비동기 오류의 형식을 맞췄습니다. 장비나 외부 기능의 실패가 앱 전체 종료로 이어지지 않도록 대체 처리를 구현했습니다.',
 			],
 			checks: [
 				'빌드와 권한·파일·브리지 처리를 점검하고, 여러 구형 OS 실기기에서도 동작을 확인했습니다.',
@@ -492,9 +572,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 					detail: '운영 서명 유무와 개발 빌드 경로 분리',
 				},
 				{
-					value: '현장 입력',
-					label: '스캔/장비 흐름',
-					detail: '로그인, 초기 동기화, 입력 흐름을 나눠 확인',
+					value: '업무 모드별 수량 계산',
+					label: '스캔 입력',
+					detail: '기존 스캔 처리와 새 모드의 코드 검사·수량 규칙을 분리',
 				},
 			],
 			problem:
@@ -508,14 +588,14 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'로그인, 초기 데이터, 스캔 입력 흐름을 별도 단계로 확인했습니다.',
 			],
 			solution: [
-				'운영 서명 유무에 따른 빌드 조건 분리. 서명 없이도 개발 빌드가 가능하도록 수정.',
-				'업데이트 파일의 앱 전용 저장소 사용과 버전 확인·다운로드·설치 처리 정비.',
-				'입고 화면의 조회 조건·수량 입력 모달 추가와 스캔 결과에 따른 수량 계산 연동.',
+				'운영 배포용 서명이 없어도 개발 빌드를 실행할 수 있도록 서명 조건을 분리했습니다.',
+				'업데이트 파일을 앱 전용 저장소에 보관하고, 버전 확인부터 다운로드·설치까지의 처리를 정비했습니다.',
+				'입고 조회 조건과 수량 입력 모달을 추가하고 QR·바코드 스캔 결과를 연결했습니다. 기존 업무와 새 모드의 코드 검사·중복 허용·수량 계산 규칙을 나눠 기존 스캔 처리를 유지했습니다.',
+				'외부 검증에 실패한 스캔은 오류를 바로 표시하고, 빈 응답 때문에 후속 처리에서 앱 오류가 생기지 않도록 했습니다.',
 			],
 			checks: [
 				'개발/운영 빌드 경로와 주요 진입 흐름을 확인했습니다.',
-				'PDA 실기기에서 QR·바코드 스캔과 입출고 연동을 확인했습니다.',
-				'스캔 입력과 초기 데이터 흐름을 단계별로 확인했습니다.',
+				'PDA 실기기의 스캔 입력과 로그를 확인해 외부 검증 실패와 앱 내부 오류를 구분했습니다. 스캔 규칙과 오류 처리에 대한 단위 테스트와 빌드를 확인했습니다.',
 			],
 		},
 		{
@@ -540,7 +620,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'차트별 설정과 데이터 연결을 구현하고, 변경한 내용이 미리보기에 반영되도록 상태를 연결했습니다.',
 			summary:
-				'개발 중이던 사이트에서 차트 설정과 미리보기 기능을 맡았습니다. Chart.js 미리보기와 차트 종류별 설정 패널, 데이터 필드 연결과 드래그 조작을 구현했습니다.',
+				'개발 중이던 사이트에서 차트에 사용할 데이터와 표시 방식을 설정하는 페이지를 맡았습니다. 차트 종류에 맞는 설정을 보여 주고, 선택한 데이터와 옵션을 Chart.js 미리보기에 반영했습니다.',
 			impact: [
 				{
 					value: '차트별 설정',
@@ -556,8 +636,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			problem:
 				'모든 차트에 같은 설정을 보여 주면 유효하지 않은 옵션까지 노출됐습니다. 설정과 미리보기 상태가 따로 움직이거나 변경 때마다 차트를 다시 만들면 편집 결과를 확인하기 어려웠습니다.',
 			thinking: [
-				'차트 종류별로 사용할 수 있는 설정만 노출하고 데이터 필드의 역할을 명시했습니다.',
-				'설정 상태와 렌더러의 생명주기를 분리해 값 변경마다 미리보기가 다시 생성되지 않도록 했습니다.',
+				'차트 종류에 맞는 설정만 보여 주고, 각 데이터 필드를 어느 축과 값에 연결할지 선택하도록 했습니다.',
+				'설정값을 바꿀 때마다 차트 전체를 새로 만들지 않도록, 편집한 값을 관리하는 부분과 차트를 갱신하는 조건을 분리했습니다.',
 			],
 			process: [
 				'데이터 선택, 필드 연결, 차트 선택과 설정 패널을 하나의 편집 화면으로 구성했습니다.',
@@ -566,8 +646,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'WebGL/GLSL 프래그먼트 셰이더와 OGL로 편집 화면의 배경 모드를 구현했습니다.',
 			],
 			solution: [
-				'6개 영역의 설정 패널과 Chart.js 미리보기 연결.',
-				'혼합 차트의 불필요한 재생성 조건을 줄여 미리보기 깜빡임과 스크롤 흔들림 완화.',
+				'6개 영역의 설정 패널을 Chart.js 미리보기와 연결하고, 데이터 필드를 끌어다 놓아 차트의 축과 값에 연결할 수 있도록 했습니다.',
+				'혼합 차트가 불필요하게 다시 생성되는 조건을 줄여 미리보기의 깜빡임과 스크롤 흔들림을 완화했습니다.',
 			],
 			checks: [
 				'차트 종류·옵션 변경, 패널 접기, 필드 드래그와 도움말 표시를 확인했습니다.',
@@ -584,18 +664,18 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			workType: '기능 확장',
 			stack: ['Android', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
-				'외부 API를 연동해 딥페이크 이미지와 개인정보 유출 여부를 검사하는 기능을 구현했습니다.',
+				'외부 API를 연동해 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능을 구현했습니다.',
 			summary:
-				'기존 앱에 외부 API를 이용한 딥페이크 이미지 검사와 개인정보 유출 검사 기능을 구현했습니다. 이미지·파일 선택부터 검사 요청과 결과 표시까지 연결하고, Android WebView의 파일 선택과 브리지 처리도 구현했습니다.',
+				'기존 앱에 이메일 유출 조회와 딥페이크 이미지 검사 기능을 추가했습니다. 외부 검사 API를 서버에서 호출하고, 이메일·이미지 입력부터 결과 확인까지 이어지는 화면을 개발했습니다. Android 앱의 이미지·파일 선택도 함께 연결했습니다.',
 			impact: [
 				{
-					value: 'server-side proxy',
-					label: '인증 정보 경계',
+					value: '서버에서 외부 API 호출',
+					label: '인증 정보 관리',
 					detail: '외부 API 호출과 인증 정보 관리를 서버로 분리',
 				},
 			],
 			problem:
-				'기존 앱에 딥페이크 이미지와 개인정보 유출 여부를 검사하는 기능이 필요했습니다. 사용자가 선택한 이미지·파일을 외부 검사 API에 연결하면서, API 인증 정보가 앱이나 브라우저에 노출되지 않도록 해야 했습니다.',
+				'기존 앱에 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능이 필요했습니다. 사용자 입력을 외부 검사 API에 전달하면서도 API 인증 정보가 앱이나 브라우저에 노출되지 않도록 해야 했습니다.',
 			thinking: [
 				'외부 API 조회는 서버 프록시에서 처리하도록 했습니다.',
 				'클라이언트에는 화면에 필요한 결과와 상태만 전달하도록 응답을 구성했습니다.',
@@ -605,10 +685,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'WebView의 파일 선택은 입력 경로별로 에뮬레이터와 실기기에서 확인했습니다.',
 			],
 			solution: [
-				'딥페이크·개인정보 유출 검사 API 연동. 사용자 입력을 검사 요청으로 보내고 결과를 화면에 표시하는 기능 구현.',
-				'외부 API의 서버 호출과 화면에 필요한 결과·상태 반환 처리.',
-				'이미지 입력과 네이티브 파일 선택 결과의 WebView 연동.',
-				'이미지 재선택 시 이전 파일 읽기 결과가 새 미리보기를 덮지 않도록 처리.',
+				'이메일 유출 조회와 딥페이크 이미지 검사 API를 연동하고, 사용자 입력부터 검사 요청과 결과 표시까지 구현했습니다.',
+				'이미지의 파일 형식·용량·해상도를 검사한 뒤 서버로 전송하고, 외부 API의 결과와 오류를 화면에 맞게 표시했습니다.',
+				'Android의 이미지·파일 선택 결과를 WebView에 전달해 앱 안에서 검사를 진행할 수 있도록 했습니다.',
+				'파일을 읽는 중 다른 이미지를 선택하면 이전 작업이 더 늦게 끝날 수 있었습니다. 완료된 작업이 현재 선택한 파일의 것인지 확인해, 이전 이미지가 새 미리보기를 덮지 않도록 했습니다.',
 			],
 			checks: [
 				'문서와 예시 설정에 실제 인증 정보가 포함되지 않았는지 확인했습니다.',
@@ -636,7 +716,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'주식 업무 관리 웹의 React 프론트엔드 전체를 만들고 MSW로 화면 개발에 필요한 응답을 구성했습니다.',
 			summary:
-				'목록·검색·등록·수정 화면과 공통 테이블·모달을 구현했습니다. MSW 모의 응답으로 로딩과 빈 결과를 구성하고, 컬럼 고정·리사이즈·재정렬과 선택 상태를 다뤘습니다.',
+				'계좌·종목·주문 정보를 조회하고 등록·수정하는 화면을 개발했습니다. MSW로 API 응답을 구성하고, 여러 화면에서 사용할 테이블·필터·모달을 공통 컴포넌트로 만들었습니다. 테이블에는 열 고정·너비 조절·재정렬과 행 선택 기능을 구현했습니다.',
 			impact: [
 				{
 					value: '공통 테이블 조작',
@@ -662,8 +742,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'주문내역에서는 선택 중인 필터와 조회에 적용한 조건을 분리했습니다. 같은 조건으로 다시 조회하면 첫 페이지부터 불러오고, 더보기 요청이 진행 중일 때는 중복 요청을 막았습니다.',
 			],
 			solution: [
-				'React·TypeScript 프론트엔드 전체 구축과 여러 화면에서 쓰는 공통 테이블·필터·모달 개발.',
-				'MSW 모의 API로 조회·입력 동작 구현. 선택 중인 필터와 실제 조회 조건을 분리하고 조회 버튼을 누를 때 TanStack Query에 조건 적용.',
+				'React·TypeScript로 프론트엔드 전체를 구축했습니다. 계좌·종목·주문 화면에서 같은 방식으로 열을 고정하고 너비와 순서를 바꿀 수 있도록 공통 테이블을 만들었습니다.',
+				'MSW 모의 API를 사용해 조회와 입력 동작을 구현했습니다. 선택 중인 필터와 조회에 적용한 조건을 분리하고, 조회 버튼을 눌렀을 때 TanStack Query로 데이터를 갱신하도록 했습니다.',
 			],
 			checks: [
 				'MSW 모의 응답을 사용하는 로컬 환경에서 컬럼 조작, 스크롤, 검색 모달과 화면 상태를 확인했습니다.',
@@ -690,21 +770,21 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'역할별 회원의 정보 편집과 문의·첨부를 기존 웹과 Android 앱에 연결했습니다.',
 			summary:
-				'회원 검색·정보 수정·중복 회원 통합과 문의·첨부 기능을 개발했습니다. 작성자와 역할별로 접근을 제한하고 Android 앱에 파일 선택과 이미지 확대 기능을 연결했습니다.',
+				'회원 검색·수정·중복 통합과 문의·첨부 기능을 개발했습니다. 회원 역할과 작성자를 서버에서 확인해 조회·수정 범위를 제한하고, Android 앱에서도 파일을 선택해 문의에 첨부하고 이미지를 확대해 볼 수 있도록 연결했습니다.',
 			problem:
 				'역할이 다른 회원이 같은 식별값을 가질 수 있어 회원 검색·수정 시 역할을 구분해야 했습니다. 웹에 파일 입력이 있어도 앱에 선택기가 연결되어 있지 않으면 문의에 파일을 첨부할 수 없었습니다.',
 			thinking: [
 				'사용자 역할과 자료 소유권을 서버에서 확인하고, 문의·답변·첨부에 같은 접근 조건을 적용했습니다.',
-				'공통 팝업 로더는 유지하고 준비·실패·닫기와 늦은 응답 처리를 기능별 인스턴스에 한정했습니다.',
+				'공통 팝업 코드를 바꾸면 다른 화면에도 영향을 줄 수 있어, 회원 수정창 안에서 로딩·실패·닫기를 처리했습니다. 닫힌 창의 응답이 늦게 도착해도 새로 연 창의 내용을 바꾸지 않도록 구분했습니다.',
 			],
 			process: [
 				'저장 성공과 부모 화면 갱신을 분리해 알림을 빨리 닫거나 응답이 늦어도 이전 값이 남지 않도록 했습니다.',
 				'Android 파일 선택의 취소·재선택과 작성 중 뒤로가기 처리를 연결했습니다.',
 			],
 			solution: [
-				'본인 정보의 선택 필드 수정과 중복 후보·권한·저장 후 재조회 결과 검사.',
-				'회원 문의·완료 답변의 이미지 미리보기에 기존 첨부 권한 적용.',
-				'Android WebView의 파일 선택 결과 연결과 플랫폼별 지원 범위 구분.',
+				'본인 정보에서 허용된 항목만 수정할 수 있도록 했습니다. 중복 회원을 통합할 때는 남길 정보와 연결된 계정·이력을 서버에서 다시 확인했습니다.',
+				'문의와 답변에 첨부된 이미지를 미리 볼 때도 해당 자료를 조회할 권한이 있는지 확인했습니다.',
+				'Android 파일 선택 결과를 WebView에 연결하고, 선택 취소·재선택과 첨부 목록 복귀를 처리했습니다.',
 			],
 			impact: [
 				{
@@ -748,8 +828,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'행마다 반복되는 중복 검사 쿼리와 인덱스 전체 스캔을 확인했습니다. 입력 제한과 일괄 조회를 개선안으로 제안했습니다.',
 			],
 			solution: [
-				'파일 분석·등록 단계의 HTTP 오류, 입력 검증 실패, 시간 초과, 취소와 응답 해석 오류 구분. 경과 시간 기록.',
-				'안전한 서버 메시지의 이스케이프 처리와 오류 유형별 안내 표시.',
+				'파일 분석과 등록 요청에서 통신 오류·입력 검증 실패·시간 초과·취소·응답 해석 오류를 구분했습니다. 오류가 발생한 단계와 경과 시간도 함께 표시했습니다.',
+				'서버 응답 중 사용자에게 보여도 되는 메시지만 선택해 안내했습니다. 내부 오류 페이지와 예외 정보는 제외하고, 동적인 문구가 HTML로 해석되지 않도록 처리했습니다.',
 			],
 			impact: [
 				{
@@ -854,13 +934,12 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 		{
 			workstreamId: 'WS13',
 			id: 'settlement-operations-platform',
-			title: 'Settlement ERP Platform',
+			title: 'Settlement Operations Platform',
 			platform: 'Web / API',
-			area:
-				'ERP web and key server APIs, plus feature extensions to existing user web and mobile apps',
+			area: 'ERP web application, key server APIs and data persistence',
 			period: '2026.07 ~ 2026.09',
 			role: 'Full-stack development',
-			workType: 'New development',
+			workType: 'Build',
 			stack: [
 				'React',
 				'TypeScript',
@@ -874,50 +953,125 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Vitest',
 			],
 			headline:
-				'Built administrator web interfaces and key API and database operations for vehicle, driver, transport-fee, billing and settlement management.',
+				'Built the ERP web application and key server APIs for vehicle and driver records, transport fees, billing and settlement.',
 			summary:
-				'Connected shared editing tables and Excel imports across the administrator web interface, retaining historical settlement amounts when assignments change. Revised work logs to show affected records, changes and input-error reasons.',
+				'Built shared editing tables and batch Excel imports. Preserved user input after failed saves and conflicting edits, and kept finalized settlement amounts intact when current assignments changed.',
 			problem:
-				'Users needed to edit an Excel preview and retry a save without creating duplicates or saving only some rows. Changing an assignment also needed to leave previously approved settlements intact.',
+				"Table edits and Excel imports needed to avoid partial or duplicate writes. An outdated screen could overwrite another user's changes, yet rejecting the save should not discard the current user's input. Historical settlements also needed to remain intact after vehicle assignments or billing sources changed.",
 			thinking: [
-				'Kept the complete reviewed data on the server and rechecked permissions and referenced records at confirmation so the saved data matched what the user had reviewed.',
-				'Saved each batch in one transaction. A failure rolls back the batch; retrying the same request returns its original result.',
-				'Stored current assignments separately from the recipient recorded on each transaction. Unresolved allocations block settlement closing instead of being assigned automatically.',
+				'Stored the complete validated Excel data on the server and checked permissions and related records again before committing. Rolled back the entire batch on failure and returned the existing result when the same request was repeated.',
+				"Compared the version read by the user with the current version to reject outdated saves. Kept the user's edits on screen and let them compare the original, latest and edited values before choosing what to save.",
+				'Stored current assignments separately from transaction-time parties and amounts. Changes to loan and insurance records updated draft or rejected charges, while approved or settled amounts were preserved and adjusted in later records.',
 			],
 			process: [
-				'Added server-side checks for menu access and create/update permissions.',
-				'Fetched charges and allocations in batches and preloaded records needed for monthly closing.',
+				'Saved a change through a separate request, then reproduced rejection of a save from an older screen. Combined server version checks with draft retention, including another conflict check if data changed during comparison.',
+				'Tested batch failures and repeated requests in an isolated MariaDB database. For representative workflows, compared browser behavior with API responses, persisted values and activity logs.',
+				'Kept repayment schedules unchanged when editing fields such as loan classification that did not affect calculation terms. Removed unnecessary queries and recalculation, then compared behavior and processing time using the same initial data.',
 			],
 			solution: [
-				'Built shared tables with inline editing, selection dialogs and keyboard navigation, retaining drafts when a save fails.',
-				'Built Excel preview, editing, revalidation and import screens and APIs, including duplicate and partial-save handling.',
-				'Allocated billed amounts to settlements and retained historical amounts and the specifications originally recorded for insurance and inspections.',
-				'Added vehicle-save feedback for newly created records, operating-status changes and affected insurance or utility records.',
-				'Built authorized administrator lookup for business changes and login results. Reorganized logs around affected records, changes and input-error reasons, removing unnecessary technical fields.',
+				'Built shared tables with keyboard cell navigation and selection dialogs, retaining edits in rows that failed to save.',
+				'Built Excel previews with invalid-row and cell correction followed by server revalidation. Saved the batch in one transaction to avoid partial writes and returned the existing result for repeated requests.',
+				'Added a comparison of current records and retained edits after a conflicting save. Kept choosing values separate from submitting them so comparison alone could not change stored data.',
+				'Separated current vehicle and driver assignments from historical transaction records, preventing source corrections from overwriting finalized settlement amounts.',
+				'Reworked administrator logs to show the affected records, changes and reasons a save failed.',
 			],
 			impact: [
 				{
-					value: 'Draft preservation',
-					label: 'Shared editable tables',
+					value: 'Recover edits after a conflict',
+					label: 'Concurrent editing',
 					detail:
-						'Inline editing, selection dialogs, keyboard navigation and failed-save handling',
+						'Rejected outdated saves while retaining input, then let users compare current values and explicitly save their chosen changes.',
 				},
 				{
-					value: 'No duplicate or partial imports',
-					label: 'Excel batch import',
-					detail: 'Roll back failed batches and return the original result on retry',
+					value: 'Prevent partial and duplicate imports',
+					label: 'Batch Excel saves',
+					detail:
+						'Rolled back all rows on a failed commit and returned the previous result when the same request was repeated.',
 				},
 				{
-					value: 'Settlement history retained',
-					label: 'Assignment changes',
+					value: 'Preserve finalized settlements',
+					label: 'Assignment and source changes',
 					detail:
-						'Separate current assignments from original recipients and amounts',
+						'Kept the original settlement parties and amounts when current assignments or source records were corrected.',
 				},
 			],
 			checks: [
-				'Verified rollback and duplicate prevention for concurrent confirmation and retries in isolated MariaDB.',
-				'Checked that historical settlement amounts remained unchanged after assignment changes in the development database.',
-				'Administrators use the revised action-oriented log screen; settlement persistence remains a development-environment implementation.',
+				'Verified full rollback after a failed write in isolated MariaDB, and checked that concurrent commits and repeated requests did not create duplicate records.',
+				'In the development environment, verified that a save from an outdated screen was rejected after another user updated the record. Compared browser, API and database results after retaining input, reviewing current values and saving again.',
+				'Verified that historical settlement amounts remained intact after assignment changes in the development database. Settlement persistence was delivered to the development environment, and administrators use the revised activity-log screen.',
+			],
+		},
+		{
+			workstreamId: 'WS16',
+			id: 'erp-mobile-workflow',
+			title: 'ERP-connected Mobile Workflow App',
+			platform: 'Web / API / Android',
+			area:
+				'Business screens, server APIs and Flutter Android integration, excluding the chat system',
+			period: '2026.07 ~ 2026.09',
+			role: 'Full-stack development',
+			workType: 'Feature development and integration',
+			stack: [
+				'React',
+				'TypeScript',
+				'TanStack Query',
+				'TanStack Router',
+				'Spring Boot',
+				'MariaDB',
+				'Flutter',
+				'Dart',
+				'Firebase Cloud Messaging',
+			],
+			headline:
+				'Connected ERP notifications, documents and inquiry status to an Android app.',
+			summary:
+				"Developed the existing app's business screens, server APIs and Flutter Android integration, excluding the chat system. Kept notifications current when changes arrived out of order, resolved concurrent receipt-save failures, and implemented PDF downloads and protection against duplicate inquiry completion.",
+			problem:
+				'Old notifications could remain visible after ERP records were edited or deleted. Concurrent receipt-save requests could fail because of database lock conflicts, and browser-generated file URLs could not be passed directly to Android downloads. Late inquiry-completion requests also needed to preserve work already completed by another administrator.',
+			thinking: [
+				"Managed notification content separately from each user's read state. Checked source versions and deletion status before applying changes, preserving read receipts when content was updated.",
+				'Replaced the update-then-insert receipt flow with a single UPSERT. Preserved the first display and read timestamps when requests were repeated.',
+				'Used short-lived signed URLs dedicated to PDF downloads. Checked the current account and document permissions both when issuing a URL and when serving the file.',
+				'Checked the version and current status before completing an inquiry. Returned a specific reason when it had already been handled and retained unsaved input on screen.',
+			],
+			process: [
+				'Tested notification changes arriving out of order or more than once. Checked that an old creation request could not restore a deleted notification and that an open detail view refreshed after a change.',
+				'Reproduced the receipt-save lock conflict in isolated MariaDB. After replacing the two-step write with one database operation, checked concurrent saves and preservation of the original timestamps.',
+				'Compared a PDF downloaded in the browser with its source file and inspected the URL and request data passed to Android downloads.',
+				'Verified inquiry submission, administrator completion and status updates in local browser sessions. Used an Android emulator to check system notification delivery and navigation after tapping a notification.',
+			],
+			solution: [
+				'Applied only current notification changes by checking versions and deletion status. Preserved read receipts and refreshed both the list and open details without allowing late requests to recreate deleted items.',
+				'Saved display and read receipts with a single UPSERT to resolve concurrent write conflicts. Kept receipts separate for each account and notification and preserved their first timestamps.',
+				'Connected PDF downloads through file-specific signed URLs, checking signatures, expiry and current access rights when serving each file. Kept images in a preview flow.',
+				'Checked inquiry versions and completion status to reject duplicate completion. Prevented repeated submission and completion events from creating duplicate ERP activity records.',
+				'Connected Flutter notification handling to WebView navigation so users could open the relevant business content from a system notification.',
+			],
+			impact: [
+				{
+					value: 'Keep notifications current',
+					label: 'Edits, deletions and retries',
+					detail:
+						'Prevented out-of-order or repeated requests from overwriting newer content or recreating deleted notifications.',
+				},
+				{
+					value: 'Resolve concurrent receipt writes',
+					label: 'MariaDB persistence',
+					detail:
+						'Combined insertion and updates into one database operation while preserving the first display and read timestamps.',
+				},
+				{
+					value: 'Connect documents and inquiries',
+					label: 'ERP and mobile workflows',
+					detail:
+						'Added permission-checked PDF downloads and inquiry status views, protecting completed inquiries from late overwrites.',
+				},
+			],
+			checks: [
+				'Reproduced the original receipt-save failure in isolated MariaDB, then verified concurrent display and read requests and preservation of first timestamps. Also tested out-of-order notification changes and repeated delivery.',
+				'Matched a PDF downloaded in Chrome to its source hash and inspected the URL and values passed to the Android download request.',
+				'Verified inquiry submission, administrator completion and mobile status updates in local browser sessions. Late completion requests preserved the existing result, and repeated events did not create duplicate ERP records.',
+				'Delivered the related features to the development environment. On an Android emulator, verified actual system notification delivery and navigation to the relevant list and content.',
 			],
 		},
 		{
@@ -944,37 +1098,37 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			problem:
 				'A lost connection or app restart could discard entered data and pending requests. Requests belonging to a previous account also needed to stay unsent when another user logged in.',
 			thinking: [
-				'Persisted confirmed intent before beginning transmission.',
+				'Saved the delivery-completion details confirmed by the user before sending the request.',
 				'Matched queued requests to the signed-in user and checked existing server results before retrying.',
-				'Separated initial map selection from return state, and called new native capabilities only after checking support.',
+				'Handled map selection and return after task completion separately. Checked whether the installed app supported the new location feature before calling it.',
 			],
 			process: [
 				'Kept map group numbers stable across filters and returned users to their previous map position after processing selected work.',
-				'Distinguished location permission, disabled services, and timeouts; older shells retained the browser location path.',
-				'Restored user identity and pending requests before starting transmission, including a migration path for existing signed-in sessions.',
+				'Distinguished permission denial, disabled location services and timeouts. Apps without the new location feature continued to use the existing web method.',
+				'Restored the signed-in user and pending requests before sending them after an app restart. Also restored user information for existing sessions so each request could be matched to its owner.',
 			],
 			solution: [
-				'Persisted relationship lists, confirmed requests, and selected photos through bridge storage, serializing writes before sending.',
-				'Reconciled queued requests with completed server results and left conflicts, business errors, and photo recovery failures for manual review.',
-				'Connected map return behavior, native location capability checks, and matching recipient and optional-attachment rules on web and server.',
+				'Saved the lists needed for offline work in app storage. Stored delivery-completion requests and selected photos in sequence, then sent them after storage completed.',
+				'Compared pending requests with completed server records before retrying. Left requests with conflicting results, business errors or unrecoverable photos for manual review.',
+				'Returned users to their previous map position after task completion and checked support for native location. Aligned recipient and optional-attachment rules between the web interface and server.',
 			],
 			impact: [
 				{
 					value: 'Restored after restart',
 					label: 'Pending requests',
-					detail: 'Keep entered data and selected photos in app storage',
+					detail: 'Saved entered data and selected photos in app storage',
 				},
 				{
 					value: 'Retry by signed-in user',
 					label: 'Connection recovery',
 					detail:
-						'Match the current user and compare requests with completed server records',
+						'Matched requests to the current user and compared them with completed server records',
 				},
 				{
 					value: 'Older app compatibility',
 					label: 'Location lookup',
 					detail:
-						'Use the existing web method when the new native feature is unavailable',
+						'Retained the web method when the new native feature was unavailable',
 				},
 			],
 			checks: [
@@ -1003,42 +1157,43 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'Built the complete React and TypeScript frontend for logistics search, reservations, Excel imports and label printing.',
 			summary:
-				'Created shared tables, forms and modals and connected API responses to screen and print flows. Lazy-loaded pages and Excel code to reduce the initial JavaScript entry file size by about 74% (build output size).',
+				'I built search, reservation and Excel import screens, mapping reservation and label data from the server to previews and print requests. Loading pages and Excel code on demand reduced the initial JavaScript file size by about 74%. I also checked printed PC labels and corrected clipped or overlapping addresses.',
 			impact: [
 				{
 					presentation: 'measurement',
-					value: '2,405.50 → 616.59 kB',
-					label: 'Initial JavaScript entry',
-					detail: 'About 74% smaller on the same build basis',
+					value: '2,405.50 → 616.60 kB',
+					label: 'Initial JavaScript file size',
+					detail: 'About 74% smaller in the May 2026 build outputs',
 				},
 				{
 					presentation: 'measurement',
 					value: '815.10 → 204.38 kB',
 					label: 'Gzip-compressed size',
-					detail: 'About 75% smaller for the same initial entry',
+					detail: 'About 75% smaller for the compressed initial JavaScript file',
 				},
 			],
 			problem:
-				'Lookup, booking, Excel imports and printing needed shared UI and API integration. Pages and spreadsheet libraries that were not needed at startup were included in a large initial JavaScript entry.',
+				'Tables, forms and modals repeated across the business screens and needed a shared implementation. Loading every page and the Excel libraries at startup made the initial JavaScript file large. Addresses could also clip or overlap on printed labels even when the screen preview looked correct.',
 			thinking: [
-				'Separated fetched data, input state and print requests, using shared tables, forms and modals.',
-				'Used bundle analysis to identify large dependencies and load pages and spreadsheet libraries on demand.',
-				'Separated browser printing from the native printing path used by the mobile WebView.',
+				'I separated fetched data, input state and print requests, using shared tables, forms and modals.',
+				'I used bundle analysis to identify code that was unnecessary for the first screen, then loaded it when users opened a page or used an Excel feature.',
+				'I used a common format for print data from the web, with separate integrations for the PC printer service and the Android Bluetooth printer.',
 			],
 			process: [
-				'Separated mock data from API integration to implement loading, empty and error states.',
-				'Displayed multiple label numbers in lists and modals and converted API responses into preview and print requests.',
-				'Also evaluated splitting shared authentication and API initialization code. This reduced the initial file size further, but complicated authentication initialization and loading on the first interaction, so I did not adopt it. Applied lazy loading only to pages and Excel libraries.',
+				'I separated mock data from API integration to implement loading, empty and error states.',
+				'I displayed reservations with multiple label numbers in lists and modals, then converted the responses into data for previews and printing.',
+				'Splitting authentication and API initialization code reduced the file further, but made initialization before the first API request harder to guarantee and added loading steps to initial interactions. I kept only the page and Excel splits to limit maintenance costs and preserve stability.',
+				'I inspected printed labels to locate clipped or overlapping addresses and adjusted wrapping, font sizes and line spacing.',
 			],
 			solution: [
-				'Built booking, batch processing, address selection and Excel previews on shared tables, forms and modals.',
-				'Split pages with React.lazy and loaded spreadsheet libraries when import or export actions started.',
-				'Converted booking identifiers and multiple-label responses into data for desktop and mobile printing.',
-				'Wrapped long PC-label addresses by measured text width and fitted remaining text into the final line rather than cutting it off.',
+				'I built reservation entry, batch processing, address selection and Excel previews using shared tables, forms and modals.',
+				'I split pages with React.lazy and loaded spreadsheet libraries when import or export actions started.',
+				'I converted reservation identifiers and multiple-label API responses into PC and Android print data, with checks for the selected items and printer connection.',
+				'I wrapped long PC-label addresses by measured text width and adjusted font sizes and line spacing. Changes to the displayed tracking-number format preserved the original barcode data.',
 			],
 			checks: [
-				'These figures compare initial JavaScript entry-file sizes on the same build basis, not total downloads or runtime speed.',
-				'Checked navigation, fetching, Excel processing and desktop label printing after introducing lazy loading.',
+				'I compared the initial JavaScript file and its gzip-compressed size in the May 2026 build outputs.',
+				'I checked navigation, data retrieval, Excel processing and PC label printing after introducing lazy loading.',
 			],
 		},
 		{
@@ -1083,7 +1238,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			solution: [
 				'Integrated air quality, medium-range forecast and weather alert APIs, with alerts available in a modal.',
-				'Prepared reference data as server cache with temporary-save, validation, and replace flow.',
+				'Cached reference data on the server. Held refreshed data temporarily and checked required fields before replacing the existing cache.',
 				'Used native location first in Android WebView, then stored location and browser fallback.',
 				'Also improved the diary editor, Android camera and gallery selection, and distance and marker displays on activity maps.',
 			],
@@ -1107,19 +1262,20 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Supported repository analysis and uploads for new projects, with screens for source review, requirement candidates, open questions and document drafting. Documents are editable tables; AI revision requests include the selected sheet or cells and surrounding context.',
 			impact: [
 				{
-					value: 'Scan → Preview',
-					label: 'generation input',
-					detail: 'AI draft after rule-based scanning',
+					value: 'Drafts after source review',
+					label: 'Document workflow',
+					detail: 'Reviewed collected material before generating AI drafts',
 				},
 				{
-					value: 'xlsx workbook',
-					label: 'reviewable output',
-					detail: 'requirements, features, and screens reviewed as tables',
+					value: 'Review and edit in tables',
+					label: 'Document editing',
+					detail: 'Reviewed requirements, functions and screens in separate sheets',
 				},
 				{
-					value: 'Selected cell revision',
-					label: 'partial rewrite',
-					detail: 'rewrite scope reduced to selected sheet/cell context',
+					value: 'Revise selected content',
+					label: 'AI revision requests',
+					detail:
+						'Sent the target sheets or cells with surrounding content to preserve',
 				},
 			],
 			problem:
@@ -1136,9 +1292,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Separated fields AI could organize from decisions reserved for the user and suppressed unsupported placeholders.',
 			],
 			solution: [
-				'Connected source scanning, generation previews, table editing and export in one workflow.',
-				'Made requirement, functional, and screen documents reviewable as workbook-style tables.',
-				'Sent target sheet/cell and preservation context together for revision requests.',
+				'Built screens and server APIs connecting repository and upload collection to generation previews, table editing and export.',
+				'Made requirements, functional specifications and screen specifications editable in separate sheets. Exported files reflected the edited content.',
+				'Sent the selected sheets or cells together with their surrounding content. Distinguished revision targets from content to preserve so users could change selected parts without regenerating the whole document.',
 			],
 			checks: [
 				'Checked that revising selected sheets and cells preserved other content and that successful documents remained available after partial generation failures.',
@@ -1163,40 +1319,42 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Bluetooth',
 			],
 			headline:
-				'Connected a mobile output path through WebView and an Android native module.',
+				'I built an Android app that connects label-print requests from the logistics web app to a native module and a Bluetooth printer.',
 			summary:
-				'The app kept the business screen in WebView while moving device-specific output responsibilities into a native module boundary.',
+				'I kept the business screens in WebView and handled printer selection, connection and printing in the app. When a printer could be selected but would not connect, I traced device logs and internal SDK calls to identify the missing Bluetooth permission.',
 			impact: [
 				{
-					value: 'WebView → native',
-					label: 'output boundary',
-					detail: 'web payload separated from device output commands',
+					value: 'Web request to printer',
+					label: 'WebView and native integration',
+					detail:
+						'Converted print data and handled device selection, connection and printing',
 				},
 				{
-					value: 'real device check',
-					label: 'device output',
-					detail: 'verified against Android device behavior, not only emulator flow',
+					value: 'Physical-device verification',
+					label: 'Printer output',
+					detail:
+						'Checked permissions, connection and printing on an Android device',
 				},
 			],
 			problem:
-				'Sending a print/output request from a web button is different from making the physical mobile device complete it. WebView, permission, native module, and device state needed separate failure boundaries.',
+				'The app needed to pass web print requests to the Android printer SDK and guide users through device selection, permissions, connection and printing. On a physical device, the printer appeared in the list and could be selected, but the connection failed.',
 			thinking: [
-				'Kept the business screen in the web layer and moved device-facing output into the native module.',
-				'Handled WebView bridge requests and native responses as structured contracts.',
+				'I kept the business screens on the web and put device communication in a native module.',
+				'I checked the web request, app permissions, SDK connection and physical output separately to locate failures.',
+				'I described completion as a print request being sent so that an SDK acknowledgement was not presented as confirmation of physical printing.',
 			],
 			process: [
-				'Defined the boundary that converts web output data into a native output payload.',
-				'Checked Bluetooth permission, device lookup, connection state, and output command stages.',
-				'Separated local development, test install, and production install conditions.',
-				"Traced the SDK's internal device-discovery call on Android 16/API 36 and added cancellation plus BLUETOOTH_SCAN and BLUETOOTH_CONNECT handling.",
+				'I converted label data from the web into the native print format and excluded items without tracking numbers.',
+				'Logs from an Android 16 device showed that the SDK called a discovery-cancellation API immediately before connecting. That call also required scan permission, so I updated the app to request both BLUETOOTH_SCAN and BLUETOOTH_CONNECT.',
+				'I checked the permissions and Bluetooth connection, then printed physical labels to verify the fix.',
 			],
 			solution: [
-				'Organized the request/response path between the WebView bridge and Android native module.',
-				'Separated payload conversion, device-state checks, and failure messaging.',
-				'Kept mobile browser fallback distinct from app WebView output.',
+				'I implemented print requests and responses between the WebView bridge and the Android native module.',
+				'I let users review the print items and printer in the app, with messages for permission, connection and printing errors.',
+				'I built a diagnostic screen for checking permissions, paired devices, SDK initialization, connection status and test prints separately.',
 			],
 			checks: [
-				'Verified permission requests, Bluetooth connection and physical label output on an Android 16 / API 36 device.',
+				'I verified permission requests, Bluetooth connection and physical label output on an Android 16 / API 36 device.',
 			],
 		},
 		{
@@ -1215,13 +1373,13 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Updated the build environment of an existing Android business app that displays static web pages in a WebView. Adapted permissions, file access and back navigation to Android version changes, and improved login and initial synchronization.',
 			impact: [
 				{
-					value: 'build baseline restored',
+					value: 'Development builds restored',
 					label: 'Gradle/AGP/JDK/SDK',
 					detail:
 						'build-tool changes separated from target SDK and runtime behavior',
 				},
 				{
-					value: 'compatibility boundary',
+					value: 'OS-specific handling',
 					label: 'OS-specific behavior',
 					detail:
 						'permission, file URI, back API, and service calls isolated in helpers',
@@ -1241,8 +1399,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			],
 			solution: [
 				'Restored a compilable baseline without rewriting all remaining legacy support dependencies.',
-				'Encapsulated direct modern back-API references and file or permission branches inside helpers.',
-				'Normalized WebView bridge responses and asynchronous errors, with fallbacks that kept optional device or external-function failures from terminating the whole app.',
+				'Isolated direct references to newer Android APIs that could prevent startup on older OS versions. Centralized file access and permission checks so screens did not repeat the same version-specific logic.',
+				'Aligned the response and asynchronous-error formats exchanged between the web interface and Android. Added fallbacks so device or external-feature failures would not terminate the whole app.',
 			],
 			checks: [
 				'Checked builds, permissions, file handling and bridge behavior, including tests on several physical devices running older OS versions.',
@@ -1270,9 +1428,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 					detail: 'development build path separated from operational signing',
 				},
 				{
-					value: 'field input',
-					label: 'scan/device flow',
-					detail: 'login, initial sync, and input stages checked separately',
+					value: 'Quantity rules by work mode',
+					label: 'Scan input',
+					detail:
+						'Separated code checks and quantity rules for existing and new scan modes',
 				},
 			],
 			problem:
@@ -1286,13 +1445,14 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Checked login, initial data, and scan input as separate stages.',
 			],
 			solution: [
-				'Separated signing conditions so development builds did not stop before verification.',
+				'Separated signing requirements so development builds could run without production signing credentials.',
 				'Moved update files to app-specific storage and organized version checks, downloads and installation.',
-				'Added receiving filters and a quantity-entry modal, connecting scans to quantity calculations.',
+				'Added receiving filters and a quantity-entry modal connected to QR and barcode scans. Separated code validation, duplicate handling and quantity rules for existing and new modes to preserve established scan behavior.',
+				'Displayed external validation failures immediately and guarded empty responses so they did not trigger further app errors.',
 			],
 			checks: [
 				'Checked development and production build paths with the main entry flow.',
-				'Verified QR and barcode scans and receiving/shipping integration on a physical PDA.',
+				'Checked scan input and logs on a physical PDA to distinguish external validation failures from errors inside the app. Verified unit tests and builds for the scan rules and error handling.',
 			],
 		},
 		{
@@ -1317,7 +1477,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'Built chart-specific settings and data mapping, connecting editing state to the preview.',
 			summary:
-				'Implemented chart settings and preview features within a website that was under development. Built a Chart.js preview, chart-specific settings panels, field mapping and drag interactions.',
+				'Built a page for choosing chart data and display settings within a website under development. Showed settings appropriate to each chart type and reflected selected data and options in a Chart.js preview.',
 			impact: [
 				{
 					value: 'Chart-specific settings',
@@ -1333,8 +1493,8 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			problem:
 				'A single set of settings exposed invalid options for some chart types. Separate settings and preview state, or recreating charts on each change, made editing results harder to follow.',
 			thinking: [
-				'Exposed valid settings for each chart type and made data-field roles explicit.',
-				'Separated editing state from the renderer lifecycle so value changes did not recreate the preview unnecessarily.',
+				'Showed settings appropriate to each chart type and let users choose which axes and values each data field represented.',
+				'Separated editing-state management from chart-update conditions so changing a setting did not unnecessarily recreate the entire chart.',
 			],
 			process: [
 				'Organized data selection, field mapping, chart selection and settings into one editing screen.',
@@ -1343,7 +1503,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Implemented editor background modes with WebGL/GLSL fragment shaders and OGL.',
 			],
 			solution: [
-				'Connected six settings areas to the Chart.js preview.',
+				'Connected six settings areas to the Chart.js preview and let users drag data fields into chart-axis and value assignments.',
 				'Reduced unnecessary mixed-chart recreation to lessen preview flicker and scroll movement.',
 			],
 			checks: [
@@ -1361,9 +1521,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			workType: 'Feature extension',
 			stack: ['Android', 'Cordova', 'Spring MVC', 'jQuery', 'Java'],
 			headline:
-				'Implemented deepfake image and personal-data leak checks by integrating external APIs.',
+				'Implemented email-breach lookup and deepfake image checks by integrating external APIs.',
 			summary:
-				'Implemented deepfake image and personal-data leak checks in an existing app using external APIs. Connected image and file selection to inspection requests and displayed results, including Android WebView file selection and bridge handling.',
+				'Added email-breach lookup and deepfake image checks to an existing app. Built server calls to external inspection APIs and screens from email or image input through results, including image and file selection in the Android app.',
 			impact: [
 				{
 					value: 'server-side proxy',
@@ -1372,7 +1532,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				},
 			],
 			problem:
-				'The existing app needed deepfake image and personal-data leak checks. User-selected images and files had to connect to external inspection APIs without exposing API credentials in the app or browser.',
+				'The existing app needed email-breach lookup and deepfake image checks. User input had to reach external inspection APIs without exposing API credentials in the app or browser.',
 			thinking: [
 				'Kept external lookup responsibility inside a server-side proxy.',
 				'Returned only the minimum result and state needed by the client UI.',
@@ -1382,10 +1542,10 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Checked WebView file chooser behavior by input source across emulator and real device flows.',
 			],
 			solution: [
-				'Integrated deepfake and personal-data leak inspection APIs, sending user input for inspection and displaying the results.',
-				'Called the external API on the server and returned only the results and states needed by the UI.',
-				'Connected image input paths and native file-picker results to the WebView.',
-				'Ignored stale file-read results after image reselection so they would not overwrite the new preview.',
+				'Integrated email-breach lookup and deepfake image inspection APIs, connecting user input to inspection requests and results.',
+				'Validated image format, file size and resolution before submitting the file to the server, then displayed the external API’s results and errors in the interface.',
+				'Passed Android image and file selections to the WebView so users could run checks within the app.',
+				'A previous file read could finish after the user selected another image. Checked completed reads against the current selection so an older image would not overwrite the new preview.',
 			],
 			checks: [
 				'Checked that real credential values were not present in docs or sample settings.',
@@ -1413,7 +1573,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'Built the complete React frontend for stock operations, using MSW responses for frontend development.',
 			summary:
-				'Implemented list, search, create and edit screens with shared tables and modals. Used MSW responses for loading and empty states, and built column pinning, resizing, reordering and selection controls.',
+				'Built screens for viewing, creating and editing account, stock and order records. Used MSW API responses and shared tables, filters and modals across screens, with column pinning, resizing, reordering and row selection.',
 			impact: [
 				{
 					value: 'Shared table controls',
@@ -1440,7 +1600,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Kept draft filters separate from submitted conditions in order history. Repeated searches restarted from the first page, and load-more requests were guarded against overlap.',
 			],
 			solution: [
-				'Built the complete frontend with React and TypeScript, using shared tables, filters and modals across screens.',
+				'Built the complete frontend with React and TypeScript. Shared tables provided consistent column pinning, resizing and reordering across account, stock and order screens.',
 				'Implemented queries and input interactions with MSW mock APIs. Kept draft filters separate from applied query conditions and updated TanStack Query when the user submitted a search.',
 			],
 			checks: [
@@ -1469,32 +1629,33 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'Connected member editing, inquiries, and attachments across existing role-specific websites and Android apps.',
 			summary:
-				'Built member search, editing, duplicate merging, inquiries and attachments. Added author- and role-based access checks, file selection and image zoom in the Android app.',
+				'Built member search, editing, duplicate merging, inquiries and attachments. Checked member roles and authorship on the server to control access and connected file selection, inquiry attachments and image zoom in the Android app.',
 			problem:
 				'Different member roles could share the same identifier, so member search and editing needed to distinguish roles. Web file inputs also needed a native picker connection before users could attach files to inquiries in the Android app.',
 			thinking: [
 				'Checked role and ownership on the server and reused access conditions across inquiries, answers, and attachments.',
-				'Kept the shared popup loader intact and handled readiness, failure, closing, and late responses per feature instance.',
+				'Handled loading, failures and closing within the member-editing popup so shared popup code could remain unchanged. Kept late responses from a closed popup from changing a newly opened one.',
 			],
 			process: [
 				'Separated saved data from parent refresh so quick alert dismissal and late responses did not leave stale values.',
 				'Connected Android picker cancellation and reselection with draft back-navigation handling.',
 			],
 			solution: [
-				'Limited self-service edits to selected fields and checked duplicates, authority, and post-save values.',
-				'Applied existing attachment authorization to previews of inquiry and completed-answer images.',
-				'Connected file-picker results to Android WebView and documented platform-specific support.',
+				'Allowed members to edit only permitted fields. Before merging duplicate members, rechecked the data to retain and the linked accounts and records on the server.',
+				'Checked access to the relevant records when previewing images attached to inquiries and answers.',
+				'Connected file-picker results to Android WebView and handled cancellation, reselection and return to the attachment list.',
 			],
 			impact: [
 				{
 					value: 'Member data preserved',
 					label: 'Merging and editing',
-					detail: 'Check rollback and concurrent requests in an isolated database',
+					detail:
+						'Verified rollback and concurrent requests in an isolated database',
 				},
 				{
 					value: 'Author- and role-based access',
 					label: 'Inquiries, answers, and files',
-					detail: 'Check member role and author ownership together',
+					detail: 'Checked member role and authorship together',
 				},
 			],
 			checks: [
@@ -1527,15 +1688,15 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Identified repeated duplicate-check queries and full index scans, then proposed input limits and batched lookups.',
 			],
 			solution: [
-				'Distinguished HTTP and business errors, timeouts, cancellations, response parsing, and elapsed time for analysis and registration requests.',
-				'Escaped safe structured messages and used category-specific guidance for other errors.',
+				'Distinguished communication errors, validation failures, timeouts, cancellations and response-parsing errors during file analysis and registration. Displayed the failed stage and elapsed time.',
+				'Displayed only server messages suitable for users. Excluded internal error pages and exception details and escaped dynamic text so it would not be interpreted as HTML.',
 			],
 			impact: [
 				{
 					value: 'Distinct failure stages',
 					label: 'Upload diagnostics',
 					detail:
-						'Do not describe validation, communication, and parsing failures as the same timeout',
+						'Distinguished validation, communication and parsing failures from timeouts',
 				},
 				{
 					value: 'Separated hypotheses',

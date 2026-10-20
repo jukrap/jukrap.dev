@@ -6,12 +6,13 @@ export const projectsData: SimpleProject[] = [
 		title: 'AI Agent Playbook',
 		duration: '2026.06 ~ Present',
 		major: true,
-		introduction: 'AI 코딩 도구의 프로젝트 기록과 스킬을 관리하는 하네스.',
+		introduction:
+			'AI 코딩 도구가 프로젝트 규칙과 작업 기록을 이어서 참고하도록 돕는 개발 도구.',
 		description: [
 			'1인 개발',
-			'단일 프로젝트와 여러 저장소의 기록을 관리하는 CLI.',
-			'읽기 전용 MCP와 긴 기록의 나누어 읽기.',
-			'사용자 수정본 보존, 스킬 전환과 복구.',
+			'한 저장소 또는 여러 저장소의 기록을 관리하는 CLI 개발.',
+			'코딩 도구에서 기록을 검색하고 긴 내용을 나누어 읽는 MCP 제공.',
+			'사용자가 수정한 파일을 보존하는 스킬 설치·전환·복구 기능 구현.',
 			'npm 배포와 한영 사용 문서.',
 		],
 		techStack: 'JavaScript, Node.js, MCP SDK, Zod, GitHub Actions',
@@ -41,7 +42,7 @@ export const projectsData: SimpleProject[] = [
 			'프론트엔드 개발',
 			'구글 맵스 기반 지도 서비스 개발.',
 			'실시간 역 혼잡도, 날씨, 맛집 정보, 추천 코스 등 제공.',
-			'드래그 가능한 모달 UI/UX 구현.',
+			'지도 위에서 끌어 올리고 내릴 수 있는 바텀 시트 구현.',
 			'DIVE 2024 부산테크노파크원장상(발제사 3등) 수상.',
 		],
 		techStack:
@@ -67,7 +68,7 @@ export const projectsData: SimpleProject[] = [
 			'개발자 취업 준비생에게 블로그·테스트·구인 정보를 제공하는 웹서비스.',
 		description: [
 			'프론트엔드 개발 & DevOps',
-			'블로그 기능 개발.',
+			'블로그 목록과 Markdown 편집·미리보기 화면 개발.',
 			'단위 테스트 작성과 실행 중 오류 모니터링.',
 		],
 		techStack:
@@ -122,7 +123,7 @@ export const projectsData: SimpleProject[] = [
 			'커뮤니티 기능 전체 개발 담당.',
 			'재사용 가능한 토스트 및 모달 컴포넌트 제작.',
 			'이미지 크기 조정과 캐싱 적용.',
-			'Pull to Refresh와 Infinite Scroll 적용.',
+			'당겨서 새로고침과 스크롤에 따른 다음 게시글 조회 구현.',
 			'데이터베이스 설계.',
 		],
 		techStack: 'JavaScript, React Native, Firebase, Realtime Database',
@@ -150,7 +151,7 @@ export const projectsData: SimpleProject[] = [
 		introduction: '앉은 자세와 운동 자세를 감지하고 측정 결과를 보여주는 앱.',
 		description: [
 			'팀장, 안드로이드 개발',
-			'자세 감지 기반의 착석 및 운동 자세 판별 페이지 담당.',
+			'앉은 자세와 플랭크 자세를 판별하고 유지 시간을 기록하는 화면 개발.',
 			'MediaPipe 빌드와 자세 감지 기능 구현.',
 			'멀티 스레드로 자세 감지 처리 분리.',
 		],
@@ -176,7 +177,8 @@ export const projectsData: SimpleProject[] = [
 		title: 'Chatterbox',
 		duration: '2022.09 ~ 2022.12',
 		major: false,
-		introduction: '목소리로 독서 여부를 감지하는 앱.',
+		introduction:
+			'아이가 읽은 목소리를 글자로 바꾸어 지문과 비교하고 독서 기록을 남기는 앱.',
 		description: [
 			'1인 개발',
 			'오프라인 시 Android의 내장 Speech-to-Text 사용.',
@@ -198,13 +200,13 @@ export const projectsData: SimpleProject[] = [
 	{
 		id: 'labyrinth-escape-game',
 		title: 'Labyrinth Escape Game',
-		duration: '2022.05 ~ 2022.6',
+		duration: '2022.05 ~ 2022.06',
 		major: false,
 		introduction: '미궁을 탈출하는 1인칭 슈팅 게임.',
 		description: [
 			'1인 개발',
-			'유니티 엔진의 에셋 스토어 활용.',
-			'싱글톤 패턴을 기반으로 개발.',
+			'Unity Asset Store 리소스로 1인칭 슈팅·체력·점수와 적 AI·아이템 구현.',
+			'공유 게임 데이터와 기능을 싱글톤으로 관리.',
 		],
 		techStack: 'C#, Unity',
 		links: [
@@ -227,7 +229,7 @@ export const projectsData: SimpleProject[] = [
 		introduction: '얼굴 움직임으로 집중 여부를 감지하고 기록하는 타이머 앱.',
 		description: [
 			'팀장, 안드로이드 개발',
-			'안면 감지 기반의 집중력 판별 페이지 담당.',
+			'눈동자와 얼굴 움직임으로 집중 여부를 판별하는 화면 개발.',
 			'MediaPipe 빌드와 안면 감지 기능 구현.',
 		],
 		techStack: 'Java, Jetpack, MediaPipe, SQLite',
@@ -248,12 +250,13 @@ export const projectsData: SimpleProject[] = [
 		title: 'ESD HotDeal',
 		duration: '2021.07 ~ 2021.10',
 		major: false,
-		introduction: '다양한 ESD의 핫딜 데이터를 모아서 제공하는 웹서비스.',
+		introduction:
+			'여러 디지털 소프트웨어 판매처(ESD)의 할인·무료 배포 정보를 모아 보여주는 웹서비스.',
 		description: [
 			'팀장, 프론트엔드 및 백엔드 개발',
 			'메인 페이지와 상세 페이지 전체 개발.',
 			'재사용 가능한 상품 정보 컴포넌트 제작.',
-			'Express와 Firebase 기반의 백엔드 작업.',
+			'Express API와 Puppeteer 수집 기능, Firebase 데이터 저장 구조 구현.',
 			'경남소프트웨어경진대회 최우수상 수상.',
 		],
 		techStack: 'JavaScript, React, Node.js, Express, Firebase, Puppeteer',

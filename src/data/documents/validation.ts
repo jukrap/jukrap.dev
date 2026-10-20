@@ -81,7 +81,13 @@ const EXPECTED_WORK_CASE_PAGES = [
 		pageNumber: getPortfolioPageNumber('settlement-operations-platform'),
 		id: 'settlement-operations-platform',
 		storyIds: ['settlement-operations-platform'],
-		caseIds: [],
+		caseIds: ['settlement-operations-platform'],
+	},
+	{
+		pageNumber: getPortfolioPageNumber('erp-mobile-workflow'),
+		id: 'erp-mobile-workflow',
+		storyIds: ['settlement-operations-platform'],
+		caseIds: ['erp-mobile-workflow'],
 	},
 	{
 		pageNumber: getPortfolioPageNumber('logistics-web'),

@@ -6,11 +6,11 @@ export const workContributionEvidence = {
 		attributedLines: 424304,
 		copy: {
 			ko: {
-				label: '소스 기여',
+				label: 'ERP 웹·API·모바일 소스 기여',
 				value: '3,079개 파일 / 42.4만 줄',
 			},
 			en: {
-				label: 'Source contribution',
+				label: 'ERP web, API and mobile contribution',
 				value: '3,079 files / 424,000 lines',
 			},
 		},

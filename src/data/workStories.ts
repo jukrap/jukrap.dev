@@ -30,7 +30,7 @@ export const workStoryDefinitions = [
 	{
 		id: 'settlement-operations-platform',
 		tier: 'featured',
-		caseIds: ['settlement-operations-platform'],
+		caseIds: ['settlement-operations-platform', 'erp-mobile-workflow'],
 		includeInAbout: true,
 	},
 	{
@@ -110,16 +110,16 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			area: '프론트엔드 전체 개발·Android 출력 앱 개발',
 			role: '물류 업무 웹과 출력 앱 개발',
 			headline:
-				'조회·예약·Excel 등록부터 PC·Android 라벨 출력까지 이어지는 물류 업무 시스템.',
+				'조회·예약·Excel 등록부터 PC·Android 라벨 출력까지 이어지는 물류 업무 웹과 출력 앱을 개발했습니다.',
 			summary:
-				'반복되는 표·입력 폼·모달을 공통화하고 API 응답을 화면과 출력 흐름에 연결했습니다. 페이지와 Excel 처리 코드의 지연 로딩으로 초기 JavaScript 엔트리 파일 크기를 2,405.50 kB에서 616.59 kB로 약 74% 줄였습니다(빌드 산출물 기준).',
+				'React·TypeScript로 웹 프론트엔드 전체를 개발하고 PC·Android 프린터를 연결했습니다. 페이지와 Excel 코드를 필요한 시점에 불러오도록 바꿔 초기 JavaScript 파일 크기를 약 74% 줄였습니다. Android 권한 오류를 추적하고 실물 라벨을 보며 긴 주소의 잘림과 겹침도 수정했습니다.',
 			context:
-				'조회·예약·Excel 등록·출력 화면에서 공통 UI와 API 연동이 필요했습니다. 초기 화면에 필요하지 않은 페이지와 Excel 라이브러리까지 함께 포함되어 초기 JavaScript 엔트리 파일이 커진 상태였습니다.',
+				'조회·예약·Excel 등록 화면에서 서버 데이터를 사용하고, 같은 자료를 PC와 Android의 서로 다른 출력 방식에 연결해야 했습니다. 첫 화면에서 쓰지 않는 코드까지 한 번에 불러오는 문제와, 실제 장비에서 발생하는 연결 오류·라벨 잘림도 해결해야 했습니다.',
 			editorial: {
 				decision:
-					'표·폼·모달을 공통화하고 페이지와 Excel 코드를 필요한 시점에 불러오도록 했습니다. 인증과 공통 초기화 흐름은 유지했습니다.',
+					'표·폼·모달과 출력 데이터 형식을 통일했습니다. 인증과 API 초기화 순서는 유지하면서 페이지·Excel 코드만 나눠 불러오도록 했고, 장비 연결과 출력 문제는 실제 기기와 라벨에서 확인했습니다.',
 				outcome:
-					'코드 분리 후 페이지 이동·Excel 처리·PC 라벨 출력 동작 확인. Android 실기기의 Bluetooth 연결과 실제 라벨 출력 확인.',
+					'2026.05 빌드에서 초기 JavaScript 파일 크기를 2,405.50 kB에서 616.60 kB로 줄였습니다. Android의 Bluetooth 연결 오류를 수정하고 PC·모바일 실제 라벨의 주소 배치를 보정했습니다.',
 			},
 			resultSections: ['delivery-operations-web', 'mobile-output-bridge'].map(
 				(chapterId) => {
@@ -131,24 +131,95 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'structured-editor-ui': {
 			summary:
-				'개발 중이던 사이트에서 차트 설정 패널과 Chart.js 미리보기를 구현했습니다. 데이터 필드 연결과 드래그 조작도 구현했습니다.',
+				'개발 중이던 사이트에서 차트에 사용할 데이터와 표시 방식을 설정하는 페이지를 맡았습니다. 차트 종류에 맞는 설정을 보여 주고, 선택한 데이터와 옵션을 Chart.js 미리보기에 반영했습니다.',
 			editorial: {
 				decision:
-					'차트 종류에 맞는 옵션과 데이터 역할을 제공하고 설정 상태와 렌더러 생명주기를 분리했습니다.',
+					'데이터 필드를 차트의 축과 값에 연결하고, 차트 종류에 맞는 옵션만 보여 주도록 했습니다. 설정 변경 때 차트 전체가 불필요하게 다시 만들어지지 않도록 갱신 조건을 정리했습니다.',
 				outcome:
 					'데이터 필드와 옵션을 설정 패널에서 선택하고 Chart.js 미리보기로 확인하는 편집 화면을 구현했습니다.',
 			},
 			aboutSummary: '차트 설정 패널과 데이터 연결, 미리보기 화면을 구현했습니다.',
 		},
 		'settlement-operations-platform': {
-			headline: '차량·기사 정보부터 운송료 청구·정산까지 관리하는 업무 시스템.',
+			title: '업무 정산 ERP·모바일 앱',
+			platform: 'Web / API / Android',
+			area: 'ERP 웹·서버와 모바일 업무 기능 개발(채팅 시스템 제외)',
+			period: '2026.07 ~ 2026.09',
+			role: '풀스택 개발',
+			workType: '신규 개발·기능 연계',
+			headline:
+				'차량·기사 정보와 정산을 관리하는 ERP를 개발하고, 업무 알림·문서·문의를 모바일 앱에 연결했습니다.',
+			summary:
+				'ERP 웹 전반과 주요 서버 API, 채팅 시스템을 제외한 모바일 업무 기능을 개발했습니다. 입력과 정산 이력을 보호하는 저장 처리부터 알림 변경, 읽음 기록, 문서 다운로드와 문의 완료까지 웹·서버·Android의 동작을 연결했습니다.',
+			context:
+				'ERP에서는 여러 사람이 같은 자료를 수정하거나 Excel 자료를 일괄 등록해도 입력과 기존 정산을 잃지 않아야 했습니다. 모바일에서는 ERP의 변경 내용을 최신 상태로 보여 주고, 요청이 반복되거나 순서가 바뀌어도 읽음 기록과 문의 처리 결과를 지켜야 했습니다.',
 			editorial: {
 				decision:
-					'공통 편집표에 키보드 조작과 초안 보존 기능을 넣었습니다. Excel 등록 전에는 서버에서 자료를 다시 검증하고 한 트랜잭션으로 저장했습니다. 현재 담당 관계와 과거 정산 정보는 따로 관리했습니다.',
-				outcome: '',
+					'저장 요청의 버전과 중복 여부를 서버에서 검사하고, 거절된 입력은 화면에 남겨 비교·재저장할 수 있도록 했습니다. 모바일 알림은 원본의 버전·삭제 상태와 사용자의 읽음 기록을 나눠 처리하고, 문서 다운로드와 문의 완료에도 현재 권한과 처리 상태를 확인했습니다.',
+				outcome:
+					'Excel 등록의 중복·부분 저장과 동시 수정에 따른 덮어쓰기를 막고, 충돌한 입력을 다시 저장할 수 있는 흐름을 구현했습니다. 모바일에서는 알림 변경·읽음·문의 결과를 검증했고, Android 에뮬레이터에서 실제 알림 수신과 관련 화면 이동을 확인했습니다.',
 			},
 			aboutSummary:
-				'공통 편집표·Excel 등록·정산 이력을 구현하고 관리자 작업 로그를 개편했습니다.',
+				'정산 ERP와 모바일 업무 기능을 풀스택으로 개발했습니다. 입력과 과거 정산을 보호하는 저장 처리, 알림·문서·문의 연계를 구현했습니다.',
+			resultSections: [
+				{
+					chapterId: 'settlement-operations-platform',
+					impact: [
+						{
+							value: '입력을 보존한 채 재저장',
+							label: '동시 수정 처리',
+							detail:
+								'오래된 저장을 거절한 뒤 최신 자료와 입력값을 비교하고, 반영할 내용을 선택해 다시 저장할 수 있도록 했습니다.',
+						},
+						{
+							value: '중복·부분 등록 방지',
+							label: 'Excel 일괄 저장',
+							detail:
+								'저장 오류가 나면 전체 행을 취소하고, 같은 요청을 다시 보내면 이미 저장한 결과를 반환하도록 했습니다.',
+						},
+						{
+							value: '확정된 정산 이력 보존',
+							label: '배정·원본 정보 변경',
+							detail:
+								'현재 배정과 원본 자료를 수정해도 이미 확정한 정산의 대상과 금액은 유지하도록 했습니다.',
+						},
+					],
+					checks: [
+						'격리된 MariaDB에서 저장 중 실패하면 전체가 취소되고, 동시에 확정하거나 같은 요청을 반복해도 중복 등록되지 않는지 확인했습니다.',
+						'개발 환경에서 다른 사용자가 먼저 수정한 뒤 오래된 화면의 저장이 거절되는지 확인했습니다. 입력값이 남아 있는 상태에서 최신 내용과 비교하고 다시 저장한 결과를 브라우저·API·DB로 대조했습니다.',
+						'개발 DB에서 배정 관계가 바뀐 뒤에도 과거 정산 금액이 유지되는지 확인했습니다. 정산 저장 기능은 개발 환경에 반영했으며, 개편한 작업 로그 화면은 관리자가 사용하고 있습니다.',
+					],
+				},
+				{
+					chapterId: 'erp-mobile-workflow',
+					impact: [
+						{
+							value: '알림의 최신 상태 유지',
+							label: '수정·삭제와 재전송',
+							detail:
+								'변경 요청이 역순으로 도착하거나 반복돼도 예전 내용이 최신 내용을 덮거나 삭제한 알림이 다시 생기지 않도록 했습니다.',
+						},
+						{
+							value: '읽음 기록의 동시 저장 오류 해결',
+							label: 'MariaDB 저장 처리',
+							detail:
+								'등록과 갱신을 한 번의 DB 연산으로 처리하고, 요청이 반복돼도 최초 표시·읽음 시각을 유지했습니다.',
+						},
+						{
+							value: '문서와 문의를 앱에 연결',
+							label: 'ERP와 모바일의 업무 연계',
+							detail:
+								'접근 권한을 확인하는 PDF 다운로드와 문의 처리 결과 조회를 구현하고, 이미 완료한 문의의 결과가 덮어써지지 않도록 했습니다.',
+						},
+					],
+					checks: [
+						'격리된 MariaDB에서 기존 읽음 저장 실패를 재현한 뒤, 동시에 들어오는 표시·읽음 요청이 저장되고 최초 시각이 유지되는지 확인했습니다. 알림 수정·삭제의 역순 전달과 재전송도 검사했습니다.',
+						'Chrome에서 내려받은 PDF가 원본과 같은 파일인지 해시로 대조하고, Android 다운로드 요청으로 전달되는 주소와 값을 검사했습니다.',
+						'로컬 브라우저에서 문의 접수부터 관리자 완료와 모바일 상태 확인까지 검수했습니다. 뒤늦은 완료 요청은 기존 결과를 바꾸지 않았고, 같은 이력을 다시 보내도 ERP에 중복 기록되지 않았습니다.',
+						'관련 기능을 개발 환경에 반영했습니다. Android 에뮬레이터에서는 실제 시스템 알림을 받고, 알림을 눌러 관련 목록과 본문으로 이동하는 동작을 확인했습니다.',
+					],
+				},
+			],
 		},
 		'react-admin-state-migration': {
 			headline: '계좌·종목·주문 정보를 조회하고 등록·수정하는 주식 업무 관리 웹.',
@@ -158,7 +229,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'컬럼 조작·필터·모달은 공통 컴포넌트로 만들고 화면별 컬럼과 동작은 따로 정의했습니다. MSW로 모의 응답을 구성해 실제 백엔드 연결 없이 화면을 개발했습니다.',
 				outcome:
-					'MSW 모의 응답을 사용하는 로컬 환경에서 컬럼 조작·스크롤·검색 모달과 로딩·빈 결과 등 화면 상태 확인.',
+					'계좌·종목·주문 화면에서 같은 방식으로 열을 고정하고 너비와 순서를 바꿀 수 있도록 했습니다. MSW 응답을 사용하는 로컬 환경에서 검색·재조회·더보기와 로딩·빈 결과 표시를 확인했습니다.',
 			},
 			aboutSummary:
 				'공통 테이블·필터·모달을 만들고 MSW로 화면 동작을 확인했습니다.',
@@ -170,11 +241,11 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			headline:
 				'기존 웹과 Android 앱의 회원 관리, 문의·첨부 기능을 개발하고 개선했습니다.',
 			summary:
-				'회원 검색·수정·중복 통합과 문의·첨부 기능을 개발했습니다. Android 파일 선택과 이미지 미리보기도 연결했습니다.',
+				'회원 검색·수정·중복 통합과 문의·첨부 기능을 개발했습니다. 회원 역할과 작성자를 서버에서 확인해 접근을 제한하고, Android 앱의 파일 선택과 이미지 미리보기를 연결했습니다.',
 		},
 		'ai-kickoff-documentation-tool': {
 			summary:
-				'자료 검토부터 문서 작성·표 편집까지 이어지는 화면과 서버 API를 개발했습니다. 선택한 시트·셀의 AI 수정, 작업 실행과 결과 저장, 문서 내보내기를 구현했습니다.',
+				'저장소와 프로젝트 착수 자료를 바탕으로 문서 초안을 만들고 검토하는 사내 웹 도구를 개발했습니다. 요구사항 검토·표 편집·선택한 부분의 AI 수정과 결과 저장·내보내기를 구현했습니다.',
 		},
 		'mobile-operations-platform': {
 			summary:
@@ -186,7 +257,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'hybrid-life-info-platform': {
 			summary:
-				'공공 데이터 API를 연동해 날씨·대기질·기상특보 기능을 확장했습니다. 핵심 정보를 먼저 표시하고, 지역·정보별 서버 캐시와 같은 데이터의 동시 요청 통합을 구현했습니다.',
+				'공공 데이터 API를 연동해 날씨·대기질·기상특보 기능을 확장했습니다. 핵심 정보를 먼저 표시하고 지역과 정보 종류별로 응답을 캐시했습니다. 같은 정보를 동시에 요청하면 진행 중인 조회 결과를 함께 사용하도록 했습니다.',
 		},
 		'legacy-mobile-compatibility': {
 			summary:
@@ -194,7 +265,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'hybrid-security-boundary': {
 			summary:
-				'외부 API를 이용한 딥페이크 이미지·개인정보 유출 검사 기능을 개발했습니다. 이미지·파일 선택, 검사 요청과 결과 표시를 구현하고 Android WebView에 연결했습니다.',
+				'외부 API를 이용한 이메일 유출 조회와 딥페이크 이미지 검사 기능을 개발했습니다. 이메일·이미지 입력부터 검사 요청과 결과 표시까지 구현하고, Android 앱의 이미지·파일 선택을 연결했습니다.',
 		},
 		'field-terminal-android': {
 			summary:
@@ -218,16 +289,16 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			area: 'Complete frontend and Android printing app development',
 			role: 'Logistics web and printing app development',
 			headline:
-				'A logistics system connecting search, reservations and Excel imports to PC and Android label printing.',
+				'I built a logistics web app and Android printing app spanning search, reservations, Excel imports and PC/Android label printing.',
 			summary:
-				'Created shared tables, forms and modals and connected API responses to screen and print flows. Lazy-loaded pages and Excel code to reduce the initial JavaScript entry file size from 2,405.50 kB to 616.59 kB, about 74% (build output size).',
+				'I developed the complete React and TypeScript frontend and connected PC and Android printers. Loading pages and Excel code on demand reduced the initial JavaScript file size by about 74%. I traced an Android permission error and corrected clipped or overlapping addresses using physical label prints.',
 			context:
-				'Lookup, booking, Excel imports and printing needed shared UI and API integration. Pages and spreadsheet libraries that were not needed at startup were included in a large initial JavaScript entry.',
+				'Search, reservations and Excel imports needed server data that could also feed the different PC and Android printing integrations. The app loaded unnecessary code at startup, while physical devices exposed connection errors and clipped label text.',
 			editorial: {
 				decision:
-					'Built shared tables, forms and modals and loaded pages and Excel code on demand, keeping authentication and shared initialization intact.',
+					'I created shared tables, forms, modals and print data formats. I preserved authentication and API initialization order while splitting page and Excel code, and checked connection and layout problems on physical devices and printed labels.',
 				outcome:
-					'Verified navigation, Excel processing and PC label printing after code splitting. Checked Bluetooth connection and physical label output on an Android device.',
+					'The initial JavaScript file shrank from 2,405.50 kB to 616.60 kB in the May 2026 builds. I fixed the Android Bluetooth connection error and adjusted address layouts on physical PC and mobile labels.',
 			},
 			resultSections: ['delivery-operations-web', 'mobile-output-bridge'].map(
 				(chapterId) => {
@@ -240,10 +311,10 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'structured-editor-ui': {
 			summary:
-				'Built chart settings, data-field connections, drag interactions and Chart.js previews within a website under development.',
+				'Built a page for choosing chart data and display settings within a website under development. Showed settings appropriate to each chart type and reflected selected data and options in a Chart.js preview.',
 			editorial: {
 				decision:
-					'Exposed valid chart options and data roles and separated editing state from the renderer lifecycle.',
+					'Connected data fields to chart axes and values and showed options appropriate to each chart type. Revised the update conditions so setting changes did not unnecessarily recreate the whole chart.',
 				outcome:
 					'Built an editing interface for selecting data fields and options and viewing them in a Chart.js preview.',
 			},
@@ -251,15 +322,86 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'Built chart settings panels, data connections and preview interfaces.',
 		},
 		'settlement-operations-platform': {
+			title: 'Settlement ERP and Mobile App',
+			platform: 'Web / API / Android',
+			area:
+				'ERP web and server development, with mobile business features excluding the chat system',
+			period: '2026.07 ~ 2026.09',
+			role: 'Full-stack development',
+			workType: 'Build and feature integration',
 			headline:
-				'A business system for vehicle and driver records, transport fees, billing and settlement.',
+				'Built an ERP for vehicle, driver and settlement records and connected notifications, documents and inquiries to a mobile app.',
+			summary:
+				'Developed the ERP web application, key server APIs and mobile business features, excluding the chat system. Connected web, server and Android behavior across safe editing, settlement history, notification updates, read receipts, document downloads and inquiry completion.',
+			context:
+				'ERP users needed to edit shared records and import Excel data without losing input or historical settlements. The mobile app needed to reflect current ERP changes while preserving read receipts and inquiry results when requests were repeated or arrived out of order.',
 			editorial: {
 				decision:
-					'Built keyboard editing and draft preservation into shared tables. Used server revalidation and one transaction for Excel confirmation, separating current assignments from historical settlements.',
-				outcome: '',
+					'Checked record versions and duplicate requests on the server while retaining rejected edits for comparison and resubmission. Handled notification versions and deletion status separately from read receipts, and checked current permissions and workflow status for document downloads and inquiry completion.',
+				outcome:
+					'Implemented protection against partial imports, duplicate writes and lost updates, with a recovery flow for conflicting edits. Verified mobile notification changes, receipt saves and inquiry results, and checked actual notification delivery and navigation on an Android emulator.',
 			},
 			aboutSummary:
-				'Built shared editing tables, Excel imports and settlement history, and revised administrator work logs.',
+				'Built the settlement ERP and mobile business features across the stack, protecting user input and historical settlements while connecting notifications, documents and inquiries.',
+			resultSections: [
+				{
+					chapterId: 'settlement-operations-platform',
+					impact: [
+						{
+							value: 'Recover edits after a conflict',
+							label: 'Concurrent editing',
+							detail:
+								'Rejected outdated saves while retaining input, then let users compare current values and explicitly save their chosen changes.',
+						},
+						{
+							value: 'Prevent partial and duplicate imports',
+							label: 'Batch Excel saves',
+							detail:
+								'Rolled back all rows on a failed commit and returned the previous result when the same request was repeated.',
+						},
+						{
+							value: 'Preserve finalized settlements',
+							label: 'Assignment and source changes',
+							detail:
+								'Kept the original settlement parties and amounts when current assignments or source records were corrected.',
+						},
+					],
+					checks: [
+						'Verified full rollback after a failed write in isolated MariaDB, and checked that concurrent commits and repeated requests did not create duplicate records.',
+						'In the development environment, verified that a save from an outdated screen was rejected after another user updated the record. Compared browser, API and database results after retaining input, reviewing current values and saving again.',
+						'Verified that historical settlement amounts remained intact after assignment changes in the development database. Settlement persistence was delivered to the development environment, and administrators use the revised activity-log screen.',
+					],
+				},
+				{
+					chapterId: 'erp-mobile-workflow',
+					impact: [
+						{
+							value: 'Keep notifications current',
+							label: 'Edits, deletions and retries',
+							detail:
+								'Prevented out-of-order or repeated requests from overwriting newer content or recreating deleted notifications.',
+						},
+						{
+							value: 'Resolve concurrent receipt writes',
+							label: 'MariaDB persistence',
+							detail:
+								'Combined insertion and updates into one database operation while preserving the first display and read timestamps.',
+						},
+						{
+							value: 'Connect documents and inquiries',
+							label: 'ERP and mobile workflows',
+							detail:
+								'Added permission-checked PDF downloads and inquiry status views, protecting completed inquiries from late overwrites.',
+						},
+					],
+					checks: [
+						'Reproduced the original receipt-save failure in isolated MariaDB, then verified concurrent display and read requests and preservation of first timestamps. Also tested out-of-order notification changes and repeated delivery.',
+						'Matched a PDF downloaded in Chrome to its source hash and inspected the URL and values passed to the Android download request.',
+						'Verified inquiry submission, administrator completion and mobile status updates in local browser sessions. Late completion requests preserved the existing result, and repeated events did not create duplicate ERP records.',
+						'Delivered the related features to the development environment. On an Android emulator, verified actual system notification delivery and navigation to the relevant list and content.',
+					],
+				},
+			],
 		},
 		'react-admin-state-migration': {
 			headline:
@@ -270,7 +412,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				decision:
 					'Built shared column controls, filters and modals with screen-specific columns and actions. Used MSW responses to develop the UI without a real backend connection.',
 				outcome:
-					'Verified column controls, scrolling, search modals, loading and empty states locally with MSW mock responses.',
+					'Provided consistent column pinning, resizing and reordering across account, stock and order screens. Verified search, repeated queries, load-more behavior, loading states and empty results locally with MSW responses.',
 			},
 			aboutSummary:
 				'Built shared tables, filters and modals, and checked screen behavior with MSW mock APIs.',
@@ -283,11 +425,11 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			headline:
 				'Developed and improved member management, inquiries and attachments across an existing web solution and Android app.',
 			summary:
-				'Built member search, editing, merging, inquiries and attachments, with Android file selection and image previews.',
+				'Built member search, editing, merging, inquiries and attachments. Checked member roles and authorship on the server to control access and connected file selection and image previews in the Android app.',
 		},
 		'ai-kickoff-documentation-tool': {
 			summary:
-				'Built source review, document drafting, table editing and targeted AI revision screens, plus server APIs for running AI tasks, saving results and exporting documents.',
+				'Built an internal web tool for drafting and reviewing documents from repositories and project kickoff material. Implemented requirement review, table editing, targeted AI revisions, result storage and document export.',
 		},
 		'mobile-operations-platform': {
 			summary:
@@ -299,7 +441,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'hybrid-life-info-platform': {
 			summary:
-				'Extended weather, air quality and alerts with public-data APIs. Prioritized core information and built server caches and shared in-flight requests.',
+				'Extended weather, air quality and alerts with public-data APIs. Displayed core information first and cached responses by region and information type. Concurrent requests for the same information shared the lookup already in progress.',
 		},
 		'legacy-mobile-compatibility': {
 			summary:
@@ -307,7 +449,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 		},
 		'hybrid-security-boundary': {
 			summary:
-				'Built deepfake image and personal-data breach checks using external APIs, from file selection to requests and results, including Android WebView integration.',
+				'Built email-breach lookup and deepfake image checks using external APIs. Connected email and image input to inspection requests and results, including image and file selection in the Android app.',
 		},
 		'field-terminal-android': {
 			summary:
@@ -331,6 +473,7 @@ const expectedWorkstreams: readonly WorkstreamId[] = [
 	'WS12',
 	'WS13',
 	'WS14',
+	'WS16',
 ];
 
 function assertUnique(values: readonly string[], label: string) {

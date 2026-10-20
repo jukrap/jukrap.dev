@@ -41,7 +41,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'Frontend development',
 			'Google Maps-based map service development.',
 			'Real-time station congestion, weather, restaurants, and route recommendations.',
-			'Draggable modal UI/UX implementation.',
+			'Built a draggable bottom sheet over the map.',
 			'Won the Busan Technopark President Award (3rd place in the challenge track) at DIVE 2024.',
 		],
 	},
@@ -51,8 +51,8 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A web service with blogs, tests and job listings for aspiring developers.',
 		description: [
 			'Frontend development and DevOps',
-			'Blog feature development.',
-			'Test-based development and error monitoring.',
+			'Built blog lists and Markdown editing with live previews.',
+			'Wrote unit tests and configured runtime error monitoring.',
 		],
 	},
 	'jukrap-website': {
@@ -70,12 +70,12 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 	'ai-agent-playbook': {
 		title: 'AI Agent Playbook',
 		introduction:
-			'A harness for managing project records and skills across AI coding tools.',
+			'A development tool that helps AI coding tools refer to project rules and work history across sessions.',
 		description: [
 			'Solo development',
 			'CLI for records in single projects and multi-repository workspaces.',
-			'Read-only MCP with paginated record access.',
-			'User-edit preservation, skill migration and recovery.',
+			'Read-only MCP for searching records and reading long results in pages.',
+			'Skill installation, migration and recovery that preserve user edits.',
 			'npm distribution and English/Korean guides.',
 		],
 	},
@@ -98,14 +98,15 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'An app that detects sitting and exercise posture and displays the results.',
 		description: [
 			'Team lead and Android developer',
-			'Owned sitting and exercise posture detection pages.',
-			'Built posture detection and MediaPipe extraction features.',
-			'Multi-threading and optimization.',
+			'Built screens for sitting and plank posture detection and hold-time tracking.',
+			'Built MediaPipe as an Android library and implemented posture detection.',
+			'Moved posture processing to a separate thread.',
 		],
 	},
 	chatterbox: {
 		title: 'Chatterbox',
-		introduction: 'A voice-based app that recognizes reading aloud.',
+		introduction:
+			'An app that transcribes a child’s voice, compares it with a reading passage and records reading activity.',
 		description: [
 			'Solo development',
 			'Used Android built-in Speech-to-Text while offline.',
@@ -118,8 +119,8 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A first-person shooter game where the player escapes a labyrinth.',
 		description: [
 			'Solo development',
-			'Used Unity Asset Store resources.',
-			'Developed around a singleton pattern.',
+			'Used Unity Asset Store resources to build shooting, health, score, enemy AI and item features.',
+			'Managed shared game data and features with the singleton pattern.',
 		],
 	},
 	mytime: {
@@ -128,19 +129,20 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A timer app that detects and records focus using facial movement.',
 		description: [
 			'Team lead and Android developer',
-			'Owned face-detection-based focus determination pages.',
-			'Built face detection and MediaPipe extraction features.',
+			'Built screens that infer focus from eye and facial movement.',
+			'Built MediaPipe as an Android library and implemented face detection.',
 		],
 	},
 	'esd-hotdeal': {
 		title: 'ESD HotDeal',
-		introduction: 'A web service that aggregates hot-deal data from many ESDs.',
+		introduction:
+			'A web service that collects discounts and free offers from digital software stores (ESDs).',
 		description: [
 			'Team lead, frontend, and backend development',
 			'Owned the main page and detail page work.',
 			'Built reusable product information components.',
-			'Backend work with Express and Firebase.',
-			'Won the top prize at the Gyeongnam Software Competition.',
+			'Built Express APIs, Puppeteer data collection and Firebase storage.',
+			'Won the Top Excellence Award at the Gyeongnam Software Competition.',
 		],
 	},
 };
@@ -217,7 +219,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Team collaboration and deployment',
 				details: [
 					'Worked in a team of one frontend developer and two backend developers.',
-					'Met three times a week on Discord and documented plans in Notion.',
+					'Shared progress on Discord and documented plans in Notion.',
 					'Configured an automated deployment environment with GitHub Actions, AWS, and Docker.',
 				],
 			},
@@ -267,10 +269,10 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		],
 		troubleshooting: [
 			{
-				title: 'Prevented duplicate blog view counts',
+				title: 'Added a minimum reading time before counting views',
 				details: [
-					'Repeated views by the same user in a short period could inflate view counts.',
-					'Improved counting so views increased only after a user stayed on the page for more than 10 seconds.',
+					'Brief visits and repeated page openings were being included in view counts.',
+					'Changed the counting rule so views increased only after a user stayed on the page for at least 10 seconds.',
 				],
 			},
 		],
@@ -326,7 +328,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Built Home, About, Work, and Projects pages with React 19 and the Next.js 16 App Router.',
 					'Kept Korean and English content separate and connected both to shared components and localized routes.',
-					'Managed work cases and career documents as shared data, generating PDFs that match the web layout and offering direct downloads.',
+					'Connected period, role and technology data across work cases and career documents. Generated PDFs that match the web layout and offered direct downloads.',
 				],
 			},
 			{
@@ -367,7 +369,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		title: 'AI Agent Playbook',
 		subtitle: 'A harness for coding-agent context and skills',
 		overview:
-			'A harness that helps AI coding tools carry project rules and work history across sessions. Includes a record-management CLI, read-only MCP tools, and selected skill installation with recovery.',
+			'A development tool that helps AI coding tools refer to project rules and work history across sessions. Includes a record-management CLI, read-only MCP tools, selected skill installation and recovery of the previous setup.',
 		tasks: [
 			{
 				title: 'Project records across repositories',
@@ -428,14 +430,14 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		title: 'ShareBBy',
 		subtitle: 'ShareBBy',
 		overview:
-			'A cross-platform app that provides a platform for sharing and joining various hobby activities.',
+			'A cross-platform app for sharing hobbies and finding people to join.',
 		tasks: [
 			{
-				title: 'Android work',
+				title: 'Android support for existing screens',
 				details: ['Adjusted and improved an iOS-oriented app for Android.'],
 			},
 			{
-				title: 'Database work',
+				title: 'Firebase storage design',
 				details: [
 					'Created an ERD to define data relationships and designed the Firebase structure.',
 				],
@@ -457,7 +459,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				title: 'Resolved image caching issues',
 				details: [
 					'Identified excessive traffic and slow loading caused by the default React Native image component.',
-					'Attempted to apply fast-image, but used faster-image as an alternative because fast-image was no longer actively updated.',
+					'Reviewed the maintenance status of fast-image at the time and adopted faster-image as an alternative.',
 					'Applied the faster-image cache to image loading.',
 				],
 			},
@@ -471,7 +473,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				],
 			},
 			{
-				title: 'Board and comment performance improvements',
+				title: 'List refresh and loading more results',
 				details: [
 					'Implemented pull-to-refresh to refresh lists and infinite scroll to load subsequent results.',
 				],
@@ -481,7 +483,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Real-time features with Firebase',
 				details: [
-					'Implemented real-time comments, likes, and multi-image features using Firebase Realtime Database.',
+					'Connected Firebase Realtime Database to reflect comment and like changes in the UI. Also implemented multiple-image attachments for posts.',
 				],
 			},
 			{
@@ -540,7 +542,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Multi-threading optimization',
 				details: [
-					'Reduced MediaPipe load with multi-threading based on Runnable interfaces and thread classes.',
+					'Moved MediaPipe processing to separate threads using Runnable and Thread.',
 					'Improved usability on older phones and resolved UI responsiveness problems.',
 				],
 			},
@@ -601,10 +603,9 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		],
 		troubleshooting: [
 			{
-				title: 'Android version management and legacy adaptation',
+				title: 'Integrating speech recognition with Android',
 				details: [
-					'Learned Android version management while applying Google Cloud Platform in an Android environment.',
-					'Learned and applied ways to force legacy elements through build-file changes.',
+					'Adjusted build settings to integrate the Google Cloud Platform speech-recognition library into the Android app.',
 				],
 			},
 		],
@@ -630,18 +631,11 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'Implemented game systems such as first-person shooting, health, and score.',
 					'Developed game content including cutscenes, enemy AI, items, and endings.',
-					'Used Unity Asset Store resources to shorten development time.',
+					'Used Unity Asset Store resources while implementing the game systems and content.',
 				],
 			},
 		],
 		troubleshooting: [
-			{
-				title: 'Resolved prefab-related issues',
-				details: [
-					'Prefab loss occurred because of insufficient understanding of prefab features.',
-					'Learned prefab concepts and usage, then applied them to prevent the same issue.',
-				],
-			},
 			{
 				title: 'Fixed sound and animation errors',
 				details: [
@@ -654,9 +648,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 			{
 				title: 'Learned and applied the singleton pattern',
 				details: [
-					'Recognized the need for a singleton pattern during development and studied it.',
-					'Used the singleton pattern to manage game data and core features efficiently.',
-					'Experienced benefits such as reduced duplication and better consistency.',
+					'Used the singleton pattern so multiple objects could share game data and core features, reducing duplicate code.',
 				],
 			},
 		],
@@ -697,7 +689,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'The initial OpenCV and NDK implementation had a low frame rate.',
 					'Replaced the OpenCV implementation with MediaPipe.',
-					'Observed FPS increase from under 10 to over 30 during the project.',
+					'Observed frame-processing throughput rise from 10 FPS or less to 30 FPS or more in the project comparison.',
 				],
 			},
 			{
@@ -711,11 +703,10 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		],
 		specialImplementations: [
 			{
-				title: 'Agile-based team collaboration and project management',
+				title: 'Team tasks and change history',
 				details: [
 					'Used GitHub to manage the team project efficiently.',
 					'Communicated continuously with teammates to clarify project goals and regularly check whether each role was moving in the right direction.',
-					'Applied agile practices to parts of this process.',
 				],
 			},
 		],
@@ -724,7 +715,7 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		title: 'ESD HotDeal',
 		subtitle: 'ESD HotDeal',
 		overview:
-			'A web service that collects and provides discount and free software lists from multiple ESDs.',
+			'A web service that collects discounts and free offers from digital software stores (ESDs).',
 		tasks: [
 			{
 				title: 'Frontend development',
@@ -753,19 +744,12 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				],
 			},
 		],
-		troubleshooting: [
-			{
-				title: 'Resolved static web hosting issues',
-				details: [
-					'Encountered deployment issues while initially using GitHub Pages for the React SPA.',
-					'Moved the deployment to another hosting service.',
-				],
-			},
-		],
 		specialImplementations: [
 			{
 				title: 'Project result',
-				details: ['Won the top prize at the Gyeongnam Software Competition.'],
+				details: [
+					'Won the Top Excellence Award at the Gyeongnam Software Competition.',
+				],
 			},
 			{
 				title: 'Scheduling and task allocation',

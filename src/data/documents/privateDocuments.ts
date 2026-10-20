@@ -54,8 +54,8 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				period: period(triphosCareerEvidence.period),
 				role: ko ? triphosCareerEvidence.role : 'Web & Mobile Developer',
 				summary: ko
-					? '업무용 웹 개발과 Android 연동.'
-					: 'Business web applications and Android integration',
+					? '업무용 웹과 서버 API를 개발하고 Android 앱 기능을 연동했습니다.'
+					: 'Built business web applications and server APIs and integrated Android app features.',
 				highlights: [],
 				workItems: [
 					{
@@ -76,20 +76,22 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 								],
 					},
 					{
-						title: ko ? '업무 정산 ERP 플랫폼' : 'Settlement Operations Platform',
+						title: ko ? '업무 정산 ERP·모바일 앱' : 'Settlement ERP and Mobile App',
 						scope: ko
-							? '차량·기사·운송료·정산을 관리하는 웹 전반 개발. 주요 서버 API와 데이터 저장 기능 구현.'
-							: 'Built the administrator web app for vehicles, drivers, fees and settlement, including key server APIs and data persistence.',
+							? '정산 ERP와 Flutter 기반 모바일 업무 앱을 풀스택으로 개발했습니다. 모바일은 채팅 시스템을 제외한 대부분의 기능을 개발했습니다.'
+							: 'Owned full-stack development of the ERP and connected Flutter mobile work app, excluding the chat system.',
 						highlights: ko
 							? [
-									'키보드 셀 이동·선택창 조작을 지원하고, 저장 실패 시 입력값을 보존하는 공통 편집표 개발.',
-									'Excel 오류 셀 표시·수정·재검사, 저장 오류 시 전체 롤백과 중복 요청 처리 구현.',
-									'작업 대상·변경 내용·입력 오류 원인을 기록하고, 관리자 로그 화면을 작업 내용 중심으로 개편.',
+									'동시 수정 시 서버 버전을 확인하고 사용자 입력을 보존했습니다. 처음 값·최신 값·입력값을 비교해 선택한 내용을 다시 저장하도록 구현했습니다.',
+									'Excel 오류 셀 수정·재검사, 일괄 저장의 전체 취소와 중복 요청 처리를 구현했습니다. 현재 정보가 바뀌어도 확정된 정산 이력은 보존했습니다.',
+									'모바일 알림의 버전과 삭제 상태를 관리해 늦게 도착한 이전 알림이 최신 내용을 덮지 않도록 했습니다. 읽음 저장의 DB 교착은 단일 UPSERT로 수정했습니다.',
+									'Flutter 앱의 알림·상세 이동을 연결하고, 로그인 토큰 대신 짧은 유효기간의 서명 주소로 문서를 다운로드하도록 구현했습니다.',
 								]
 							: [
-									'Built shared editing tables with keyboard controls and draft retention after failed saves.',
-									'Built Excel previews with invalid-cell correction, server revalidation, all-or-nothing saves, and repeat-request handling.',
-									'Added action targets, changes, and input-error reasons to logs; reorganized the administrator log screen around user actions.',
+									'Checked server versions on concurrent edits and retained user input. Compared original, latest and entered values before explicitly saving selected changes.',
+									'Built Excel cell correction, revalidation, batch rollback and repeat-request handling, while preserving finalized settlements when current records changed.',
+									'Tracked mobile notification versions and deletions so delayed events could not overwrite current content. Replaced receipt writes with a single UPSERT to resolve database deadlocks.',
+									'Connected notifications and detail navigation in Flutter and issued short-lived signed document URLs instead of passing login tokens to the download feature.',
 								],
 					},
 					{
@@ -97,29 +99,29 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 							? '물류 운영 웹·출력 앱'
 							: 'Logistics Operations Web & Printing App',
 						scope: ko
-							? '조회·예약·Excel 등록 화면과 Android 라벨 출력 연동.'
-							: 'Search, reservations, Excel imports, and Android label printing',
+							? '물류 웹 프론트엔드 전체와 Android 출력 앱을 개발했습니다.'
+							: 'Built the complete logistics web frontend and Android printing app.',
 						highlights: ko
 							? [
-									'표·입력 폼·모달을 공통화하고, 조회·예약·Excel 미리보기·출력 요청을 서버 API에 연결.',
-									'페이지·Excel 코드 지연 로딩으로 초기 JavaScript 엔트리 파일 크기 약 74% 감소(빌드 산출물 기준).',
-									'WebView의 출력 요청을 Android 브리지와 Bluetooth 프린터에 연결. 장비 선택·권한 요청·취소 처리 구현.',
+									'표·입력 폼·모달을 공통화하고 조회·예약·Excel 미리보기·출력 요청을 서버 API에 연결했습니다.',
+									'페이지·Excel 코드를 필요한 시점에 불러오도록 바꿔 초기 JavaScript 파일 크기를 약 74% 줄였습니다(2026.05 빌드 산출물 기준).',
+									'WebView의 출력 요청을 Android 브리지와 Bluetooth 프린터에 연결했습니다. SDK 내부 호출을 추적해 권한 오류를 해결하고 실제 라벨 출력을 확인했습니다.',
 								]
 							: [
 									'Built shared tables, forms and modals; connected search, reservations, Excel previews and print requests to server APIs.',
 									'Reduced the initial JavaScript entry file by about 74% with on-demand page and Excel code loading (build output size).',
-									'Connected WebView print requests to an Android bridge and Bluetooth printers, handling device selection, permissions and cancellation.',
+									'Connected WebView print requests to an Android bridge and Bluetooth printers. Traced SDK calls to fix missing permissions and verified physical label output.',
 								],
 					},
 					{
-						title: ko ? '주식 업무 관리 웹' : 'Stock Administration Web',
+						title: ko ? '주식 업무 관리 웹' : 'Stock Operations Admin Web',
 						scope: ko
-							? 'MSW 모의 API 기반 React 프론트엔드 전체 구축.'
+							? 'MSW 모의 API를 사용해 React 프론트엔드 전체를 구축했습니다.'
 							: 'Complete React frontend built against MSW mock APIs',
 						highlights: ko
 							? [
-									'계좌·종목·주문 화면에 쓰는 테이블·필터·모달 공통화. 열 고정·너비 조절·재정렬 구현.',
-									'선택 중인 필터와 실제 조회 조건을 분리하고, 조회 버튼을 누를 때 TanStack Query에 조건 적용.',
+									'계좌·종목·주문 화면의 테이블·필터·모달을 공통화하고 열 고정·너비 조절·재정렬을 구현했습니다.',
+									'선택 중인 필터와 실제 조회 조건을 분리하고, 조회 버튼을 눌렀을 때 TanStack Query에 조건을 적용했습니다.',
 								]
 							: [
 									'Built shared tables, filters and modals for account, stock and order screens, with column pinning, resizing and reordering.',
@@ -129,24 +131,24 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 					{
 						title: ko ? '생활정보 앱' : 'Daily Information App',
 						scope: ko
-							? '기존 Android 앱에 공공 API 기반 날씨 화면과 서버 조회 기능 추가.'
+							? '기존 Android 앱에 공공 API 기반 날씨 화면과 서버 조회 기능을 추가했습니다.'
 							: 'Added weather screens and server-side public API integration to an existing Android app.',
 						highlights: ko
 							? [
-									'지역·정보 종류별 서버 캐시와 갱신 주기 적용. 현재 날씨·핵심 예보를 먼저 표시하고 부가 정보는 응답 후 표시.',
+									'지역·정보 종류별로 서버 응답을 캐시하고 갱신 주기를 적용했습니다. 현재 날씨와 핵심 예보를 먼저 표시하고 부가 정보는 응답이 도착하면 채웠습니다.',
 								]
 							: [
 									'Cached responses by region and data type with matching expiry periods. Displayed current weather and core forecasts first, then supplementary data as it arrived.',
 								],
 					},
 					{
-						title: ko ? '개인정보 보호 앱' : 'Privacy Protection App',
+						title: ko ? '개인정보 보호 앱' : 'Privacy Check App',
 						scope: ko
-							? '기존 Android 앱에 외부 API 기반 이메일 유출·딥페이크 검사 기능 추가.'
+							? '기존 Android 앱에 외부 API를 연동해 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능을 추가했습니다.'
 							: 'Added email-breach and deepfake checks to an existing Android app using external APIs.',
 						highlights: ko
 							? [
-									'입력·검사 요청·결과 화면 개발. 이미지 미리보기와 Android 파일 선택 연동.',
+									'입력부터 검사 요청·결과 확인까지 화면을 개발하고, 이미지 미리보기와 Android 파일 선택을 연동했습니다.',
 								]
 							: [
 									'Built input, inspection request and result screens, with image previews and Android file selection.',
@@ -167,8 +169,8 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				role: ko ? tisCareerEvidence.role : 'Planning and data automation support',
 				highlights: ko
 					? [
-							'Figma 기반 공장 에너지 관리 화면 기획, 데이터베이스 테이블 명세·ERD 작성.',
-							'한국전력 기업별 파워플래너 분석과 에너지 데이터 수집용 Python 크롤러 작성.',
+							'Figma로 공장 에너지 관리 화면을 기획하고 데이터베이스 테이블 명세와 ERD를 작성했습니다.',
+							'한국전력 기업별 파워플래너를 분석하고 에너지 데이터를 수집하는 Python 크롤러를 작성했습니다.',
 						]
 					: [
 							'Planned factory energy management screens in Figma and documented database tables and an ERD.',
@@ -272,25 +274,35 @@ export function getCareerBriefDocument(locale: Locale): CareerBriefCopy {
 				goal:
 					id === 'settlement-operations-platform'
 						? ko
-							? 'ERP 웹 전반과 주요 서버 API·데이터 저장 기능 개발. 기존 사용자 웹·모바일 앱의 기능 확장.'
-							: 'Built the ERP web app, key server APIs and data persistence, and extended the existing user-facing web and mobile apps.'
+							? '정산 ERP와 Flutter 기반 모바일 업무 앱을 풀스택으로 개발했습니다. 모바일은 채팅 시스템을 제외한 대부분의 기능을 개발했습니다.'
+							: 'Owned full-stack development of the ERP and connected Flutter mobile work app, excluding the chat system.'
 						: id === 'delivery-output-flow'
 							? ko
-								? '물류 웹 프론트엔드 전체와 Android 출력 앱 개발. 조회·예약·Excel 등록·PC 라벨 출력 및 Bluetooth 프린터 연동.'
+								? '물류 웹 프론트엔드 전체와 Android 출력 앱을 개발했습니다. 조회·예약·Excel 등록부터 PC 라벨 출력과 Bluetooth 프린터 연동까지 구현했습니다.'
 								: 'Built the complete logistics frontend and Android printing app, covering search, reservations, Excel imports, PC label printing and Bluetooth printer integration.'
 							: (resume.careers[0].workItems?.find(
 									(item) => item.title === story.title,
 								)?.scope ?? copy.summary),
 				contribution: copy.actions[0].description,
-				implementations: copy.actions.map((action) => action.description),
+				implementations:
+					id === 'settlement-operations-platform'
+						? [
+								...copy.actions.slice(0, 3).map(({ description }) => description),
+								workDocumentCopy[locale]['erp-mobile-workflow'].actions[0].description,
+								workDocumentCopy[locale]['erp-mobile-workflow'].actions[2].description,
+							]
+						: id === 'delivery-output-flow'
+							? [
+									...copy.actions.map(({ description }) => description),
+									workDocumentCopy[locale]['mobile-output-bridge'].actions[1]
+										.description,
+								]
+							: copy.actions.map(({ description }) => description),
 				decision: copy.actions
 					.slice(1)
 					.map(({ description }) => description)
 					.join(' '),
-				result:
-					id === 'react-admin-state-migration'
-						? ''
-						: (copy.briefResult ?? copy.result),
+				result: copy.briefResult ?? copy.result,
 				evidence: [],
 				technologies: story.stack,
 				evidenceRefs: [workStoryEvidence(id)],

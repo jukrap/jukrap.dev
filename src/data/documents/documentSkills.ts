@@ -6,7 +6,7 @@ import type { DocumentSkillGroup } from '@/types/documents';
 export const recruitingDocumentSkillGroups = [
 	{
 		label: '언어',
-		items: ['TypeScript', 'JavaScript', 'Java', 'Python'],
+		items: ['TypeScript', 'JavaScript', 'Java', 'Python', 'Dart'],
 	},
 	{
 		label: '웹',
@@ -14,7 +14,7 @@ export const recruitingDocumentSkillGroups = [
 	},
 	{
 		label: '모바일·하이브리드',
-		items: ['React Native', 'Expo', 'Android', 'Gradle'],
+		items: ['React Native', 'Expo', 'Flutter', 'Android', 'Gradle'],
 	},
 	{
 		label: '테스트·관측',

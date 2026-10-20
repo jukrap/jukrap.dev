@@ -1,5 +1,6 @@
 import type { PortfolioPageDefinition } from '@/types/documents';
 import type { Locale } from '@/types/locale';
+import { getRecruitingDocumentManifest } from './manifest';
 import {
 	getWorkStory,
 	workCaseEvidence,
@@ -12,6 +13,9 @@ export function getPortfolioFeatureCases(
 	locale: Locale,
 ): PortfolioPageDefinition[] {
 	const t = (ko: string, en: string) => (locale === 'ko' ? ko : en);
+	const firstFeatureNumber =
+		getRecruitingDocumentManifest(locale).selection.featuredWorkStoryIds.length +
+		2;
 	const privacy = getWorkStory('hybrid-security-boundary', locale);
 	const documentation = getWorkStory('ai-kickoff-documentation-tool', locale);
 	return [
@@ -19,10 +23,10 @@ export function getPortfolioFeatureCases(
 			id: privacy.id,
 			pageNumber: 0,
 			kind: 'case',
-			eyebrow: t('회사 업무 05', 'Company work 05'),
+			eyebrow: `${t('회사 업무', 'Company work')} ${String(firstFeatureNumber).padStart(2, '0')}`,
 			title: privacy.title,
 			summary: t(
-				'기존 Android 앱에 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능 추가. 검사 화면·서버 API와 Android 이미지 선택을 연결해 입력부터 결과 확인까지 구현.',
+				'기존 Android 앱에 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능을 추가했습니다. 검사 화면과 서버 API, Android 이미지 선택 기능을 연결해 사용자가 자료를 입력하고 결과를 확인할 수 있도록 했습니다.',
 				'Added email-breach lookup and deepfake image checks to an existing Android app. Connected inspection screens, server calls to external APIs, and Android image selection from input through results.',
 			),
 			metadata: [
@@ -60,15 +64,15 @@ export function getPortfolioFeatureCases(
 						{
 							title: t('입력 검사와 미리보기', 'Input validation and preview'),
 							description: t(
-								'파일 형식·용량·해상도 검사와 선택한 이미지의 미리보기 구현.',
-								'Validated file type, size, and resolution, and displayed a preview of the selected image.',
+								'선택한 이미지의 파일 형식·용량·해상도를 검사하고, 전송 전에 이미지를 확인할 수 있도록 미리보기를 구현했습니다.',
+								'Validated the selected image’s file type, size and resolution, and displayed a preview before submission.',
 							),
 						},
 						{
 							title: t('Android 파일 선택 연결', 'Android file selection'),
 							description: t(
-								'WebView의 이미지·파일 선택 요청과 네이티브 선택 결과를 연결.',
-								'Connected image and file requests from the WebView to native selection results.',
+								'WebView에서 이미지나 파일 선택을 요청하면 Android 선택 창을 열고, 선택한 파일을 다시 WebView로 전달하도록 연결했습니다.',
+								'Opened the Android file picker for image or file requests from the WebView and returned the selected file to the WebView.',
 							),
 						},
 					],
@@ -93,11 +97,11 @@ export function getPortfolioFeatureCases(
 			id: documentation.id,
 			pageNumber: 0,
 			kind: 'case',
-			eyebrow: t('회사 업무 06', 'Company work 06'),
+			eyebrow: `${t('회사 업무', 'Company work')} ${String(firstFeatureNumber + 1).padStart(2, '0')}`,
 			title: documentation.title,
 			summary: t(
-				'저장소와 프로젝트 착수 자료를 바탕으로 문서 초안을 만들고 검토·편집하는 사내 웹 도구. 자료 수집부터 표 편집과 내보내기까지 개발.',
-				'Built an internal web tool for drafting and reviewing documents from repositories and project kickoff material, covering source collection, table editing, and export.',
+				'저장소와 프로젝트 착수 자료를 바탕으로 문서 초안을 만들고 검토하는 사내 웹 도구를 개발했습니다. 자료 수집, 요구사항 검토, 표 편집과 내보내기까지 이어지는 화면과 서버 API를 구현했습니다.',
+				'Built an internal web tool for drafting and reviewing documents from repositories and project kickoff material. Implemented screens and server APIs for collecting sources, reviewing requirements, editing tables and exporting documents.',
 			),
 			metadata: [
 				{ label: t('기간', 'Period'), value: documentation.period },
@@ -131,15 +135,15 @@ export function getPortfolioFeatureCases(
 						{
 							title: t('시트별 문서 편집', 'Edit document sheets'),
 							description: t(
-								'요구사항·기능·화면 문서를 시트별 표로 표시하고, 편집한 데이터를 기준으로 문서 내보내기.',
-								'Displayed requirements, functions, and screens as editable sheets and exported documents from the edited data.',
+								'요구사항·기능 정의서·화면 설계서를 시트별 표에서 검토하고 수정할 수 있도록 했습니다. 내보내기 파일에도 사용자가 수정한 표의 내용을 반영했습니다.',
+								'Made requirements, functional specifications and screen specifications editable as separate sheets. Exported documents from the tables as edited by the user.',
 							),
 						},
 						{
 							title: t('선택한 내용의 AI 수정', 'Targeted AI revisions'),
 							description: t(
-								'선택한 시트·셀과 주변 내용을 함께 전달해 수정 대상과 유지할 문맥 구분.',
-								'Sent the selected sheet and cells with surrounding content to distinguish revision targets from context to preserve.',
+								'수정할 시트·셀과 주변 내용을 AI에 함께 전달했습니다. 수정할 범위와 유지할 내용을 구분해, 문서 전체를 다시 생성하지 않고 선택한 부분을 고칠 수 있도록 했습니다.',
+								'Sent the selected sheets or cells together with surrounding content. Distinguished the revision target from content to preserve so users could change the selected part without regenerating the entire document.',
 							),
 						},
 					],

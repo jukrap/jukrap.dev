@@ -71,14 +71,14 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 		},
 		'delivery-operations-web': {
 			context:
-				'운영 웹은 시작할 때 당장 필요하지 않은 화면과 Excel 코드까지 함께 불러왔습니다. 파일을 무조건 잘게 나누기보다, 초기 로딩 비용과 인증·API 초기화 순서를 함께 고려했습니다.',
+				'운영 웹은 시작할 때 당장 필요하지 않은 화면과 Excel 코드까지 함께 불러왔습니다. 첫 화면에 필요한 코드와 사용자가 기능을 실행할 때 필요한 코드를 구분해 초기 다운로드 크기를 줄이고자 했습니다.',
 			points: [
 				{
-					title: '효과가 큰 화면·Excel 코드부터 나누어 로드',
+					title: '번들 분석으로 불필요한 초기 코드를 찾아 분리',
 					decision:
-						'화면과 Excel 기능은 필요할 때 불러오도록 분리했습니다. 인증·API 초기화 코드는 더 나눴을 때 줄어드는 크기에 비해 첫 요청의 초기화 순서가 복잡해져 추가 분리를 보류했습니다.',
+						'번들 분석으로 첫 화면에서 쓰지 않는 코드의 비중을 확인했습니다. 페이지 코드는 해당 화면에 들어갈 때, Excel 라이브러리는 업로드·다운로드를 실행할 때 불러오도록 변경했습니다.',
 					verification:
-						'일반 프로덕션 빌드에서 초기 JavaScript가 2,405.50kB에서 616.60kB로, gzip 기준 815.10kB에서 204.38kB로 줄어든 것을 확인했습니다. 이 수치는 빌드 파일 크기를 비교한 결과입니다.',
+						'일반 프로덕션 빌드에서 초기 JavaScript가 2,405.50kB에서 616.60kB로, gzip 기준 815.10kB에서 204.38kB로 줄어든 것을 확인했습니다. 변경 후에도 페이지 이동·데이터 조회·Excel 처리·PC 라벨 출력이 이어지는지 확인했습니다.',
 				},
 				{
 					title: '미리보기와 실제 출력 결과를 따로 확인',
@@ -205,14 +205,14 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 		},
 		'delivery-operations-web': {
 			context:
-				'The operations web app loaded screens and Excel code that were unnecessary at startup. Splitting decisions had to account for both download size and authentication/API initialization order.',
+				'The operations web app loaded screens and Excel code that were unnecessary at startup. I separated code needed on entry from code needed when a user starts a feature to reduce the initial download size.',
 			points: [
 				{
-					title: 'Split screens and Excel code where the benefit was clear',
+					title: 'Use bundle analysis to find and split unnecessary startup code',
 					decision:
-						'Loaded screens and Excel functionality on demand. Deferred further splitting of authentication/API initialization because the additional size reduction did not justify more complex first-request ordering.',
+						'Used bundle analysis to identify code that was not needed on entry. Loaded page code when users entered each screen and Excel libraries when they started an upload or download.',
 					verification:
-						'In a standard production build, initial JavaScript fell from 2,405.50kB to 616.60kB, or 815.10kB to 204.38kB with gzip. These measurements compare build artifact sizes.',
+						'In a standard production build, initial JavaScript fell from 2,405.50kB to 616.60kB, or 815.10kB to 204.38kB with gzip. Checked that navigation, data queries, Excel operations, and PC label printing still worked after the change.',
 				},
 				{
 					title: 'Check physical output separately from the preview',

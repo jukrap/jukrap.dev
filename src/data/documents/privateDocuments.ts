@@ -104,14 +104,14 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 							: 'Built the complete logistics web frontend and Android printing app.',
 						highlights: ko
 							? [
-									'추가 분리의 효과와 초기화 복잡도를 비교해 페이지·Excel 코드만 지연 로딩하고 인증·API 초기화의 추가 분리는 보류했습니다.',
-									'페이지·Excel 코드를 필요한 시점에 불러오도록 바꿔 초기 JavaScript 파일 크기를 약 74% 줄였습니다(2026.05 빌드 산출물 기준).',
+									'번들 분석으로 첫 화면에서 필요하지 않은 페이지·Excel 코드를 찾아 분리하고, 초기 JavaScript 파일 크기를 약 74% 줄였습니다(2026.05 빌드 산출물 기준).',
 									'WebView의 출력 요청을 Android 브리지와 Bluetooth 프린터에 연결했습니다. SDK 내부 호출을 추적해 권한 오류를 해결하고 실제 라벨 출력을 확인했습니다.',
+									'실물 라벨에서 긴 주소가 잘리거나 겹치는 위치를 확인하고, 글자 폭에 따른 줄바꿈과 글자 크기·줄 간격을 조정했습니다.',
 								]
 							: [
-									'Weighed size savings against initialization complexity: split screens and Excel code, but deferred further splitting of authentication/API setup.',
-									'Reduced the initial JavaScript entry file by about 74% with on-demand page and Excel code loading (build output size).',
+									'Used bundle analysis to identify and split page and Excel code unnecessary on entry, reducing the initial JavaScript file size by about 74% (May 2026 build outputs).',
 									'Connected WebView print requests to an Android bridge and Bluetooth printers. Traced SDK calls to fix missing permissions and verified physical label output.',
+									'Inspected physical labels for clipped or overlapping addresses, then adjusted wrapping by text width, font size, and line spacing.',
 								],
 					},
 					{

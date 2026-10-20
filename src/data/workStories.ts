@@ -118,7 +118,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'조회·예약·Excel 등록 화면에서 서버 데이터를 사용하고, 같은 자료를 PC와 Android의 서로 다른 출력 방식에 연결해야 했습니다. 첫 화면에서 쓰지 않는 코드까지 한 번에 불러오는 문제와, 실제 장비에서 발생하는 연결 오류·라벨 잘림도 해결해야 했습니다.',
 			editorial: {
 				decision:
-					'표·폼·모달과 출력 데이터 형식을 통일했습니다. 인증과 API 초기화 순서는 유지하면서 페이지·Excel 코드만 나눠 불러오도록 했고, 장비 연결과 출력 문제는 실제 기기와 라벨에서 확인했습니다.',
+					'표·폼·모달과 출력 데이터 형식을 통일했습니다. 번들 분석으로 첫 화면에 필요하지 않은 코드를 찾아 페이지·Excel 기능 실행 시점에 불러오도록 했고, 장비 연결과 출력 문제는 실제 기기와 라벨에서 확인했습니다.',
 				outcome:
 					'2026.05 빌드에서 초기 JavaScript 파일 크기를 2,405.50 kB에서 616.60 kB로 줄였습니다. Android의 Bluetooth 연결 오류를 수정하고 PC·모바일 실제 라벨의 주소 배치를 보정했습니다.',
 			},
@@ -129,7 +129,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			),
 			aboutSummary:
-				'인증 초기화는 유지하면서 페이지·Excel 코드만 분리했습니다. 출력 오류는 SDK 호출과 실물 라벨을 대조해 수정하고 실제 장비에서 확인했습니다.',
+				'페이지·Excel 코드를 필요할 때 불러오도록 바꿔 초기 JavaScript 파일 크기를 약 74% 줄였습니다. 프린터 연결 오류와 라벨 잘림은 실기기 로그와 실제 출력물을 확인하며 수정했습니다.',
 		},
 		'structured-editor-ui': {
 			summary:
@@ -298,7 +298,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				'Search, reservations and Excel imports needed server data that could also feed the different PC and Android printing integrations. The app loaded unnecessary code at startup, while physical devices exposed connection errors and clipped label text.',
 			editorial: {
 				decision:
-					'I created shared tables, forms, modals and print data formats. I preserved authentication and API initialization order while splitting page and Excel code, and checked connection and layout problems on physical devices and printed labels.',
+					'I created shared tables, forms, modals and print data formats. Used bundle analysis to find code unnecessary on entry and loaded it on page visits or Excel operations. Checked connection and layout problems on physical devices and printed labels.',
 				outcome:
 					'The initial JavaScript file shrank from 2,405.50 kB to 616.60 kB in the May 2026 builds. I fixed the Android Bluetooth connection error and adjusted address layouts on physical PC and mobile labels.',
 			},
@@ -309,7 +309,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			),
 			aboutSummary:
-				'Split page and Excel code while preserving authentication initialization. Traced SDK calls and inspected physical labels to correct print failures, then verified the results on actual devices.',
+				'Reduced the initial JavaScript file size by about 74% by loading page and Excel code on demand. Used device logs and physical printouts to fix printer connection failures and clipped labels.',
 		},
 		'structured-editor-ui': {
 			summary:

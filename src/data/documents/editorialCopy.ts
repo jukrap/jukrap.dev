@@ -55,7 +55,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			summary:
 				'조회·예약·Excel 등록·라벨 출력을 지원하는 물류 웹의 프론트엔드 전체를 개발했습니다. 서버 API와 PC 프린터를 연동하고, Android 앱에서도 같은 업무 화면으로 라벨을 출력하도록 연결했습니다.',
 			overviewDetail:
-				'물류 웹 프론트엔드와 Android 출력 앱을 개발했습니다. 초기 JavaScript 파일을 약 74% 줄이고, 실물 라벨을 확인하며 주소 잘림과 겹침을 수정했습니다.',
+				'화면·Excel 코드를 필요할 때 불러오도록 바꿔 초기 JavaScript 파일 크기를 약 74% 줄였습니다. 프린터 연결 오류와 라벨 잘림은 실기기 로그와 실제 출력물을 확인하며 수정했습니다.',
 			problem:
 				'첫 화면에서 사용하지 않는 페이지와 Excel 처리 코드까지 한 번에 내려받아 초기 JavaScript 파일이 커졌습니다. PC 라벨은 화면의 미리보기가 정상이어도 실제로 출력하면 긴 주소가 잘리거나 겹쳤습니다.',
 			actions: [
@@ -78,7 +78,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			result:
 				'2026.05 빌드 산출물에서 초기 JavaScript 파일 크기를 2,405.50 kB에서 616.60 kB로 약 74% 줄였습니다. PC 라벨과 Android Bluetooth 라벨의 실물 출력물을 확인하며 화면과 장비 간 차이를 보정했습니다.',
 			decision:
-				'인증·API 초기화 코드도 따로 불러오면 초기 파일을 더 줄일 수 있었지만, 첫 요청의 초기화 순서와 로딩 처리가 복잡해졌습니다. 추가 절감 폭과 유지보수 비용을 비교해 페이지와 Excel 라이브러리까지만 지연 로딩을 적용했습니다.',
+				'첫 화면에서 필요하지 않은 코드를 번들 분석으로 확인하고, 페이지 진입과 Excel 업로드·다운로드 시점에 맞춰 불러오도록 나눴습니다. 변경 후 페이지 이동·데이터 조회·Excel 처리·PC 라벨 출력을 확인했습니다.',
 		},
 		'structured-editor-ui': {
 			summary:
@@ -258,7 +258,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			summary:
 				'Built the complete frontend for a logistics web app covering search, reservations, Excel imports and label printing. Integrated server APIs and PC printers, and connected the same business screens to label printing in an Android app.',
 			overviewDetail:
-				'Built the logistics frontend and Android printing app. Reduced the initial JavaScript file by about 74% and corrected clipped or overlapping addresses using physical labels.',
+				'Reduced the initial JavaScript file size by about 74% by loading screens and Excel code on demand. Used device logs and physical printouts to fix printer connection failures and clipped labels.',
 			problem:
 				'The initial JavaScript file included pages and Excel code that were not needed on entry. Long addresses could also be clipped or overlap on physical labels even when the screen preview looked correct.',
 			actions: [
@@ -281,7 +281,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 			result:
 				'Reduced the initial JavaScript file from 2,405.50 kB to 616.60 kB, about 74%, in May 2026 build outputs. Used physical PC and Android Bluetooth labels to correct differences between screen previews and printed output.',
 			decision:
-				'Splitting authentication and API initialization reduced the initial file further, but complicated initialization order and loading on the first request. Weighed the extra reduction against maintenance cost and limited lazy loading to pages and Excel libraries.',
+				'Used bundle analysis to identify code unnecessary on entry, then loaded it on page visits or Excel uploads and downloads. Checked navigation, data queries, Excel operations, and PC label printing after the change.',
 		},
 		'structured-editor-ui': {
 			summary:

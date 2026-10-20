@@ -333,7 +333,6 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			process: [
 				'모의 데이터와 실제 API 연결을 분리해 로딩·빈 결과·오류 상태를 구현했습니다.',
 				'예약 한 건에 여러 라벨 번호가 배정되는 응답을 목록과 모달에 표시하고, 미리보기와 출력 요청에 사용할 데이터로 변환했습니다.',
-				'인증과 API 초기화 코드까지 추가로 분리하면 파일은 더 작아졌지만, 첫 API 요청의 초기화 순서를 보장하기 어려워지고 첫 조작마다 로딩 처리가 늘어났습니다. 안정성과 유지보수 비용을 고려해 페이지와 Excel 코드 분리까지만 적용했습니다.',
 				'실물 라벨에서 주소가 잘리거나 겹치는 위치를 확인한 뒤 줄바꿈, 글자 크기와 줄 간격을 조정했습니다.',
 			],
 			solution: [
@@ -1182,7 +1181,6 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			process: [
 				'I separated mock data from API integration to implement loading, empty and error states.',
 				'I displayed reservations with multiple label numbers in lists and modals, then converted the responses into data for previews and printing.',
-				'Splitting authentication and API initialization code reduced the file further, but made initialization before the first API request harder to guarantee and added loading steps to initial interactions. I kept only the page and Excel splits to limit maintenance costs and preserve stability.',
 				'I inspected printed labels to locate clipped or overlapping addresses and adjusted wrapping, font sizes and line spacing.',
 			],
 			solution: [

@@ -99,7 +99,7 @@ export function getPortfolioDocument(
 							title: story.title,
 							description:
 								story.id === 'delivery-output-flow'
-									? decisionCases[locale]['delivery-operations-web'].points[0].decision
+									? workDocumentCopy[locale][story.id].overviewDetail
 									: decisionCases[locale][story.id].points[0].decision,
 							evidence: [workStoryEvidence(story.id)],
 						})),

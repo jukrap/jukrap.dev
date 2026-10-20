@@ -68,11 +68,11 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 							: 'Owned full-stack development of document upload, search, analysis and source inspection, including Gemma 4 integration.',
 						highlights: ko
 							? [
-									'Ragas 평가 모델이 검증할 문장을 바꾸지 않도록 평가 대상을 고정하고 ID별 판정만 요청했습니다. 25개 주장을 5개 묶음으로 평가하고 누락·중복 ID를 검사했습니다.',
+									'Ragas 평가 과정에서 문장의 의미가 달라지는 문제에 대응해 평가 대상과 ID를 고정하고, 모델이 반환한 결과를 원문 항목과 대조했습니다. 25개 주장을 5개 묶음으로 평가하고 누락·중복 ID를 검사했습니다.',
 									'모델 지연과 내부 병목을 구분하려고 모델 응답을 고정해 측정했습니다. 반복 계산을 줄인 뒤 내부 처리 중앙값이 2,969ms → 672ms로 감소했습니다(워밍업 후 각각 20회).',
 								]
 							: [
-									'Fixed evaluation targets so the Ragas evaluator could not rewrite them, requesting verdicts by ID. Evaluated 25 claims in five batches and checked missing and duplicate IDs.',
+									'Fixed evaluation targets and IDs to address changes in statement meaning during Ragas evaluation, then matched returned results to the original items. Evaluated 25 claims in five batches and checked missing and duplicate IDs.',
 									'Used fixed model responses to separate application overhead from model latency. Removing repeated computation reduced median internal processing from 2,969ms → 672ms (20 runs per condition after warmup).',
 								],
 					},

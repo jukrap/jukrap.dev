@@ -63,37 +63,87 @@ const TechnologyEnvironment = ({ story }: { story: ProfessionalStory }) => {
 	);
 };
 
-const ChapterImplementations = ({
+const ChapterDecisions = ({
 	chapters,
 	storyId,
+	labels,
 }: {
 	chapters: WorkStoryChapter[];
 	storyId: string;
-}) => (
-	<div className="space-y-5">
-		{chapters.map((chapter) => (
-			<section
-				key={chapter.id}
-				id={chapter.id === storyId ? undefined : chapter.id}
-				tabIndex={-1}
-				className="scroll-mt-32 md:scroll-mt-40 xl:scroll-mt-32 grid gap-2 border-l border-border/60 pl-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-6"
-			>
-				<div className="text-xs font-semibold leading-5 text-muted-foreground">
-					<p className="text-foreground">{chapter.platform}</p>
-					<p>{chapter.period}</p>
-				</div>
-				<div className="min-w-0">
-					<h5 className="text-base font-bold text-foreground break-keep">
-						{chapter.title}
-					</h5>
-					<div className="mt-3">
-						<EvidenceList items={chapter.execution} />
-					</div>
-				</div>
-			</section>
-		))}
-	</div>
-);
+	labels: WorkLabels;
+}) => {
+	const hasMultipleChapters = chapters.length > 1;
+	const PointHeading = hasMultipleChapters ? 'h6' : 'h5';
+
+	return (
+		<div className="space-y-10">
+			{chapters.map((chapter) => {
+				const editorial = chapter.editorial;
+				if (!editorial) return null;
+
+				return (
+					<section
+						key={chapter.id}
+						id={chapter.id === storyId ? undefined : chapter.id}
+						tabIndex={-1}
+						className="scroll-mt-32 md:scroll-mt-40 xl:scroll-mt-32 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+					>
+						{hasMultipleChapters ? (
+							<header className="mb-5">
+								<p className="text-xs font-semibold leading-5 text-muted-foreground">
+									{chapter.platform} · {chapter.period}
+								</p>
+								<h5 className="mt-1 text-lg font-bold leading-7 text-foreground break-keep">
+									{chapter.title}
+								</h5>
+								<p className="mt-3 text-[0.9375rem] leading-7 text-foreground/80 break-keep">
+									{editorial.context}
+								</p>
+							</header>
+						) : null}
+						<ol className="space-y-6">
+							{editorial.points.map((point) => (
+								<li key={point.title} className="border-l-2 border-accent/55 pl-4">
+									<PointHeading className="text-base font-bold leading-7 text-foreground break-keep">
+										{point.title}
+									</PointHeading>
+									<dl className="mt-3 space-y-3 text-[0.9375rem] leading-7">
+										<div>
+											<dt className="text-xs font-semibold text-muted-foreground">
+												{labels.thinking}
+											</dt>
+											<dd className="mt-1 text-foreground/85 break-keep">
+												{point.decision}
+											</dd>
+										</div>
+										<div>
+											<dt className="text-xs font-semibold text-muted-foreground">
+												{labels.checks}
+											</dt>
+											<dd className="mt-1 text-foreground/80 break-keep">
+												{point.verification}
+											</dd>
+										</div>
+									</dl>
+								</li>
+							))}
+						</ol>
+						{hasMultipleChapters ? (
+							<div className="mt-5 border-t border-border/45 pt-4">
+								<h6 className="work-section-label text-muted-foreground">
+									{labels.results}
+								</h6>
+								<p className="mt-2 text-[0.9375rem] leading-7 text-foreground/85 break-keep">
+									{editorial.outcome}
+								</p>
+							</div>
+						) : null}
+					</section>
+				);
+			})}
+		</div>
+	);
+};
 
 const StoryResults = ({ story }: { story: ProfessionalStory }) => {
 	const sections = story.resultSections
@@ -245,8 +295,8 @@ const AdditionalEvidence = ({
 						chapter={chapter}
 						labels={labels}
 						showTitle={story.chapters.length > 1}
-						showContext={story.chapters.length > 1}
-						showImplementation={false}
+						showContext
+						showImplementation
 						showMeasurements={false}
 					/>
 				))}
@@ -262,6 +312,12 @@ export const WorkCaseDetail = ({
 }: WorkCaseDetailProps) => {
 	const editorial = story.editorial;
 	if (!editorial) return null;
+	const hasMultipleChapters = story.chapters.length > 1;
+	const firstChapterEditorial = story.chapters[0].editorial;
+	const context = firstChapterEditorial?.context ?? story.context;
+	const outcome = hasMultipleChapters
+		? ''
+		: (firstChapterEditorial?.outcome ?? editorial.outcome);
 
 	return (
 		<ScrollReveal
@@ -310,28 +366,30 @@ export const WorkCaseDetail = ({
 			</header>
 
 			<div className="mt-6 divide-y divide-border/45 border-t border-border/45 sm:mt-12">
-				<EditorialSection title={labels.context}>
-					<p className="max-w-[42rem] text-base leading-8 text-foreground/85 break-keep">
-						{story.context}
-					</p>
-				</EditorialSection>
+				{!hasMultipleChapters ? (
+					<EditorialSection title={labels.context}>
+						<p className="max-w-[42rem] text-base leading-8 text-foreground/85 break-keep">
+							{context}
+						</p>
+					</EditorialSection>
+				) : null}
 
 				<EditorialSection title={labels.decisions}>
-					{story.chapters.length > 1 ? (
-						<ChapterImplementations chapters={story.chapters} storyId={story.id} />
-					) : (
-						<EvidenceList items={story.chapters[0].execution} />
-					)}
+					<ChapterDecisions
+						chapters={story.chapters}
+						storyId={story.id}
+						labels={labels}
+					/>
 				</EditorialSection>
 
-				{editorial.outcome ||
+				{outcome ||
 				story.resultSections.some(
 					(section) => getWorkMeasurements(section.impact).length > 0,
 				) ? (
 					<EditorialSection title={labels.results}>
-						{editorial.outcome ? (
+						{outcome ? (
 							<p className="max-w-[42rem] text-base leading-8 text-foreground/85 break-keep">
-								{editorial.outcome}
+								{outcome}
 							</p>
 						) : null}
 						<StoryResults story={story} />

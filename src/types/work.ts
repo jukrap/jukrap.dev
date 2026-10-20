@@ -1,3 +1,5 @@
+import type { DecisionCase } from '@/types/decisions';
+
 export type WorkstreamId =
 	| 'AI01'
 	| 'WS01'
@@ -99,6 +101,7 @@ export interface WorkStoryChapter {
 	impact: WorkImpact[];
 	checks: string[];
 	additionalEvidence: string[];
+	editorial?: DecisionCase;
 }
 
 export interface WorkStoryResultSection {

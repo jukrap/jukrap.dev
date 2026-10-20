@@ -73,10 +73,10 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A development tool that helps AI coding tools refer to project rules and work history across sessions.',
 		description: [
 			'Solo development',
-			'CLI for records in single projects and multi-repository workspaces.',
-			'Read-only MCP for searching records and reading long results in pages.',
-			'Skill installation, migration and recovery that preserve user edits.',
-			'npm distribution and English/Korean guides.',
+			'Removed execution and scheduling that overlapped with coding tools, focusing on records and skill management.',
+			'Validated all replacement skills before removing old entries, preserving the previous setup when some installations failed.',
+			'Preserved user edits and tested conflicts, changes just before deletion, and recovery.',
+			'Provided a CLI, read-only MCP, an npm package, and English/Korean guides.',
 		],
 	},
 	sharebby: {
@@ -369,8 +369,15 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		title: 'AI Agent Playbook',
 		subtitle: 'A harness for coding-agent context and skills',
 		overview:
-			'A development tool that helps AI coding tools refer to project rules and work history across sessions. Includes a record-management CLI, read-only MCP tools, selected skill installation and recovery of the previous setup.',
+			'A development tool that helps AI coding tools refer to project rules and work history across sessions. Removed execution features that overlapped with coding tools and focused on records and skill management. Implemented and tested failure handling to preserve user edits and existing setups during skill changes.',
 		tasks: [
+			{
+				title: 'Removed execution features to focus on records and skills',
+				details: [
+					'The early tool included execution and scheduling, which overlapped with coding hosts. From 1.0, refocused the package on project records and selected guidance.',
+					'Kept package installation, skill installation, project setup and MCP registration separate so users can choose what to apply.',
+				],
+			},
 			{
 				title: 'Project records across repositories',
 				details: [
@@ -400,13 +407,6 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 				details: [
 					'A partial installation must not remove the working profile first. Required every selected replacement to be valid before removing old managed skills.',
 					'Repeated the check before each removal to catch changes after preview. Tested conflicts, partial failures, edits during application and rollback.',
-				],
-			},
-			{
-				title: 'Separating responsibilities from the coding host',
-				details: [
-					'The early tool included execution and scheduling, which overlapped with coding hosts. From 1.0, refocused the package on project records and selected guidance.',
-					'Kept package installation, skill installation, project setup and MCP registration separate so users can choose what to apply.',
 				],
 			},
 		],

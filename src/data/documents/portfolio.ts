@@ -7,7 +7,8 @@ import { getRecruitingDocumentManifest, portfolioPageIds } from './manifest';
 import { getPortfolioFeatureCases } from './portfolioFeatureCases';
 import { getResumeDocument, getDocumentSkillGroups } from './privateDocuments';
 import { portfolioPublicEmails } from './publicContact';
-import { workContributionEvidence } from './workContributionEvidence';
+import { decisionCases } from '@/data/decisionCases';
+import type { DocumentContentSection } from '@/types/documents';
 import {
 	getProject,
 	getWorkStory,
@@ -30,6 +31,25 @@ export function getPortfolioDocument(
 		(id) => getWorkStory(id, locale),
 	);
 	const resume = getResumeDocument(locale);
+	const caseStories = [
+		...featured,
+		getWorkStory('react-admin-state-migration', locale),
+	];
+	const decisionSections = (id: string): DocumentContentSection[] => {
+		const entry = decisionCases[locale][id];
+		return [
+			{ id: 'context', title: t('해결할 문제', 'Problem'), body: [entry.context] },
+			...entry.points.map((point, index) => ({
+				id: `decision-${index + 1}`,
+				title: point.title,
+				body: [point.decision],
+				items: [
+					{ title: t('검증', 'Verification'), description: point.verification },
+				],
+			})),
+			{ id: 'result', title: t('결과', 'Outcome'), body: [entry.outcome] },
+		];
+	};
 
 	const links = [
 		...portfolioPublicEmails.map(({ address }) => ({
@@ -74,11 +94,24 @@ export function getPortfolioDocument(
 				{
 					id: 'main-work',
 					title: t('주요 경험', 'Selected work'),
-					items: featured.map((story) => ({
-						title: story.title,
-						description: workDocumentCopy[locale][story.id].overviewDetail,
-						evidence: [workStoryEvidence(story.id)],
-					})),
+					items: [
+						...featured.map((story) => ({
+							title: story.title,
+							description:
+								story.id === 'delivery-output-flow'
+									? decisionCases[locale]['delivery-operations-web'].points[0].decision
+									: decisionCases[locale][story.id].points[0].decision,
+							evidence: [workStoryEvidence(story.id)],
+						})),
+						{
+							title: 'AI Agent Playbook',
+							description: t(
+								'개인 개발 도구. 실행기·스케줄러를 범위에서 제외하고, 설치 실패와 사용자 수정본 보존을 검증했습니다.',
+								'Personal developer tool. Narrowed scope by removing runner and scheduler features, and tested failed installations and user-edit preservation.',
+							),
+							evidence: [projectEvidence('ai-agent-playbook')],
+						},
+					],
 				},
 			],
 			evidence: [
@@ -86,9 +119,10 @@ export function getPortfolioDocument(
 				{ source: 'profile', id: 'links' },
 				...resume.careers[0].evidence.filter((ref) => ref.source === 'profile'),
 				...featured.map(({ id }) => workStoryEvidence(id)),
+				projectEvidence('ai-agent-playbook'),
 			],
 		},
-		...featured.map((story, index): PortfolioPageDefinition => {
+		...caseStories.map((story, index): PortfolioPageDefinition => {
 			const copy = workDocumentCopy[locale][story.id];
 			const isAi = story.id === 'ai-document-analysis';
 			const isErp = story.id === 'settlement-operations-platform';
@@ -98,10 +132,6 @@ export function getPortfolioDocument(
 				: isLogistics
 					? story.chapters.find(({ id }) => id === 'delivery-operations-web')!
 					: undefined;
-			const contribution =
-				workContributionEvidence[
-					(chapter?.id ?? story.id) as keyof typeof workContributionEvidence
-				];
 			return {
 				id: isLogistics ? 'logistics-web' : story.id,
 				aliases: isErp ? ['settlement-saving'] : undefined,
@@ -121,72 +151,33 @@ export function getPortfolioDocument(
 									? t('프론트엔드 전체 개발', 'Complete frontend development')
 									: t('프론트엔드 전체 개발', 'Complete frontend development'),
 					},
-					...(contribution
-						? [{ ...contribution.copy[locale], kind: 'attribution' as const }]
-						: []),
 				],
 				technologies: chapter?.stack ?? story.stack,
-				sections: isAi
-					? [
-							{ id: 'problem', title: t('배경', 'Context'), body: [copy.problem] },
-							{
-								id: 'contribution',
-								title: t('담당 구현', 'Implementation'),
-								items: copy.actions,
-							},
-							{
-								id: 'result',
-								title: t('결과', 'Outcome'),
-								body: [copy.result],
-								metrics: story.impact,
-							},
-						]
-					: isErp
-						? [
-								{ id: 'problem', title: t('배경', 'Context'), body: [copy.problem] },
+
+				sections:
+					isAi || isErp || isLogistics
+						? decisionSections(chapter?.id ?? story.id).map((section) =>
+								section.id === 'result'
+									? {
+											...section,
+											metrics: isAi
+												? story.impact
+												: isLogistics
+													? story.resultSections.find(
+															({ id }) => id === 'delivery-operations-web',
+														)!.impact
+													: undefined,
+										}
+									: section,
+							)
+						: [
 								{
 									id: 'contribution',
 									title: t('담당 구현', 'Implementation'),
 									items: copy.actions,
 								},
 								{ id: 'result', title: t('결과', 'Outcome'), body: [copy.result] },
-							]
-						: isLogistics
-							? [
-									{
-										id: 'contribution',
-										title: t('업무 화면과 출력', 'Business interfaces and printing'),
-										items: [copy.actions[0], copy.actions[2]],
-									},
-									{
-										id: 'loading',
-										title: t(
-											'첫 화면에 필요한 코드만 로딩',
-											'Load only the code needed on entry',
-										),
-										body: [copy.problem, copy.actions[1].description],
-									},
-									{
-										id: 'result',
-										title: t('번들 크기 변화', 'Bundle size change'),
-										metrics: story.resultSections.find(
-											({ id }) => id === 'delivery-operations-web',
-										)!.impact,
-									},
-									{
-										id: 'decision',
-										title: t('코드 분리 범위', 'Scope of code splitting'),
-										body: [copy.decision!],
-									},
-								]
-							: [
-									{
-										id: 'contribution',
-										title: t('담당 구현', 'Implementation'),
-										items: copy.actions,
-									},
-									{ id: 'result', title: t('결과', 'Outcome'), body: [copy.result] },
-								],
+							],
 				evidence: [
 					workStoryEvidence(story.id),
 					...(chapter ? [workCaseEvidence(chapter.id)] : []),
@@ -215,19 +206,7 @@ export function getPortfolioDocument(
 			},
 		],
 		technologies: erpMobile.stack,
-		sections: [
-			{
-				id: 'problem',
-				title: t('배경', 'Context'),
-				body: [erpMobileCopy.problem],
-			},
-			{
-				id: 'contribution',
-				title: t('담당 구현', 'Implementation'),
-				items: erpMobileCopy.actions,
-			},
-			{ id: 'result', title: t('결과', 'Outcome'), body: [erpMobileCopy.result] },
-		],
+		sections: decisionSections(erpMobile.id),
 		evidence: [workStoryEvidence(erp.id), workCaseEvidence(erpMobile.id)],
 	});
 
@@ -253,25 +232,9 @@ export function getPortfolioDocument(
 				label: t('담당', 'Scope'),
 				value: t('Android 앱 개발', 'Android app development'),
 			},
-			{
-				...workContributionEvidence['mobile-output-bridge'].copy[locale],
-				kind: 'attribution',
-			},
 		],
 		technologies: mobile.stack,
-		sections: [
-			{ id: 'problem', title: t('배경', 'Context'), body: [mobileCopy.problem] },
-			{
-				id: 'contribution',
-				title: t('담당 구현', 'Implementation'),
-				items: mobileCopy.actions,
-			},
-			{
-				id: 'result',
-				title: t('결과', 'Outcome'),
-				body: [mobileCopy.result],
-			},
-		],
+		sections: decisionSections(mobile.id),
 		evidence: [workStoryEvidence(logistics.id), workCaseEvidence(mobile.id)],
 	});
 	pages.forEach((page, index) => {
@@ -315,7 +278,7 @@ export function getPortfolioDocument(
 		id: 'weather-feature',
 		pageNumber: pages.length + 1,
 		kind: 'case',
-		eyebrow: `${t('회사 업무', 'Company work')} ${String(featured.length + 1).padStart(2, '0')}`,
+		eyebrow: `${t('회사 업무', 'Company work')} ${String(featured.length + 2).padStart(2, '0')}`,
 		title: t('생활정보 앱의 날씨 기능', 'Weather in a Daily Information App'),
 		summary: t(
 			'기존 Android 앱에 공공 데이터 기반 날씨 기능을 추가했습니다. WebView 화면과 서버의 API 연동·캐시 처리를 맡았습니다.',
@@ -407,45 +370,55 @@ export function getPortfolioDocument(
 				{ label: t('담당', 'Role'), value: copy.role },
 			],
 			technologies: project.techStack,
-			sections: [
-				{
-					id: 'problem',
-					title:
-						id === 'captain-donghae'
-							? t('해커톤의 개발 범위', 'Hackathon scope')
-							: id === 'sharebby'
-								? t('Android 지원과 이미지 갱신', 'Android support and image updates')
-								: id === 'ai-agent-playbook'
-									? t(
-											'기록 관리와 사용자 파일 보존',
-											'Context and user-file preservation',
-										)
-									: id === 'itzip'
-										? t('편집 기능과 팀 개발 환경', 'Editing and team development')
-										: t('카메라 분석과 화면 조작', 'Camera analysis and interaction'),
-					body: [copy.problem],
-				},
-				{
-					id: 'contribution',
-					title: t('담당 구현', 'Implementation'),
-					items: copy.actions,
-				},
-				{
-					id: 'result',
-					title:
-						id === 'captain-donghae'
-							? t('수상', 'Award')
-							: id === 'sharebby'
-								? t('배포', 'Release')
-								: id === 'ai-agent-playbook'
-									? t('공개와 검증', 'Release and verification')
-									: id === 'itzip'
-										? t('팀 개발에 적용', 'Team adoption')
-										: t('측정 결과', 'Measured result'),
-					body: [copy.result],
-					links: visibleProjectLinks(id),
-				},
-			],
+			sections:
+				id === 'ai-agent-playbook'
+					? decisionSections(id).map((section) =>
+							section.id === 'result'
+								? { ...section, links: visibleProjectLinks(id) }
+								: section,
+						)
+					: [
+							{
+								id: 'problem',
+								title:
+									id === 'captain-donghae'
+										? t('해커톤의 개발 범위', 'Hackathon scope')
+										: id === 'sharebby'
+											? t(
+													'Android 지원과 이미지 갱신',
+													'Android support and image updates',
+												)
+											: id === 'ai-agent-playbook'
+												? t(
+														'기록 관리와 사용자 파일 보존',
+														'Context and user-file preservation',
+													)
+												: id === 'itzip'
+													? t('편집 기능과 팀 개발 환경', 'Editing and team development')
+													: t('카메라 분석과 화면 조작', 'Camera analysis and interaction'),
+								body: [copy.problem],
+							},
+							{
+								id: 'contribution',
+								title: t('담당 구현', 'Implementation'),
+								items: copy.actions,
+							},
+							{
+								id: 'result',
+								title:
+									id === 'captain-donghae'
+										? t('수상', 'Award')
+										: id === 'sharebby'
+											? t('배포', 'Release')
+											: id === 'ai-agent-playbook'
+												? t('공개와 검증', 'Release and verification')
+												: id === 'itzip'
+													? t('팀 개발에 적용', 'Team adoption')
+													: t('측정 결과', 'Measured result'),
+								body: [copy.result],
+								links: visibleProjectLinks(id),
+							},
+						],
 			images: copy.images,
 			evidence: [
 				projectEvidence(id),
@@ -513,7 +486,7 @@ export function getPortfolioDocument(
 	});
 	const mobilePage = pages.find((page) => page.id === 'logistics-mobile')!;
 	mobilePage.sections = mobilePage.sections.map((section) =>
-		section.id === 'contribution'
+		section.id === 'result'
 			? {
 					...section,
 					flow: {

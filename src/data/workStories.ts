@@ -1,4 +1,5 @@
 import { workCases } from '@/data/workCases';
+import { decisionCases } from '@/data/decisionCases';
 import type { Locale, Localized } from '@/types/locale';
 import type {
 	ProfessionalStory,
@@ -35,9 +36,9 @@ export const workStoryDefinitions = [
 	},
 	{
 		id: 'react-admin-state-migration',
-		tier: 'featured',
+		tier: 'compact',
 		caseIds: ['react-admin-state-migration'],
-		includeInAbout: true,
+		includeInAbout: false,
 	},
 	{
 		id: 'multi-role-hybrid-platform',
@@ -102,7 +103,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'입력 한도를 넘어서 중단되던 긴 답변의 평가를 완료할 수 있게 됐습니다. 반복 계산을 줄여 문서 분석 시간을 단축했고, 사용자가 품질 평가가 끝나기 전에도 답변을 확인할 수 있게 했습니다.',
 			},
 			aboutSummary:
-				'문서 검색과 질문 응답을 제공하는 AI 플랫폼을 풀스택으로 개발했습니다. 답변의 근거를 찾는 과정과 Ragas 평가 기능을 개선하고, 반복 계산으로 생기던 지연을 줄였습니다.',
+				'AI 문서 분석 플랫폼을 풀스택으로 개발했습니다. 평가 대상을 고정해 Ragas 판정을 검사하고, 모델 응답을 고정한 측정으로 반복 계산의 병목을 찾아 개선했습니다.',
 		},
 		'delivery-output-flow': {
 			title: '물류 운영 웹·출력 앱',
@@ -127,7 +128,8 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					return { chapterId, impact: record.impact, checks: record.checks };
 				},
 			),
-			aboutSummary: '조회·예약·Excel 등록과 PC·Android 라벨 출력을 구현했습니다.',
+			aboutSummary:
+				'인증 초기화는 유지하면서 페이지·Excel 코드만 분리했습니다. 출력 오류는 SDK 호출과 실물 라벨을 대조해 수정하고 실제 장비에서 확인했습니다.',
 		},
 		'structured-editor-ui': {
 			summary:
@@ -160,7 +162,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'Excel 등록의 중복·부분 저장과 동시 수정에 따른 덮어쓰기를 막고, 충돌한 입력을 다시 저장할 수 있는 흐름을 구현했습니다. 모바일에서는 알림 변경·읽음·문의 결과를 검증했고, Android 에뮬레이터에서 실제 알림 수신과 관련 화면 이동을 확인했습니다.',
 			},
 			aboutSummary:
-				'정산 ERP와 모바일 업무 기능을 풀스택으로 개발했습니다. 입력과 과거 정산을 보호하는 저장 처리, 알림·문서·문의 연계를 구현했습니다.',
+				'정산 ERP와 연계 모바일을 풀스택으로 개발했습니다. 동시 수정 시 입력을 보존하도록 설계하고, 격리 DB와 개발 환경에서 충돌·실패·알림의 역순 전달을 재현해 확인했습니다.',
 			resultSections: [
 				{
 					chapterId: 'settlement-operations-platform',
@@ -281,7 +283,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'Completed long-answer evaluations that had previously exceeded the input limit. Reduced document-analysis time by removing repeated calculations, and let users read answers before quality evaluation finished.',
 			},
 			aboutSummary:
-				'Built a full-stack AI platform for document search and question answering. Improved evidence retrieval and Ragas evaluation, and reduced delays caused by repeated computation.',
+				'Built the AI document platform across the stack. Fixed evaluation targets to check Ragas verdicts and used fixed model responses to identify and reduce repeated computation.',
 		},
 		'delivery-output-flow': {
 			title: 'Logistics Operations Web and Printing App',
@@ -307,7 +309,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 				},
 			),
 			aboutSummary:
-				'Built search, reservations, Excel imports and PC/Android label printing.',
+				'Split page and Excel code while preserving authentication initialization. Traced SDK calls and inspected physical labels to correct print failures, then verified the results on actual devices.',
 		},
 		'structured-editor-ui': {
 			summary:
@@ -342,7 +344,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'Implemented protection against partial imports, duplicate writes and lost updates, with a recovery flow for conflicting edits. Verified mobile notification changes, receipt saves and inquiry results, and checked actual notification delivery and navigation on an Android emulator.',
 			},
 			aboutSummary:
-				'Built the settlement ERP and mobile business features across the stack, protecting user input and historical settlements while connecting notifications, documents and inquiries.',
+				'Built the ERP and connected mobile app across the stack. Designed conflict handling to retain drafts and reproduced conflicts, failures and out-of-order notifications in isolated databases and development environments.',
 			resultSections: [
 				{
 					chapterId: 'settlement-operations-platform',
@@ -510,7 +512,7 @@ function validateWorkData() {
 
 		if (records.length !== expectedWorkstreams.length) {
 			throw new Error(
-				`${locale} work records must contain exactly fourteen public cases.`,
+				`${locale} work records must contain exactly ${expectedWorkstreams.length} public cases.`,
 			);
 		}
 
@@ -567,6 +569,30 @@ function validateWorkData() {
 					`${locale} featured story ${definition.id} needs editorial copy.`,
 				);
 			}
+			if (definition.tier === 'featured') {
+				for (const caseId of definition.caseIds) {
+					const decisionCase = decisionCases[locale][caseId];
+					if (
+						!decisionCase?.context ||
+						!decisionCase.points.length ||
+						!decisionCase.outcome
+					) {
+						throw new Error(
+							`${locale} featured chapter ${caseId} needs context, decisions and an outcome.`,
+						);
+					}
+					if (
+						decisionCase.points.some(
+							({ title, decision, verification }) =>
+								!title || !decision || !verification,
+						)
+					) {
+						throw new Error(
+							`${locale} featured chapter ${caseId} needs a decision and verification for every point.`,
+						);
+					}
+				}
+			}
 		}
 	}
 
@@ -611,11 +637,11 @@ function validateWorkData() {
 		({ tier }) => tier === 'featured',
 	);
 	if (
-		featuredStories.length !== 4 ||
+		featuredStories.length !== 3 ||
 		aboutStories.length !== featuredStories.length ||
 		aboutStories.some((story, index) => story.id !== featuredStories[index].id)
 	) {
-		throw new Error('About must contain exactly four featured work stories.');
+		throw new Error('About must contain exactly three featured work stories.');
 	}
 }
 
@@ -624,6 +650,7 @@ function uniqueStrings(values: readonly string[]) {
 }
 
 function resolveStory(
+	locale: Locale,
 	definition: (typeof workStoryDefinitions)[number],
 	copy: WorkStoryCopy,
 	recordsById: ReadonlyMap<string, WorkCaseRecord>,
@@ -655,6 +682,10 @@ function resolveStory(
 		impact: record.impact,
 		checks: record.checks,
 		additionalEvidence: record.process,
+		editorial:
+			definition.tier === 'featured'
+				? decisionCases[locale][record.id]
+				: undefined,
 	}));
 	const fallbackImpact =
 		copy.impact ??
@@ -723,7 +754,12 @@ export function resolveWorkStories(locale: Locale): ProfessionalStory[] {
 
 	return workStoryDefinitions
 		.map((definition) =>
-			resolveStory(definition, storyCopies[locale][definition.id], recordsById),
+			resolveStory(
+				locale,
+				definition,
+				storyCopies[locale][definition.id],
+				recordsById,
+			),
 		)
 		.sort((a, b) => {
 			if (a.tier !== b.tier) return a.tier === 'featured' ? -1 : 1;

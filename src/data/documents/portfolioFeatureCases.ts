@@ -15,7 +15,7 @@ export function getPortfolioFeatureCases(
 	const t = (ko: string, en: string) => (locale === 'ko' ? ko : en);
 	const firstFeatureNumber =
 		getRecruitingDocumentManifest(locale).selection.featuredWorkStoryIds.length +
-		2;
+		3;
 	const privacy = getWorkStory('hybrid-security-boundary', locale);
 	const documentation = getWorkStory('ai-kickoff-documentation-tool', locale);
 	return [

@@ -37,11 +37,27 @@ const CareerBriefWork = ({
 		<p className="career-work-context">{work.goal}</p>
 		<div className="career-work-actions">
 			<h4 className="document-heading-label">
-				{locale === 'ko' ? '담당 구현' : 'Implementation'}
+				{locale === 'ko' ? '판단과 검증' : 'Decisions and verification'}
 			</h4>
-			<DocumentBulletList
-				items={work.implementations ?? [work.contribution, work.decision]}
-			/>
+			{work.decisionPoints ? (
+				<ul className="space-y-3">
+					{work.decisionPoints.map((point) => (
+						<li key={point.title}>
+							<p>
+								<strong>{point.title}</strong> — {point.decision}
+							</p>
+							<p className="mt-1">
+								<strong>{locale === 'ko' ? '검증' : 'Verification'}</strong> ·{' '}
+								{point.verification}
+							</p>
+						</li>
+					))}
+				</ul>
+			) : (
+				<DocumentBulletList
+					items={work.implementations ?? [work.contribution, work.decision]}
+				/>
+			)}
 		</div>
 		{work.result ? (
 			<div className="career-work-result">

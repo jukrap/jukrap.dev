@@ -6,7 +6,6 @@ import { projectsData } from '@/data/projectsData';
 import { projectsDetailData } from '@/data/projectsDetailData';
 import { workCases } from '@/data/workCases';
 import { workStories } from '@/data/workStories';
-import { workContributionEvidence } from './workContributionEvidence';
 import type {
 	CareerBriefCopy,
 	DocumentContentItem,
@@ -147,21 +146,13 @@ function evidenceSourceValues(
 		case 'work-story':
 			return [
 				...collectSourceStrings(scopedWorkStoryEvidence(ref.id, workCaseIds)),
-				...collectSourceStrings(
-					workContributionEvidence[ref.id as keyof typeof workContributionEvidence],
-				),
 			];
 		case 'work-case': {
 			const record = workCases.ko.find(({ id }) => id === ref.id);
 			if (!record) {
 				throw new Error(`Unknown work-case evidence source: ${ref.id}`);
 			}
-			return [
-				...collectSourceStrings(record),
-				...collectSourceStrings(
-					workContributionEvidence[ref.id as keyof typeof workContributionEvidence],
-				),
-			];
+			return [...collectSourceStrings(record)];
 		}
 		case 'project': {
 			const summary = projectsData.find(({ id }) => id === ref.id);
@@ -459,6 +450,7 @@ function validateCareerBriefNumericClaims(careerBrief: CareerBriefCopy) {
 				work.goal,
 				work.contribution,
 				...(work.implementations ?? []),
+				...collectSourceStrings(work.decisionPoints ?? []),
 				work.decision,
 				work.result,
 				...work.evidence,

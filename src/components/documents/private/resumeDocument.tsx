@@ -59,7 +59,7 @@ const ResumeProjectItem = ({ project }: { project: ResumeProject }) => (
 		</header>
 		<p className="resume-project-summary">{project.summary}</p>
 		{project.highlights?.length ? (
-			<DocumentBulletList items={project.highlights.slice(0, 1)} />
+			<DocumentBulletList items={project.highlights} />
 		) : null}
 		{project.links?.length ? (
 			<div className="resume-project-links">

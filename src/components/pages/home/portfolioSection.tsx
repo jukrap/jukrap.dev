@@ -85,6 +85,25 @@ export const PortfolioSection = () => {
 							);
 						})}
 				</div>
+				<div className="flex flex-col items-start gap-3 border-t border-border/40 pt-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+					<div className="min-w-0">
+						<h3 className="text-base font-semibold text-foreground">
+							AI Agent Playbook
+						</h3>
+						<p className="mt-1 text-sm leading-relaxed text-muted-foreground break-keep">
+							{locale === 'ko'
+								? 'AI 코딩 도구가 프로젝트 규칙과 작업 기록을 이어서 참고하도록 만든 개발 도구입니다. 기능 범위를 정한 이유와 설치 실패에서 기존 파일을 지키는 과정을 소개합니다.'
+								: 'A developer tool that carries project rules and work history across AI coding sessions. Read how I defined its scope and protected existing files when installation fails.'}
+						</p>
+					</div>
+					<Link
+						href={`/${locale}/portfolio#ai-agent-playbook`}
+						className="inline-flex shrink-0 items-center gap-1 py-2 text-sm font-semibold text-foreground underline decoration-accent/70 underline-offset-4 transition-colors hover:text-accent focus-visible:text-accent"
+					>
+						{locale === 'ko' ? '설계 판단 보기' : 'Read the design decisions'}
+						<ChevronRight className="h-4 w-4" aria-hidden="true" />
+					</Link>
+				</div>
 			</div>
 		</ScrollReveal>
 	);

@@ -56,18 +56,18 @@ const EXPECTED_DOCUMENTS = [
 >[];
 
 const EXPECTED_PORTFOLIO_PROJECT_IDS = [
+	'ai-agent-playbook',
 	'captain-donghae',
 	'sharebby',
-	'ai-agent-playbook',
 	'itzip',
 	'posture-teacher',
 ] as const;
 
 const EXPECTED_RESUME_PROJECT_IDS = [
+	'ai-agent-playbook',
 	'captain-donghae',
 	'sharebby',
 	'posture-teacher',
-	'ai-agent-playbook',
 ] as const;
 
 const EXPECTED_WORK_CASE_PAGES = [
@@ -474,13 +474,13 @@ export function validateRecruitingDocumentData({
 	);
 
 	if (
-		manifest.selection.featuredWorkStoryIds.length !== 4 ||
-		manifest.selection.supportingWorkStoryIds.length !== 5 ||
+		manifest.selection.featuredWorkStoryIds.length !== 3 ||
+		manifest.selection.supportingWorkStoryIds.length !== 6 ||
 		portfolioSupportingIds.length !== 5 ||
-		portfolioDetailedIds.length !== 3
+		portfolioDetailedIds.length !== 4
 	) {
 		throw new Error(
-			'Recruiting documents must keep four featured stories; the portfolio adds three detailed and five summarized stories.',
+			'Recruiting documents must keep three featured stories; the portfolio adds four detailed and five summarized stories.',
 		);
 	}
 

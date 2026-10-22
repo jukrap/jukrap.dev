@@ -9,9 +9,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			title: 'AI 기반 문서·데이터 분석 플랫폼',
 			platform: 'Web / AI',
 			area: '검색·답변 품질 및 처리 속도 개선',
-			period: '2026.09 ~ 현재',
+			period: '2026.09 ~ 2026.10',
 			role: '풀스택 개발',
-			workType: '신규 개발 · 진행 중',
+			workType: '신규 개발',
 			stack: [
 				'React',
 				'TypeScript',
@@ -48,6 +48,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'실제 모델을 호출하는 검증과 저장해 둔 오류 응답을 재생하는 검증을 함께 사용했습니다. 응답을 고정한 자동 테스트도 별도로 실행해 수정 후 같은 문제가 다시 발생하는지 확인했고, 일반 문서와 미디어 자료의 처리 결과를 각각 점검했습니다.',
 			],
 			solution: [
+				'AI가 SQL 오류를 고치면서 조회 / 집계 조건까지 바꾸는 사례를 확인했습니다. SQLGlot으로 수정 전후 조건을 대조하고, 조건이 달라지거나 유지 여부를 확인할 수 없으면 실행 전에 중단하도록 보완했습니다.',
 				'검색된 문장의 앞뒤 문단과 문서에서 참조한 절·표를 함께 찾도록 검색 범위를 보완했습니다. 근거가 부족한 부분은 추가로 검토하고, 최종 답변을 만들 때도 원문과 출처를 전달해 문맥이 빠지지 않도록 했습니다.',
 				'Ragas로 답변이 문서에 근거하고 있는지 평가하는 과정에서, 긴 답변이 모델의 입력 한도를 넘는 문제가 있었습니다. 검증할 내용을 여러 묶음으로 나누고, 평가 결과의 ID를 원래 항목과 대조해 누락·중복을 확인한 뒤 점수를 계산했습니다.',
 				'설명을 요청한 질문을 표 생성 요청으로 잘못 분류하던 조건을 수정했습니다. 질문의 각 항목에 대한 답과 근거 번호를 따로 받고, 인용문은 그 번호에 해당하는 원문에서 직접 가져오도록 했습니다. 답할 수 있는 내용은 유지하고, 근거를 찾지 못한 항목만 구분해 표시했습니다.',
@@ -58,7 +59,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				{
 					presentation: 'measurement',
 					value: '2,969ms → 672ms',
-					label: '문서 분석 처리 시간의 중앙값',
+					label: '애플리케이션 내부 처리 시간의 중앙값',
 					detail:
 						'같은 모델 응답을 사용하는 시험에서 애플리케이션 처리 시간을 비교했습니다. 준비 실행 후 전후 각 20회 측정했으며, 모델·네트워크 대기 시간은 제외했습니다.',
 				},
@@ -178,7 +179,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'ERP의 업무 알림과 문서, 문의 처리 결과를 Android 앱에서 확인할 수 있도록 연결했습니다.',
 			summary:
-				'기존 앱의 채팅 시스템을 제외한 업무 화면과 서버 API, Flutter Android 연계 기능을 개발했습니다. 알림 변경 요청의 순서가 뒤바뀌어도 최신 내용을 유지하도록 했고, 읽음 기록의 동시 저장 오류와 PDF 다운로드, 문의의 중복 완료 문제를 해결했습니다.',
+				'기존 앱의 업무 화면과 서버 API, Flutter Android 연계 기능을 개발했습니다. 알림 변경 요청이 뒤늦게 도착해도 최신 내용을 유지하며, 읽음 기록의 동시 저장과 PDF 다운로드 / 문의 완료 흐름을 보완했습니다.',
 			problem:
 				'ERP에서 내용을 수정하거나 삭제한 뒤에도 모바일에 예전 알림이 남을 수 있었습니다. 동시에 들어오는 읽음 저장 요청은 DB 잠금 충돌로 실패했고, 웹에서 만든 파일 주소는 Android 다운로드 기능에서 그대로 사용할 수 없었습니다. 이미 완료한 문의를 뒤늦게 도착한 요청이 덮어쓰는 문제도 막아야 했습니다.',
 			thinking: [
@@ -855,9 +856,9 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			title: 'AI Document and Data Analysis Platform',
 			platform: 'Web / AI',
 			area: 'Search and answer quality, processing performance',
-			period: '2026.09 ~ Present',
+			period: '2026.09 ~ 2026.10',
 			role: 'Full-stack development',
-			workType: 'New development · In progress',
+			workType: 'New development',
 			stack: [
 				'React',
 				'TypeScript',
@@ -894,6 +895,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				'Combined live-model checks with replay of saved failure responses. Separate tests with fixed responses checked for recurring failures, and I verified document and media processing independently.',
 			],
 			solution: [
+				'Used SQLGlot to compare query and aggregation conditions before and after AI-generated SQL repairs. Stopped execution when conditions changed or could not be confirmed as preserved.',
 				'Expanded retrieval to include the paragraphs surrounding a match and the sections or tables it referenced. Reviewed missing evidence again and supplied original text and sources when generating the final answer.',
 				'Ragas checks whether an answer is supported by the document, but long answers exceeded the model input limit. I split the content into batches and matched the result IDs to the original items, checking for missing or duplicate verdicts before calculating the score.',
 				'Fixed requests for explanations being misclassified as requests for tables. Collected an answer and evidence IDs for each part of the question, then copied quotations directly from the corresponding source text. Kept supported answers and marked only the parts for which evidence was missing.',
@@ -904,7 +906,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 				{
 					presentation: 'measurement',
 					value: '2,969ms → 672ms',
-					label: 'Median document-analysis processing time',
+					label: 'Median internal application processing time',
 					detail:
 						'Compared application processing with fixed model responses: 20 runs per condition after warm-up, excluding model and network wait time.',
 				},
@@ -1024,7 +1026,7 @@ export const workCases: Localized<WorkCaseRecord[]> = {
 			headline:
 				'Connected ERP notifications, documents and inquiry status to an Android app.',
 			summary:
-				"Developed the existing app's business screens, server APIs and Flutter Android integration, excluding the chat system. Kept notifications current when changes arrived out of order, resolved concurrent receipt-save failures, and implemented PDF downloads and protection against duplicate inquiry completion.",
+				'Developed business screens, server APIs and Flutter Android integration. Kept notifications current despite out-of-order changes and improved concurrent receipt writes, PDF downloads and inquiry completion.',
 			problem:
 				'Old notifications could remain visible after ERP records were edited or deleted. Concurrent receipt-save requests could fail because of database lock conflicts, and browser-generated file URLs could not be passed directly to Android downloads. Late inquiry-completion requests also needed to preserve work already completed by another administrator.',
 			thinking: [

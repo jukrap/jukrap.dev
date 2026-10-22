@@ -103,7 +103,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'입력 한도를 넘어서 중단되던 긴 답변의 평가를 완료할 수 있게 됐습니다. 반복 계산을 줄여 문서 분석 시간을 단축했고, 사용자가 품질 평가가 끝나기 전에도 답변을 확인할 수 있게 했습니다.',
 			},
 			aboutSummary:
-				'AI 문서 분석 플랫폼을 풀스택으로 개발했습니다. 평가 대상을 고정해 Ragas 판정을 검사하고, 모델 응답을 고정한 측정으로 반복 계산의 병목을 찾아 개선했습니다.',
+				'문서 검색부터 답변과 출처 확인까지 연결하고, 긴 답변 평가와 반복 계산으로 발생하던 지연을 개선했습니다.',
 		},
 		'delivery-output-flow': {
 			title: '물류 운영 웹·출력 앱',
@@ -152,7 +152,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			headline:
 				'차량·기사 정보와 정산을 관리하는 ERP를 개발하고, 업무 알림·문서·문의를 모바일 앱에 연결했습니다.',
 			summary:
-				'ERP 웹 전반과 주요 서버 API, 채팅 시스템을 제외한 모바일 업무 기능을 개발했습니다. 입력과 정산 이력을 보호하는 저장 처리부터 알림 변경, 읽음 기록, 문서 다운로드와 문의 완료까지 웹·서버·Android의 동작을 연결했습니다.',
+				'ERP 웹과 주요 서버 API, 모바일 업무 화면을 개발했습니다. 입력과 정산 이력을 보호하는 저장 처리부터 알림 / 읽음 기록 / 문서 다운로드 / 문의 완료까지 웹과 앱의 동작을 연결했습니다.',
 			context:
 				'ERP에서는 여러 사람이 같은 자료를 수정하거나 Excel 자료를 일괄 등록해도 입력과 기존 정산을 잃지 않아야 했습니다. 모바일에서는 ERP의 변경 내용을 최신 상태로 보여 주고, 요청이 반복되거나 순서가 바뀌어도 읽음 기록과 문의 처리 결과를 지켜야 했습니다.',
 			editorial: {
@@ -162,7 +162,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'Excel 등록의 중복·부분 저장과 동시 수정에 따른 덮어쓰기를 막고, 충돌한 입력을 다시 저장할 수 있는 흐름을 구현했습니다. 모바일에서는 알림 변경·읽음·문의 결과를 검증했고, Android 에뮬레이터에서 실제 알림 수신과 관련 화면 이동을 확인했습니다.',
 			},
 			aboutSummary:
-				'정산 ERP와 연계 모바일을 풀스택으로 개발했습니다. 동시 수정 시 입력을 보존하도록 설계하고, 격리 DB와 개발 환경에서 충돌·실패·알림의 역순 전달을 재현해 확인했습니다.',
+				'정산 ERP와 연계 모바일 앱을 개발하며, 수정 충돌 시 입력 보존과 알림 / 문서 다운로드 흐름을 구현했습니다.',
 			resultSections: [
 				{
 					chapterId: 'settlement-operations-platform',
@@ -334,7 +334,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 			headline:
 				'Built an ERP for vehicle, driver and settlement records and connected notifications, documents and inquiries to a mobile app.',
 			summary:
-				'Developed the ERP web application, key server APIs and mobile business features, excluding the chat system. Connected web, server and Android behavior across safe editing, settlement history, notification updates, read receipts, document downloads and inquiry completion.',
+				'Developed ERP web screens, key server APIs and mobile business screens. Connected editing and settlement history to notifications, read receipts, document downloads and inquiry completion across web and mobile.',
 			context:
 				'ERP users needed to edit shared records and import Excel data without losing input or historical settlements. The mobile app needed to reflect current ERP changes while preserving read receipts and inquiry results when requests were repeated or arrived out of order.',
 			editorial: {
@@ -344,7 +344,7 @@ const storyCopies: Localized<WorkStoryCopies> = {
 					'Implemented protection against partial imports, duplicate writes and lost updates, with a recovery flow for conflicting edits. Verified mobile notification changes, receipt saves and inquiry results, and checked actual notification delivery and navigation on an Android emulator.',
 			},
 			aboutSummary:
-				'Built the ERP and connected mobile app across the stack. Designed conflict handling to retain drafts and reproduced conflicts, failures and out-of-order notifications in isolated databases and development environments.',
+				'Built the ERP and connected mobile app, preserving drafts during edit conflicts and implementing notification and document-download flows.',
 			resultSections: [
 				{
 					chapterId: 'settlement-operations-platform',

@@ -74,11 +74,11 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			sideProjects: 'S.Projects',
 			careerSummary: {
 				company: '트리포스㈜',
-				period: '2026.02 ~ Present',
+				period: '2026.02 ~ 2026.11',
 				role: '웹·모바일 개발자',
 				details: [
-					'React·TypeScript 업무 화면 개발, 공통 컴포넌트와 화면 상태 설계.',
-					'물류 운영·차트 편집·정산·관리 화면과 Spring Boot API 개발. Android 연동과 기존 웹·앱 기능 확장·유지보수.',
+					'React / TypeScript 업무 웹과 공통 UI를 개발하고, 입력부터 저장과 결과 확인까지 연결했습니다.',
+					'정산 ERP와 AI 문서 분석 플랫폼의 서버 API / 데이터 처리, Flutter 업무 앱과 Android 출력 연동을 맡았습니다.',
 				],
 			},
 			workSummary: {
@@ -228,11 +228,11 @@ export const dictionaries: Localized<LocaleDictionary> = {
 			sideProjects: 'S.Projects',
 			careerSummary: {
 				company: 'Triphos',
-				period: '2026.02 ~ Present',
+				period: '2026.02 ~ 2026.11',
 				role: 'Web & Mobile Developer',
 				details: [
-					'Built React and TypeScript business interfaces, shared components and UI state handling.',
-					'Developed logistics, chart editing, settlement and administration screens, along with Spring Boot APIs and Android integrations. Extended and maintained existing web and mobile apps.',
+					'Built React / TypeScript business interfaces and shared UI, connecting user input to saving and result inspection.',
+					'Developed server APIs and data handling for settlement ERP and AI document analysis, plus Flutter business features and Android printing integration.',
 				],
 			},
 			workSummary: {

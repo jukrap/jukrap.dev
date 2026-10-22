@@ -106,8 +106,8 @@ export function getPortfolioDocument(
 						{
 							title: 'AI Agent Playbook',
 							description: t(
-								'개인 개발 도구. 실행기·스케줄러를 범위에서 제외하고, 설치 실패와 사용자 수정본 보존을 검증했습니다.',
-								'Personal developer tool. Narrowed scope by removing runner and scheduler features, and tested failed installations and user-edit preservation.',
+								'프로젝트 규칙과 스킬을 관리하는 개인 개발 도구입니다. 설치 실패 시 복구와 사용자 수정본 보존 기능을 구현했습니다.',
+								'A personal tool for project rules and skills, with installation recovery and protection for user-edited files.',
 							),
 							evidence: [projectEvidence('ai-agent-playbook')],
 						},
@@ -281,7 +281,7 @@ export function getPortfolioDocument(
 		eyebrow: `${t('회사 업무', 'Company work')} ${String(featured.length + 2).padStart(2, '0')}`,
 		title: t('생활정보 앱의 날씨 기능', 'Weather in a Daily Information App'),
 		summary: t(
-			'기존 Android 앱에 공공 데이터 기반 날씨 기능을 추가했습니다. WebView 화면과 서버의 API 연동·캐시 처리를 맡았습니다.',
+			'기존 Android 앱에 공공 데이터 기반 날씨 기능을 추가하며, WebView 화면과 서버 API 연동 / 캐시 처리를 맡았습니다.',
 			'Added public-data weather features to an existing Android app, implementing the WebView interface, server-side API integration, and caching.',
 		),
 		metadata: [
@@ -313,14 +313,14 @@ export function getPortfolioDocument(
 					{
 						title: t('조회한 지역의 정보 재사용', 'Reuse data for requested regions'),
 						description: t(
-							'같은 지역의 정보를 반복해서 요청하지 않도록 서버 응답을 지역과 정보 종류별로 캐시했습니다. 각 정보의 갱신 주기에 맞춰 보관 시간을 정했습니다.',
+							'같은 지역의 정보를 매번 요청하지 않도록 서버 응답을 지역 / 정보 종류별로 캐시합니다. 보관 시간은 각 정보의 갱신 주기에 맞췄습니다.',
 							'Cached responses by region and data type, with expiry periods matched to each type.',
 						),
 					},
 					{
 						title: t('동시에 들어온 요청 묶기', 'Share in-flight requests'),
 						description: t(
-							'같은 지역·정보를 조회하는 요청이 동시에 들어오면 진행 중인 요청의 결과를 함께 사용하도록 했습니다. 외부 API에 같은 요청을 중복해서 보내지 않도록 처리했습니다.',
+							'같은 지역 / 정보를 동시에 요청하면 진행 중인 결과를 함께 사용하도록 묶어, 외부 API에 같은 요청이 중복해서 전송되지 않도록 했습니다.',
 							'Reused an in-flight result for the same cache key rather than issuing another external API call.',
 						),
 					},
@@ -331,7 +331,7 @@ export function getPortfolioDocument(
 				title: t('핵심 정보부터 표시', 'Show core information first'),
 				body: [
 					t(
-						'현재 날씨와 핵심 예보를 먼저 표시하고, 대기질·특보 등 부가 정보는 응답이 도착하면 채우도록 나눴습니다. 부가 정보가 늦거나 조회에 실패해도 이미 받은 날씨 정보는 볼 수 있습니다.',
+						'현재 날씨와 핵심 예보를 먼저 표시하고, 대기질 / 특보 등 부가 정보는 응답이 도착할 때 채웁니다. 부가 정보가 늦거나 조회에 실패해도 이미 받은 날씨 정보는 계속 볼 수 있습니다.',
 						'Displayed current conditions and the core forecast first, then filled in air quality and alerts as responses arrived. Delays or failures in supplementary requests did not hide weather data already received.',
 					),
 				],
@@ -341,7 +341,7 @@ export function getPortfolioDocument(
 				title: t('오래된 정보를 보여 줄 때의 기준', 'Handling stale information'),
 				body: [
 					t(
-						'외부 조회가 실패하면 허용 범위 안에서 이전 값을 표시했습니다. 다만 만료된 ‘특보 없음’은 현재도 특보가 없다는 뜻이 아니므로 조회 불가로 구분하고, 이전에 조회한 특보에는 최근 조회 기준임을 표시했습니다.',
+						'외부 조회 실패 시 허용 범위 안에서 이전 값을 표시합니다. 만료된 ‘특보 없음’은 현재도 특보가 없다는 뜻이 아니므로 조회 불가로 구분하고, 이전 특보에는 최근 조회 기준임을 표시합니다.',
 						'When an external request failed, allowed stale values could remain visible. An expired “no alerts” response was marked unavailable rather than treated as current. Previously retrieved active alerts were labelled as based on the last retrieval.',
 					),
 				],
@@ -521,7 +521,7 @@ export function getPortfolioDocument(
 			title: t('함께 쓰는 테이블·필터·모달', 'Shared tables, filters, and modals'),
 			body: [
 				t(
-					'계좌·종목·주문 화면에 반복되는 목록·검색·상세·등록·수정 UI를 공통 컴포넌트로 구성했습니다. 테이블에는 열 고정·너비 조절·재정렬을 넣고, MSW 모의 API로 조회와 입력 동작을 구현했습니다.',
+					'계좌 / 종목 / 주문 화면의 목록 / 검색 / 상세 / 등록 / 수정 UI는 공통 컴포넌트를 사용합니다. 테이블에는 열 고정 / 너비 조절 / 재정렬 기능을 구현했습니다.',
 					'Built shared list, search, detail and editing components for account, stock and order screens. Added column pinning, resizing and reordering to tables, and implemented queries and input interactions with MSW mock APIs.',
 				),
 			],
@@ -531,7 +531,7 @@ export function getPortfolioDocument(
 			title: t('주문내역의 조회 조건 적용', 'Applying order-history filters'),
 			body: [
 				t(
-					'선택 중인 계좌·종목과 목록 조회에 적용한 조건을 따로 관리했습니다. 필터를 바꾸는 중에는 기존 목록을 유지하고, 조회 버튼을 누르면 제출한 조건으로 TanStack Query의 조회 키를 갱신하도록 구현했습니다.',
+					'선택 중인 계좌 / 종목과 목록 조회에 적용한 조건을 따로 관리합니다. 필터를 바꾸는 동안에는 기존 목록을 유지하고, 조회 버튼을 누르면 제출한 조건으로 TanStack Query의 조회 키를 갱신합니다.',
 					'Kept account and stock selections separate from the conditions applied to the list. Editing a filter retained the existing results; pressing Search applied the submitted conditions to the TanStack Query key.',
 				),
 			],
@@ -543,14 +543,14 @@ export function getPortfolioDocument(
 				{
 					title: t('같은 조건으로 다시 조회', 'Search again with the same filters'),
 					description: t(
-						'기존 조회를 초기화해 첫 페이지부터 다시 불러오도록 처리.',
+						'기존 조회를 초기화해 첫 페이지부터 다시 불러옵니다.',
 						'Reset the existing query to reload from the first page.',
 					),
 				},
 				{
 					title: t('더보기 요청 중복 방지', 'Guard load-more requests'),
 					description: t(
-						'다음 페이지가 없거나 이미 요청 중일 때 추가 요청을 보내지 않도록 처리.',
+						'다음 페이지가 없거나 이미 요청 중이면 추가 요청을 보내지 않습니다.',
 						'Skipped additional requests when no next page remained or a request was already in progress.',
 					),
 				},
@@ -575,19 +575,6 @@ export function getPortfolioDocument(
 				}
 			: section,
 	);
-	cover.sections = [
-		...cover.sections,
-		{
-			id: 'additional',
-			variant: 'note',
-			body: [
-				t(
-					'이어서 생활정보·개인정보 보호 앱과 사내 문서화 도구, 그 밖의 회사 업무와 개인·팀 프로젝트를 소개하겠습니다.',
-					'Next, I will introduce daily information and privacy apps, an internal documentation tool, further company work, and personal and team projects.',
-				),
-			],
-		},
-	];
 	return pages;
 }
 export const portfolioDocument = getPortfolioDocument('ko');

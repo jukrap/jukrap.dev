@@ -21,10 +21,10 @@ export const triphosCareerEvidence = {
 	id: 'career-triphos',
 	kind: 'career',
 	company: '트리포스㈜',
-	period: '2026.02 ~ 현재',
+	period: '2026.02 ~ 2026.11',
 	role: '웹·모바일 개발자',
 	summary:
-		'React 업무 화면과 Spring Boot API, 모바일 앱 연동을 개발하고 기존 웹과 앱을 유지보수합니다.',
+		'React 업무 화면과 Spring Boot / Django API, 모바일 앱 연동을 개발하고 기존 웹과 앱의 기능을 개선했습니다.',
 } as const satisfies CareerProfileEvidence;
 
 export const tisCareerEvidence = {

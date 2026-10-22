@@ -5,25 +5,25 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 	ko: {
 		'ai-document-analysis': {
 			context:
-				'문서에서 근거를 찾아 답하는 AI 기능을 개발하면서, 답변뿐 아니라 평가 결과도 믿을 수 있어야 한다고 판단했습니다. 긴 답변은 평가 입력 한도를 넘었고, 평가 모델이 문장을 다시 쓰면서 검증 대상의 의미가 달라지는 문제가 있었습니다.',
+				'문서에서 근거를 찾아 답하는 AI 기능에서는 답변뿐 아니라 평가 결과도 믿을 수 있어야 한다고 보았습니다. 긴 답변은 평가 입력 한도를 넘었고, 평가 모델이 문장을 다시 쓰면서 검증 대상의 의미도 달라졌습니다.',
 			points: [
 				{
 					title: '평가 대상은 고정하고, 모델의 판정 결과를 검증',
 					decision:
-						'Ragas 평가에서는 검증할 문장을 서버에서 고정하고, 모델이 반환한 평가 결과를 문장 ID로 대조하도록 구성했습니다. 긴 입력은 여러 묶음으로 나누고, 원문 인용·근거 일치·답변의 설명 범위를 각각 확인하도록 구성했습니다.',
+						'Ragas로 평가할 문장을 서버에서 고정한 뒤 모델이 반환한 결과를 문장 ID로 대조하고, 긴 입력은 여러 묶음으로 나눴습니다. 원문 인용 / 근거 일치 / 답변의 설명 범위를 각각 확인하는 방식입니다.',
 					verification:
 						'실제 문서 답변에서 추출한 25개 주장을 5개 묶음으로 나누어 끝까지 평가했습니다. ID 누락·중복과 잘못된 응답 형식을 검사해, 형식이 깨진 판정이 정상 결과로 저장되지 않도록 확인했습니다.',
 				},
 				{
 					title: '모델 대기와 애플리케이션 병목을 분리해서 개선',
 					decision:
-						'응답이 느린 원인을 구분하려고 모델 응답을 고정한 상태에서 내부 처리를 측정했습니다. 반복되는 토큰 수 계산을 줄이고, 같은 요청에서 이미 처리한 문서 페이지를 다시 활용했습니다.',
+						'응답이 느린 원인을 구분하려고 모델 응답을 고정한 상태에서 내부 처리를 측정했습니다. 반복되는 토큰 수 계산을 줄였고, 같은 요청에서 이미 처리한 문서 페이지는 다시 활용합니다.',
 					verification:
-						'워밍업 후 개선 전후 각각 20회를 측정한 결과, 내부 처리 중앙값이 2,969ms에서 672ms로 줄었습니다. 모델 호출 횟수는 유지했고, 실제 모델을 사용하는 근거 검증은 별도로 진행했습니다.',
+						'워밍업 후 개선 전후 각각 20회를 측정한 결과, 내부 처리 중앙값이 2,969ms에서 672ms로 줄었습니다. 모델 호출 횟수는 유지했습니다.',
 				},
 			],
 			outcome:
-				'긴 답변의 평가를 완료할 수 있게 했고, 반복 계산으로 발생하던 내부 지연을 줄였습니다. 답변은 먼저 보여 주고 Ragas 평가는 비동기로 이어가도록 바꿔 평가가 끝날 때까지 사용자가 기다리지 않게 했습니다.',
+				'긴 답변의 평가를 끝까지 처리하고 반복 계산으로 발생하던 내부 지연을 줄였습니다. 답변은 먼저 보여 주고 Ragas 평가는 비동기로 이어가므로, 사용자는 평가가 끝나기 전에 답변을 확인할 수 있습니다.',
 		},
 		'settlement-operations-platform': {
 			context:
@@ -32,42 +32,42 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 				{
 					title: '충돌은 서버에서 막고, 어떤 값을 살릴지는 사용자가 결정',
 					decision:
-						'수정 버전이 오래되면 저장을 거절하되 입력값은 화면에 남겼습니다. 수정 전 값·서버의 최신 값·현재 입력값을 비교해 선택한 뒤, 별도 저장으로 변경을 확정하도록 만들었습니다.',
+						'오래된 수정 버전의 저장은 거절하되 입력값은 화면에 남기도록 구현했습니다. 사용자는 수정 전 값 / 서버의 최신 값 / 현재 입력값을 비교해 선택한 뒤 별도 저장으로 변경을 확정합니다.',
 					verification:
 						'개발 환경에서 별도 API 요청으로 먼저 값을 변경한 후, 브라우저의 저장 요청이 409 응답을 받아도 입력값과 DB의 최신 값이 유지되는지 확인했습니다. 이후 선택한 값을 다시 저장하고 DB와 변경 이력을 대조했습니다.',
 				},
 				{
 					title: 'Excel 검증 결과를 저장 시점까지 유지',
 					decision:
-						'검증한 데이터를 서버에 보관하고 저장 직전에 권한과 참조 데이터를 다시 확인했습니다. 중간 오류는 전체 트랜잭션을 되돌리고, 같은 저장 요청을 다시 보내면 기존 처리 결과를 반환하도록 구성했습니다.',
+						'검증한 데이터는 서버에 보관하며 저장 직전에 권한과 참조 데이터를 다시 확인합니다. 중간 오류가 나면 전체 트랜잭션을 되돌리고, 같은 저장 요청을 다시 보내면 기존 처리 결과를 반환합니다.',
 					verification:
-						'격리한 MariaDB 환경에서 중간 실패·재요청·동시 요청을 재현해 부분 저장과 중복 반영이 발생하지 않는지 확인했습니다. 검증 화면에서 통과한 데이터가 실제 저장 과정에서도 같은 기준을 따르는지 점검했습니다.',
+						'격리한 MariaDB 환경에서 중간 실패 / 재요청 / 동시 요청을 재현해 부분 저장과 중복 반영이 발생하지 않는지 확인했습니다.',
 				},
 			],
 			outcome:
-				'현재 배차 자료와 확정된 정산 이력을 구분하고, 수정 충돌과 일괄 저장 실패를 복구할 수 있는 흐름을 구현했습니다. 저장 성공 여부뿐 아니라 사용자의 입력과 변경 이력이 함께 유지되는지 확인했습니다.',
+				'현재 배차 자료와 확정된 정산 이력을 구분하고, 수정 충돌과 일괄 저장 실패를 복구할 수 있습니다. 검증에서는 저장 성공 여부와 함께 사용자의 입력과 변경 이력이 유지되는지 확인했습니다.',
 		},
 		'erp-mobile-workflow': {
 			context:
-				'정산 ERP와 연결되는 모바일 앱에서는 알림이 늦게 도착하거나 같은 요청이 반복되어도 최신 상태가 유지되어야 했습니다. 웹에서 사용하던 PDF 다운로드 방식도 모바일 실행 환경에 맞게 바꿔야 했습니다.',
+				'정산 ERP와 연결되는 모바일 앱은 늦게 도착한 알림이나 반복 요청에도 최신 상태를 유지해야 했습니다. 웹의 PDF 다운로드 방식도 모바일 실행 환경에 맞게 바꿀 필요가 있었습니다.',
 			points: [
 				{
 					title: '알림 내용과 읽음 상태를 분리해 동시 요청에 대응',
 					decision:
-						'알림 버전과 삭제 상태를 비교해 늦게 도착한 생성 알림이 삭제된 항목을 되살리지 못하게 했습니다. 읽음 정보는 별도로 관리하고, 먼저 갱신한 뒤 없으면 등록하던 처리를 한 번의 UPSERT로 바꿔 최초 확인 시각을 유지했습니다.',
+						'알림 버전과 삭제 상태를 비교해 늦은 생성 알림이 삭제된 항목을 되살리지 못하게 합니다. 읽음 정보는 별도로 관리하며, 먼저 갱신한 뒤 없으면 등록하던 처리를 한 번의 UPSERT로 바꿔 최초 확인 시각을 유지했습니다.',
 					verification:
 						'격리한 MariaDB에서 읽음 처리의 데드락을 재현한 뒤 동시 요청을 다시 실행했습니다. 알림 순서를 뒤집거나 같은 알림을 반복해서 보내도 최신 내용과 읽음 정보가 유지되는지 확인했습니다.',
 				},
 				{
 					title: '파일 다운로드 권한을 모바일에 맞게 전달',
 					decision:
-						'브라우저 안에서만 유효한 blob URL 대신 사용자가 다운로드할 때 짧게 유효한 서명 URL을 발급했습니다. 발급과 실제 다운로드 시점에 접근 권한을 확인하고, 로그인 토큰을 파일 주소에 넣지 않았습니다.',
+						'브라우저 안에서만 유효한 blob URL 대신 다운로드 시점에 짧게 유효한 서명 URL을 발급합니다. 발급과 실제 다운로드 때 접근 권한을 확인하며, 로그인 토큰은 파일 주소에 넣지 않습니다.',
 					verification:
 						'Chrome에서 내려받은 PDF와 원본의 해시를 비교하고 네이티브 브리지에 전달되는 값을 확인했습니다. Android 에뮬레이터에서는 알림을 누른 뒤 공지 목록을 거쳐 공지 본문을 여는 흐름을 점검했습니다.',
 				},
 			],
 			outcome:
-				'문의 처리와 알림, PDF 다운로드를 ERP와 연결했습니다. 채팅 시스템 자체는 담당 범위에서 제외하고, 모바일 화면과 API 연계 및 데이터 처리 대부분을 개발했습니다.',
+				'문의 처리 / 알림 / PDF 다운로드를 ERP와 연결하고, 알림의 최신 상태와 다운로드 권한을 모바일에서도 확인하도록 구성했습니다.',
 		},
 		'delivery-operations-web': {
 			context:
@@ -76,7 +76,7 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 				{
 					title: '번들 분석으로 불필요한 초기 코드를 찾아 분리',
 					decision:
-						'번들 분석으로 첫 화면에서 쓰지 않는 코드의 비중을 확인했습니다. 페이지 코드는 해당 화면에 들어갈 때, Excel 라이브러리는 업로드·다운로드를 실행할 때 불러오도록 변경했습니다.',
+						'번들 분석으로 첫 화면에서 쓰지 않는 코드의 비중을 확인했습니다. 페이지 코드는 해당 화면에 들어갈 때, Excel 라이브러리는 업로드 / 다운로드를 실행할 때 불러옵니다.',
 					verification:
 						'일반 프로덕션 빌드에서 초기 JavaScript가 2,405.50kB에서 616.60kB로, gzip 기준 815.10kB에서 204.38kB로 줄어든 것을 확인했습니다. 변경 후에도 페이지 이동·데이터 조회·Excel 처리·PC 라벨 출력이 이어지는지 확인했습니다.',
 				},
@@ -103,37 +103,37 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 						'Android 16 실기기에서 권한 요청, 프린터 연결, 실제 라벨 출력을 차례로 확인했습니다.',
 				},
 				{
-					title: '확인할 수 있는 출력 상태만 사용자에게 전달',
+					title: '출력 요청 전송 상태 안내',
 					decision:
-						'SDK의 성공 응답은 요청 접수로 해석하고 화면에 “출력 요청 전송”으로 표시했습니다. 실제 용지가 나왔는지 확인할 수 없는 상태에서 인쇄 완료로 단정하지 않았습니다.',
+						'SDK가 출력 요청을 접수하면 화면에 ‘출력 요청 전송’으로 표시하도록 맞췄습니다.',
 					verification:
 						'SDK 응답과 실물 출력 결과를 각각 확인해 앱이 표시하는 상태의 의미를 맞췄습니다.',
 				},
 			],
 			outcome:
-				'React Native 화면에서 Android 네이티브 SDK를 호출해 라벨을 출력하고, 권한과 연결 실패를 구분해 처리했습니다.',
+				'React Native 화면에서 Android 네이티브 SDK를 호출해 라벨을 출력하며, 권한 문제와 연결 실패를 구분해 처리합니다.',
 		},
 		'ai-agent-playbook': {
 			context:
-				'AI 코딩 도구를 바꾸거나 새 세션을 시작할 때도 프로젝트의 결정과 작업 상태를 이어가고 싶었습니다. 이를 위해 무엇을 직접 만들고, 무엇을 기존 도구에 맡길지 먼저 정했습니다.',
+				'AI 코딩 도구를 바꾸거나 새 세션을 시작할 때도 프로젝트의 결정과 작업 상태를 이어가고 싶었습니다.',
 			points: [
 				{
-					title: '실행기·스케줄러를 덜어 내고 프로젝트 기록에 집중',
+					title: '프로젝트 기록과 스킬을 CLI / MCP로 연결',
 					decision:
-						'기존 코딩 도구와 역할이 겹치는 실행기와 스케줄러는 제품 범위에서 제외했습니다. 패키지 설치, 프로젝트 초기화, 스킬 설치, MCP 연결을 분리해 필요한 기능만 적용할 수 있게 했습니다.',
+						'CLI와 읽기 전용 MCP로 프로젝트 규칙과 기록을 조회할 수 있게 했습니다. 패키지 설치 / 프로젝트 초기화 / 스킬 설치 / MCP 연결을 분리해 필요한 기능만 적용합니다.',
 					verification:
 						'CLI와 MCP가 같은 프로젝트 기록을 다루는지, 각 설치·초기화 경로가 독립적으로 동작하는지 확인하고 Windows·Ubuntu CI에서 검증했습니다.',
 				},
 				{
-					title: '자동 갱신보다 사용자가 수정한 파일의 보존을 우선',
+					title: '사용자 수정본을 보존하는 설치와 복구',
 					decision:
-						'파일의 소유 정보와 해시로 수정 여부를 판단했습니다. 새 스킬의 유효성을 모두 확인한 뒤 기존 파일을 정리하고, 삭제 직전에도 변경 여부를 다시 확인하도록 했습니다. 적용 기록과 백업으로 복구 경로도 마련했습니다.',
+						'파일의 소유 정보와 해시로 수정 여부를 판단합니다. 새 스킬의 유효성을 모두 확인한 뒤 기존 파일을 정리하고, 삭제 직전에도 변경 여부를 다시 확인합니다. 적용 기록과 백업으로 복구할 수 있습니다.',
 					verification:
-						'설치 중 일부 단계의 실패, 파일 충돌, 검사 후 발생한 파일 수정, 복원 시나리오를 테스트했습니다. 실패한 설치가 기존 파일이나 사용자의 수정본을 지우지 않는지 확인했습니다.',
+						'설치 중 일부 단계의 실패, 파일 충돌, 검사 후 파일 수정, 복원 시나리오를 테스트하며 실패한 설치가 기존 파일이나 사용자의 수정본을 지우지 않는지 확인했습니다.',
 				},
 			],
 			outcome:
-				'프로젝트 기록 구조와 CLI·MCP 서버를 npm 패키지로 배포하고, 소스와 사용 문서를 공개했습니다. 기능을 늘리는 것뿐 아니라 도구의 책임 범위와 실패 시 보존해야 할 데이터를 설계한 사례입니다.',
+				'프로젝트 기록 구조와 CLI / MCP 서버를 npm 패키지로 배포하고, 소스와 사용 문서를 공개했습니다.',
 		},
 	},
 	en: {
@@ -153,7 +153,7 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 					decision:
 						'Profiled internal processing with fixed model responses, then removed repeated token counting and reused document pages already processed within the request.',
 					verification:
-						'After warmup, 20 runs before and after the change showed median internal processing fall from 2,969ms to 672ms. Model call counts stayed unchanged; evidence checks with the real model ran separately.',
+						'After warmup, 20 runs before and after the change showed median internal processing fall from 2,969ms to 672ms. Model call counts stayed unchanged.',
 				},
 			],
 			outcome:
@@ -201,7 +201,7 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 				},
 			],
 			outcome:
-				'Connected inquiry handling, notifications, and PDF downloads to the ERP. Developed most mobile screens, API integration, and data handling; the chat system itself was outside my scope.',
+				'Connected inquiry handling, notifications and PDF downloads to the ERP, including current notification state and download access checks in the mobile app.',
 		},
 		'delivery-operations-web': {
 			context:
@@ -237,9 +237,9 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 						'Checked the permission prompt, printer connection, and physical label output on an Android 16 device.',
 				},
 				{
-					title: 'Report only the output state the app can confirm',
+					title: 'Show when a print request has been sent',
 					decision:
-						'Treated SDK success as request acceptance and displayed “Print request sent.” Did not label an unconfirmed physical output as completed.',
+						'Displayed “Print request sent” when the SDK accepted the request.',
 					verification:
 						'Checked SDK responses and printed labels separately to align the wording with what the app can actually observe.',
 				},
@@ -249,18 +249,17 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 		},
 		'ai-agent-playbook': {
 			context:
-				'I wanted project decisions and work status to survive a new AI session or a change of coding tool. The first decision was what this project should own and what existing tools should handle.',
+				'I wanted project decisions and work status to carry over when starting a new AI session or changing coding tools.',
 			points: [
 				{
-					title:
-						'Remove overlapping execution features and focus on project records',
+					title: 'Connect project records and skills through CLI / MCP',
 					decision:
-						'Removed the runner and scheduler from scope because they overlapped with existing coding tools. Separated package installation, project initialization, skill installation, and MCP setup so each capability can be adopted independently.',
+						'Provided access to project rules and records through a CLI and read-only MCP. Package installation, project initialization, skill installation and MCP setup can be applied independently.',
 					verification:
 						'Checked that the CLI and MCP operate on the same project records and that installation and initialization paths work independently, with CI verification on Windows and Ubuntu.',
 				},
 				{
-					title: 'Preserve user edits when an update fails',
+					title: 'Installation and recovery that preserve user edits',
 					decision:
 						'Used ownership metadata and hashes to detect modified files. Validated all new skills before cleaning up existing files, rechecked changes immediately before deletion, and retained backups and an application log for recovery.',
 					verification:
@@ -268,7 +267,7 @@ export const decisionCases: Record<Locale, Record<string, DecisionCase>> = {
 				},
 			],
 			outcome:
-				'Published the project record structure, CLI, and MCP server as an npm package with public source and documentation. The work demonstrates decisions about tool boundaries and data preservation when automation fails.',
+				'Published the project record structure, CLI and MCP server as an npm package with public source and usage documentation.',
 		},
 	},
 };

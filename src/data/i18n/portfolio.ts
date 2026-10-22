@@ -73,7 +73,7 @@ const simpleProjectTranslations: Record<string, SimpleProjectTranslation> = {
 			'A development tool that helps AI coding tools refer to project rules and work history across sessions.',
 		description: [
 			'Solo development',
-			'Removed execution and scheduling that overlapped with coding tools, focusing on records and skill management.',
+			'Provides project rules and work history through a CLI and read-only MCP, with selected skill installation.',
 			'Validated all replacement skills before removing old entries, preserving the previous setup when some installations failed.',
 			'Preserved user edits and tested conflicts, changes just before deletion, and recovery.',
 			'Provided a CLI, read-only MCP, an npm package, and English/Korean guides.',
@@ -369,12 +369,12 @@ const projectDetailTranslations: Record<string, ProjectTranslation> = {
 		title: 'AI Agent Playbook',
 		subtitle: 'A harness for coding-agent context and skills',
 		overview:
-			'A development tool that helps AI coding tools refer to project rules and work history across sessions. Removed execution features that overlapped with coding tools and focused on records and skill management. Implemented and tested failure handling to preserve user edits and existing setups during skill changes.',
+			'A development tool that gives AI coding tools access to project rules and work history across sessions through a CLI and read-only MCP. Users can install selected skills, preserve their edits during configuration changes, and recover failed installations using backups and application records.',
 		tasks: [
 			{
-				title: 'Removed execution features to focus on records and skills',
+				title: 'Independently configurable setup steps',
 				details: [
-					'The early tool included execution and scheduling, which overlapped with coding hosts. From 1.0, refocused the package on project records and selected guidance.',
+					'Built a CLI for project records and skills, with read-only MCP access so existing coding tools can refer to the same records.',
 					'Kept package installation, skill installation, project setup and MCP registration separate so users can choose what to apply.',
 				],
 			},
@@ -772,17 +772,17 @@ const coreValuesEn = [
 	{
 		title: 'I build interfaces around the way people work.',
 		content:
-			'I built search, reservation, Excel import and label-printing features with React and TypeScript. I created shared tables and forms and connected API responses to screen displays and printing.',
+			'I have built React and TypeScript interfaces for queries, reservations, Excel imports and label printing. I created shared tables and forms and followed the flow from user input through API requests to the final result.',
 	},
 	{
 		title: 'I separate server data from editing state in the UI.',
 		content:
-			'In the logistics and stock administration apps, I used TanStack Query for data fetching and list refreshes after saves, keeping selected items and modal visibility separate. In the settlement ERP, I separated saved values from editing drafts so users retained their input after failed saves and retries.',
+			'In logistics and stock administration apps, I used TanStack Query for queries and list refreshes after saves, keeping selected items and modal state separate. In the settlement ERP, I separated saved values from editing drafts so users could correct and retry input after a failed save.',
 	},
 	{
 		title: 'I look beyond the interface to the systems it connects to.',
 		content:
-			'I also developed Spring Boot APIs and integrated Android printing. For Bluetooth printing, I checked WebView requests, Android permissions and device SDK calls in order, then verified label output on a physical device.',
+			'While developing Spring Boot APIs and Android printing integration, I checked whether requests from the interface produced the expected result. I traced Bluetooth connection failures through WebView requests, Android permissions and SDK calls, then inspected physical labels to adjust address wrapping and layout.',
 	},
 ];
 

@@ -64,32 +64,34 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 							? 'AI 기반 문서·데이터 분석 플랫폼'
 							: 'AI Document and Data Analysis Platform',
 						scope: ko
-							? '풀스택 개발을 맡아 Gemma 4를 연동하고, 문서 등록부터 검색·분석·출처 확인까지 이어지는 기능을 구현했습니다.'
+							? 'Gemma 4 기반 플랫폼의 풀스택 개발을 맡았습니다. 문서 등록과 검색 / 분석부터 출처 확인까지 이어지는 웹 서비스입니다.'
 							: 'Owned full-stack development of document upload, search, analysis and source inspection, including Gemma 4 integration.',
 						highlights: ko
 							? [
-									'Ragas 평가 과정에서 문장의 의미가 달라지는 문제에 대응해 평가 대상과 ID를 고정하고, 모델이 반환한 결과를 원문 항목과 대조했습니다. 25개 주장을 5개 묶음으로 평가하고 누락·중복 ID를 검사했습니다.',
-									'모델 지연과 내부 병목을 구분하려고 모델 응답을 고정해 측정했습니다. 반복 계산을 줄인 뒤 내부 처리 중앙값이 2,969ms → 672ms로 감소했습니다(워밍업 후 각각 20회).',
+									'Ragas 평가 중 문장의 의미가 바뀌어 평가 대상과 ID를 고정했습니다. 25개 주장을 5개 묶음으로 나누고, 반환 결과의 누락 / 중복 ID를 원문과 대조하는 구조입니다.',
+									'모델 지연과 내부 병목을 구분하려고 모델 응답을 고정해 측정했습니다. 반복 계산을 줄인 뒤 내부 처리 중앙값은 2,969ms → 672ms로 줄었습니다(워밍업 후 각각 20회).',
+									'SQLGlot으로 수정 전후의 조회 / 집계 조건을 대조했습니다. AI 수정안이 조건을 바꾸거나 보존 여부를 확인할 수 없을 때는 실행 전에 중단하도록 바꿨습니다.',
 								]
 							: [
 									'Fixed evaluation targets and IDs to address changes in statement meaning during Ragas evaluation, then matched returned results to the original items. Evaluated 25 claims in five batches and checked missing and duplicate IDs.',
 									'Used fixed model responses to separate application overhead from model latency. Removing repeated computation reduced median internal processing from 2,969ms → 672ms (20 runs per condition after warmup).',
+									'Compared query and aggregation conditions before and after AI-generated SQL repairs using SQLGlot. Stopped execution when a repair changed those conditions or their preservation could not be confirmed.',
 								],
 					},
 					{
 						title: ko ? '업무 정산 ERP·모바일 앱' : 'Settlement ERP and Mobile App',
 						scope: ko
-							? '정산 ERP와 Flutter 기반 모바일 업무 앱을 풀스택으로 개발했습니다. 모바일은 채팅 시스템을 제외한 대부분의 기능을 개발했습니다.'
+							? '정산 ERP와 Flutter 모바일 업무 앱을 풀스택으로 개발했습니다. 모바일 담당 범위는 채팅 시스템을 제외한 대부분의 기능입니다.'
 							: 'Owned full-stack development of the ERP and connected Flutter mobile work app, excluding the chat system.',
 						highlights: ko
 							? [
-									'다른 사람의 수정과 사용자의 입력을 모두 지키기 위해 충돌 시 비교 후 다시 저장하도록 설계했습니다. 개발 환경에서 선행 API 수정·409 응답·재저장 후 DB와 변경 이력을 대조했습니다.',
-									'Excel 검증 데이터를 서버에 보관하고 저장 직전에 다시 확인했습니다. 격리한 MariaDB에서 실패·재요청·동시 저장을 재현해 전체 취소와 중복 요청 처리를 점검했습니다.',
-									'알림 내용과 읽음 상태를 분리하고, DB에서 재현한 읽음 저장 교착을 단일 UPSERT로 해결했습니다. 동시 요청과 순서가 뒤바뀐 알림을 검증했습니다.',
-									'로그인 토큰 대신 짧게 유효한 서명 URL로 PDF를 전달했습니다. 브라우저에서 내려받은 PDF의 해시를 원본과 비교하고, 네이티브 브리지에 전달되는 값을 확인했습니다.',
+									'수정 충돌 시 입력값을 남기고, 기존 값과 최신 값을 비교해 다시 저장하도록 구현했습니다. 개발 환경에서 충돌 응답과 재저장 후 DB / 변경 이력을 확인했습니다.',
+									'Excel 검증 데이터는 서버에 보관한 뒤 저장 직전에 재검사합니다. 격리한 MariaDB에서 실패 / 재요청 / 동시 저장을 재현해 전체 취소와 중복 요청 처리를 점검했습니다.',
+									'알림 내용과 읽음 상태는 분리해 관리합니다. DB에서 재현한 읽음 저장 교착은 단일 UPSERT로 해결하고, 동시 요청과 알림 순서 역전도 검증했습니다.',
+									'PDF는 로그인 토큰 대신 짧게 유효한 서명 URL로 전달합니다. 브라우저에서 받은 파일의 해시를 원본과 대조하고, 네이티브 브리지로 전달되는 값도 확인했습니다.',
 								]
 							: [
-									'Designed conflict comparison and a separate save to preserve both server updates and user drafts. In development, checked a preceding API update, the 409 response, and the resolved save against the database and history.',
+									'Retained drafts during edit conflicts and let users compare original and current values before saving again. In development, checked conflict responses and resolved saves against the database and change history.',
 									'Kept Excel validation data on the server and rechecked it before saving. Tested failures, retries and concurrent saves in isolated MariaDB to verify rollback and duplicate-request handling.',
 									'Separated notification content from receipts and replaced receipt writes with a single UPSERT after reproducing a database deadlock. Tested concurrent requests and out-of-order notifications.',
 									'Delivered PDFs through short-lived signed URLs without passing login tokens. Compared browser-download hashes with originals and checked the values sent to the native bridge.',
@@ -100,12 +102,12 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 							? '물류 운영 웹·출력 앱'
 							: 'Logistics Operations Web & Printing App',
 						scope: ko
-							? '물류 웹 프론트엔드 전체와 Android 출력 앱을 개발했습니다.'
+							? '담당 범위는 물류 웹 프론트엔드 전체와 Android 출력 앱입니다.'
 							: 'Built the complete logistics web frontend and Android printing app.',
 						highlights: ko
 							? [
 									'번들 분석으로 첫 화면에서 필요하지 않은 페이지·Excel 코드를 찾아 분리하고, 초기 JavaScript 파일 크기를 약 74% 줄였습니다(2026.05 빌드 산출물 기준).',
-									'WebView의 출력 요청을 Android 브리지와 Bluetooth 프린터에 연결했습니다. SDK 내부 호출을 추적해 권한 오류를 해결하고 실제 라벨 출력을 확인했습니다.',
+									'WebView의 출력 요청은 Android 브리지를 거쳐 Bluetooth 프린터로 전달됩니다. SDK 내부 호출을 추적해 권한 오류를 해결하고 실제 라벨 출력까지 확인했습니다.',
 									'실물 라벨에서 긴 주소가 잘리거나 겹치는 위치를 확인하고, 글자 폭에 따른 줄바꿈과 글자 크기·줄 간격을 조정했습니다.',
 								]
 							: [
@@ -117,12 +119,12 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 					{
 						title: ko ? '주식 업무 관리 웹' : 'Stock Operations Admin Web',
 						scope: ko
-							? 'MSW 모의 API를 사용해 React 프론트엔드 전체를 구축했습니다.'
+							? 'MSW 모의 API로 화면을 개발하며 React 프론트엔드 전체를 구축했습니다.'
 							: 'Complete React frontend built against MSW mock APIs',
 						highlights: ko
 							? [
-									'계좌·종목·주문 화면의 테이블·필터·모달을 공통화하고 열 고정·너비 조절·재정렬을 구현했습니다.',
-									'선택 중인 필터와 실제 조회 조건을 분리하고, 조회 버튼을 눌렀을 때 TanStack Query에 조건을 적용했습니다.',
+									'계좌 / 종목 / 주문 화면은 공통 테이블 / 필터 / 모달을 사용합니다. 테이블에는 열 고정과 너비 조절, 재정렬 기능을 구현했습니다.',
+									'선택 중인 필터와 실제 조회 조건을 분리했습니다. 조회 버튼을 누를 때 TanStack Query에 조건을 적용합니다.',
 								]
 							: [
 									'Built shared tables, filters and modals for account, stock and order screens, with column pinning, resizing and reordering.',
@@ -132,11 +134,11 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 					{
 						title: ko ? '생활정보 앱' : 'Daily Information App',
 						scope: ko
-							? '기존 Android 앱에 공공 API 기반 날씨 화면과 서버 조회 기능을 추가했습니다.'
+							? '기존 Android 앱의 공공 API 기반 날씨 화면과 서버 조회 기능을 맡았습니다.'
 							: 'Added weather screens and server-side public API integration to an existing Android app.',
 						highlights: ko
 							? [
-									'지역·정보 종류별로 서버 응답을 캐시하고 갱신 주기를 적용했습니다. 현재 날씨와 핵심 예보를 먼저 표시하고 부가 정보는 응답이 도착하면 채웠습니다.',
+									'서버 응답을 지역 / 정보 종류별로 캐시하고 갱신 주기를 적용했습니다. 현재 날씨와 핵심 예보를 먼저 표시하며, 부가 정보는 응답이 도착하면 채웁니다.',
 								]
 							: [
 									'Cached responses by region and data type with matching expiry periods. Displayed current weather and core forecasts first, then supplementary data as it arrived.',
@@ -145,7 +147,7 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 					{
 						title: ko ? '개인정보 보호 앱' : 'Privacy Check App',
 						scope: ko
-							? '기존 Android 앱에 외부 API를 연동해 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능을 추가했습니다.'
+							? '기존 Android 앱에 외부 API를 연결했습니다. 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능입니다.'
 							: 'Added email-breach and deepfake checks to an existing Android app using external APIs.',
 						highlights: ko
 							? [
@@ -172,7 +174,7 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 				highlights: ko
 					? [
 							'Figma로 공장 에너지 관리 화면을 기획하고 데이터베이스 테이블 명세와 ERD를 작성했습니다.',
-							'한국전력 기업별 파워플래너를 분석하고 에너지 데이터를 수집하는 Python 크롤러를 작성했습니다.',
+							'한국전력 기업별 파워플래너를 분석해 에너지 데이터 수집용 Python 크롤러를 만들었습니다.',
 						]
 					: [
 							'Planned factory energy management screens in Figma and documented database tables and an ERD.',
@@ -194,11 +196,11 @@ export function getResumeDocument(locale: Locale): ResumeDocumentCopy {
 					id === 'ai-agent-playbook'
 						? ko
 							? [
-									'기존 AI 코딩 도구와 겹치는 실행기·스케줄러를 제외하고 기록·스킬 관리에 집중했습니다. CLI와 MCP의 조회 범위 및 설치 경로를 Windows·Ubuntu CI에서 검증했습니다.',
-									'파일의 소유 정보와 해시로 사용자 수정본을 보존하고, 백업·적용 기록으로 복구하도록 설계했습니다. 설치 일부 실패·파일 충돌·검사 후 수정·복원 시나리오를 테스트했습니다.',
+									'프로젝트 기록 / 스킬 관리 기능을 CLI와 읽기 전용 MCP로 제공했습니다. 조회 범위와 설치 경로는 Windows / Ubuntu CI에서 검증했습니다.',
+									'파일의 소유 정보와 해시로 사용자 수정본을 보존하며, 백업 / 적용 기록으로 복구합니다. 설치 일부 실패 / 파일 충돌 / 검사 후 수정 / 복원 시나리오를 테스트했습니다.',
 								]
 							: [
-									'Removed runner and scheduler features that overlapped with existing AI coding tools, focusing on records and skills. Verified CLI/MCP query scope and installation paths in Windows/Ubuntu CI.',
+									'Provided project-record and skill management through a CLI and read-only MCP. Verified query scope and installation paths in Windows / Ubuntu CI.',
 									'Used file ownership and hashes to preserve user edits, with backups and application records for recovery. Tested partial installation failures, conflicts, changes after inspection, and restoration.',
 								]
 						: [text.actions[0].description],
@@ -287,7 +289,7 @@ export function getCareerBriefDocument(locale: Locale): CareerBriefCopy {
 				goal:
 					id === 'settlement-operations-platform'
 						? ko
-							? '정산 ERP와 Flutter 기반 모바일 업무 앱을 풀스택으로 개발했습니다. 모바일은 채팅 시스템을 제외한 대부분의 기능을 개발했습니다.'
+							? '정산 ERP와 Flutter 모바일 업무 앱을 풀스택으로 개발했습니다. 모바일 담당 범위는 채팅 시스템을 제외한 대부분의 기능입니다.'
 							: 'Owned full-stack development of the ERP and connected Flutter mobile work app, excluding the chat system.'
 						: id === 'delivery-output-flow'
 							? ko

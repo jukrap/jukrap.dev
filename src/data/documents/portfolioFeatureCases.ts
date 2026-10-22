@@ -26,7 +26,7 @@ export function getPortfolioFeatureCases(
 			eyebrow: `${t('회사 업무', 'Company work')} ${String(firstFeatureNumber).padStart(2, '0')}`,
 			title: privacy.title,
 			summary: t(
-				'기존 Android 앱에 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능을 추가했습니다. 검사 화면과 서버 API, Android 이미지 선택 기능을 연결해 사용자가 자료를 입력하고 결과를 확인할 수 있도록 했습니다.',
+				'기존 Android 앱에 이메일 유출 여부와 딥페이크 이미지를 검사하는 기능을 추가했습니다. 검사 화면은 서버 API와 Android 이미지 선택 기능으로 이어지며, 사용자가 자료를 입력하고 결과를 확인할 수 있습니다.',
 				'Added email-breach lookup and deepfake image checks to an existing Android app. Connected inspection screens, server calls to external APIs, and Android image selection from input through results.',
 			),
 			metadata: [
@@ -49,7 +49,7 @@ export function getPortfolioFeatureCases(
 					),
 					body: [
 						t(
-							'사용자가 이메일이나 이미지를 입력하면 서버에서 외부 검사 API를 호출하고, 결과와 오류를 화면에 맞게 반환하도록 만들었습니다. API 인증 정보는 서버에서 관리하고 앱에는 검사에 필요한 결과와 상태를 전달했습니다.',
+							'사용자가 이메일이나 이미지를 입력하면 서버가 외부 검사 API를 호출해 결과와 오류를 화면에 맞게 반환합니다. API 인증 정보는 서버에서 관리하며, 앱에는 검사에 필요한 결과와 상태를 전달합니다.',
 							'Implemented server calls to external APIs for submitted emails and images, translating responses and errors for the interface. API credentials remained on the server; the app received the results and status needed for display.',
 						),
 					],
@@ -64,14 +64,14 @@ export function getPortfolioFeatureCases(
 						{
 							title: t('입력 검사와 미리보기', 'Input validation and preview'),
 							description: t(
-								'선택한 이미지의 파일 형식·용량·해상도를 검사하고, 전송 전에 이미지를 확인할 수 있도록 미리보기를 구현했습니다.',
+								'선택한 이미지의 파일 형식 / 용량 / 해상도를 검사하고, 전송 전에 내용을 확인할 수 있도록 미리보기를 구현했습니다.',
 								'Validated the selected image’s file type, size and resolution, and displayed a preview before submission.',
 							),
 						},
 						{
 							title: t('Android 파일 선택 연결', 'Android file selection'),
 							description: t(
-								'WebView에서 이미지나 파일 선택을 요청하면 Android 선택 창을 열고, 선택한 파일을 다시 WebView로 전달하도록 연결했습니다.',
+								'WebView에서 이미지나 파일 선택을 요청하면 Android 선택 창이 열리고, 선택한 파일은 다시 WebView로 전달됩니다.',
 								'Opened the Android file picker for image or file requests from the WebView and returned the selected file to the WebView.',
 							),
 						},
@@ -85,7 +85,7 @@ export function getPortfolioFeatureCases(
 					),
 					body: [
 						t(
-							'파일을 읽는 도중 다른 이미지를 선택하면 이전 작업이 더 늦게 끝날 수 있습니다. 파일 읽기마다 구분 값을 두고 완료 시 현재 선택과 비교해, 이전 이미지의 결과가 새 미리보기를 덮지 않도록 처리했습니다.',
+							'파일을 읽는 도중 다른 이미지를 선택하면 이전 작업이 더 늦게 끝날 수 있습니다. 파일 읽기마다 구분 값을 두고 완료 시 현재 선택과 비교해, 이전 이미지의 결과가 새 미리보기를 덮지 않도록 막습니다.',
 							'A previous file read can finish after the user selects another image. Assigned a token to each read and checked it on completion so stale results would not overwrite the new preview.',
 						),
 					],
@@ -100,7 +100,7 @@ export function getPortfolioFeatureCases(
 			eyebrow: `${t('회사 업무', 'Company work')} ${String(firstFeatureNumber + 1).padStart(2, '0')}`,
 			title: documentation.title,
 			summary: t(
-				'저장소와 프로젝트 착수 자료를 바탕으로 문서 초안을 만들고 검토하는 사내 웹 도구를 개발했습니다. 자료 수집, 요구사항 검토, 표 편집과 내보내기까지 이어지는 화면과 서버 API를 구현했습니다.',
+				'저장소와 프로젝트 착수 자료로 문서 초안을 만들고 검토하는 사내 웹 도구를 개발했습니다. 화면과 서버 API를 통해 자료 수집부터 요구사항 검토, 표 편집과 내보내기까지 이어집니다.',
 				'Built an internal web tool for drafting and reviewing documents from repositories and project kickoff material. Implemented screens and server APIs for collecting sources, reviewing requirements, editing tables and exporting documents.',
 			),
 			metadata: [
@@ -120,7 +120,7 @@ export function getPortfolioFeatureCases(
 					),
 					body: [
 						t(
-							'자료를 바로 최종 문서로 만들기보다, 요구사항 후보와 확인할 질문을 먼저 검토하도록 화면을 나눴습니다. 요구사항 문서가 준비된 뒤 기능 정의서를, 선행 문서가 준비된 뒤 화면 설계서를 생성할 수 있도록 진입 조건을 구성했습니다.',
+							'요구사항 후보와 확인할 질문을 먼저 검토하도록 화면을 나눴습니다. 요구사항 문서가 준비되면 기능 정의서를, 선행 문서가 준비되면 화면 설계서를 생성할 수 있습니다.',
 							'Split the interface into review stages for proposed requirements and open questions before drafting final documents. Enabled functional specifications after the requirements document was ready, and screen specifications after their prerequisite documents were ready.',
 						),
 					],
@@ -135,14 +135,14 @@ export function getPortfolioFeatureCases(
 						{
 							title: t('시트별 문서 편집', 'Edit document sheets'),
 							description: t(
-								'요구사항·기능 정의서·화면 설계서를 시트별 표에서 검토하고 수정할 수 있도록 했습니다. 내보내기 파일에도 사용자가 수정한 표의 내용을 반영했습니다.',
+								'요구사항 / 기능 정의서 / 화면 설계서를 시트별 표에서 검토하고 수정할 수 있게 했으며, 내보내기에도 수정한 내용이 반영되도록 연결했습니다.',
 								'Made requirements, functional specifications and screen specifications editable as separate sheets. Exported documents from the tables as edited by the user.',
 							),
 						},
 						{
 							title: t('선택한 내용의 AI 수정', 'Targeted AI revisions'),
 							description: t(
-								'수정할 시트·셀과 주변 내용을 AI에 함께 전달했습니다. 수정할 범위와 유지할 내용을 구분해, 문서 전체를 다시 생성하지 않고 선택한 부분을 고칠 수 있도록 했습니다.',
+								'AI에는 수정할 시트 / 셀과 주변 내용을 함께 전달합니다. 수정할 범위와 유지할 내용을 구분하므로 문서 전체를 다시 생성하지 않고 선택한 부분만 고칠 수 있습니다.',
 								'Sent the selected sheets or cells together with surrounding content. Distinguished the revision target from content to preserve so users could change the selected part without regenerating the entire document.',
 							),
 						},
@@ -156,7 +156,7 @@ export function getPortfolioFeatureCases(
 					),
 					body: [
 						t(
-							'문서별 생성 상태를 구분해 일부 작업이 실패해도 성공한 문서는 검토할 수 있도록 했습니다. 전체를 다시 생성하지 않고 필요한 문서를 선택해 다시 작성하고 내보내도록 구성했습니다.',
+							'문서별 생성 상태를 구분하므로 일부 작업이 실패해도 성공한 문서는 검토할 수 있습니다. 전체를 다시 생성할 필요 없이 필요한 문서를 선택해 다시 작성하고 내보낼 수 있습니다.',
 							'Tracked generation status per document so completed documents remained available for review after another failed. Supported regenerating and exporting selected documents without restarting the entire set.',
 						),
 					],

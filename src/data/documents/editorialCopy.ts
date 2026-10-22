@@ -53,7 +53,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 		},
 		'delivery-output-flow': {
 			summary:
-				'조회·예약·Excel 등록·라벨 출력을 지원하는 물류 웹의 프론트엔드 전체를 개발했습니다. 서버 API와 PC 프린터를 연동하고, Android 앱에서도 같은 업무 화면으로 라벨을 출력하도록 연결했습니다.',
+				'조회 / 예약 / Excel 등록 / 라벨 출력을 지원하는 물류 웹의 프론트엔드 전체를 개발했습니다. 서버 API와 PC 프린터를 연동했으며, Android 앱에서도 같은 업무 화면으로 라벨을 출력할 수 있습니다.',
 			overviewDetail:
 				'화면·Excel 코드를 필요할 때 불러오도록 바꿔 초기 JavaScript 파일 크기를 약 74% 줄였습니다. 프린터 연결 오류와 라벨 잘림은 실기기 로그와 실제 출력물을 확인하며 수정했습니다.',
 			problem:
@@ -102,7 +102,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 		},
 		'settlement-operations-platform': {
 			summary:
-				'차량·기사 정보부터 운송료·청구·정산까지 관리하는 ERP의 풀스택 개발을 맡았습니다. 여러 사람이 함께 수정하거나 Excel 자료를 일괄 등록해도 입력 내용과 확정된 정산 이력을 지키도록 구현했습니다.',
+				'차량 / 기사 정보부터 운송료 / 청구 / 정산까지 관리하는 ERP의 풀스택 개발을 맡았습니다. 여러 사람이 함께 수정하거나 Excel 자료를 일괄 등록해도 입력 내용과 확정된 정산 이력을 유지합니다.',
 			overviewDetail:
 				'ERP와 연계 모바일 앱을 풀스택으로 개발했습니다. 동시 수정 시 입력 보존, Excel 일괄 등록, 모바일 알림과 문서 다운로드를 구현했습니다.',
 			problem:
@@ -136,7 +136,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 		},
 		'react-admin-state-migration': {
 			summary:
-				'계좌·종목·주문을 조회하고 관리하는 React 프론트엔드 전체를 구축했습니다. MSW 모의 API로 화면을 개발하면서 반복되는 테이블과 조회 상태 처리를 공통화했습니다.',
+				'계좌 / 종목 / 주문을 조회 / 관리하는 React 프론트엔드 전체를 구축했습니다. MSW 모의 API를 사용하며, 테이블과 조회 상태 처리는 공통으로 관리합니다.',
 			overviewDetail:
 				'MSW 모의 API를 사용해 주식 업무 웹의 React 프론트엔드 전체를 구축했습니다. 공통 테이블과 필터, 조회·편집 상태 관리를 구현했습니다.',
 			problem:
@@ -158,7 +158,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 		},
 		'mobile-output-bridge': {
 			summary:
-				'물류 웹의 라벨 출력 요청을 Android 앱의 네이티브 모듈과 Bluetooth 프린터에 연결했습니다. 사용자가 장비를 선택하고 연결 상태를 확인한 뒤 출력할 수 있도록 구현했습니다.',
+				'물류 웹의 라벨 출력 요청을 Android 앱의 네이티브 모듈과 Bluetooth 프린터에 연결했습니다. 사용자는 장비를 선택하고 연결 상태를 확인한 뒤 라벨을 출력할 수 있습니다.',
 			problem:
 				'프린터가 목록에 표시되고 선택도 되지만 연결 단계에서 실패했습니다. 웹 요청만 확인해서는 원인을 찾을 수 없어 앱 권한과 프린터 SDK의 실제 호출을 함께 추적해야 했습니다.',
 			actions: [
@@ -175,7 +175,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 				{
 					title: '요청 접수와 인쇄 완료를 구분하는 안내',
 					description:
-						'SDK가 명령을 받았다는 응답을 실제 종이 출력 완료로 표시하지 않도록 안내를 정리했습니다. 앱에는 출력 요청을 전송한 상태를 보여 주도록 했습니다.',
+						'SDK가 출력 요청을 접수하면 앱에 ‘출력 요청 전송’으로 표시하도록 맞췄습니다.',
 				},
 			],
 			result:
@@ -183,7 +183,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 		},
 		'erp-mobile-workflow': {
 			summary:
-				'ERP와 연결되는 모바일 업무 앱에서 채팅 시스템을 제외한 대부분의 개발을 맡았습니다. React 업무 화면과 Spring Boot API를 구현하고, Flutter 앱의 알림·파일 다운로드와 연결했습니다.',
+				'ERP와 연결되는 모바일 업무 앱의 화면과 서버 API를 개발했습니다. React 업무 화면과 Spring Boot API를 Flutter 앱의 알림 / 파일 다운로드에 연결했습니다.',
 			problem:
 				'알림이 수정·삭제되는 순서와 실제 도착 순서가 달라지면 오래된 내용이 다시 표시될 수 있었습니다. 읽음 상태를 동시에 저장할 때는 DB 교착이 발생했고, 웹의 임시 파일 주소를 앱에 그대로 넘겨서는 문서를 내려받을 수 없었습니다.',
 			actions: [
@@ -378,7 +378,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 				{
 					title: 'Distinguish request acceptance from physical printing',
 					description:
-						'Changed completion messages so an SDK acknowledgement did not imply that a label had finished printing. Showed that the print request had been sent.',
+						'Displayed “Print request sent” when the SDK accepted the request.',
 				},
 			],
 			result:
@@ -386,7 +386,7 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 		},
 		'erp-mobile-workflow': {
 			summary:
-				'Owned most development of the ERP-connected mobile work app, excluding the chat system. Built React business screens and Spring Boot APIs and connected them to notifications and file downloads in the Flutter app.',
+				'Developed screens and server APIs for the ERP-connected mobile app. Connected React business screens and Spring Boot APIs to notifications and file downloads in Flutter.',
 			problem:
 				'Notifications could arrive out of order and restore outdated content after an edit or deletion. Concurrent receipt writes caused a database deadlock, and browser-only file URLs could not be passed directly to the app for downloads.',
 			actions: [
@@ -419,19 +419,19 @@ export const workDocumentCopy: Record<Locale, Record<string, CaseCopy>> = {
 export const supportingDocumentCopy: Record<Locale, Record<string, string>> = {
 	ko: {
 		'field-terminal-android':
-			'기존 PDA 앱에 입고 조회 조건과 수량 입력 화면을 추가하고 QR·바코드 스캔을 연결했습니다. 업무 모드별 코드 검사·중복 허용·수량 계산을 분리하고, 실기기 입력과 로그로 외부 검증 실패와 앱 내부 오류를 구분했습니다.',
+			'기존 PDA 앱에 입고 조회 조건 / 수량 입력 화면을 추가하고 QR / 바코드 스캔을 연결했습니다. 코드 검사 / 중복 허용 / 수량 계산은 업무 모드별로 나뉩니다. 실기기 입력과 로그로 외부 검증 실패와 앱 내부 오류를 구분했습니다.',
 		'legacy-mobile-compatibility':
-			'기존 Android 앱을 다시 빌드할 수 있도록 개발 도구의 호환 버전을 맞췄습니다. OS에 따라 달라지는 권한·파일 접근·뒤로가기 처리를 수정하고, 구형 OS 기기에서 동작을 확인했습니다.',
+			'기존 Android 앱의 재빌드를 위해 개발 도구의 호환 버전을 맞췄습니다. OS별 권한 / 파일 접근 / 뒤로가기 처리를 수정한 뒤 구형 OS 기기에서 동작을 확인했습니다.',
 		'hybrid-life-info-platform':
 			'공공 API를 연동해 날씨·대기질·특보 기능을 추가했습니다. 지역과 정보 종류별로 서버 응답을 캐시하고, 현재 날씨와 핵심 예보부터 표시했습니다. 재조회에 실패하면 이전 정보와 확인할 수 없는 정보를 구분했습니다.',
 		'structured-editor-ui':
-			'개발 중이던 사이트에 차트 설정·데이터 연결·미리보기 기능을 구현했습니다. 차트별 데이터 항목을 연결하고, 불필요한 차트 재생성을 줄여 깜빡임과 스크롤 흔들림을 완화했습니다.',
+			'개발 중이던 사이트에 차트 설정 / 데이터 연결 / 미리보기를 구현했습니다. 차트별 데이터 항목을 연결하고 불필요한 재생성을 줄인 결과, 깜빡임과 스크롤 흔들림이 완화됐습니다.',
 		'mobile-operations-platform':
-			'지도 마커 선택과 처리 후 지도 복귀를 수정했습니다. 통신이 끊겨도 배달완료 요청과 사진을 앱에 보관하고, 재실행 후 요청을 복원하도록 했습니다. 재전송 전에는 서버의 완료 내역과 대조하도록 구현했습니다.',
+			'지도 마커 선택과 처리 후 지도 복귀를 수정했습니다. 통신이 끊겨도 배달완료 요청과 사진은 앱에 보관되며, 재실행 후 요청을 복원합니다. 재전송 전에는 서버의 완료 내역과 대조합니다.',
 		'legacy-support-web':
 			'Excel 업로드 실패를 모두 시간 초과로 안내하던 화면을 수정했습니다. 파일 분석·입력 검증·통신 오류를 구분하고, 실패한 단계와 경과 시간을 표시하도록 구현해 로컬에서 확인했습니다.',
 		'multi-role-hybrid-platform':
-			'기존 웹과 Android 앱에 회원 검색·수정·중복 통합과 문의·첨부 기능을 추가했습니다. 서버에서 회원 역할과 작성자를 확인해 접근을 제한하고, 앱의 파일 선택과 이미지 미리보기를 연결했습니다.',
+			'기존 웹과 Android 앱에 회원 검색 / 수정 / 중복 통합과 문의 / 첨부 기능을 추가했습니다. 서버에서 회원 역할 / 작성자를 확인해 접근을 제한하며, 앱은 파일 선택과 이미지 미리보기를 지원합니다.',
 		'ai-kickoff-documentation-tool':
 			'요구사항을 검토하고 표를 편집하는 화면을 개발했습니다. 선택한 시트와 셀에 AI 수정을 적용하고, 작업 실행·결과 저장·문서 내보내기를 처리하는 서버 API를 구현했습니다.',
 	},

@@ -1,0 +1,2 @@
+# Reviewed JSON hashes must survive Windows checkouts unchanged.
+/src/data/generated/**/*.json text eol=lf

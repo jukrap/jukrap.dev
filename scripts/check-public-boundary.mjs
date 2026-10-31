@@ -42,6 +42,7 @@ export function isAllowedRepositoryPath(name) {
 		);
 	}
 	return [
+		'.gitattributes',
 		'.env.example',
 		'.gitignore',
 		'.nvmrc',

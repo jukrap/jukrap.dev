@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "contentRevision": "17cee904ad85a500",
+  "rendererFingerprint": "c83f58ee9b6c73c70153bc4040152fe96c4be0b6a8629f614914bc9d1aa63630",
+  "files": {
+    "portfolio-ko.pdf": {
+      "sha256": "7f6f6afdabab74002015e30026ce1f7d9632e03754934ae5c51567d482e175d9",
+      "pages": 17
+    },
+    "portfolio-en.pdf": {
+      "sha256": "b40d93ed6d629745aff835c480beb75226b8ad399953b0a4192368f69f1551e5",
+      "pages": 17
+    },
+    "resume-ko.pdf": {
+      "sha256": "03e8a9a3694c30aca1d308a15e1249f1373c69d90d13b6f5e849f42c2481d90d",
+      "pages": 2
+    },
+    "resume-en.pdf": {
+      "sha256": "c15dec33821c25c6acb11f6957d3475de4da908d2effdf37ef6e6afb45ad8d87",
+      "pages": 2
+    },
+    "career-brief-ko.pdf": {
+      "sha256": "651d58f3382880cb007282dae33bc90c465385ca3aec5a444677632e511a1f71",
+      "pages": 2
+    },
+    "career-brief-en.pdf": {
+      "sha256": "e9514e65f6fdd74b58275d521d2aca717d4709948b176603b07417074a427aae",
+      "pages": 2
+    }
+  }
+}

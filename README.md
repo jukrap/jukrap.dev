@@ -1,22 +1,27 @@
 # jukrap.dev
 
-박주철의 웹·모바일 개발 경험과 프로젝트를 소개하는 개인 웹사이트입니다. 한국어와 영어를 지원합니다.
+React와 Next.js로 만든 개인 웹사이트입니다.
 
-## 페이지 구성
+## 실행
 
-- **Home**: 소개와 포트폴리오·이력서·경력기술서 링크
-- **About**: 경력, 개발 경험, 기술과 활동
-- **Work**: 회사 업무의 담당 범위, 구현 과정, 기술적 판단과 확인한 결과
-- **Projects**: 개인·팀 프로젝트의 구현 내용과 화면
+Node.js 24와 npm을 사용합니다.
 
-포트폴리오·이력서·경력기술서는 웹에서 읽거나 PDF로 내려받을 수 있습니다. 웹사이트에는 문서에 선별하지 않은 업무와 상세 구현도 담았습니다.
+```sh
+npm ci
+npm run dev
+npm run build
+npm run start
+```
 
-## 개발 환경
+## 검증
 
-Node.js 24와 npm을 사용하며 `package-lock.json`으로 의존성을 관리합니다.
+```sh
+npm run check:public
+npm run test:content
+npx tsc --noEmit --incremental false
+npx prettier --check .
+```
 
-- Next.js 16 App Router, React 19, TypeScript
-- Tailwind CSS, Framer Motion, Zustand
-- Three.js, Sharp
+공개 콘텐츠는 외부 편집 원본에서 검수한 데이터로 생성됩니다. `src/data/generated`와 생성 어댑터는 직접 수정하지 않습니다. 사이트는 비공개 편집 자료 없이 빌드할 수 있습니다.
 
-실행·빌드 명령은 [package.json](package.json), 문서 관리와 PDF 갱신 절차는 [채용 문서 운영 가이드](docs/recruiting-documents.md)에서 확인할 수 있습니다.
+저장소에는 사이트 코드·설정·승인된 공개 콘텐츠·배포 자산만 포함합니다. `public/documents`의 한영 포트폴리오·이력서·경력기술서 PDF 6종을 제공합니다. 개인 작업 기록과 회사별 지원 자료는 포함하지 않습니다.

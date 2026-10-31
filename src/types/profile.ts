@@ -22,9 +22,7 @@ export interface Award {
 	period: string;
 	award: string;
 	details: (
-		| string
-		| { text: string; link: string }
-		| { text: string; projectId: string }
+		string | { text: string; link: string } | { text: string; projectId: string }
 	)[];
 }
 

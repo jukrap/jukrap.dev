@@ -9,8 +9,12 @@ import postcss from 'postcss';
 const origin = process.env.DOCUMENT_ORIGIN || 'http://127.0.0.1:3100';
 const renderer = process.env.PDF_RENDERER;
 if (!renderer) throw new Error('Set PDF_RENDERER to a Chromium executable.');
-const output = path.resolve('public/documents');
-const scratch = path.resolve('output/pdf/web-documents');
+const output = path.resolve(
+	process.env.DOCUMENT_PDF_OUTPUT_DIR || 'public/documents',
+);
+const scratch = path.resolve(
+	process.env.DOCUMENT_PDF_SCRATCH_DIR || 'output/pdf/web-documents',
+);
 await mkdir(output, { recursive: true });
 await mkdir(scratch, { recursive: true });
 const assets = new Map();

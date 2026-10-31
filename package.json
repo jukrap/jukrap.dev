@@ -9,7 +9,11 @@
 		"dev": "next dev --webpack --hostname 127.0.0.1",
 		"generate-metadata": "ts-node scripts/generate-image-metadata.ts",
 		"build": "npm run generate-metadata && next build --webpack",
-		"start": "next start"
+		"start": "next start",
+		"check:public": "node scripts/check-public-boundary.mjs",
+		"check:staged": "node scripts/check-public-boundary.mjs --staged",
+		"test:content": "node --test scripts/public-boundary.test.mjs",
+		"prebuild": "npm run check:public"
 	},
 	"dependencies": {
 		"@vercel/analytics": "^2.0.1",
@@ -18,9 +22,9 @@
 		"clsx": "^2.1.1",
 		"framer-motion": "^12.40.0",
 		"lucide-react": "^1.17.0",
-		"next": "^16.2.7",
-		"react": "^19.2.7",
-		"react-dom": "^19.2.7",
+		"next": "^16.4.3",
+		"react": "^19.3.1",
+		"react-dom": "^19.3.1",
 		"react-modal": "^3.16.3",
 		"tailwind-merge": "^3.6.0",
 		"tailwindcss-animate": "^1.0.7",
@@ -28,15 +32,14 @@
 		"zustand": "^5.0.14"
 	},
 	"devDependencies": {
-		"@svgr/webpack": "^8.1.0",
-		"@types/node": "^25.9.1",
+		"@types/node": "^24.0.0",
 		"@types/react": "^19.2.16",
 		"@types/react-dom": "^19.2.3",
 		"@types/react-modal": "^3.16.3",
 		"@types/three": "^0.186.0",
-		"postcss": "^8.5.15",
+		"postcss": "^8.5.32",
 		"prettier": "^3.8.3",
-		"sharp": "^0.34.5",
+		"sharp": "^0.35.5",
 		"tailwindcss": "^3.4.0",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.9.3"

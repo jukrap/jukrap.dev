@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "revision": "17cee904ad85a500",
+  "modules": {
+    "workCases.json": "e3fb1f0a539403b0f04f0b35c83af0c76afa2739cc453d114f9ae9f9b67cb4f5",
+    "workStories.json": "2f89ab89d92338d198bfa033246d4213cc2a97f96591c6c8d29a2ae34637f72b",
+    "decisionCases.json": "e10136315800b11c29fe26a636c8fb404d4e34a29ec4a2fca9b673330e22e88b",
+    "projectsData.json": "3df7a2dc2b6e55dfdf437bdbdebfdf409c48735c76547f0e7de1005b0aa6c32b",
+    "projectsDetailData.json": "ea30ef2279dad05db897cfee7fd0566ef71fa70434cd79b2e8b62fff3c7f783b",
+    "about-activities.json": "39b681fec2bdd3f8b1ac2e6861daa64aed50ade51152086af5aaf843e3397fb0",
+    "about-awards.json": "0bd64a7bc423ce748d8027c9b31e25fc7c233b4dbceccc40fdc1ea66006e9705",
+    "about-coreValues.json": "06a43faf049e0159e84dd8d39b72c0c144b131207473a33d5d7dc172752d9e91",
+    "about-greetings.json": "5a7e2c7cc572cf0336a46d61ce2bc9e6d79ec47d278449f5a233c6c6bdda0a44",
+    "about-links.json": "7bbea20df32b767373d46ece588e53deb8f9444944705e5a47d7f7a3122b84d7",
+    "about-personalInfo.json": "6659378819003832d06ea2a52a387c6477a9127267b8af6022d5965249650085",
+    "about-skills.json": "b562fee579a3a3028e365b2ea8fa60f8e533356238533e5b92d07a834ba7f1d0",
+    "i18n-portfolio.json": "3688712991d44207df7619d234e5c326c82231df4bf57a34b6bbd3ab58525fa2",
+    "i18n-dictionaries.json": "c8c0b2bacd83b5aeeb5ee08581ed7e78acf136e6fda6aecafd41f6e1035f5039",
+    "documents-editorialCopy.json": "1867fadea95d874a81897b506daf4e2912c731a6118e0e9972ec6a211d4c70d5",
+    "documents-projectCopy.json": "456939fb22f2694a1f384436973c9dbf52747bcdd97a3640b484e607bbfe497d",
+    "documents-profileEvidence.json": "9b63156ffad2107b6862e19ef4e1aeb020119bda14ece2a8877eb66de621f928",
+    "documents-publicContact.json": "c666b1fe8d9b227d5cd91e9d2a45b13abcfbced204f4706b3b06f4fcf2f5907a",
+    "documents-documentSkills.json": "2633f5f20879d76c4385b9ce119a812222f90df1a8cbcf864b4b3a7142cd4ecf",
+    "documents-manifest.json": "092efa955cf57b6006967a0434e42cb4d7cb66167534d8df4abe80415b890ad3",
+    "documents-portfolio.json": "966bd77c5b572802b912654afccc84e9690383e80f4be530e182b30c874ca395",
+    "documents-portfolioFeatureCases.json": "a81fd9d0dae57d53fd1a0c0459c3d694a7defd21cdd1d02bfbb1c7e2f804af54",
+    "documents-privateDocuments.json": "3628e371fc4f4500839ff8b4656056b1e1282e83731451928864ec4597ac221e"
+  }
+}

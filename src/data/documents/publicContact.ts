@@ -1,21 +1,47 @@
-import { personalInfo } from '@/data/about/personalInfo';
-import type { DocumentContact } from '@/types/documents';
+// Generated from the reviewed public content snapshot. Edit the authoring source.
 
-export const portfolioPublicEmails = [
+import { readCareerValue, readCareerCall } from '@/data/publicCareer';
+
+import snapshot from '@/data/generated/career/documents-publicContact.json';
+
+export const portfolioPublicEmails: readonly [
 	{
-		label: '이메일',
-		address: personalInfo.email,
+		readonly label: '이메일';
+		readonly address: string;
 	},
-] as const;
-
-export const publicDocumentContact = {
-	name: '박주철',
-	email: personalInfo.email,
-	links: [
+] = readCareerValue<
+	readonly [
 		{
-			label: 'jukrap.vercel.app',
-			href: 'https://jukrap.vercel.app',
+			readonly label: '이메일';
+			readonly address: string;
 		},
-		{ label: 'github.com/jukrap', href: 'https://github.com/jukrap' },
-	],
-} as const satisfies DocumentContact;
+	]
+>(snapshot, 'portfolioPublicEmails');
+
+export const publicDocumentContact: {
+	readonly name: '박주철';
+	readonly email: string;
+	readonly links: readonly [
+		{
+			readonly label: 'jukrap.vercel.app';
+			readonly href: 'https://jukrap.vercel.app';
+		},
+		{
+			readonly label: 'github.com/jukrap';
+			readonly href: 'https://github.com/jukrap';
+		},
+	];
+} = readCareerValue<{
+	readonly name: '박주철';
+	readonly email: string;
+	readonly links: readonly [
+		{
+			readonly label: 'jukrap.vercel.app';
+			readonly href: 'https://jukrap.vercel.app';
+		},
+		{
+			readonly label: 'github.com/jukrap';
+			readonly href: 'https://github.com/jukrap';
+		},
+	];
+}>(snapshot, 'publicDocumentContact');

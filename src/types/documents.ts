@@ -6,12 +6,7 @@ export type RecruitingDocumentId = 'portfolio' | 'resume' | 'career-brief';
 export type RecruitingDocumentVisibility = 'public' | 'private';
 
 export type DocumentEvidenceSource =
-	| 'work-story'
-	| 'work-case'
-	| 'project'
-	| 'activity'
-	| 'award'
-	| 'profile';
+	'work-story' | 'work-case' | 'project' | 'activity' | 'award' | 'profile';
 
 export interface DocumentEvidenceRef {
 	source: DocumentEvidenceSource;

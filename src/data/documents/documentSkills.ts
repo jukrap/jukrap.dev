@@ -1,43 +1,101 @@
-import { skills } from '@/data/about/skills';
-import { projectsDetailData } from '@/data/projectsDetailData';
-import { workCases } from '@/data/workCases';
-import type { DocumentSkillGroup } from '@/types/documents';
+// Generated from the reviewed public content snapshot. Edit the authoring source.
 
-export const recruitingDocumentSkillGroups = [
-	{
-		label: '언어',
-		items: ['TypeScript', 'JavaScript', 'Java', 'Python', 'Dart'],
-	},
-	{
-		label: '웹',
-		items: ['React', 'Next.js', 'Vite', 'TanStack Query', 'Zustand', 'Django'],
-	},
-	{
-		label: '모바일·하이브리드',
-		items: ['React Native', 'Expo', 'Flutter', 'Android', 'Gradle'],
-	},
-	{
-		label: '테스트·관측',
-		items: ['Vitest', 'MSW', 'Storybook', 'Sentry', 'Ragas'],
-	},
-	{
-		label: '도구와 데이터',
-		items: ['GitHub Actions', 'Jenkins', 'Docker', 'MariaDB', 'SQLite'],
-	},
-] as const satisfies readonly DocumentSkillGroup[];
+import { readCareerValue, readCareerCall } from '@/data/publicCareer';
 
-const documentedSkills = new Set([
-	...skills.flatMap(({ items }) => items.split(',').map((item) => item.trim())),
-	...projectsDetailData.flatMap(({ techStack }) => techStack),
-	...workCases.ko.flatMap(({ stack }) => stack),
-]);
+import snapshot from '@/data/generated/career/documents-documentSkills.json';
 
-const unsupportedSkills = recruitingDocumentSkillGroups
-	.flatMap(({ items }) => items)
-	.filter((item) => !documentedSkills.has(item));
-
-if (unsupportedSkills.length > 0) {
-	throw new Error(
-		`Recruiting document skills require source evidence: ${unsupportedSkills.join(', ')}`,
-	);
-}
+export const recruitingDocumentSkillGroups: readonly [
+	{
+		readonly label: '언어';
+		readonly items: readonly [
+			'TypeScript',
+			'JavaScript',
+			'Java',
+			'Python',
+			'Dart',
+		];
+	},
+	{
+		readonly label: '웹';
+		readonly items: readonly [
+			'React',
+			'Next.js',
+			'Vite',
+			'TanStack Query',
+			'Zustand',
+			'Django',
+		];
+	},
+	{
+		readonly label: '모바일·하이브리드';
+		readonly items: readonly [
+			'React Native',
+			'Expo',
+			'Flutter',
+			'Android',
+			'Gradle',
+		];
+	},
+	{
+		readonly label: '테스트·관측';
+		readonly items: readonly ['Vitest', 'MSW', 'Storybook', 'Sentry', 'Ragas'];
+	},
+	{
+		readonly label: '도구와 데이터';
+		readonly items: readonly [
+			'GitHub Actions',
+			'Jenkins',
+			'Docker',
+			'MariaDB',
+			'SQLite',
+		];
+	},
+] = readCareerValue<
+	readonly [
+		{
+			readonly label: '언어';
+			readonly items: readonly [
+				'TypeScript',
+				'JavaScript',
+				'Java',
+				'Python',
+				'Dart',
+			];
+		},
+		{
+			readonly label: '웹';
+			readonly items: readonly [
+				'React',
+				'Next.js',
+				'Vite',
+				'TanStack Query',
+				'Zustand',
+				'Django',
+			];
+		},
+		{
+			readonly label: '모바일·하이브리드';
+			readonly items: readonly [
+				'React Native',
+				'Expo',
+				'Flutter',
+				'Android',
+				'Gradle',
+			];
+		},
+		{
+			readonly label: '테스트·관측';
+			readonly items: readonly ['Vitest', 'MSW', 'Storybook', 'Sentry', 'Ragas'];
+		},
+		{
+			readonly label: '도구와 데이터';
+			readonly items: readonly [
+				'GitHub Actions',
+				'Jenkins',
+				'Docker',
+				'MariaDB',
+				'SQLite',
+			];
+		},
+	]
+>(snapshot, 'recruitingDocumentSkillGroups');

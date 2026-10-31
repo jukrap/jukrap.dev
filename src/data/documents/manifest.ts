@@ -1,141 +1,243 @@
+// Generated from the reviewed public content snapshot. Edit the authoring source.
+
+import { readCareerValue, readCareerCall } from '@/data/publicCareer';
+
+import snapshot from '@/data/generated/career/documents-manifest.json';
+
 import type { RecruitingDocumentManifest } from '@/types/documents';
+
 import type { Locale } from '@/types/locale';
 
-const featuredWorkStoryIds = [
-	'ai-document-analysis',
-	'settlement-operations-platform',
-	'delivery-output-flow',
-] as const;
-const supportingWorkStoryIds = [
-	'react-admin-state-migration',
-	'multi-role-hybrid-platform',
-	'mobile-operations-platform',
-	'legacy-support-web',
-	'hybrid-life-info-platform',
-	'structured-editor-ui',
-] as const;
+export const portfolioPageIds: readonly ['cover', ...string[], 'closing'] =
+	readCareerValue<readonly ['cover', ...string[], 'closing']>(
+		snapshot,
+		'portfolioPageIds',
+	);
 
-const portfolioProjectIds = [
-	'ai-agent-playbook',
-	'captain-donghae',
-	'sharebby',
-	'itzip',
-	'posture-teacher',
-] as const;
-const portfolioDetailedWorkStoryIds = [
-	'react-admin-state-migration',
-	'hybrid-life-info-platform',
-	'hybrid-security-boundary',
-	'ai-kickoff-documentation-tool',
-] as const;
-export const portfolioPageIds = [
-	'cover',
-	...featuredWorkStoryIds.flatMap((id) =>
-		id === 'delivery-output-flow'
-			? ['logistics-web', 'logistics-mobile']
-			: id === 'settlement-operations-platform'
-				? [id, 'erp-mobile-workflow']
-				: [id],
-	),
-	'ai-agent-playbook',
-	'react-admin-state-migration',
-	'weather-feature',
-	'hybrid-security-boundary',
-	'ai-kickoff-documentation-tool',
-	'supporting-work',
-	...portfolioProjectIds.filter((id) => id !== 'ai-agent-playbook'),
-	'closing',
-] as const;
-export function getPortfolioPageNumber(id: string) {
-	const index = portfolioPageIds.indexOf(id);
-	if (index < 0) throw new Error(`Unknown portfolio page: ${id}`);
-	return index + 1;
+export function getPortfolioPageNumber(id: string): number {
+	return readCareerCall<number>(snapshot, 'getPortfolioPageNumber', id);
 }
 
-export const recruitingDocumentManifest = {
-	locale: 'ko',
-	role: '웹·모바일 개발자',
-	documents: [
+export const recruitingDocumentManifest: {
+	readonly locale: 'ko';
+	readonly role: '웹·모바일 개발자';
+	readonly documents: readonly [
 		{
-			id: 'portfolio',
-			title: '포트폴리오',
-			description:
-				'주요 업무와 개인 프로젝트에서 내린 판단, 검증 과정과 결과를 소개합니다.',
-			slug: '/ko/portfolio',
-			visibility: 'public',
-			pageCount: portfolioPageIds.length,
-			indexable: true,
-			showOnHome: true,
+			readonly id: 'portfolio';
+			readonly title: '포트폴리오';
+			readonly description: '주요 업무와 개인 프로젝트에서 내린 판단, 검증 과정과 결과를 소개합니다.';
+			readonly slug: '/ko/portfolio';
+			readonly visibility: 'public';
+			readonly pageCount: number;
+			readonly indexable: true;
+			readonly showOnHome: true;
 		},
 		{
-			id: 'resume',
-			title: '이력서',
-			description:
-				'경력, 역량, 선별 프로젝트를 두 쪽 안에서 빠르게 확인하는 문서입니다.',
-			slug: '/ko/resume',
-			visibility: 'public',
-			pageCount: 2,
-			indexable: false,
-			showOnHome: true,
+			readonly id: 'resume';
+			readonly title: '이력서';
+			readonly description: '경력, 역량, 선별 프로젝트를 두 쪽 안에서 빠르게 확인하는 문서입니다.';
+			readonly slug: '/ko/resume';
+			readonly visibility: 'public';
+			readonly pageCount: 2;
+			readonly indexable: false;
+			readonly showOnHome: true;
 		},
 		{
-			id: 'career-brief',
-			title: '경력기술서',
-			description:
-				'트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.',
-			slug: '/ko/career-brief',
-			visibility: 'public',
-			pageCount: 2,
-			indexable: false,
-			showOnHome: true,
+			readonly id: 'career-brief';
+			readonly title: '경력기술서';
+			readonly description: '트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.';
+			readonly slug: '/ko/career-brief';
+			readonly visibility: 'public';
+			readonly pageCount: 2;
+			readonly indexable: false;
+			readonly showOnHome: true;
 		},
-	],
-	selection: {
-		featuredWorkStoryIds,
-		supportingWorkStoryIds,
-		portfolioDetailedWorkStoryIds,
-		portfolioSupportingWorkStoryIds: [
+	];
+	readonly selection: {
+		readonly featuredWorkStoryIds: readonly [
+			'ai-document-analysis',
+			'settlement-operations-platform',
+			'delivery-output-flow',
+		];
+		readonly supportingWorkStoryIds: readonly [
+			'react-admin-state-migration',
+			'multi-role-hybrid-platform',
+			'mobile-operations-platform',
+			'legacy-support-web',
+			'hybrid-life-info-platform',
+			'structured-editor-ui',
+		];
+		readonly portfolioDetailedWorkStoryIds: readonly [
+			'react-admin-state-migration',
+			'hybrid-life-info-platform',
+			'hybrid-security-boundary',
+			'ai-kickoff-documentation-tool',
+		];
+		readonly portfolioSupportingWorkStoryIds: readonly [
 			'multi-role-hybrid-platform',
 			'mobile-operations-platform',
 			'structured-editor-ui',
 			'field-terminal-android',
 			'legacy-mobile-compatibility',
-		],
-		portfolioProjectIds,
-		resumeProjectIds: [
+		];
+		readonly portfolioProjectIds: readonly [
+			'ai-agent-playbook',
+			'captain-donghae',
+			'sharebby',
+			'itzip',
+			'posture-teacher',
+		];
+		readonly resumeProjectIds: readonly [
 			'ai-agent-playbook',
 			'captain-donghae',
 			'sharebby',
 			'posture-teacher',
-		],
-	},
-} as const satisfies RecruitingDocumentManifest;
+		];
+	};
+} = readCareerValue<{
+	readonly locale: 'ko';
+	readonly role: '웹·모바일 개발자';
+	readonly documents: readonly [
+		{
+			readonly id: 'portfolio';
+			readonly title: '포트폴리오';
+			readonly description: '주요 업무와 개인 프로젝트에서 내린 판단, 검증 과정과 결과를 소개합니다.';
+			readonly slug: '/ko/portfolio';
+			readonly visibility: 'public';
+			readonly pageCount: number;
+			readonly indexable: true;
+			readonly showOnHome: true;
+		},
+		{
+			readonly id: 'resume';
+			readonly title: '이력서';
+			readonly description: '경력, 역량, 선별 프로젝트를 두 쪽 안에서 빠르게 확인하는 문서입니다.';
+			readonly slug: '/ko/resume';
+			readonly visibility: 'public';
+			readonly pageCount: 2;
+			readonly indexable: false;
+			readonly showOnHome: true;
+		},
+		{
+			readonly id: 'career-brief';
+			readonly title: '경력기술서';
+			readonly description: '트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.';
+			readonly slug: '/ko/career-brief';
+			readonly visibility: 'public';
+			readonly pageCount: 2;
+			readonly indexable: false;
+			readonly showOnHome: true;
+		},
+	];
+	readonly selection: {
+		readonly featuredWorkStoryIds: readonly [
+			'ai-document-analysis',
+			'settlement-operations-platform',
+			'delivery-output-flow',
+		];
+		readonly supportingWorkStoryIds: readonly [
+			'react-admin-state-migration',
+			'multi-role-hybrid-platform',
+			'mobile-operations-platform',
+			'legacy-support-web',
+			'hybrid-life-info-platform',
+			'structured-editor-ui',
+		];
+		readonly portfolioDetailedWorkStoryIds: readonly [
+			'react-admin-state-migration',
+			'hybrid-life-info-platform',
+			'hybrid-security-boundary',
+			'ai-kickoff-documentation-tool',
+		];
+		readonly portfolioSupportingWorkStoryIds: readonly [
+			'multi-role-hybrid-platform',
+			'mobile-operations-platform',
+			'structured-editor-ui',
+			'field-terminal-android',
+			'legacy-mobile-compatibility',
+		];
+		readonly portfolioProjectIds: readonly [
+			'ai-agent-playbook',
+			'captain-donghae',
+			'sharebby',
+			'itzip',
+			'posture-teacher',
+		];
+		readonly resumeProjectIds: readonly [
+			'ai-agent-playbook',
+			'captain-donghae',
+			'sharebby',
+			'posture-teacher',
+		];
+	};
+}>(snapshot, 'recruitingDocumentManifest');
 
-export const portfolioDocumentDefinition =
-	recruitingDocumentManifest.documents[0];
-export const resumeDocumentDefinition = recruitingDocumentManifest.documents[1];
-export const careerBriefDocumentDefinition =
-	recruitingDocumentManifest.documents[2];
+export const portfolioDocumentDefinition: {
+	readonly id: 'portfolio';
+	readonly title: '포트폴리오';
+	readonly description: '주요 업무와 개인 프로젝트에서 내린 판단, 검증 과정과 결과를 소개합니다.';
+	readonly slug: '/ko/portfolio';
+	readonly visibility: 'public';
+	readonly pageCount: number;
+	readonly indexable: true;
+	readonly showOnHome: true;
+} = readCareerValue<{
+	readonly id: 'portfolio';
+	readonly title: '포트폴리오';
+	readonly description: '주요 업무와 개인 프로젝트에서 내린 판단, 검증 과정과 결과를 소개합니다.';
+	readonly slug: '/ko/portfolio';
+	readonly visibility: 'public';
+	readonly pageCount: number;
+	readonly indexable: true;
+	readonly showOnHome: true;
+}>(snapshot, 'portfolioDocumentDefinition');
+
+export const resumeDocumentDefinition: {
+	readonly id: 'resume';
+	readonly title: '이력서';
+	readonly description: '경력, 역량, 선별 프로젝트를 두 쪽 안에서 빠르게 확인하는 문서입니다.';
+	readonly slug: '/ko/resume';
+	readonly visibility: 'public';
+	readonly pageCount: 2;
+	readonly indexable: false;
+	readonly showOnHome: true;
+} = readCareerValue<{
+	readonly id: 'resume';
+	readonly title: '이력서';
+	readonly description: '경력, 역량, 선별 프로젝트를 두 쪽 안에서 빠르게 확인하는 문서입니다.';
+	readonly slug: '/ko/resume';
+	readonly visibility: 'public';
+	readonly pageCount: 2;
+	readonly indexable: false;
+	readonly showOnHome: true;
+}>(snapshot, 'resumeDocumentDefinition');
+
+export const careerBriefDocumentDefinition: {
+	readonly id: 'career-brief';
+	readonly title: '경력기술서';
+	readonly description: '트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.';
+	readonly slug: '/ko/career-brief';
+	readonly visibility: 'public';
+	readonly pageCount: 2;
+	readonly indexable: false;
+	readonly showOnHome: true;
+} = readCareerValue<{
+	readonly id: 'career-brief';
+	readonly title: '경력기술서';
+	readonly description: '트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.';
+	readonly slug: '/ko/career-brief';
+	readonly visibility: 'public';
+	readonly pageCount: 2;
+	readonly indexable: false;
+	readonly showOnHome: true;
+}>(snapshot, 'careerBriefDocumentDefinition');
 
 export function getRecruitingDocumentManifest(
 	locale: Locale,
 ): RecruitingDocumentManifest {
-	if (locale === 'ko') return recruitingDocumentManifest;
-	const titles = ['Portfolio', 'Resume', 'Career Brief'];
-	const descriptions = [
-		'Frontend case studies, implementation decisions, and selected personal projects.',
-		'A two-page summary of experience, skills, and selected projects.',
-		'A two-page account of implementation work and outcomes at Triphos.',
-	];
-	return {
-		...recruitingDocumentManifest,
+	return readCareerCall<RecruitingDocumentManifest>(
+		snapshot,
+		'getRecruitingDocumentManifest',
 		locale,
-		role: 'Web & Mobile Developer',
-		documents: recruitingDocumentManifest.documents.map((document, index) => ({
-			...document,
-			title: titles[index],
-			description: descriptions[index],
-			slug: `/${locale}/${document.id}`,
-		})),
-	};
+	);
 }

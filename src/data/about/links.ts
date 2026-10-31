@@ -1,27 +1,9 @@
+// Generated from the reviewed public content snapshot. Edit the authoring source.
+
+import { readCareerValue, readCareerCall } from '@/data/publicCareer';
+
+import snapshot from '@/data/generated/career/about-links.json';
+
 import { Link } from '@/types/common';
 
-export const links: Link[] = [
-	{
-		text: 'Email',
-		type: 'email',
-		url: 'mailto:jukrap628@gmail.com',
-	},
-	{
-		text: 'GitHub',
-		type: 'github',
-		url: 'https://github.com/jukrap',
-		isExternal: true,
-	},
-	{
-		text: 'Blog',
-		type: 'blog',
-		url: 'https://valur.tistory.com/',
-		isExternal: true,
-	},
-	{
-		text: 'LinkedIn',
-		type: 'linkedin',
-		url: 'https://www.linkedin.com/in/jukrap/',
-		isExternal: true,
-	},
-] as const;
+export const links: Link[] = readCareerValue<Link[]>(snapshot, 'links');

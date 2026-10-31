@@ -1,7 +1,11 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
 	reactStrictMode: true,
+	outputFileTracingRoot: path.dirname(fileURLToPath(import.meta.url)),
 	async headers() {
 		const privateDocumentHeaders = [
 			{
@@ -47,13 +51,6 @@ const nextConfig = {
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 	},
 	turbopack: {},
-	webpack: (config) => {
-		config.module.rules.push({
-			test: /\.svg$/,
-			use: ['@svgr/webpack'],
-		});
-		return config;
-	},
 };
 
 export default nextConfig;

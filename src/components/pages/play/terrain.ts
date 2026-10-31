@@ -17,8 +17,7 @@ function noise(x: number, z: number, seed: number) {
 	return a * (1 - fz) + b * fz;
 }
 let riverConfig:
-	| { seed: number; sin: number; cos: number; spacing: number }
-	| undefined;
+	{ seed: number; sin: number; cos: number; spacing: number } | undefined;
 function riverSettings(seed: number) {
 	if (riverConfig?.seed !== seed) {
 		const angle = hash2(81, 17, seed) * Math.PI;

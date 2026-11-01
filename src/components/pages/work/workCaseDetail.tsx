@@ -29,7 +29,7 @@ const EditorialSection = ({ title, children }: EditorialSectionProps) => (
 );
 
 const EvidenceList = ({ items }: { items: string[] }) => (
-	<ul className="space-y-3 text-[0.9375rem] leading-7 text-foreground/80">
+	<ul className="space-y-3 text-[0.9375rem] leading-7 text-foreground/80 break-keep">
 		{items.map((item) => (
 			<li
 				key={item}

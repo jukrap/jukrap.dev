@@ -287,7 +287,7 @@ const AdditionalEvidence = ({
 				aria-hidden="true"
 			/>
 		</summary>
-		<div className="border-t border-border/45 bg-secondary/20 px-4 py-8 sm:px-6">
+		<div className="border-t border-border/45 bg-secondary/20 px-4 pt-8 sm:px-6">
 			<div className="space-y-12">
 				{story.chapters.map((chapter) => (
 					<ChapterEvidence

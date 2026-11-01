@@ -105,7 +105,7 @@ export const CompactWorkStory = ({
 								aria-hidden="true"
 							/>
 						</summary>
-						<div className="border-t border-border/45 bg-secondary/20 px-4 py-8 sm:px-5">
+						<div className="border-t border-border/45 bg-secondary/20 px-4 pt-8 sm:px-5">
 							{hasMultipleChapters ? (
 								<div className="space-y-10">
 									{story.chapters.map((item) => (

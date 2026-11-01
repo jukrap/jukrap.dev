@@ -93,6 +93,18 @@ export const workStoryDefinitions: readonly [
 		readonly caseIds: readonly ['field-terminal-android'];
 		readonly includeInAbout: false;
 	},
+	{
+		readonly id: 'association-exam-registration';
+		readonly tier: 'compact';
+		readonly caseIds: readonly ['association-exam-registration'];
+		readonly includeInAbout: false;
+	},
+	{
+		readonly id: 'transport-partner-recruitment';
+		readonly tier: 'compact';
+		readonly caseIds: readonly ['transport-partner-recruitment'];
+		readonly includeInAbout: false;
+	},
 ] = readCareerValue<
 	readonly [
 		{
@@ -177,6 +189,18 @@ export const workStoryDefinitions: readonly [
 			readonly id: 'field-terminal-android';
 			readonly tier: 'compact';
 			readonly caseIds: readonly ['field-terminal-android'];
+			readonly includeInAbout: false;
+		},
+		{
+			readonly id: 'association-exam-registration';
+			readonly tier: 'compact';
+			readonly caseIds: readonly ['association-exam-registration'];
+			readonly includeInAbout: false;
+		},
+		{
+			readonly id: 'transport-partner-recruitment';
+			readonly tier: 'compact';
+			readonly caseIds: readonly ['transport-partner-recruitment'];
 			readonly includeInAbout: false;
 		},
 	]

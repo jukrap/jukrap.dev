@@ -16,7 +16,9 @@ export type WorkstreamId =
 	| 'WS13'
 	| 'WS14'
 	| 'WS15'
-	| 'WS16';
+	| 'WS16'
+	| 'WS18'
+	| 'WS19';
 
 export type WorkStoryTier = 'featured' | 'compact';
 

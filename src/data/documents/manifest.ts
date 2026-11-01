@@ -45,7 +45,7 @@ export const recruitingDocumentManifest: {
 		{
 			readonly id: 'career-brief';
 			readonly title: '경력기술서';
-			readonly description: '트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.';
+			readonly description: '트리포스에서 맡은 개발, 유지보수 업무와 주요 결과를 두 쪽에 정리한 경력기술서입니다.';
 			readonly slug: '/ko/career-brief';
 			readonly visibility: 'public';
 			readonly pageCount: 2;
@@ -121,7 +121,7 @@ export const recruitingDocumentManifest: {
 		{
 			readonly id: 'career-brief';
 			readonly title: '경력기술서';
-			readonly description: '트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.';
+			readonly description: '트리포스에서 맡은 개발, 유지보수 업무와 주요 결과를 두 쪽에 정리한 경력기술서입니다.';
 			readonly slug: '/ko/career-brief';
 			readonly visibility: 'public';
 			readonly pageCount: 2;
@@ -215,7 +215,7 @@ export const resumeDocumentDefinition: {
 export const careerBriefDocumentDefinition: {
 	readonly id: 'career-brief';
 	readonly title: '경력기술서';
-	readonly description: '트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.';
+	readonly description: '트리포스에서 맡은 개발, 유지보수 업무와 주요 결과를 두 쪽에 정리한 경력기술서입니다.';
 	readonly slug: '/ko/career-brief';
 	readonly visibility: 'public';
 	readonly pageCount: 2;
@@ -224,7 +224,7 @@ export const careerBriefDocumentDefinition: {
 } = readCareerValue<{
 	readonly id: 'career-brief';
 	readonly title: '경력기술서';
-	readonly description: '트리포스에서 담당한 개발·유지보수 업무와 확인한 결과를 두 쪽으로 정리했습니다.';
+	readonly description: '트리포스에서 맡은 개발, 유지보수 업무와 주요 결과를 두 쪽에 정리한 경력기술서입니다.';
 	readonly slug: '/ko/career-brief';
 	readonly visibility: 'public';
 	readonly pageCount: 2;

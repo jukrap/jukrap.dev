@@ -1,30 +1,30 @@
 {
   "schemaVersion": 1,
-  "contentRevision": "089d76aa13d472b1",
+  "contentRevision": "402b8d3959606f06",
   "rendererFingerprint": "8abeb6c55dc3db01f05bf5f25d814cdcb6ee618584c2427d28ca8a1d5de699b8",
   "files": {
     "portfolio-ko.pdf": {
-      "sha256": "0e464f8a4f9dab4a36384f476b80a982b45c3e066d3350a6da6590a2d29864c5",
+      "sha256": "0e5d80d3a40645a11955b34deb0ef7d9550a83f765868c8f5b363ce0763becf9",
       "pages": 17
     },
     "portfolio-en.pdf": {
-      "sha256": "a9c76a2958e5cc6a5b6e8ef2bed82a49ed641c94a31259a46e761793e496f3f6",
+      "sha256": "051bc972aa102ed8abc75b068c256b93101a3a608302a0192c919cc1dcc078de",
       "pages": 17
     },
     "resume-ko.pdf": {
-      "sha256": "c065f68eee8872412684223fa1dc439f5054c277323d014106507bf398170521",
+      "sha256": "2da6896bddc53bf77f42bae8b3a1bb313e301e31f953081bc8058d5283077623",
       "pages": 2
     },
     "resume-en.pdf": {
-      "sha256": "1f4c9c8c05643b6d1ea6a4f98abef464c637758a8a4c8e11c9003c465d35c128",
+      "sha256": "e9615ecfe9fb6521a7e5e479c8262c7e821e143e2e90872a549a46b8cbbbfcde",
       "pages": 2
     },
     "career-brief-ko.pdf": {
-      "sha256": "fce60c9d3db00118e859d6c7f4ca3000f813c212f6089d4545f084e8852d082e",
+      "sha256": "ac09b899da97acefa6ab8103828d637ef599f751b90efbcb62f3b49cf1187952",
       "pages": 2
     },
     "career-brief-en.pdf": {
-      "sha256": "1e85e893337cbd0ae34bf65634bd545527bb0c34bf37a431f64d2103bfa402cb",
+      "sha256": "d4652c8bd9168428133f703767b13f1d73791eea0f0f5eb591fb91f9bef846e3",
       "pages": 2
     }
   }

@@ -67,7 +67,14 @@ function PageIntroduction({
 					{page.metadata.map((item) => (
 						<div key={item.label + '-' + item.value}>
 							<dt>{item.label}</dt>
-							<dd>{item.value}</dd>
+							<dd>
+								{item.value}
+								{item.detail ? (
+									<span className="mt-1 block text-xs font-normal leading-relaxed text-muted-foreground">
+										{item.detail}
+									</span>
+								) : null}
+							</dd>
 						</div>
 					))}
 				</dl>

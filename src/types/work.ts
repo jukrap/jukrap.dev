@@ -37,6 +37,7 @@ export interface WorkCaseRecord {
 	area: string;
 	period: string;
 	role: string;
+	codebaseSize?: { value: string; detail: string };
 	workType: string;
 	stack: string[];
 	headline: string;
@@ -93,6 +94,7 @@ export interface WorkStoryChapter {
 	area: string;
 	period: string;
 	role: string;
+	codebaseSize?: { value: string; detail: string };
 	workType: string;
 	stack: string[];
 	headline: string;

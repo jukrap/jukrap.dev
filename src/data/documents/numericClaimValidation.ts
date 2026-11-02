@@ -99,6 +99,11 @@ function normalizeNumericClaim(claim: string) {
 
 const numericClaimAliases = [
 	{
+		claim: normalizeNumericClaim('256,000 lines'),
+		sourceClaim: normalizeNumericClaim('25.6만 줄'),
+		evidence: 'work-case:settlement-operations-platform',
+	},
+	{
 		claim: normalizeNumericClaim('72시간'),
 		sourceClaim: normalizeNumericClaim('3일'),
 		evidence: 'project:captain-donghae',
@@ -300,7 +305,11 @@ function validatePortfolioPageNumericClaims(page: PortfolioPageDefinition) {
 		[
 			page.title,
 			page.summary,
-			...(page.metadata ?? []).flatMap(({ label, value }) => [label, value]),
+			...(page.metadata ?? []).flatMap(({ label, value, detail }) => [
+				label,
+				value,
+				detail,
+			]),
 			...(page.technologies ?? []),
 			...pageSections.flatMap(sectionOwnVisibleValues),
 			...(page.images ?? []).flatMap(({ alt, caption }) => [alt, caption]),

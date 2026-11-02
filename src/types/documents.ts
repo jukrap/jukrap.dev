@@ -17,6 +17,7 @@ export interface DocumentEvidenceRef {
 export interface DocumentMetadataItem {
 	label: string;
 	value: string;
+	detail?: string;
 	kind?: 'attribution';
 }
 

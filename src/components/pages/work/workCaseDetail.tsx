@@ -96,6 +96,14 @@ const ChapterDecisions = ({
 								<h5 className="mt-1 text-lg font-bold leading-7 text-foreground break-keep">
 									{chapter.title}
 								</h5>
+								{chapter.codebaseSize ? (
+									<p className="mt-2 text-sm leading-6 text-foreground/80 break-keep">
+										<span className="font-semibold">{chapter.codebaseSize.value}</span>
+										<span className="mt-0.5 block text-xs text-muted-foreground">
+											{chapter.codebaseSize.detail}
+										</span>
+									</p>
+								) : null}
 								<p className="mt-3 text-[0.9375rem] leading-7 text-foreground/80 break-keep">
 									{editorial.context}
 								</p>
